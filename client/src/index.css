@@ -14,7 +14,7 @@
 --border: 20 5.9% 90%;
 --input: 20 5.9% 90%;
 --primary: 260 80% 50%; /* Purple */
---primary-light: 230 85% 55%; /* Blue */
+--primary-light: 204 90% 50%; /* Leadapps Logo Blue (closer to the logo blue) */
 --primary-foreground: 211 100% 99%;
 --secondary: 60 4.8% 95.9%;
 --secondary-foreground: 24 9.8% 10%;
@@ -37,7 +37,7 @@
 --border: 240 3.7% 15.9%;
 --input: 240 3.7% 15.9%;
 --primary: 260 80% 50%; /* Purple */
---primary-light: 230 85% 55%; /* Blue */
+--primary-light: 204 90% 50%; /* Leadapps Logo Blue (closer to the logo blue) */
 --primary-foreground: 211 100% 99%;
 --secondary: 240 3.7% 15.9%;
 --secondary-foreground: 0 0% 98%;
@@ -61,11 +61,12 @@
 
 @layer components {
   .bg-gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
+    background: linear-gradient(120deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
   }
   
   .bg-gradient-hover {
-    background: linear-gradient(135deg, hsl(var(--primary)) 10%, hsl(var(--primary-light)) 90%);
+    background: linear-gradient(120deg, hsl(var(--primary)) 5%, hsl(var(--primary-light)) 95%);
+    box-shadow: 0 2px 8px rgba(hsl(var(--primary-light)), 0.3);
   }
   
   .text-gradient {
@@ -74,5 +75,9 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+  }
+  
+  .logo-icon-bg {
+    background-color: hsl(204, 90%, 50%);
   }
 }

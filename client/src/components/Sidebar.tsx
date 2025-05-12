@@ -76,7 +76,7 @@ const Sidebar = () => {
             {expanded ? (
               <img src={leadappsLogo} alt="Leadapps Logo" className="h-8" />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full logo-icon-bg flex items-center justify-center">
                 <div className="text-white font-bold text-lg">L</div>
               </div>
             )}
