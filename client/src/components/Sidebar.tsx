@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import leadappsLogo from "../assets/leadapps-logo.png";
 
 const Sidebar = () => {
   const [location] = useLocation();
@@ -72,14 +73,12 @@ const Sidebar = () => {
       )}>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#1E40AF"/>
-              <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" fill="#3B82F6"/>
-            </svg>
-            {expanded && (
-              <span className="text-primary font-semibold text-xl ml-2 transition-opacity duration-200">
-                leadapps
-              </span>
+            {expanded ? (
+              <img src={leadappsLogo} alt="Leadapps Logo" className="h-8" />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                <div className="text-white font-bold text-lg">L</div>
+              </div>
             )}
           </div>
           {!isMobile && (
