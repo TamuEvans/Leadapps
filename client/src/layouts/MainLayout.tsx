@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import { useLocation, Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
@@ -11,6 +11,32 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [location] = useLocation();
   const isMobile = useMobile();
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
+
+  // Listen for sidebar expanded state changes for proper content positioning
+  // We're using a custom event for communication between components
+  useEffect(() => {
+    // Initial state - collapsed after short delay on desktop
+    if (!isMobile) {
+      const timer = setTimeout(() => {
+        setSidebarExpanded(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+
+    // Setup event listener for sidebar state changes
+    const handleSidebarChange = (event: any) => {
+      if (event.detail && typeof event.detail.expanded === 'boolean') {
+        setSidebarExpanded(event.detail.expanded);
+      }
+    };
+
+    window.addEventListener('sidebarStateChange', handleSidebarChange);
+    
+    return () => {
+      window.removeEventListener('sidebarStateChange', handleSidebarChange);
+    };
+  }, [isMobile]);
 
   // Get the page title based on current location path
   const getPageTitle = () => {
@@ -42,7 +68,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-background">
       <Sidebar />
-      <main className="flex-1 md:ml-60 min-h-screen">
+      <main 
+        className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
+          isMobile ? "" : (sidebarExpanded ? "md:ml-60" : "md:ml-16")
+        }`}
+      >
         <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
           <div className="flex items-center px-4 py-3">
             <div className="flex items-center space-x-1 text-sm">
