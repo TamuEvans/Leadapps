@@ -1,0 +1,109 @@
+----------------------------------------------------------------------------------------------------
+| [APP LOGO: leadapps]                                      |  <- Home  >  Search                  |
+----------------------------------------------------------------------------------------------------
+| NAVIGATION (Left Sidebar)                                 | MAIN CONTENT AREA                    |
+|   [Icon] Home                                             |                                      |
+|   [Icon] Profile                                          |   Search Programs & Institutions     |
+|   [Icon] Search (Selected, Blue Background)               |   ---------------------------------- |
+|   [Icon] Wishlist                                         |                                      |
+|   [Icon] Applications                                     |   *SEARCH BAR & PRIMARY FILTERS*     |
+|   [Icon] My Personality Hub                               |   ---------------------------------- |
+|   [Icon] Counselling                                      |   What do you want to study? (e.g., Business, Engineering, CAPE subject) |
+|   [Icon] Articles                                         |   [Text Input with search icon inside, full width] |
+|                                                           |                                      |
+|                                                           |   Location (Country, City, or Institution Name) |
+|                                                           |   [Text Input with location pin icon inside] [SEARCH BUTTON (Blue)] |
+|                                                           |                                      |
+|                                                           |   --- ADVANCED FILTERS (Initially visible or collapsible/expandable) --- |
+|                                                           |   [Filter Icon] Filters:               |
+|                                                           |   Programme Level      Study Area         Institution Type     Country       |
+|                                                           |   [All Levels ▼]       [All Areas ▼]      [All Types ▼]        [All Countries ▼] |
+|                                                           |                                      |
+|                                                           |   Tuition Fee (per year) Mode of Study      Duration             |
+|                                                           |   [Any ▼]              [Any ▼]            [Any ▼]              |
+|                                                           |                                      |
+|                                                           |                    [APPLY FILTERS BUTTON] [CLEAR ALL FILTERS BUTTON (secondary style)] |
+|                                                           |   --- (End Advanced Filters) ---     |
+|                                                           |                                      |
+|                                                           |   *SEARCH RESULTS AREA*              |
+|                                                           |   ---------------------------------- |
+|                                                           |   (If filters applied, show "Active Filters: [Programme Level: Bachelor's] [Country: Barbados] [X]") |
+|                                                           |                                      |
+|                                                           |   Showing 1-10 of 125 results for "Business" | Sort by: [Relevance ▼] |
+|                                                           |   -------------------------------------------------------------------- |
+|                                                           |   (If no search performed yet, show: "Start your search above to find programs.") |
+|                                                           |   (If search performed but no results: "No programs found matching your criteria. Try adjusting your filters or search terms.") |
+|                                                           |                                      |
+|                                                           |   --- Result Card 1 --- (Bordered Box / Card Style) ---             |
+|                                                           |   | [Institution Logo (small)] **MSc Business Analytics** [Wishlist Icon ♡] |
+|                                                           |   | University of the West Indies, Cave Hill Campus                     |
+|                                                           |   | Bridgetown, Barbados                                                |
+|                                                           |   | Level: Master's | Duration: 1 Year Full-time | Mode: On-Campus   |
+|                                                           |   | Tuition: Approx. $15,000 USD/year                                   |
+|                                                           |   | *Brief program highlight or first few lines of description...*      |
+|                                                           |   |                                                 [VIEW DETAILS BUTTON] |
+|                                                           |   -------------------------------------------------------------------- |
+|                                                           |   --- Result Card 2 ---                                             |
+|                                                           |   | [Institution Logo (small)] **Associate Degree in Computer Science** [Wishlist Icon ♡] |
+|                                                           |   | Barbados Community College                                          |
+|                                                           |   | Eyrie Howells' Road, St. Michael, Barbados                        |
+|                                                           |   | Level: Associate's | Duration: 2 Years | Mode: Full-time/Part-time |
+|                                                           |   | Tuition: Approx. $3,000 BBD/year (Local)                          |
+|                                                           |   | *Learn foundational skills in programming, databases...*            |
+|                                                           |   |                                                 [VIEW DETAILS BUTTON] |
+|                                                           |   -------------------------------------------------------------------- |
+|                                                           |   (More result cards...)                                            |
+|                                                           |                                      |
+|                                                           |   *PAGINATION CONTROLS*              |
+|                                                           |   ---------------------------------- |
+|                                                           |   [ << Previous ]  [ 1 ] [ 2 ] [ 3 ] ... [ 10 ] [ 11 ] [ 12 ] [ Next >> ] |
+|                                                           |                                      |
+|                                                           |                    [b Built on Bubble] |
+----------------------------------------------------------------------------------------------------
+Use code with caution.
+Key Enhancements and Visual Elements Described:
+Clearer Page Title: "Search Programs & Institutions."
+Main Search Bar:
+Keyword Search: "What do you want to study?" - a larger, more prominent input.
+Location/Institution Search: A separate field for location or specific institution names.
+Primary Search Button: Clearly labeled "SEARCH."
+Advanced Filters Section:
+Placement: Directly below the main search inputs for easy access.
+Dropdowns for Key Criteria:
+(Existing) Programme Level: (e.g., Certificate, Diploma, Associate's, Bachelor's, Master's, PhD)
+(Existing) Study Area: (e.g., Business, IT, Engineering, Health Sciences, Arts, Humanities - this should be a comprehensive list)
+New - Institution Type: (e.g., University, College, Vocational School, Sixth Form)
+New - Country: (Crucial for your target audience. Prioritize Caribbean nations, then allow "Other")
+New - Tuition Fee Range: (e.g., <$5k, 
+5
+k
+−
+5k−
+10k, 
+10
+k
+−
+10k−
+20k, >$20k, or a slider)
+New - Mode of Study: (e.g., On-Campus, Online, Hybrid, Full-time, Part-time)
+New - Duration: (e.g., <1 Year, 1-2 Years, 3-4 Years, >4 Years)
+Action Buttons: "APPLY FILTERS" (if filters don't auto-apply) and "CLEAR ALL FILTERS."
+Active Filters Display:
+Below the filter section, show currently applied filters as dismissible "pills" or tags (e.g., "[Programme Level: Bachelor's X]").
+Search Results Area:
+Results Count & Sorting: "Showing X-Y of Z results for '[search term]'" and a "Sort by:" dropdown (Relevance, Program Name A-Z, Institution Name A-Z, Application Deadline, Tuition Low-High).
+Card-Based Layout: Each program/institution result is displayed in a well-structured card.
+Information per Card:
+Institution Logo (if available)
+Program Name (Bold & Prominent)
+Institution Name
+Location (City, Country)
+Key Details: Level, Duration, Mode of Study, Approx. Tuition (be clear about currency and if it's per year/semester/total).
+Brief Description/Highlights
+"View Details" Button (links to a dedicated program page)
+"Add to Wishlist" Icon (heart icon, toggles state)
+States:
+Initial State: Message like "Start your search above..."
+No Results State: Clear message like "No programs found..." with suggestions.
+(Optional) Loading State: A spinner or message while results are being fetched.
+Pagination: Clear controls to navigate through multiple pages of results.

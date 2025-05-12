@@ -35,7 +35,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // In a real app, you'd use a proper auth system with tokens
-      req.session.userId = user.id;
+      // Using a basic approach for demo
       res.status(200).json({ 
         id: user.id, 
         username: user.username, 
@@ -51,11 +51,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get(`${apiPrefix}/profile`, async (req, res) => {
     try {
       // In a real app, you'd get userId from session or token
-      const userId = req.session.userId || 1; // Default to 1 for demo
+      // For now, we'll always default to user 1 for demo purposes
+      const userId = 1;
       
       const profile = await storage.getStudentProfileByUserId(userId);
       if (!profile) {
-        return res.status(404).json({ message: "Profile not found" });
+        // If profile doesn't exist, create a default one
+        const newProfile = await storage.createStudentProfile({ userId });
+        const schools: any[] = [];
+        const tests: any[] = [];
+        const workExperiences: any[] = [];
+        
+        return res.status(200).json({
+          ...newProfile,
+          schools,
+          tests,
+          workExperiences
+        });
       }
       
       // Get related data
@@ -79,7 +91,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/profile`, async (req, res) => {
     try {
       // In a real app, you'd get userId from session or token
-      const userId = req.session.userId || 1; // Default to 1 for demo
+      const userId = 1; // Default to 1 for demo
       
       // Process the main profile data
       const profileData = {
@@ -160,7 +172,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch(`${apiPrefix}/profile`, async (req, res) => {
     try {
       // In a real app, you'd get userId from session or token
-      const userId = req.session.userId || 1; // Default to 1 for demo
+      const userId = 1; // Default to 1 for demo
       
       // Get existing profile
       const profile = await storage.getStudentProfileByUserId(userId);

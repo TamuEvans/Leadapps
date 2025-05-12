@@ -41,22 +41,23 @@ const Sidebar = () => {
         <ul className="space-y-1">
           {navigationItems.map((item) => (
             <li key={item.path}>
-              <Link href={item.path}>
-                <a
-                  className={cn(
-                    "flex items-center px-4 py-2 text-gray-600 rounded-md",
-                    location === item.path 
-                      ? "bg-primary bg-opacity-10 text-primary font-medium" 
-                      : "hover:bg-gray-100"
-                  )}
-                  onClick={() => setOpen(false)}
-                >
-                  <span className={cn("w-5", location === item.path ? "text-primary" : "text-gray-500")}>
-                    {item.icon}
-                  </span>
-                  <span className="ml-3">{item.label}</span>
-                </a>
-              </Link>
+              <div
+                className={cn(
+                  "flex items-center px-4 py-2 text-gray-600 rounded-md cursor-pointer",
+                  location === item.path 
+                    ? "bg-primary bg-opacity-10 text-primary font-medium" 
+                    : "hover:bg-gray-100"
+                )}
+                onClick={() => {
+                  setOpen(false);
+                  window.location.href = item.path;
+                }}
+              >
+                <span className={cn("w-5", location === item.path ? "text-primary" : "text-gray-500")}>
+                  {item.icon}
+                </span>
+                <span className="ml-3">{item.label}</span>
+              </div>
             </li>
           ))}
         </ul>

@@ -47,9 +47,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <div className="flex items-center px-4 py-3">
             <div className="flex items-center space-x-1 text-sm">
               {isSubPage && (
-                <Link href="/" className="text-primary hover:underline flex items-center">
+                <div 
+                  className="text-primary hover:underline flex items-center cursor-pointer"
+                  onClick={() => window.location.href = "/"}
+                >
                   <ArrowLeft className="w-3 h-3 mr-1" /> Home
-                </Link>
+                </div>
               )}
               {isSubPage && (
                 <>
