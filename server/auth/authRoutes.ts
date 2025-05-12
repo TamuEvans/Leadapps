@@ -1,154 +1,216 @@
 import express from 'express';
-import passport from 'passport';
 import { z } from 'zod';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import passport from 'passport';
 import { loginSchema, registerSchema } from '@shared/schema';
-import { loginUser, registerUser, logoutUser } from './authService';
-import { requireAuth, guestOnly } from './authMiddleware';
+import { storage } from '../storage';
+import { requireAuth } from './authMiddleware';
 
 const router = express.Router();
 
-// Register
-router.post('/register', guestOnly, async (req, res) => {
+// Get current user
+router.get('/me', requireAuth, async (req, res) => {
   try {
-    // Validate request body
-    const validatedData = registerSchema.parse(req.body);
+    const userId = req.user?.id;
     
-    // Register user
-    const { user, token } = await registerUser(validatedData);
+    if (!userId) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
     
-    // Set cookie
-    res.cookie('authToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    const user = await storage.getUser(userId);
     
-    // Return user (without sensitive info)
-    const { password, ...userWithoutPassword } = user;
-    res.status(201).json(userWithoutPassword);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Don't return sensitive information
+    const { password, ...safeUser } = user as any;
+    
+    res.json(safeUser);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({ 
-        message: 'Validation failed', 
-        errors: error.format() 
-      });
-    }
-    
-    if (error instanceof Error) {
-      return res.status(400).json({ message: error.message });
-    }
-    
-    res.status(500).json({ message: 'An error occurred during registration' });
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Login
-router.post('/login', guestOnly, async (req, res) => {
+// Register new user
+router.post('/register', async (req, res) => {
   try {
     // Validate request body
-    const validatedData = loginSchema.parse(req.body);
+    const validationResult = registerSchema.safeParse(req.body);
     
-    // Login user
-    const { user, token } = await loginUser(validatedData);
-    
-    // Set cookie
-    res.cookie('authToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: validatedData.rememberMe 
-        ? 30 * 24 * 60 * 60 * 1000  // 30 days
-        : 24 * 60 * 60 * 1000,      // 1 day
-    });
-    
-    // Return user (without sensitive info)
-    const { password, ...userWithoutPassword } = user;
-    res.json(userWithoutPassword);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+    if (!validationResult.success) {
       return res.status(400).json({ 
-        message: 'Validation failed', 
-        errors: error.format() 
+        message: 'Validation error', 
+        errors: validationResult.error.format() 
       });
     }
     
-    if (error instanceof Error) {
-      return res.status(400).json({ message: error.message });
+    const { email, password, firstName, lastName } = validationResult.data;
+    
+    // Check if user already exists
+    const existingUser = await storage.getUserByEmail(email);
+    
+    if (existingUser) {
+      return res.status(400).json({ message: 'User with this email already exists' });
     }
     
-    res.status(500).json({ message: 'An error occurred during login' });
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    // Create user
+    const user = await storage.createUser({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      username: null,
+      profileImageUrl: null,
+      googleId: null,
+      facebookId: null,
+      isVerified: false,
+      updatedAt: null
+    });
+    
+    // Generate token
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '7d' }
+    );
+    
+    // Store token in session
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+    await storage.createSession(user.id, token, expiresAt);
+    
+    // Set cookie
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+    
+    // Return user data (excluding password)
+    const { password: _, ...userWithoutPassword } = user as any;
+    
+    res.status(201).json({
+      message: 'User registered successfully',
+      user: userWithoutPassword
+    });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Google OAuth
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// Google OAuth callback
-router.get('/google/callback', (req, res, next) => {
-  passport.authenticate('google', { session: false }, (err, user, info) => {
-    if (err) return next(err);
-    if (!user) return res.redirect('/login?error=google-auth-failed');
+// Login user
+router.post('/login', async (req, res) => {
+  try {
+    // Validate request body
+    const validationResult = loginSchema.safeParse(req.body);
     
-    // Generate JWT token
-    const token = user.token || '';
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        message: 'Validation error', 
+        errors: validationResult.error.format() 
+      });
+    }
     
-    // Set cookie and redirect
-    res.cookie('authToken', token, {
+    const { email, password } = validationResult.data;
+    
+    // Find user
+    const user = await storage.getUserByEmail(email);
+    
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+    // Check password
+    const isPasswordValid = await bcrypt.compare(password, user.password as string);
+    
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+    // Generate token
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '7d' }
+    );
+    
+    // Store token in session
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+    await storage.createSession(user.id, token, expiresAt);
+    
+    // Set cookie
+    res.cookie('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
     
-    res.redirect('/');
-  })(req, res, next);
-});
-
-// Facebook OAuth
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-
-// Facebook OAuth callback
-router.get('/facebook/callback', (req, res, next) => {
-  passport.authenticate('facebook', { session: false }, (err, user, info) => {
-    if (err) return next(err);
-    if (!user) return res.redirect('/login?error=facebook-auth-failed');
+    // Return user data (excluding password)
+    const { password: _, ...userWithoutPassword } = user as any;
     
-    // Generate JWT token
-    const token = user.token || '';
-    
-    // Set cookie and redirect
-    res.cookie('authToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    res.json({
+      message: 'Logged in successfully',
+      user: userWithoutPassword
     });
-    
-    res.redirect('/');
-  })(req, res, next);
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
-// Logout
+// Logout user
 router.post('/logout', requireAuth, async (req, res) => {
   try {
-    if (req.token) {
-      await logoutUser(req.token);
+    const token = req.cookies?.auth_token;
+    
+    if (token) {
+      // Delete session
+      await storage.deleteSession(token);
+      
+      // Clear cookie
+      res.clearCookie('auth_token');
     }
     
-    res.clearCookie('authToken');
     res.json({ message: 'Logged out successfully' });
   } catch (error) {
-    console.error('Logout error:', error);
-    res.status(500).json({ message: 'An error occurred during logout' });
+    console.error('Error logging out:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Get current user
-router.get('/me', async (req, res) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Not authenticated' });
+// Google login
+router.get('/google', 
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+// Google callback
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/');
   }
-  
-  // Return user without sensitive information
-  const { password, ...userWithoutPassword } = req.user;
-  res.json(userWithoutPassword);
-});
+);
+
+// Facebook login
+router.get('/facebook',
+  passport.authenticate('facebook', { scope: ['email'] })
+);
+
+// Facebook callback
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
 
 export default router;
