@@ -168,7 +168,7 @@ export default function FairsEvents() {
       {/* Hero Section */}
       <section className="w-full pt-24 pb-12 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4 modern-heading">Education Fairs & Events</h1>
+          <h1 className="text-4xl font-bold mb-4 modern-heading">Events</h1>
           <p className="text-lg text-gray-700 max-w-3xl mb-8">
             Connect with universities, attend informative sessions, and get expert guidance at our upcoming events, both in-person and virtual.
           </p>

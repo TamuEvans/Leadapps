@@ -118,7 +118,7 @@ export default function InfoCentre() {
       {/* Hero Section */}
       <section className="w-full pt-24 pb-12 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4 modern-heading">Information Centre</h1>
+          <h1 className="text-4xl font-bold mb-4 modern-heading">Articles</h1>
           <p className="text-lg text-gray-700 max-w-3xl mb-8">
             Access our comprehensive collection of resources to guide you through every step of your international education journey.
           </p>

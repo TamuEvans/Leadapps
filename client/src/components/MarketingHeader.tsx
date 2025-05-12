@@ -48,10 +48,10 @@ const MarketingHeader = () => {
                 <Link to="/about-us" className="text-gray-600 hover:text-blue-600 text-xs font-medium">About Us</Link>
               </li>
               <li>
-                <Link to="/info-centre" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Info Centre</Link>
+                <Link to="/info-centre" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Articles</Link>
               </li>
               <li>
-                <Link to="/fairs-events" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Fairs & Events</Link>
+                <Link to="/fairs-events" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Events</Link>
               </li>
             </ul>
           </nav>
