@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
+import logoImage from '../assets/logo.png';
 
 export default function Marketing() {
   // Popular destinations data
@@ -59,35 +60,46 @@ export default function Marketing() {
     <MarketingLayout>
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full">
-          <div className="absolute right-[-10%] top-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-80"></div>
-          <div className="absolute right-[20%] top-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-red-400 to-red-600 opacity-70"></div>
-          <div className="absolute right-[10%] top-[40%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-blue-400 to-blue-600 opacity-70"></div>
-          <div className="absolute right-[30%] top-[30%] w-[30%] h-[30%] rounded-full bg-gradient-to-br from-green-400 to-green-600 opacity-70"></div>
+        {/* Video Background */}
+        <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden rounded-l-3xl">
+          <div className="absolute inset-0 bg-black/30 z-10"></div>
+          <video 
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="https://storage.googleapis.com/mixkit-public/videos/preview/mixkit-young-woman-studying-in-a-library-6719-medium.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl text-gray-800">
+            <div className="flex flex-col justify-center space-y-6">
+              <div className="flex items-center mb-6">
+                <img src={logoImage} alt="Leadapps Logo" className="h-12" />
+              </div>
+              <div className="space-y-4">
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-gray-800 modern-heading">
                   study made simple.
                 </h1>
                 <p className="max-w-[600px] text-gray-600 md:text-xl">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link to="/app">
-                  <Button className="px-8 bg-gradient-to-r from-blue-600 to-indigo-600">
+                  <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium">
                     Get Started
                   </Button>
                 </Link>
-                <Button variant="outline">Learn More</Button>
+                <Button variant="outline" className="py-6 text-base font-medium">Learn More</Button>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow-lg">
+            <div className="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
               <div className="text-center mb-4">
                 <h2 className="text-lg font-bold">Find Your Dream Program</h2>
                 <p className="text-sm text-gray-600">Explore our database of over 10,000 programs</p>
