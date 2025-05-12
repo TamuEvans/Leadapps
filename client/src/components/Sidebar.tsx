@@ -76,7 +76,7 @@ const Sidebar = () => {
             {expanded ? (
               <img src={leadappsLogo} alt="Leadapps Logo" className="h-8" />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
                 <div className="text-white font-bold text-lg">L</div>
               </div>
             )}
@@ -108,7 +108,7 @@ const Sidebar = () => {
                   "flex items-center rounded-md cursor-pointer transition-all duration-200",
                   expanded ? "px-4 py-2" : "px-2 py-2 justify-center",
                   location === item.path 
-                    ? "bg-primary text-white font-medium" 
+                    ? "bg-gradient-primary text-white font-medium" 
                     : "hover:bg-gray-100 text-gray-600"
                 )}
                 onClick={() => {

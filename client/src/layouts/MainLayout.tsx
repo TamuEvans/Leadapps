@@ -79,7 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               <div className="flex items-center space-x-1 text-sm">
                 {isSubPage && (
                   <div 
-                    className="text-primary hover:underline flex items-center cursor-pointer mr-1"
+                    className="text-gradient hover:underline flex items-center cursor-pointer mr-1"
                     onClick={() => window.location.href = "/"}
                   >
                     <ArrowLeft className="w-3 h-3 mr-1" /> Home
