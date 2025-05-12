@@ -16,7 +16,7 @@ const MarketingHeader = () => {
           <nav className="hidden md:flex">
             <ul className="flex space-x-6">
               <li className="relative group">
-                <button className="flex items-center text-gray-600 hover:text-blue-600 text-sm font-medium">
+                <button className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Study <ChevronDown className="ml-1 h-3 w-3" />
                 </button>
                 <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg hidden group-hover:block z-50">
@@ -32,7 +32,7 @@ const MarketingHeader = () => {
                 </div>
               </li>
               <li className="relative group">
-                <button className="flex items-center text-gray-600 hover:text-blue-600 text-sm font-medium">
+                <button className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Services <ChevronDown className="ml-1 h-3 w-3" />
                 </button>
                 <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg hidden group-hover:block z-50">
@@ -45,13 +45,13 @@ const MarketingHeader = () => {
                 </div>
               </li>
               <li>
-                <Link to="/about-us" className="text-gray-600 hover:text-blue-600 text-sm font-medium">About Us</Link>
+                <Link to="/about-us" className="text-gray-600 hover:text-blue-600 text-xs font-medium">About Us</Link>
               </li>
               <li>
-                <Link to="/info-centre" className="text-gray-600 hover:text-blue-600 text-sm font-medium">Info Centre</Link>
+                <Link to="/info-centre" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Info Centre</Link>
               </li>
               <li>
-                <Link to="/fairs-events" className="text-gray-600 hover:text-blue-600 text-sm font-medium">Fairs & Events</Link>
+                <Link to="/fairs-events" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Fairs & Events</Link>
               </li>
             </ul>
           </nav>
@@ -59,12 +59,12 @@ const MarketingHeader = () => {
         
         <div className="flex items-center ml-8 space-x-3">
           <Link to="/student-login" className="hidden sm:block">
-            <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-7 px-2 whitespace-nowrap">
+            <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-7 min-w-[100px] whitespace-nowrap">
               Student Login
             </Button>
           </Link>
           <Link to="/app">
-            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs h-7 px-2 whitespace-nowrap">
+            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs h-7 min-w-[90px] whitespace-nowrap">
               Get Started
             </Button>
           </Link>
