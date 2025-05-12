@@ -3,8 +3,26 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema } from "@shared/schema";
 import { z } from "zod";
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
+import { configurePassport } from './auth/passportConfig';
+import { authMiddleware, requireAuth } from './auth/authMiddleware';
+import authRoutes from './auth/authRoutes';
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Add middleware
+  app.use(cookieParser());
+  
+  // Configure and initialize passport
+  configurePassport();
+  app.use(passport.initialize());
+  
+  // Add auth middleware to all routes
+  app.use(authMiddleware);
+  
+  // Register authentication routes
+  app.use('/api/auth', authRoutes);
+  
   // API routes prefix
   const apiPrefix = "/api";
 
