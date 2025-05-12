@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,8 +6,20 @@ import { Input } from '@/components/ui/input';
 import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import logoImage from '../assets/logo.png';
+import backgroundVideo from '../assets/background-video.mp4';
 
 export default function Marketing() {
+  // Video reference for optimization
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Optimize video playback
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.playsInline = true;
+    }
+  }, []);
+
   // Popular destinations data
   const popularDestinations = [
     { name: 'United Kingdom', flag: '🇬🇧', universities: 129, image: 'https://source.unsplash.com/random/300x200/?london' },
@@ -61,16 +73,18 @@ export default function Marketing() {
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
         {/* Video Background */}
-        <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden rounded-l-3xl">
-          <div className="absolute inset-0 bg-black/30 z-10"></div>
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/80 to-purple-100/80 backdrop-blur-sm z-10"></div>
           <video 
-            className="absolute inset-0 w-full h-full object-cover"
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover opacity-90"
             autoPlay 
             loop 
             muted 
             playsInline
+            poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
           >
-            <source src="https://storage.googleapis.com/mixkit-public/videos/preview/mixkit-young-woman-studying-in-a-library-6719-medium.mp4" type="video/mp4" />
+            <source src={backgroundVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -96,7 +110,7 @@ export default function Marketing() {
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div className="flex flex-col space-y-4 bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-lg border border-gray-100">
               <div className="text-center mb-4">
                 <h2 className="text-lg font-bold">Find Your Dream Program</h2>
                 <p className="text-sm text-gray-600">Explore our database of over 10,000 programs</p>
