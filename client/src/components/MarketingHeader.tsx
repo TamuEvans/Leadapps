@@ -10,12 +10,12 @@ const MarketingHeader = () => {
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center flex-shrink-0 mr-6">
-            <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
+            <img src={logoImage} alt="Leadapps Logo" className="h-7 w-auto" />
           </Link>
           
-          <nav className="hidden md:flex">
+          <nav className="hidden md:flex items-center">
             <ul className="flex space-x-6 items-center">
-              <li className="relative group">
+              <li className="relative group h-7 flex items-center">
                 <Link to="/study/caribbean" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Study <ChevronDown className="ml-1 h-3 w-3" />
                 </Link>
@@ -31,7 +31,7 @@ const MarketingHeader = () => {
                   </ul>
                 </div>
               </li>
-              <li className="relative group">
+              <li className="relative group h-7 flex items-center">
                 <Link to="/services/application-assistance" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Services <ChevronDown className="ml-1 h-3 w-3" />
                 </Link>
@@ -44,13 +44,13 @@ const MarketingHeader = () => {
                   </ul>
                 </div>
               </li>
-              <li>
+              <li className="h-7 flex items-center">
                 <Link to="/about-us" className="text-gray-600 hover:text-blue-600 text-xs font-medium">About Us</Link>
               </li>
-              <li>
+              <li className="h-7 flex items-center">
                 <Link to="/info-centre" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Articles</Link>
               </li>
-              <li>
+              <li className="h-7 flex items-center">
                 <Link to="/fairs-events" className="text-gray-600 hover:text-blue-600 text-xs font-medium">Events</Link>
               </li>
             </ul>
