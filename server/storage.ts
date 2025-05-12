@@ -21,7 +21,16 @@ export interface IStorage {
   // User operations
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByGoogleId(googleId: string): Promise<User | undefined>;
+  getUserByFacebookId(facebookId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  updateUser(id: number, user: Partial<InsertUser>): Promise<User>;
+  
+  // Session operations
+  createSession(userId: number, token: string, expiresAt: Date): Promise<void>;
+  getSessionByToken(token: string): Promise<any | undefined>;
+  deleteSession(token: string): Promise<void>;
   
   // Student profile operations
   getStudentProfile(id: number): Promise<StudentProfile | undefined>;
@@ -61,6 +70,7 @@ export class MemStorage implements IStorage {
   private schoolsMap: Map<number, School>;
   private testsMap: Map<number, Test>;
   private workExperiencesMap: Map<number, WorkExperience>;
+  private sessionsMap: Map<string, any>; // Token -> Session
   
   // ID counters for each entity
   private userIdCounter: number;
@@ -75,6 +85,7 @@ export class MemStorage implements IStorage {
     this.schoolsMap = new Map();
     this.testsMap = new Map();
     this.workExperiencesMap = new Map();
+    this.sessionsMap = new Map();
     
     this.userIdCounter = 1;
     this.profileIdCounter = 1;
@@ -100,13 +111,89 @@ export class MemStorage implements IStorage {
       (user) => user.username === username
     );
   }
+  
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.usersMap.values()).find(
+      (user) => user.email === email
+    );
+  }
+  
+  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+    return Array.from(this.usersMap.values()).find(
+      (user) => user.googleId === googleId
+    );
+  }
+  
+  async getUserByFacebookId(facebookId: string): Promise<User | undefined> {
+    return Array.from(this.usersMap.values()).find(
+      (user) => user.facebookId === facebookId
+    );
+  }
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.userIdCounter++;
     const createdAt = new Date();
-    const user: User = { ...insertUser, id, createdAt };
+    const updatedAt = new Date();
+    const user: User = { 
+      ...insertUser, 
+      id, 
+      createdAt,
+      updatedAt,
+      isVerified: false, 
+      googleId: null,
+      facebookId: null,
+      profileImageUrl: null,
+      firstName: insertUser.firstName || null,
+      lastName: insertUser.lastName || null
+    };
     this.usersMap.set(id, user);
     return user;
+  }
+  
+  async updateUser(id: number, userData: Partial<InsertUser>): Promise<User> {
+    const existingUser = await this.getUser(id);
+    
+    if (!existingUser) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    
+    const updatedUser: User = {
+      ...existingUser,
+      ...userData,
+      updatedAt: new Date()
+    };
+    
+    this.usersMap.set(id, updatedUser);
+    return updatedUser;
+  }
+  
+  // Session operations
+  async createSession(userId: number, token: string, expiresAt: Date): Promise<void> {
+    this.sessionsMap.set(token, {
+      userId,
+      token,
+      expiresAt,
+      createdAt: new Date()
+    });
+  }
+  
+  async getSessionByToken(token: string): Promise<any | undefined> {
+    const session = this.sessionsMap.get(token);
+    
+    if (session && new Date(session.expiresAt) > new Date()) {
+      return session;
+    }
+    
+    if (session) {
+      // Session expired, remove it
+      await this.deleteSession(token);
+    }
+    
+    return undefined;
+  }
+  
+  async deleteSession(token: string): Promise<void> {
+    this.sessionsMap.delete(token);
   }
 
   // Student profile operations
