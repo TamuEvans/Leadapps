@@ -13,6 +13,11 @@ import Applications from "@/pages/Applications";
 import PersonalityHub from "@/pages/PersonalityHub";
 import Counselling from "@/pages/Counselling";
 import Articles from "@/pages/Articles";
+import AboutUs from "@/pages/AboutUs";
+import InfoCentre from "@/pages/InfoCentre";
+import FairsEvents from "@/pages/FairsEvents";
+import StudyLocation from "@/pages/StudyLocation";
+import ServicePage from "@/pages/ServicePage";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -24,6 +29,15 @@ function App() {
           {/* Marketing website routes */}
           <Route path="/" component={Marketing} />
           <Route path="/student-login" component={StudentLogin} />
+          <Route path="/about-us" component={AboutUs} />
+          <Route path="/info-centre" component={InfoCentre} />
+          <Route path="/fairs-events" component={FairsEvents} />
+          
+          {/* Study routes */}
+          <Route path="/study/:location" component={StudyLocation} />
+          
+          {/* Services routes */}
+          <Route path="/services/:service" component={ServicePage} />
 
           {/* App routes with MainLayout */}
           <Route path="/app">

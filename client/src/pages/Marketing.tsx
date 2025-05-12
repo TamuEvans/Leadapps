@@ -78,9 +78,6 @@ export default function Marketing() {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
             <div className="flex flex-col justify-center space-y-6">
-              <div className="flex items-center mb-6">
-                <img src={logoImage} alt="Leadapps Logo" className="h-12" />
-              </div>
               <div className="space-y-4">
                 <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-gray-800 modern-heading">
                   study made simple.
