@@ -7,13 +7,13 @@ import logoImage from '../assets/logo.png';
 const MarketingHeader = () => {
   return (
     <header className="bg-white border-b border-gray-200 fixed w-full z-50 top-0 left-0">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center flex-shrink-0 mr-6">
-            <img src={logoImage} alt="Leadapps Logo" className="h-7 w-auto" />
-          </Link>
-          
-          <nav className="hidden md:flex items-center">
+      <div className="container mx-auto px-4 py-2 flex items-center">
+        <Link to="/" className="flex items-center flex-shrink-0 mr-4">
+          <img src={logoImage} alt="Leadapps Logo" className="h-7 w-auto" />
+        </Link>
+        
+        <div className="hidden md:flex flex-1 justify-center">
+          <nav className="flex items-center">
             <ul className="flex space-x-6 items-center">
               <li className="relative group h-7 flex items-center">
                 <Link to="/study/caribbean" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
@@ -57,7 +57,7 @@ const MarketingHeader = () => {
           </nav>
         </div>
         
-        <div className="flex items-center ml-8 space-x-3">
+        <div className="flex items-center space-x-3">
           <Link to="/student-login" className="hidden sm:block">
             <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-7 min-w-[100px] whitespace-nowrap">
               Student Login
