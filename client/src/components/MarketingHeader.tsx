@@ -14,11 +14,11 @@ const MarketingHeader = () => {
           </Link>
           
           <nav className="hidden md:flex">
-            <ul className="flex space-x-6">
+            <ul className="flex space-x-6 items-center">
               <li className="relative group">
-                <button className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
+                <Link to="/study/caribbean" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Study <ChevronDown className="ml-1 h-3 w-3" />
-                </button>
+                </Link>
                 <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg hidden group-hover:block z-50">
                   <ul className="py-2">
                     <li><Link to="/study/caribbean" className="block px-4 py-1.5 text-xs text-gray-700 hover:bg-gray-100">Caribbean</Link></li>
@@ -32,9 +32,9 @@ const MarketingHeader = () => {
                 </div>
               </li>
               <li className="relative group">
-                <button className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
+                <Link to="/services/application-assistance" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
                   Services <ChevronDown className="ml-1 h-3 w-3" />
-                </button>
+                </Link>
                 <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg hidden group-hover:block z-50">
                   <ul className="py-2">
                     <li><Link to="/services/application-assistance" className="block px-4 py-1.5 text-xs text-gray-700 hover:bg-gray-100">Application Assistance</Link></li>
