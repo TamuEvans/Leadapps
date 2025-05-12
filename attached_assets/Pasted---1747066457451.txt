@@ -1,0 +1,187 @@
+----------------------------------------------------------------------------------------------------
+| [APP LOGO: leadapps]                                      |  <- Home  >  Student Profile         |
+----------------------------------------------------------------------------------------------------
+| NAVIGATION (Left Sidebar)                                 | MAIN CONTENT AREA                    |
+|   [Icon] Home                                             |                                      |
+|   [Icon] Profile (Selected, Blue Background)              |   Student Profile                    |
+|   [Icon] Search                                           |   ---------------------------------- |
+|   [Icon] Wishlist                                         |                                      |
+|   [Icon] Applications                                     |   [PROFILE PICTURE UPLOAD AREA]      |
+|   [Icon] My Personality Hub                               |     (Circular, click to upload)    |
+|   [Icon] Counselling                                      |   Student ID: [Auto-filled/Display]|
+|   [Icon] Articles                                         |   Email: [user@example.com]        |
+|                                                           |                                      |
+|                                                           |   [PROGRESS BAR: Profile 75% Complete] |
+|                                                           |   ---------------------------------- |
+|                                                           |                                      |
+|                                                           |   **Personal Information**           |
+|                                                           |   ---------------------------------- |
+|                                                           |   First Name*         Middle Name          Last Name*          |
+|                                                           |   [Type here...]      [Type here...]       [Type here...]      |
+|                                                           |                                      |
+|                                                           |   Preferred Name      Date of Birth*       Primary Language*   |
+|                                                           |   [Type here...]      [Calendar Icon]      [Choose an option...] |
+|                                                           |                                      |
+|                                                           |   Country of Citizenship* Country of Birth   Passport Number     |
+|                                                           |   [Choose an option...] [Choose an option...] [Type here...]      |
+|                                                           |                                      |
+|                                                           |   Passport Expiry Date Passport Issuing Country Marital Status*   |
+|                                                           |   [Calendar Icon]      [Choose an option...] [O] Single [O] Married |
+|                                                           |                                            [O] Other           |
+|                                                           |   Gender*                                  |
+|                                                           |   [O] Male [O] Female [O] Prefer not to say [O] Other |
+|                                                           |                                      |
+|                                                           |   **Contact & Address Details**      |
+|                                                           |   ---------------------------------- |
+|                                                           |   CURRENT ADDRESS                    |
+|                                                           |   Address Line 1*                    |
+|                                                           |   [Type street address, P.O. box...] |
+|                                                           |   Address Line 2                     |
+|                                                           |   [Type apt, suite, unit...]         |
+|                                                           |   City/Town*          Province/State/Parish* Postal Code*      |
+|                                                           |   [Type here...]      [Type here...]         [Type here...]      |
+|                                                           |   Country*                           |
+|                                                           |   [Choose an option...]              |
+|                                                           |                                      |
+|                                                           |   [Checkbox] Permanent Address is different from Current Address |
+|                                                           |   (If checked, show same fields as above for Permanent Address) |
+|                                                           |                                      |
+|                                                           |   Email (Primary)*    Alternative Email      |
+|                                                           |   [user@example.com]  [Type here...]       |
+|                                                           |                                      |
+|                                                           |   Phone Number (Primary)*            |
+|                                                           |   [+1 ▼] [Area Code] [Number     ]   |
+|                                                           |   Alternative Phone Number (e.g., WhatsApp) |
+|                                                           |   [+1 ▼] [Number     ]               |
+|                                                           |                                      |
+|                                                           |   **Academic Goals & Preferences**   |
+|                                                           |   ---------------------------------- |
+|                                                           |   Intended Field(s) of Study* (e.g., Computer Science, Marine Biology) |
+|                                                           |   [Tag input or Autocomplete Text Input] |
+|                                                           |                                      |
+|                                                           |   Preferred Level of Study*          Expected Start Term* Expected Start Year* |
+|                                                           |   [Choose: Bachelor's...] [Choose: Fall...]  [Choose: 2025...] |
+|                                                           |                                      |
+|                                                           |   Preferred Study Destination(s) (Country)* |
+|                                                           |   [Multi-select Dropdown: Caribbean countries + others] |
+|                                                           |                                      |
+|                                                           |   Interested in Online/Distance Learning?* |
+|                                                           |   [O] Yes [O] No [O] Undecided       |
+|                                                           |                                      |
+|                                                           |   Primary Funding Source(s)*         |
+|                                                           |   [ ] Self-funded [ ] Family [ ] Scholarship [ ] Loan [ ] Other |
+|                                                           |                                      |
+|                                                           |   Interested in Scholarships?*       |
+|                                                           |   [O] Yes [O] No                     |
+|                                                           |                                      |
+|                                                           |   **Education Background**           |
+|                                                           |   ---------------------------------- |
+|                                                           |   Highest Level of Education Achieved* Country of Education* |
+|                                                           |   [Choose an option...]              [Choose an option...] |
+|                                                           |                                      |
+|                                                           |   Grading Scheme Used*               Overall Grade/GPA*    |
+|                                                           |   [Choose: GPA 4.0, Percentage...]   [Type e.g., 3.5, 85%] |
+|                                                           |                                      |
+|                                                           |   **Schools Attended**               |
+|                                                           |   ---------------------------------- |
+|                                                           |   [ + Add School ]                   |
+|                                                           |   --- School Entry 1 ---             |
+|                                                           |   Institution Name*   Country*       |
+|                                                           |   [Type here...]      [Choose...]    |
+|                                                           |   City/Town*          Level of Study*|
+|                                                           |   [Type here...]      [Choose...]    |
+|                                                           |   Degree/Diploma*     Major          |
+|                                                           |   [Type here...]      [Type here...] |
+|                                                           |   Dates Attended: From* [MM/YYYY] To* [MM/YYYY] or [ ] Currently Attending |
+|                                                           |   Graduation Date (or Expected)*     |
+|                                                           |   [MM/YYYY]                          |
+|                                                           |   Upload Transcript (PDF, JPG, PNG <5MB)* [Choose File] [filename.pdf] [Remove] |
+|                                                           |                                [Remove School] |
+|                                                           |   --- (End School Entry 1) ---       |
+|                                                           |   (Repeat structure for more schools)|
+|                                                           |                                      |
+|                                                           |   **Standardized Tests & Qualifications** |
+|                                                           |   ---------------------------------- |
+|                                                           |   [ + Add Test/Qualification ]       |
+|                                                           |   --- Test Entry 1 ---               |
+|                                                           |   Test/Qualification Name* Score/Grade*|
+|                                                           |   [Choose: SAT, IELTS, CXC...] [Type here]|
+|                                                           |   Date Taken/Awarded*                |
+|                                                           |   [Calendar Icon]                    |
+|                                                           |   Upload Score Report (PDF, JPG <5MB) [Choose File] [filename.pdf] [Remove] |
+|                                                           |                                [Remove Test] |
+|                                                           |   --- (End Test Entry 1) ---         |
+|                                                           |                                      |
+|                                                           |   Is English your first language?* [O] Yes [O] No |
+|                                                           |   (If No) Have you taken an English proficiency test?* [O] Yes [O] No |
+|                                                           |                                      |
+|                                                           |   **Work Experience (Optional)**     |
+|                                                           |   ---------------------------------- |
+|                                                           |   [ + Add Work Experience ]          |
+|                                                           |   --- Work Entry 1 ---               |
+|                                                           |   Company Name*       Job Title*     |
+|                                                           |   [Type here...]      [Type here...] |
+|                                                           |   City, Country*                     |
+|                                                           |   [Type here...]      [Choose...]    |
+|                                                           |   Dates Employed: From* [MM/YYYY] To* [MM/YYYY] or [ ] Currently Working |
+|                                                           |   Responsibilities/Achievements (Brief)  |
+|                                                           |   [Text Area: Type here...]          |
+|                                                           |                                [Remove Experience] |
+|                                                           |   --- (End Work Entry 1) ---         |
+|                                                           |                                      |
+|                                                           |   **Extracurricular Activities & Skills** |
+|                                                           |   ---------------------------------- |
+|                                                           |   Activities & Achievements          |
+|                                                           |   [Text Area: List clubs, awards, volunteering...] |
+|                                                           |   Skills (e.g., Python, Public Speaking, Spanish (Fluent)) |
+|                                                           |   [Tag Input or Text Area]           |
+|                                                           |                                      |
+|                                                           |   **Supporting Documents**           |
+|                                                           |   ---------------------------------- |
+|                                                           |   Resume/CV (PDF, DOC, DOCX <5MB)*   |
+|                                                           |   [Choose File] [my_resume.pdf] [Remove] |
+|                                                           |                                      |
+|                                                           |   Personal Statement/Essay (Optional)|
+|                                                           |   [Choose File] or [Text Area]       |
+|                                                           |                                      |
+|                                                           |   Portfolio Link (Optional)          |
+|                                                           |   [Type URL: https://...]           |
+|                                                           |                                      |
+|                                                           |   **Additional Information**         |
+|                                                           |   ---------------------------------- |
+|                                                           |   Do you require a student visa?*    |
+|                                                           |   [O] Yes [O] No [O] Unsure          |
+|                                                           |   (If Yes/Unsure) Do you hold a valid visa? [O] Yes [O] No |
+|                                                           |      (If Yes) Visa Type: [Input] Expiry: [Date] |
+|                                                           |                                      |
+|                                                           |   How did you hear about Leadapps?*  |
+|                                                           |   [Choose an option...]              |
+|                                                           |                                      |
+|                                                           |   Anything else you'd like to share? |
+|                                                           |   [Text Area]                        |
+|                                                           |                                      |
+|                                                           |   ---------------------------------- |
+|                                                           |            [ SAVE PROFILE (Button) ] |
+|                                                           |   ---------------------------------- |
+|                                                           |                                      |
+|                                                           |                    [b Built on Bubble] |
+----------------------------------------------------------------------------------------------------
+Use code with caution.
+Key Visual Elements from the Description:
+Layout: Two-column, with navigation on the left and the form on the right.
+Branding: App logo and breadcrumbs at the top.
+Profile Overview: Picture, ID, Email prominently displayed.
+Progress Bar: Visual feedback on completion.
+Sectioning: Clear bold headings for each section (Personal Info, Address, etc.) with a horizontal rule underneath for separation. This creates a card-like feel for each section.
+Input Fields:
+[Type here...] or [Choose an option...] indicates text inputs and dropdowns.
+[Calendar Icon] for date pickers.
+[O] for radio buttons.
+[Checkbox] for checkboxes.
+[Tag input] for fields where multiple distinct items can be entered.
+[Choose File] for file uploads, with the filename and a "Remove" option displayed after upload.
+Columns within Sections: For better space utilization, some fields are arranged in 2 or 3 columns (e.g., First/Middle/Last Name).
+Repeating Groups: Indicated by [ + Add ITEM ] buttons and a template structure for each entry (e.g., "School Entry 1," "Test Entry 1") with a "Remove ITEM" button per entry.
+Asterisks (*): Denote required fields.
+Call to Action: A clear "SAVE PROFILE" button at the bottom.
+Bubble Badge: As per the original.
