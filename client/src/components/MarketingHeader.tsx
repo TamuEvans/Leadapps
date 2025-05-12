@@ -10,7 +10,7 @@ const MarketingHeader = () => {
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center flex-shrink-0 mr-6">
-            <img src={logoImage} alt="Leadapps Logo" className="h-6 w-auto" />
+            <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
           </Link>
           
           <nav className="hidden md:flex">
@@ -59,12 +59,12 @@ const MarketingHeader = () => {
         
         <div className="flex items-center ml-8 space-x-3">
           <Link to="/student-login" className="hidden sm:block">
-            <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-8 px-3">
+            <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-7 px-2 whitespace-nowrap">
               Student Login
             </Button>
           </Link>
           <Link to="/app">
-            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs h-8 px-3">
+            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs h-7 px-2 whitespace-nowrap">
               Get Started
             </Button>
           </Link>
