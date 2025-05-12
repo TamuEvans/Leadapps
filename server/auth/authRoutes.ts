@@ -194,9 +194,9 @@ router.get('/google',
 
 // Google callback
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/');
+    res.redirect('/app/profile');
   }
 );
 
@@ -207,9 +207,9 @@ router.get('/facebook',
 
 // Facebook callback
 router.get('/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/');
+    res.redirect('/app/profile');
   }
 );
 

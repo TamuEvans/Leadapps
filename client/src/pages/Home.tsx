@@ -55,10 +55,10 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
 
-  // If already authenticated, redirect to profile
+  // If already authenticated, redirect to app profile
   React.useEffect(() => {
     if (isAuthenticated) {
-      setLocation('/profile');
+      setLocation('/app/profile');
     }
   }, [isAuthenticated, setLocation]);
 
@@ -89,7 +89,7 @@ export default function Home() {
     try {
       await apiRequest('POST', '/api/auth/login', data);
       
-      setLocation('/profile');
+      setLocation('/app/profile');
     } catch (error) {
       let message = 'Login failed';
       if (error instanceof Error) {
@@ -116,7 +116,7 @@ export default function Home() {
         description: 'Your account has been created successfully.',
       });
       
-      setLocation('/profile');
+      setLocation('/app/profile');
     } catch (error) {
       let message = 'Registration failed';
       if (error instanceof Error) {

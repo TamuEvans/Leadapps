@@ -12,56 +12,58 @@ import Applications from "@/pages/Applications";
 import PersonalityHub from "@/pages/PersonalityHub";
 import Counselling from "@/pages/Counselling";
 import Articles from "@/pages/Articles";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Toaster } from "@/components/ui/toaster";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Switch>
-          {/* Auth routes (no layout) */}
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          {/* Homepage as a standalone front website */}
+          <Route path="/" component={Home} />
 
-          {/* Protected routes with MainLayout */}
-          <Route path="/">
+          {/* App routes with MainLayout */}
+          <Route path="/app">
             <MainLayout>
               <Switch>
-                <Route path="/" component={Home} />
-                <Route path="/profile">
+                <Route path="/app" component={Search} />
+                <Route path="/app/profile">
                   <ProtectedRoute>
                     <StudentProfile />
                   </ProtectedRoute>
                 </Route>
-                <Route path="/search" component={Search} />
-                <Route path="/wishlist">
+                <Route path="/app/search" component={Search} />
+                <Route path="/app/wishlist">
                   <ProtectedRoute>
                     <Wishlist />
                   </ProtectedRoute>
                 </Route>
-                <Route path="/applications">
+                <Route path="/app/applications">
                   <ProtectedRoute>
                     <Applications />
                   </ProtectedRoute>
                 </Route>
-                <Route path="/personality-hub">
+                <Route path="/app/personality-hub">
                   <ProtectedRoute>
                     <PersonalityHub />
                   </ProtectedRoute>
                 </Route>
-                <Route path="/counselling">
+                <Route path="/app/counselling">
                   <ProtectedRoute>
                     <Counselling />
                   </ProtectedRoute>
                 </Route>
-                <Route path="/articles" component={Articles} />
+                <Route path="/app/articles" component={Articles} />
                 <Route component={NotFound} />
               </Switch>
             </MainLayout>
           </Route>
+          
+          {/* Catch-all route */}
+          <Route component={NotFound} />
         </Switch>
+        <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
   );
