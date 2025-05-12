@@ -57,7 +57,7 @@ const MarketingHeader = () => {
           </nav>
         </div>
         
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center ml-8 space-x-3">
           <Link to="/student-login" className="hidden sm:block">
             <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-8 px-3">
               Student Login
