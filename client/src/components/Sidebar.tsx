@@ -158,7 +158,7 @@ const Sidebar = () => {
   return (
     <aside 
       className={cn(
-        "bg-white min-h-screen border-r border-gray-200 fixed transition-all duration-300 ease-in-out z-10",
+        "bg-white min-h-screen border-r border-gray-200 fixed transition-all duration-300 ease-in-out z-10 top-0 left-0",
         expanded ? "w-60" : "w-16"
       )}
       onMouseEnter={handleMouseEnter}

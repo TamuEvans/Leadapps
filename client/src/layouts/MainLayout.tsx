@@ -73,12 +73,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           isMobile ? "" : (sidebarExpanded ? "md:ml-60" : "md:ml-16")
         }`}
       >
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-20">
           <div className="flex items-center px-4 py-3">
             <div className="flex items-center space-x-1 text-sm">
               {isSubPage && (
                 <div 
-                  className="text-primary hover:underline flex items-center cursor-pointer"
+                  className="text-primary hover:underline flex items-center cursor-pointer mr-1"
                   onClick={() => window.location.href = "/"}
                 >
                   <ArrowLeft className="w-3 h-3 mr-1" /> Home
@@ -86,7 +86,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               )}
               {isSubPage && (
                 <>
-                  <span className="text-gray-500">/</span>
+                  <span className="text-gray-500 mx-1">/</span>
                   <span className="text-gray-700">{getPageTitle()}</span>
                 </>
               )}
