@@ -1,0 +1,303 @@
+import React from 'react';
+import { Link } from 'wouter';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from '@/components/ui/input';
+import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react';
+import MarketingLayout from '@/layouts/MarketingLayout';
+
+export default function Marketing() {
+  // Popular destinations data
+  const popularDestinations = [
+    { name: 'United Kingdom', flag: '🇬🇧', universities: 129, image: 'https://source.unsplash.com/random/300x200/?london' },
+    { name: 'Australia', flag: '🇦🇺', universities: 43, image: 'https://source.unsplash.com/random/300x200/?sydney' },
+    { name: 'Canada', flag: '🇨🇦', universities: 96, image: 'https://source.unsplash.com/random/300x200/?toronto' },
+    { name: 'United States', flag: '🇺🇸', universities: 215, image: 'https://source.unsplash.com/random/300x200/?newyork' },
+    { name: 'New Zealand', flag: '🇳🇿', universities: 17, image: 'https://source.unsplash.com/random/300x200/?auckland' },
+  ];
+
+  // Popular programs data
+  const popularPrograms = [
+    { name: 'Business Administration', students: '12,450+', image: 'https://source.unsplash.com/random/300x200/?business' },
+    { name: 'Computer Science', students: '9,870+', image: 'https://source.unsplash.com/random/300x200/?computer' },
+    { name: 'Digital Marketing', students: '7,345+', image: 'https://source.unsplash.com/random/300x200/?marketing' },
+    { name: 'MBA', students: '6,890+', image: 'https://source.unsplash.com/random/300x200/?mba' },
+  ];
+
+  // Testimonials data
+  const testimonials = [
+    {
+      name: 'Katrina',
+      country: 'Philippines',
+      text: 'Leadapps connected me with my dream university in the UK. The counselors guided me through every step!',
+      image: 'https://source.unsplash.com/random/100x100/?woman,portrait',
+    },
+    {
+      name: 'Jonathan',
+      country: 'Nigeria', 
+      text: 'The platform made applying to multiple universities so simple. I saved countless hours and got into my top choice!',
+      image: 'https://source.unsplash.com/random/100x100/?man,portrait',
+    },
+    {
+      name: 'Praneeth',
+      country: 'India',
+      text: 'From visa guidance to scholarship applications, Leadapps was with me at every stage. Truly grateful!',
+      image: 'https://source.unsplash.com/random/100x100/?indian,man',
+    },
+  ];
+
+  // FAQ items
+  const faqItems = [
+    { question: 'How do I apply to universities through Leadapps?', answer: 'Create an account, complete your profile, search for universities, and apply directly through our platform.' },
+    { question: 'What documents do I need for my application?', answer: 'Typically, you\'ll need academic transcripts, language test scores, a personal statement, and recommendation letters.' },
+    { question: 'How can I book a counseling session?', answer: 'Navigate to the Counseling section, choose a counselor, and select an available time slot.' },
+    { question: 'Are there any application fees?', answer: 'Application fees vary by university. You can view all fees before submitting your application.' },
+    { question: 'Can Leadapps help with my visa application?', answer: 'Yes, we provide comprehensive visa guidance and resources to help you prepare your application.' },
+  ];
+
+  return (
+    <MarketingLayout>
+      {/* Hero Section */}
+      <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full">
+          <div className="absolute right-[-10%] top-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-80"></div>
+          <div className="absolute right-[20%] top-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-red-400 to-red-600 opacity-70"></div>
+          <div className="absolute right-[10%] top-[40%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-blue-400 to-blue-600 opacity-70"></div>
+          <div className="absolute right-[30%] top-[30%] w-[30%] h-[30%] rounded-full bg-gradient-to-br from-green-400 to-green-600 opacity-70"></div>
+        </div>
+
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
+            <div className="flex flex-col justify-center space-y-4">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl text-gray-800">
+                  study made simple.
+                </h1>
+                <p className="max-w-[600px] text-gray-600 md:text-xl">
+                  Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Link to="/app">
+                  <Button className="px-8 bg-gradient-to-r from-blue-600 to-indigo-600">
+                    Get Started
+                  </Button>
+                </Link>
+                <Button variant="outline">Learn More</Button>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow-lg">
+              <div className="text-center mb-4">
+                <h2 className="text-lg font-bold">Find Your Dream Program</h2>
+                <p className="text-sm text-gray-600">Explore our database of over 10,000 programs</p>
+              </div>
+              <div className="space-y-3">
+                <Input placeholder="Program (e.g. Computer Science)" />
+                <Input placeholder="Country/Region" />
+                <Input placeholder="Study Level" />
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600">
+                  <Search className="mr-2 h-4 w-4" /> Search Programs
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lead Logos Section (From your mockup) */}
+      <section className="bg-white py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-center text-xl font-bold mb-10 text-purple-800">REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR EMERGING AND DEVELOPING MARKET STUDENTS</h2>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-6 items-center">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="flex justify-center">
+                <div className="h-16 w-28 bg-gray-200 rounded-lg flex items-center justify-center text-sm text-gray-500">
+                  Partner {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Services Section */}
+      <section className="w-full py-12 bg-blue-900 text-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Our Services</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {[
+              { icon: <Search className="h-6 w-6" />, title: "Program Search" },
+              { icon: <Briefcase className="h-6 w-6" />, title: "Career Guidance" },
+              { icon: <Globe className="h-6 w-6" />, title: "Visa Support" },
+              { icon: <School className="h-6 w-6" />, title: "University Admission" },
+              { icon: <Award className="h-6 w-6" />, title: "Scholarship Assistance" }
+            ].map((service, index) => (
+              <Card key={index} className="bg-blue-800 text-white border-none">
+                <CardContent className="flex flex-col items-center justify-center p-4 h-full">
+                  <div className="bg-blue-700 rounded-full p-3 mb-3">
+                    {service.icon}
+                  </div>
+                  <p className="text-center font-medium">{service.title}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Destinations Section */}
+      <section className="w-full py-12 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Popular Destinations</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {popularDestinations.map((destination, index) => (
+              <div key={index} className="rounded-lg overflow-hidden shadow-md">
+                <div className="h-32 bg-cover bg-center" style={{ backgroundImage: `url(${destination.image})` }}></div>
+                <div className="p-4 bg-white">
+                  <div className="text-xl mb-1">{destination.flag}</div>
+                  <h3 className="font-medium text-lg">{destination.name}</h3>
+                  <p className="text-sm text-gray-600">{destination.universities} Universities</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Programs Section */}
+      <section className="w-full py-12 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {popularPrograms.map((program, index) => (
+              <div key={index} className="rounded-lg overflow-hidden shadow-md">
+                <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url(${program.image})` }}></div>
+                <div className="p-4">
+                  <h3 className="font-medium text-lg">{program.name}</h3>
+                  <p className="text-sm text-gray-600">{program.students} Students</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Search & Apply Section */}
+      <section className="w-full py-12 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Search & Apply</h2>
+          <div className="max-w-3xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-2">
+              <Input placeholder="Search programs, universities, or destinations" className="flex-grow" />
+              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600">
+                <Search className="mr-2 h-4 w-4" /> Search
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="w-full py-12 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">What they say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index}>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold">{testimonial.name}</h3>
+                      <p className="text-sm text-gray-600">{testimonial.country}</p>
+                    </div>
+                  </div>
+                  <p className="italic text-gray-700">"{testimonial.text}"</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Information Center Section */}
+      <section className="w-full py-12 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Information Centre</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { title: "Application Process", image: "https://source.unsplash.com/random/300x200/?application", description: "Step-by-step guide to applying to universities abroad" },
+              { title: "Visa Requirements", image: "https://source.unsplash.com/random/300x200/?visa", description: "Country-specific visa information for international students" },
+              { title: "Scholarship Guide", image: "https://source.unsplash.com/random/300x200/?scholarship", description: "Comprehensive list of scholarships available for international students" }
+            ].map((item, index) => (
+              <Card key={index}>
+                <img src={item.image} alt={item.title} className="w-full h-40 object-cover rounded-t-lg" />
+                <CardContent className="p-4">
+                  <h3 className="font-bold text-lg">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                  <Button variant="link" className="p-0 h-auto mt-2">
+                    Read More
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="w-full py-12 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <img src="https://source.unsplash.com/random/600x400/?campus" alt="Beautiful campus" className="rounded-lg shadow-lg w-full" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4">We Solve Your Problems!</h2>
+              <div className="space-y-4">
+                {[
+                  { title: "Personalized Guidance", description: "Get tailored advice from experienced counselors" },
+                  { title: "Simplified Process", description: "Navigate admissions with our easy-to-use platform" },
+                  { title: "Timely Updates", description: "Stay informed about application status and deadlines" },
+                  { title: "Ongoing Support", description: "From application to arrival, we're with you every step" }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <div className="bg-blue-100 rounded-full p-1 flex items-center justify-center">
+                      <div className="bg-blue-600 rounded-full w-4 h-4"></div>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">{item.title}</h3>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="w-full py-12 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="text-2xl font-bold text-center mb-8">Questions?</h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqItems.map((item, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <h3 className="font-medium flex items-center gap-2">
+                    <span className="text-blue-600">{index + 1}.</span> {item.question}
+                  </h3>
+                  <p className="text-gray-600 mt-2">{item.answer}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+    </MarketingLayout>
+  );
+}

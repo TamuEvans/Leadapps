@@ -4,7 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import MainLayout from "./layouts/MainLayout";
 import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
+import Marketing from "@/pages/Marketing";
+import StudentLogin from "@/pages/StudentLogin";
 import StudentProfile from "@/pages/StudentProfile";
 import Search from "@/pages/Search";
 import Wishlist from "@/pages/Wishlist";
@@ -20,8 +21,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Switch>
-          {/* Homepage as a standalone front website */}
-          <Route path="/" component={Home} />
+          {/* Marketing website routes */}
+          <Route path="/" component={Marketing} />
+          <Route path="/student-login" component={StudentLogin} />
 
           {/* App routes with MainLayout */}
           <Route path="/app">

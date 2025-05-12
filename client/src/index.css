@@ -80,4 +80,28 @@
   .logo-icon-bg {
     background-color: hsl(204, 90%, 50%);
   }
+  
+  /* Marketing website specific styles */
+  .marketing-header-link {
+    @apply text-gray-600 hover:text-blue-600 font-medium;
+  }
+
+  .marketing-header-link.active {
+    @apply text-blue-600;
+  }
+
+  /* Sidebar hover transitions */
+  .sidebar-nav-item {
+    @apply transition-all duration-200;
+  }
+
+  .sidebar-nav-item:hover .sidebar-icon,
+  .sidebar-nav-item.active .sidebar-icon {
+    @apply text-white;
+  }
+
+  .sidebar-nav-item:hover .sidebar-text,
+  .sidebar-nav-item.active .sidebar-text {
+    @apply text-white;
+  }
 }
