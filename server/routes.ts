@@ -352,10 +352,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/applications`, async (req, res) => {
     try {
       // In a real app with auth, you'd get the student ID from the authenticated user
-      const studentId = 1; // Default for demo
+      const userId = 1; // Default for demo
+      
+      // Check if the student profile exists, if not create one
+      let profile = await storage.getStudentProfileByUserId(userId);
+      if (!profile) {
+        profile = await storage.createStudentProfile({ userId });
+      }
       
       const applicationData = {
-        studentId,
+        studentId: profile.id, // Use the student profile ID
         ...req.body,
         status: "draft", // Default status for new applications with lowercase status
         createdAt: new Date(),
@@ -422,7 +428,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Application document routes
   // Get documents for an application
-  app.get(`${apiPrefix}/applications/:id/documents`, requireAuth, async (req, res) => {
+  app.get(`${apiPrefix}/applications/:id/documents`, async (req, res) => {
     try {
       const applicationId = parseInt(req.params.id);
       if (isNaN(applicationId)) {
@@ -440,7 +446,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Upload document for an application
-  app.post(`${apiPrefix}/applications/:id/documents`, requireAuth, async (req, res) => {
+  app.post(`${apiPrefix}/applications/:id/documents`, async (req, res) => {
     try {
       const applicationId = parseInt(req.params.id);
       if (isNaN(applicationId)) {
