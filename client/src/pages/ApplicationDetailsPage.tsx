@@ -17,6 +17,7 @@ import {
 import {
   FileText, 
   CheckCircle, 
+  Check,
   Clock, 
   AlertCircle, 
   Send, 
@@ -164,6 +165,36 @@ const ApplicationDetailsPage = () => {
       });
     }
   });
+  
+  // Update intake period or year
+  const updateIntakeMutation = useMutation({
+    mutationFn: async ({ field, value }: { field: string, value: string | number }) => {
+      if (!applicationId) throw new Error("No application ID provided");
+      return apiRequest("PATCH", `/api/applications/${applicationId}`, { 
+        [field]: value,
+        lastUpdated: new Date().toISOString()
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Intake Updated",
+        description: "Your intake preference has been saved.",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/applications", applicationId] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Update Failed",
+        description: "There was an error updating your intake preference. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+  
+  // Handle intake period or year update
+  const handleIntakeUpdate = (field: string, value: string | number) => {
+    updateIntakeMutation.mutate({ field, value });
+  };
   
   // Upload document mutation (placeholder for now)
   const uploadDocumentMutation = useMutation({

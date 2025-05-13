@@ -248,6 +248,8 @@ export const applications = pgTable("applications", {
   additionalDocuments: jsonb("additional_documents").array(),
   applicationData: jsonb("application_data"),
   feedback: text("feedback"),
+  intakePeriod: text("intake_period"),
+  intakeYear: integer("intake_year"),
   internalNotes: text("internal_notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
