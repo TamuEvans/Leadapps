@@ -1291,39 +1291,67 @@ const StudentProfile = () => {
                   </div>
                 </div>
                 
-                {/* Academic Transcript */}
+                {/* Academic Transcripts */}
                 <div className="border rounded-lg p-4 bg-gray-50">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center">
                       <FileArchive className="h-5 w-5 text-blue-600 mr-2" />
-                      <h4 className="font-medium">Academic Transcript</h4>
+                      <h4 className="font-medium">Academic Transcripts</h4>
                     </div>
                     <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
                   </div>
-                  <p className="text-sm text-gray-500 mb-3">Upload your most recent academic transcript</p>
-                  <div className="flex items-center justify-between">
-                    <Button variant="outline" size="sm" className="flex items-center">
-                      <Upload className="h-4 w-4 mr-1" /> Upload
+                  <p className="text-sm text-gray-500 mb-3">Upload academic transcripts from all institutions attended</p>
+                  <div className="space-y-2">
+                    {/* First transcript upload */}
+                    <div className="flex items-center justify-between bg-white p-2 rounded border">
+                      <span className="text-xs text-gray-600">Transcript 1</span>
+                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                        <Upload className="h-3 w-3 mr-1" /> Upload
+                      </Button>
+                    </div>
+                    {/* Second transcript upload */}
+                    <div className="flex items-center justify-between bg-white p-2 rounded border">
+                      <span className="text-xs text-gray-600">Transcript 2</span>
+                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                        <Upload className="h-3 w-3 mr-1" /> Upload
+                      </Button>
+                    </div>
+                    {/* Add more button */}
+                    <Button variant="ghost" size="sm" className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700">
+                      <Plus className="h-3 w-3 mr-1" /> Add another transcript
                     </Button>
-                    <span className="text-xs text-gray-500">No file selected</span>
                   </div>
                 </div>
                 
-                {/* Certificate/Diploma */}
+                {/* Certificates/Diplomas */}
                 <div className="border rounded-lg p-4 bg-gray-50">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center">
                       <FileCheck className="h-5 w-5 text-blue-600 mr-2" />
-                      <h4 className="font-medium">Certificate/Diploma</h4>
+                      <h4 className="font-medium">Certificates/Diplomas</h4>
                     </div>
                     <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
                   </div>
-                  <p className="text-sm text-gray-500 mb-3">Upload your highest educational certificate</p>
-                  <div className="flex items-center justify-between">
-                    <Button variant="outline" size="sm" className="flex items-center">
-                      <Upload className="h-4 w-4 mr-1" /> Upload
+                  <p className="text-sm text-gray-500 mb-3">Upload all relevant educational certificates and diplomas</p>
+                  <div className="space-y-2">
+                    {/* First certificate upload */}
+                    <div className="flex items-center justify-between bg-white p-2 rounded border">
+                      <span className="text-xs text-gray-600">Certificate 1</span>
+                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                        <Upload className="h-3 w-3 mr-1" /> Upload
+                      </Button>
+                    </div>
+                    {/* Second certificate upload */}
+                    <div className="flex items-center justify-between bg-white p-2 rounded border">
+                      <span className="text-xs text-gray-600">Certificate 2</span>
+                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                        <Upload className="h-3 w-3 mr-1" /> Upload
+                      </Button>
+                    </div>
+                    {/* Add more button */}
+                    <Button variant="ghost" size="sm" className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700">
+                      <Plus className="h-3 w-3 mr-1" /> Add another certificate
                     </Button>
-                    <span className="text-xs text-gray-500">No file selected</span>
                   </div>
                 </div>
               </div>
