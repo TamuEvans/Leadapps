@@ -197,23 +197,24 @@ export default function Marketing() {
       </section>
 
       {/* Our Services Section */}
-      <section className="w-full py-12 bg-blue-900 text-white">
+      <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Our Services</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <h2 className="text-2xl font-bold text-center mb-8">Simply one platform</h2>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-5">
             {[
-              { icon: <Search className="h-6 w-6" />, title: "Program Search" },
-              { icon: <Briefcase className="h-6 w-6" />, title: "Career Guidance" },
-              { icon: <Globe className="h-6 w-6" />, title: "Visa Support" },
-              { icon: <School className="h-6 w-6" />, title: "University Admission" },
-              { icon: <Award className="h-6 w-6" />, title: "Scholarship Assistance" }
+              { image: "/images/students/student1.png", title: "Career Guidance" },
+              { image: "/images/students/student2.png", title: "Programme Search" },
+              { image: "/images/students/student3.png", title: "Streamlined Application System" },
+              { image: "/images/students/student4.png", title: "Personalized Guidance" },
+              { image: "/images/students/student5.png", title: "Loan/Scholarship Support" },
+              { image: "/images/students/student6.png", title: "Other" }
             ].map((service, index) => (
-              <Card key={index} className="bg-blue-800 text-white border-none">
-                <CardContent className="flex flex-col items-center justify-center p-4 h-full">
-                  <div className="bg-blue-700 rounded-full p-3 mb-3">
-                    {service.icon}
+              <Card key={index} className="bg-white border-none shadow-md rounded-xl overflow-hidden">
+                <CardContent className="flex flex-col items-center justify-center p-0 h-full">
+                  <img src={service.image} alt={service.title} className="w-full h-auto" />
+                  <div className="p-3">
+                    <p className="text-center font-medium text-gray-800">{service.title}</p>
                   </div>
-                  <p className="text-center font-medium">{service.title}</p>
                 </CardContent>
               </Card>
             ))}
