@@ -20,6 +20,8 @@ import StudyLocation from "@/pages/StudyLocation";
 import ServicePage from "@/pages/ServicePage";
 import AppHome from "@/pages/AppHome";
 import FundingHub from "@/pages/FundingHub";
+import UniversitySearchPage from "@/pages/UniversitySearchPage";
+import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -110,6 +112,22 @@ function App() {
             <MainLayout>
               <ProtectedRoute testMode={true}>
                 <FundingHub />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/university-search">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <UniversitySearchPage />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/universities/:id">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <UniversityDetailsPage />
               </ProtectedRoute>
             </MainLayout>
           </Route>
