@@ -19,6 +19,7 @@ import TestEntry from "@/components/TestEntry";
 import WorkEntry from "@/components/WorkEntry";
 import { Checkbox } from "@/components/ui/checkbox";
 import { apiRequest } from "@/lib/queryClient";
+import { useLocation } from "wouter";
 import { 
   COUNTRIES, 
   LANGUAGES, 
@@ -98,6 +99,7 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
 const StudentProfile = () => {
   const { toast } = useToast();
   const { profile, updateProfile, profileCompletionPercentage } = useProfile();
+  const [, navigate] = useLocation();
   
   // State for dynamic arrays
   const [schools, setSchools] = useState<number[]>([0]);
@@ -204,6 +206,9 @@ const StudentProfile = () => {
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
       });
+      
+      // Navigate to the search page after successful profile update
+      navigate("/app/search");
     } catch (error) {
       console.error("Error saving profile:", error);
       toast({
@@ -1280,6 +1285,7 @@ const StudentProfile = () => {
               <Button
                 type="button"
                 variant="outline"
+                onClick={() => navigate("/app")}
               >
                 <ChevronLeft className="h-4 w-4 mr-2" /> Previous
               </Button>
