@@ -45,7 +45,7 @@ function App() {
               <Switch>
                 <Route path="/app" component={Search} />
                 <Route path="/app/profile">
-                  <ProtectedRoute>
+                  <ProtectedRoute testMode={true}>
                     <StudentProfile />
                   </ProtectedRoute>
                 </Route>
