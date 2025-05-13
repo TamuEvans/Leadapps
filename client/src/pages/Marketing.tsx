@@ -89,8 +89,8 @@ export default function Marketing() {
           </video>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full justify-center">
-          <div className="flex flex-col items-start text-left mb-16 ml-0 md:ml-4 lg:ml-8 max-w-xl">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
+          <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl mt-40 md:mt-48">
             <div className="space-y-4 mb-8">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white modern-heading drop-shadow-lg">
                 study made simple.
