@@ -35,7 +35,12 @@ import {
   Download,
   ChevronLeft,
   Loader2,
-  Check
+  Check,
+  MoonStar,
+  Flower,
+  Fingerprint,
+  Star,
+  Sparkles
 } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -69,6 +74,39 @@ type ResultProps = {
     description: string;
     matchScore: number;
   }[];
+  // Additional astrological, human design, and enneagram data
+  astrology?: {
+    sunSign: string;
+    moonSign: string;
+    ascendantSign: string;
+    planetaryPlacements: {
+      planet: string;
+      sign: string;
+      house?: number;
+      interpretation: string;
+    }[];
+    summary: string;
+  };
+  humanDesign?: {
+    type: string;
+    authority: string;
+    profile: string;
+    definition: string;
+    centers: {
+      name: string;
+      status: string;
+      meaning: string;
+    }[];
+    summary: string;
+  };
+  enneagram?: {
+    primaryType: string;
+    wing: string;
+    triad: string;
+    growthPath: string;
+    stressPath: string;
+    description: string;
+  };
 };
 
 const PersonalityResults = () => {
@@ -170,11 +208,14 @@ const PersonalityResults = () => {
       </Card>
       
       <Tabs defaultValue="learning-style" className="w-full">
-        <TabsList className="grid grid-cols-4 w-full">
+        <TabsList className="grid grid-cols-7 w-full">
           <TabsTrigger value="learning-style">Learning Style</TabsTrigger>
           <TabsTrigger value="strengths">Key Strengths</TabsTrigger>
           <TabsTrigger value="interests">Interest Areas</TabsTrigger>
           <TabsTrigger value="environment">Ideal Environment</TabsTrigger>
+          {results.astrology && <TabsTrigger value="astrology">Astrology</TabsTrigger>}
+          {results.humanDesign && <TabsTrigger value="human-design">Human Design</TabsTrigger>}
+          {results.enneagram && <TabsTrigger value="enneagram">Enneagram</TabsTrigger>}
         </TabsList>
         
         {/* Learning Style Tab */}
@@ -329,6 +370,222 @@ const PersonalityResults = () => {
             </CardContent>
           </Card>
         </TabsContent>
+        
+        {/* Astrology Tab */}
+        {results.astrology && (
+          <TabsContent value="astrology">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <MoonStar className="mr-2 h-5 w-5 text-indigo-600" />
+                  Your Astrological Profile
+                </CardTitle>
+                <CardDescription>
+                  Planetary influences and celestial insights based on your birth date
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-indigo-50 rounded-lg p-4 text-center">
+                    <div className="bg-indigo-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                      <Star className="h-6 w-6 text-indigo-600" />
+                    </div>
+                    <h4 className="font-medium text-indigo-900">Sun Sign</h4>
+                    <p className="text-indigo-700 font-bold text-lg">{results.astrology.sunSign}</p>
+                    <p className="text-xs text-indigo-600 mt-1">Core Identity</p>
+                  </div>
+                  
+                  <div className="bg-purple-50 rounded-lg p-4 text-center">
+                    <div className="bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                      <MoonStar className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <h4 className="font-medium text-purple-900">Moon Sign</h4>
+                    <p className="text-purple-700 font-bold text-lg">{results.astrology.moonSign}</p>
+                    <p className="text-xs text-purple-600 mt-1">Emotional Nature</p>
+                  </div>
+                  
+                  <div className="bg-blue-50 rounded-lg p-4 text-center">
+                    <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                      <Sparkles className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <h4 className="font-medium text-blue-900">Ascendant</h4>
+                    <p className="text-blue-700 font-bold text-lg">{results.astrology.ascendantSign}</p>
+                    <p className="text-xs text-blue-600 mt-1">Social Persona</p>
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h4 className="font-medium mb-3">Key Planetary Placements</h4>
+                  <div className="space-y-3">
+                    {results.astrology.planetaryPlacements.map((placement, index) => (
+                      <div key={index} className="bg-gray-50 p-3 rounded-md border border-gray-100">
+                        <div className="flex items-center mb-1">
+                          <span className="font-medium text-indigo-700">{placement.planet}</span>
+                          <span className="mx-2 text-gray-400">in</span>
+                          <span className="font-medium text-indigo-700">{placement.sign}</span>
+                          {placement.house && (
+                            <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full ml-2">
+                              House {placement.house}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-600">{placement.interpretation}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h4 className="font-medium mb-2">Astrological Summary</h4>
+                  <p className="text-gray-700">{results.astrology.summary}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
+        
+        {/* Human Design Tab */}
+        {results.humanDesign && (
+          <TabsContent value="human-design">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Flower className="mr-2 h-5 w-5 text-rose-600" />
+                  Your Human Design
+                </CardTitle>
+                <CardDescription>
+                  Your energetic blueprint and personal operating system
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-rose-50 rounded-lg p-4 text-center">
+                    <h4 className="font-medium text-rose-900 text-sm">Type</h4>
+                    <p className="text-rose-700 font-bold text-lg">{results.humanDesign.type}</p>
+                  </div>
+                  
+                  <div className="bg-amber-50 rounded-lg p-4 text-center">
+                    <h4 className="font-medium text-amber-900 text-sm">Authority</h4>
+                    <p className="text-amber-700 font-bold text-lg">{results.humanDesign.authority}</p>
+                  </div>
+                  
+                  <div className="bg-emerald-50 rounded-lg p-4 text-center">
+                    <h4 className="font-medium text-emerald-900 text-sm">Profile</h4>
+                    <p className="text-emerald-700 font-bold text-lg">{results.humanDesign.profile}</p>
+                  </div>
+                  
+                  <div className="bg-sky-50 rounded-lg p-4 text-center">
+                    <h4 className="font-medium text-sky-900 text-sm">Definition</h4>
+                    <p className="text-sky-700 font-bold text-lg">{results.humanDesign.definition}</p>
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h4 className="font-medium mb-3">Energy Centers</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {results.humanDesign.centers.map((center, index) => (
+                      <div key={index} className="flex items-start p-3 bg-gray-50 rounded-md border border-gray-100">
+                        <div className={`h-8 w-8 rounded-full mr-3 flex items-center justify-center flex-shrink-0 ${
+                          center.status === 'Defined' ? 'bg-green-100 text-green-600' :
+                          center.status === 'Undefined' ? 'bg-yellow-100 text-yellow-600' :
+                          'bg-gray-100 text-gray-600'
+                        }`}>
+                          {center.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <div className="flex items-center">
+                            <h5 className="font-medium">{center.name}</h5>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ml-2 ${
+                              center.status === 'Defined' ? 'bg-green-100 text-green-800' :
+                              center.status === 'Undefined' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {center.status}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 mt-1">{center.meaning}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h4 className="font-medium mb-2">Human Design Summary</h4>
+                  <p className="text-gray-700">{results.humanDesign.summary}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
+        
+        {/* Enneagram Tab */}
+        {results.enneagram && (
+          <TabsContent value="enneagram">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Fingerprint className="mr-2 h-5 w-5 text-violet-600" />
+                  Your Enneagram Type
+                </CardTitle>
+                <CardDescription>
+                  Core motivations, fears, and growth paths
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-violet-50 p-5 rounded-lg text-center">
+                  <h3 className="text-2xl font-bold text-violet-800">Type {results.enneagram.primaryType}</h3>
+                  <p className="text-violet-600 mb-2">with {results.enneagram.wing} wing</p>
+                  <p className="text-violet-700">{results.enneagram.triad} Triad</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
+                    <h4 className="font-medium text-green-800 flex items-center mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <path d="M18 21a8 8 0 0 0-16 0"></path>
+                        <path d="M10 7v0"></path>
+                        <path d="M14 7v0"></path>
+                        <path d="M12 3v0"></path>
+                      </svg>
+                      Growth Path
+                    </h4>
+                    <p className="text-gray-700">Type {results.enneagram.growthPath}</p>
+                  </div>
+                  
+                  <div className="bg-red-50 p-4 rounded-lg border border-red-100">
+                    <h4 className="font-medium text-red-800 flex items-center mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <path d="m21 15-5-1-2.5 2.5c-2.5 2.5-6.5-1.5-4-4L12 10 11 5"></path>
+                        <path d="M7.5 15.5 7 19.5"></path>
+                        <path d="M13.5 9.5 12 4"></path>
+                        <path d="m16 16 4.5.5"></path>
+                        <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8"></path>
+                      </svg>
+                      Stress Path
+                    </h4>
+                    <p className="text-gray-700">Type {results.enneagram.stressPath}</p>
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h4 className="font-medium mb-2">Enneagram Description</h4>
+                  <p className="text-gray-700 whitespace-pre-line">{results.enneagram.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
       </Tabs>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
