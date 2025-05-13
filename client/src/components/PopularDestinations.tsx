@@ -19,7 +19,7 @@ const destinations: Destination[] = [
     id: 'caribbean',
     name: 'Caribbean',
     flag: '🇯🇲', // Jamaica
-    multiFlags: ['🇹🇹', '🇧🇧', '🇧🇸', '🇬🇩'], // Trinidad, Barbados, Bahamas, Grenada
+    multiFlags: ['🇯🇲', '🇹🇹', '🇧🇧', '🇧🇸', '🇬🇩'], // Jamaica, Trinidad, Barbados, Bahamas, Grenada
     image: '/images/destinations/caribbean.svg',
     cityImage: '/images/destinations/cities/grenada.webp',
     cssClass: 'kingston-bg',
