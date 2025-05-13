@@ -255,7 +255,7 @@ const Search = () => {
       });
       
       // Redirect to the applications page
-      setLocation("/app/my-applications");
+      setLocation("/app/applications");
     } catch (error) {
       console.error("Error creating application:", error);
     }
