@@ -41,36 +41,16 @@ function App() {
           <Route path="/services/:service" component={ServicePage} />
 
           {/* App routes with MainLayout */}
-          <Route path="/app">
+          <Route path="/app/:rest*">
             <MainLayout>
               <Switch>
                 <Route path="/app" component={AppHome} />
-                <Route path="/app/profile">
-                  <ProtectedRoute testMode={true}>
-                    <StudentProfile />
-                  </ProtectedRoute>
-                </Route>
+                <Route path="/app/profile" component={StudentProfile} />
                 <Route path="/app/search" component={Search} />
-                <Route path="/app/wishlist">
-                  <ProtectedRoute testMode={true}>
-                    <Wishlist />
-                  </ProtectedRoute>
-                </Route>
-                <Route path="/app/applications">
-                  <ProtectedRoute testMode={true}>
-                    <Applications />
-                  </ProtectedRoute>
-                </Route>
-                <Route path="/app/personality-hub">
-                  <ProtectedRoute testMode={true}>
-                    <PersonalityHub />
-                  </ProtectedRoute>
-                </Route>
-                <Route path="/app/counselling">
-                  <ProtectedRoute testMode={true}>
-                    <Counselling />
-                  </ProtectedRoute>
-                </Route>
+                <Route path="/app/wishlist" component={Wishlist} />
+                <Route path="/app/applications" component={Applications} />
+                <Route path="/app/personality-hub" component={PersonalityHub} />
+                <Route path="/app/counselling" component={Counselling} />
                 <Route path="/app/articles" component={Articles} />
                 <Route component={NotFound} />
               </Switch>
