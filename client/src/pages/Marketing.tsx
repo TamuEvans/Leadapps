@@ -207,10 +207,10 @@ export default function Marketing() {
                 <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
-                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
+                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-20 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8 flex items-center">
-                <img src={sguLogo} alt="St. George's University" className="h-12 object-contain" />
+                <img src={sguLogo} alt="St. George's University" className="h-6 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
                 <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
@@ -230,10 +230,10 @@ export default function Marketing() {
                 <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
-                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
+                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-20 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8 flex items-center">
-                <img src={sguLogo} alt="St. George's University" className="h-12 object-contain" />
+                <img src={sguLogo} alt="St. George's University" className="h-6 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
                 <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
