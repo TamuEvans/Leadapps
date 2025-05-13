@@ -71,7 +71,7 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full h-screen bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden flex items-center">
+      <section className="w-full h-screen bg-black relative overflow-hidden flex items-center">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
@@ -90,7 +90,7 @@ export default function Marketing() {
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
+          <div className="grid gap-6 lg:grid-cols-[1fr_300px] lg:gap-12 items-center">
             <div className="flex flex-col justify-center space-y-8">
               <div className="space-y-6">
                 <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-white modern-heading drop-shadow-md">
@@ -110,17 +110,17 @@ export default function Marketing() {
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 bg-white/40 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-white/20">
-              <div className="text-center mb-4">
-                <h2 className="text-lg font-bold text-gray-900">Find Your Dream Program</h2>
-                <p className="text-sm text-gray-800">Explore our database of over 10,000 programs</p>
+            <div className="flex flex-col space-y-3 bg-white/40 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-white/20 max-w-[300px]">
+              <div className="text-center mb-2">
+                <h2 className="text-lg font-bold text-gray-900">Find Your Program</h2>
+                <p className="text-xs text-gray-800">10,000+ programs worldwide</p>
               </div>
-              <div className="space-y-4">
-                <Input placeholder="Program (e.g. Computer Science)" className="bg-white/80 border-gray-300 h-12" />
-                <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-12" />
-                <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-12" />
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-12 text-base">
-                  <Search className="mr-2 h-5 w-5" /> Search Programs
+              <div className="space-y-3">
+                <Input placeholder="Program (e.g. Computer Science)" className="bg-white/80 border-gray-300 h-10 text-sm" />
+                <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm" />
+                <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm" />
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
+                  <Search className="mr-2 h-4 w-4" /> Search Programs
                 </Button>
               </div>
             </div>

@@ -10,7 +10,7 @@ const MarketingLayout: React.FC<MarketingLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <MarketingHeader />
-      <main className="flex-grow pt-16">
+      <main className="flex-grow">
         {children}
       </main>
       <footer className="bg-gray-800 text-white py-12">
