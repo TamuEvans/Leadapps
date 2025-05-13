@@ -72,17 +72,26 @@ const Sidebar = () => {
     <>
       <div className={cn(
         "border-b border-gray-200 transition-all duration-200 ease-in-out",
-        expanded ? "p-4" : "p-2"
+        "p-2 flex items-center h-12"
       )}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            {expanded ? (
-              <img src={leadappsLogo} alt="Leadapps Logo" className="h-8" />
-            ) : (
-              <div className="w-8 h-8 rounded-full logo-icon-bg flex items-center justify-center">
-                <div className="text-white font-bold text-lg">L</div>
-              </div>
-            )}
+        <div className="flex items-center justify-between h-8">
+          <div className="flex items-center h-8 w-32 overflow-hidden relative">
+            <img 
+              src={leadappsLogo} 
+              alt="Leadapps Logo" 
+              className={cn(
+                "h-8 absolute top-0 left-0 transition-opacity duration-300",
+                expanded ? "opacity-100" : "opacity-0"
+              )} 
+            />
+            <div 
+              className={cn(
+                "w-8 h-8 rounded-full logo-icon-bg flex items-center justify-center absolute top-0 left-0 transition-opacity duration-300",
+                expanded ? "opacity-0" : "opacity-100"
+              )}
+            >
+              <div className="text-white font-bold text-lg">L</div>
+            </div>
           </div>
           {!isMobile && (
             <Button 
@@ -102,7 +111,7 @@ const Sidebar = () => {
       
       <nav className={cn(
         "transition-all duration-200 ease-in-out",
-        expanded ? "p-2" : "p-1"
+        "p-2"
       )}>
         <ul className="space-y-1">
           {navigationItems.map((item) => (
