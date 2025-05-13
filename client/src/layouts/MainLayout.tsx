@@ -41,6 +41,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   // Get the page title based on current location path
   const getPageTitle = () => {
+    console.log("Current location:", location);
     switch (location) {
       case "/app":
         return "Home";
