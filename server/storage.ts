@@ -4,17 +4,31 @@ import {
   schools, 
   tests, 
   workExperiences,
+  universities,
+  programs,
+  applications,
+  applicationDocuments,
   type User, 
   type StudentProfile, 
   type School, 
   type Test, 
   type WorkExperience,
+  type University,
+  type Program,
+  type Application,
+  type ApplicationDocument,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
   type InsertTest, 
-  type InsertWorkExperience 
+  type InsertWorkExperience,
+  type InsertUniversity,
+  type InsertProgram,
+  type InsertApplication,
+  type InsertApplicationDocument
 } from "@shared/schema";
+import { db } from './db';
+import { eq, and, desc, isNotNull, sql, like, ilike } from 'drizzle-orm';
 
 // Interface for storage methods
 export interface IStorage {
@@ -62,6 +76,48 @@ export interface IStorage {
   updateWorkExperience(id: number, workExperience: Partial<InsertWorkExperience>): Promise<WorkExperience>;
   deleteWorkExperience(id: number): Promise<void>;
   clearWorkExperiencesByProfileId(profileId: number): Promise<void>;
+  
+  // University operations
+  getUniversity(id: number): Promise<University | undefined>;
+  getUniversities(
+    limit?: number, 
+    offset?: number, 
+    filters?: { country?: string; name?: string; }
+  ): Promise<University[]>;
+  getUniversityCount(filters?: { country?: string; name?: string; }): Promise<number>;
+  createUniversity(university: Partial<InsertUniversity>): Promise<University>;
+  updateUniversity(id: number, university: Partial<InsertUniversity>): Promise<University>;
+  deleteUniversity(id: number): Promise<void>;
+  
+  // Program operations
+  getProgram(id: number): Promise<Program | undefined>;
+  getProgramsByUniversity(
+    universityId: number,
+    limit?: number,
+    offset?: number,
+    filters?: { level?: string; discipline?: string; degree?: string; name?: string; }
+  ): Promise<Program[]>;
+  getProgramCount(
+    universityId?: number,
+    filters?: { level?: string; discipline?: string; degree?: string; name?: string; }
+  ): Promise<number>;
+  createProgram(program: Partial<InsertProgram>): Promise<Program>;
+  updateProgram(id: number, program: Partial<InsertProgram>): Promise<Program>;
+  deleteProgram(id: number): Promise<void>;
+  
+  // Application operations
+  getApplication(id: number): Promise<Application | undefined>;
+  getApplicationsByStudent(studentId: number): Promise<Application[]>;
+  createApplication(application: Partial<InsertApplication>): Promise<Application>;
+  updateApplication(id: number, application: Partial<InsertApplication>): Promise<Application>;
+  deleteApplication(id: number): Promise<void>;
+  
+  // Application Document operations
+  getApplicationDocument(id: number): Promise<ApplicationDocument | undefined>;
+  getApplicationDocumentsByApplication(applicationId: number): Promise<ApplicationDocument[]>;
+  createApplicationDocument(document: Partial<InsertApplicationDocument>): Promise<ApplicationDocument>;
+  updateApplicationDocument(id: number, document: Partial<InsertApplicationDocument>): Promise<ApplicationDocument>;
+  deleteApplicationDocument(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -414,4 +470,415 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  // User operations
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user;
+  }
+
+  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.googleId, googleId));
+    return user;
+  }
+
+  async getUserByFacebookId(facebookId: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.facebookId, facebookId));
+    return user;
+  }
+
+  async createUser(userData: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values({ ...userData })
+      .returning();
+    return user;
+  }
+
+  async updateUser(id: number, userData: Partial<InsertUser>): Promise<User> {
+    const [user] = await db
+      .update(users)
+      .set({ ...userData, updatedAt: new Date() })
+      .where(eq(users.id, id))
+      .returning();
+    return user;
+  }
+
+  // Session operations
+  async createSession(userId: number, token: string, expiresAt: Date): Promise<void> {
+    // This would typically be implemented with a separate sessions table
+    // For now, just log the action
+    console.log(`Creating session for user ${userId} with token ${token} expiring at ${expiresAt}`);
+  }
+
+  async getSessionByToken(token: string): Promise<any | undefined> {
+    // This would typically be implemented with a separate sessions table
+    // For now, return undefined
+    return undefined;
+  }
+
+  async deleteSession(token: string): Promise<void> {
+    // This would typically be implemented with a separate sessions table
+    // For now, just log the action
+    console.log(`Deleting session with token ${token}`);
+  }
+
+  // Student profile operations
+  async getStudentProfile(id: number): Promise<StudentProfile | undefined> {
+    const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.id, id));
+    return profile;
+  }
+
+  async getStudentProfileByUserId(userId: number): Promise<StudentProfile | undefined> {
+    const [profile] = await db.select().from(studentProfiles).where(eq(studentProfiles.userId, userId));
+    return profile;
+  }
+
+  async createStudentProfile(profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
+    const [profile] = await db
+      .insert(studentProfiles)
+      .values({ ...profileData })
+      .returning();
+    return profile;
+  }
+
+  async updateStudentProfile(id: number, profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
+    const [profile] = await db
+      .update(studentProfiles)
+      .set({ ...profileData, updatedAt: new Date() })
+      .where(eq(studentProfiles.id, id))
+      .returning();
+    return profile;
+  }
+
+  async updateCompletionPercentage(id: number, percentage: number): Promise<void> {
+    await db
+      .update(studentProfiles)
+      .set({ completionPercentage: percentage, updatedAt: new Date() })
+      .where(eq(studentProfiles.id, id));
+  }
+
+  // School operations
+  async getSchool(id: number): Promise<School | undefined> {
+    const [school] = await db.select().from(schools).where(eq(schools.id, id));
+    return school;
+  }
+
+  async getSchoolsByProfileId(profileId: number): Promise<School[]> {
+    return db.select().from(schools).where(eq(schools.profileId, profileId));
+  }
+
+  async createSchool(schoolData: Partial<InsertSchool>): Promise<School> {
+    const [school] = await db
+      .insert(schools)
+      .values({ ...schoolData })
+      .returning();
+    return school;
+  }
+
+  async updateSchool(id: number, schoolData: Partial<InsertSchool>): Promise<School> {
+    const [school] = await db
+      .update(schools)
+      .set(schoolData)
+      .where(eq(schools.id, id))
+      .returning();
+    return school;
+  }
+
+  async deleteSchool(id: number): Promise<void> {
+    await db.delete(schools).where(eq(schools.id, id));
+  }
+
+  async clearSchoolsByProfileId(profileId: number): Promise<void> {
+    await db.delete(schools).where(eq(schools.profileId, profileId));
+  }
+
+  // Test operations
+  async getTest(id: number): Promise<Test | undefined> {
+    const [test] = await db.select().from(tests).where(eq(tests.id, id));
+    return test;
+  }
+
+  async getTestsByProfileId(profileId: number): Promise<Test[]> {
+    return db.select().from(tests).where(eq(tests.profileId, profileId));
+  }
+
+  async createTest(testData: Partial<InsertTest>): Promise<Test> {
+    const [test] = await db
+      .insert(tests)
+      .values({ ...testData })
+      .returning();
+    return test;
+  }
+
+  async updateTest(id: number, testData: Partial<InsertTest>): Promise<Test> {
+    const [test] = await db
+      .update(tests)
+      .set(testData)
+      .where(eq(tests.id, id))
+      .returning();
+    return test;
+  }
+
+  async deleteTest(id: number): Promise<void> {
+    await db.delete(tests).where(eq(tests.id, id));
+  }
+
+  async clearTestsByProfileId(profileId: number): Promise<void> {
+    await db.delete(tests).where(eq(tests.profileId, profileId));
+  }
+
+  // Work experience operations
+  async getWorkExperience(id: number): Promise<WorkExperience | undefined> {
+    const [workExp] = await db.select().from(workExperiences).where(eq(workExperiences.id, id));
+    return workExp;
+  }
+
+  async getWorkExperiencesByProfileId(profileId: number): Promise<WorkExperience[]> {
+    return db.select().from(workExperiences).where(eq(workExperiences.profileId, profileId));
+  }
+
+  async createWorkExperience(workExpData: Partial<InsertWorkExperience>): Promise<WorkExperience> {
+    const [workExp] = await db
+      .insert(workExperiences)
+      .values({ ...workExpData })
+      .returning();
+    return workExp;
+  }
+
+  async updateWorkExperience(id: number, workExpData: Partial<InsertWorkExperience>): Promise<WorkExperience> {
+    const [workExp] = await db
+      .update(workExperiences)
+      .set(workExpData)
+      .where(eq(workExperiences.id, id))
+      .returning();
+    return workExp;
+  }
+
+  async deleteWorkExperience(id: number): Promise<void> {
+    await db.delete(workExperiences).where(eq(workExperiences.id, id));
+  }
+
+  async clearWorkExperiencesByProfileId(profileId: number): Promise<void> {
+    await db.delete(workExperiences).where(eq(workExperiences.profileId, profileId));
+  }
+
+  // University operations
+  async getUniversity(id: number): Promise<University | undefined> {
+    const [university] = await db.select().from(universities).where(eq(universities.id, id));
+    return university;
+  }
+
+  async getUniversities(
+    limit: number = 20,
+    offset: number = 0,
+    filters?: { country?: string; name?: string }
+  ): Promise<University[]> {
+    let query = db.select().from(universities);
+
+    if (filters) {
+      if (filters.country) {
+        query = query.where(eq(universities.country, filters.country));
+      }
+      if (filters.name) {
+        query = query.where(ilike(universities.name, `%${filters.name}%`));
+      }
+    }
+
+    return query.limit(limit).offset(offset).orderBy(universities.name);
+  }
+
+  async getUniversityCount(filters?: { country?: string; name?: string }): Promise<number> {
+    let query = db.select({ count: sql<number>`count(*)` }).from(universities);
+
+    if (filters) {
+      if (filters.country) {
+        query = query.where(eq(universities.country, filters.country));
+      }
+      if (filters.name) {
+        query = query.where(ilike(universities.name, `%${filters.name}%`));
+      }
+    }
+
+    const [result] = await query;
+    return result?.count || 0;
+  }
+
+  async createUniversity(universityData: Partial<InsertUniversity>): Promise<University> {
+    const [university] = await db
+      .insert(universities)
+      .values({ ...universityData })
+      .returning();
+    return university;
+  }
+
+  async updateUniversity(id: number, universityData: Partial<InsertUniversity>): Promise<University> {
+    const [university] = await db
+      .update(universities)
+      .set({ ...universityData, updatedAt: new Date() })
+      .where(eq(universities.id, id))
+      .returning();
+    return university;
+  }
+
+  async deleteUniversity(id: number): Promise<void> {
+    await db.delete(universities).where(eq(universities.id, id));
+  }
+
+  // Program operations
+  async getProgram(id: number): Promise<Program | undefined> {
+    const [program] = await db.select().from(programs).where(eq(programs.id, id));
+    return program;
+  }
+
+  async getProgramsByUniversity(
+    universityId: number,
+    limit: number = 20,
+    offset: number = 0,
+    filters?: { level?: string; discipline?: string; degree?: string; name?: string }
+  ): Promise<Program[]> {
+    let query = db.select().from(programs).where(eq(programs.universityId, universityId));
+
+    if (filters) {
+      if (filters.level) {
+        query = query.where(eq(programs.level, filters.level));
+      }
+      if (filters.discipline) {
+        query = query.where(eq(programs.discipline, filters.discipline));
+      }
+      if (filters.degree) {
+        query = query.where(eq(programs.degree, filters.degree));
+      }
+      if (filters.name) {
+        query = query.where(ilike(programs.name, `%${filters.name}%`));
+      }
+    }
+
+    return query.limit(limit).offset(offset).orderBy(programs.name);
+  }
+
+  async getProgramCount(
+    universityId?: number,
+    filters?: { level?: string; discipline?: string; degree?: string; name?: string }
+  ): Promise<number> {
+    let query = db.select({ count: sql<number>`count(*)` }).from(programs);
+
+    if (universityId) {
+      query = query.where(eq(programs.universityId, universityId));
+    }
+
+    if (filters) {
+      if (filters.level) {
+        query = query.where(eq(programs.level, filters.level));
+      }
+      if (filters.discipline) {
+        query = query.where(eq(programs.discipline, filters.discipline));
+      }
+      if (filters.degree) {
+        query = query.where(eq(programs.degree, filters.degree));
+      }
+      if (filters.name) {
+        query = query.where(ilike(programs.name, `%${filters.name}%`));
+      }
+    }
+
+    const [result] = await query;
+    return result?.count || 0;
+  }
+
+  async createProgram(programData: Partial<InsertProgram>): Promise<Program> {
+    const [program] = await db
+      .insert(programs)
+      .values({ ...programData })
+      .returning();
+    return program;
+  }
+
+  async updateProgram(id: number, programData: Partial<InsertProgram>): Promise<Program> {
+    const [program] = await db
+      .update(programs)
+      .set({ ...programData, updatedAt: new Date() })
+      .where(eq(programs.id, id))
+      .returning();
+    return program;
+  }
+
+  async deleteProgram(id: number): Promise<void> {
+    await db.delete(programs).where(eq(programs.id, id));
+  }
+
+  // Application operations
+  async getApplication(id: number): Promise<Application | undefined> {
+    const [application] = await db.select().from(applications).where(eq(applications.id, id));
+    return application;
+  }
+
+  async getApplicationsByStudent(studentId: number): Promise<Application[]> {
+    return db.select().from(applications).where(eq(applications.studentId, studentId));
+  }
+
+  async createApplication(applicationData: Partial<InsertApplication>): Promise<Application> {
+    const [application] = await db
+      .insert(applications)
+      .values({ ...applicationData })
+      .returning();
+    return application;
+  }
+
+  async updateApplication(id: number, applicationData: Partial<InsertApplication>): Promise<Application> {
+    const [application] = await db
+      .update(applications)
+      .set({ ...applicationData, lastUpdated: new Date() })
+      .where(eq(applications.id, id))
+      .returning();
+    return application;
+  }
+
+  async deleteApplication(id: number): Promise<void> {
+    await db.delete(applications).where(eq(applications.id, id));
+  }
+
+  // Application Document operations
+  async getApplicationDocument(id: number): Promise<ApplicationDocument | undefined> {
+    const [document] = await db.select().from(applicationDocuments).where(eq(applicationDocuments.id, id));
+    return document;
+  }
+
+  async getApplicationDocumentsByApplication(applicationId: number): Promise<ApplicationDocument[]> {
+    return db.select().from(applicationDocuments).where(eq(applicationDocuments.applicationId, applicationId));
+  }
+
+  async createApplicationDocument(documentData: Partial<InsertApplicationDocument>): Promise<ApplicationDocument> {
+    const [document] = await db
+      .insert(applicationDocuments)
+      .values({ ...documentData })
+      .returning();
+    return document;
+  }
+
+  async updateApplicationDocument(id: number, documentData: Partial<InsertApplicationDocument>): Promise<ApplicationDocument> {
+    const [document] = await db
+      .update(applicationDocuments)
+      .set(documentData)
+      .where(eq(applicationDocuments.id, id))
+      .returning();
+    return document;
+  }
+
+  async deleteApplicationDocument(id: number): Promise<void> {
+    await db.delete(applicationDocuments).where(eq(applicationDocuments.id, id));
+  }
+}
+
+// Use DatabaseStorage instead of MemStorage
+export const storage = new DatabaseStorage();
