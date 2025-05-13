@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
-import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react';
+import { Search, Briefcase, Globe, School, Award, BookOpen, Plus, Minus } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
@@ -91,6 +91,18 @@ export default function Marketing() {
     { question: 'Are there any application fees?', answer: 'Application fees vary by university. You can view all fees before submitting your application.' },
     { question: 'Can Leadapps help with my visa application?', answer: 'Yes, we provide comprehensive visa guidance and resources to help you prepare your application.' },
   ];
+  
+  // State for managing which FAQ items are expanded
+  const [expandedFaqs, setExpandedFaqs] = useState<number[]>([]);
+  
+  // Toggle FAQ expansion
+  const toggleFaq = (index: number) => {
+    if (expandedFaqs.includes(index)) {
+      setExpandedFaqs(expandedFaqs.filter(i => i !== index));
+    } else {
+      setExpandedFaqs([...expandedFaqs, index]);
+    }
+  };
 
   return (
     <MarketingLayout>
@@ -348,13 +360,28 @@ export default function Marketing() {
           <h2 className="text-2xl font-bold text-center mb-8">Questions?</h2>
           <div className="max-w-3xl mx-auto space-y-4">
             {faqItems.map((item, index) => (
-              <Card key={index}>
-                <CardContent className="p-4">
+              <Card key={index} className="overflow-hidden border border-gray-100">
+                <div 
+                  className="p-4 cursor-pointer hover:bg-gray-50 flex justify-between items-center"
+                  onClick={() => toggleFaq(index)}
+                >
                   <h3 className="font-medium flex items-center gap-2">
                     <span className="text-blue-600">{index + 1}.</span> {item.question}
                   </h3>
-                  <p className="text-gray-600 mt-2">{item.answer}</p>
-                </CardContent>
+                  <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-all duration-200">
+                    {expandedFaqs.includes(index) ? <Minus size={15} /> : <Plus size={15} />}
+                  </button>
+                </div>
+                <div 
+                  className="overflow-hidden transition-all duration-300 ease-in-out" 
+                  style={{ 
+                    maxHeight: expandedFaqs.includes(index) ? '200px' : '0',
+                    opacity: expandedFaqs.includes(index) ? 1 : 0,
+                    padding: expandedFaqs.includes(index) ? '0 16px 16px 16px' : '0 16px'
+                  }}
+                >
+                  <p className="text-gray-600">{item.answer}</p>
+                </div>
               </Card>
             ))}
           </div>
