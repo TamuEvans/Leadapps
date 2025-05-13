@@ -3,8 +3,10 @@ import { Link } from 'wouter';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Search, User, Heart, School, BookOpen, Headphones } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export function AppHome() {
+  const { user } = useAuth();
   // Quick links
   const quickLinks = [
     { 
@@ -75,7 +77,11 @@ export function AppHome() {
       <div className="flex flex-col space-y-6">
         {/* Welcome Banner */}
         <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg p-6">
-          <h1 className="text-2xl font-bold mb-2">Welcome to YourStudyPath</h1>
+          <h1 className="text-2xl font-bold mb-2">
+            {user && user.firstName 
+              ? `Welcome ${user.firstName} to your Leadapps`
+              : 'Welcome to your Leadapps'}
+          </h1>
           <p className="opacity-90 mb-4">
             Your journey to international education starts here. Complete your profile to get personalized recommendations.
           </p>
