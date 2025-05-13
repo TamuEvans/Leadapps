@@ -77,16 +77,16 @@ const MarketingHeader = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="icon" className="relative text-gray-500 h-8 w-8">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+          <Button variant="ghost" size="icon" className="relative text-gray-500 h-10 w-10">
+            <Bell className="h-6 w-6" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               3
             </span>
           </Button>
           
           <Link to="/app">
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full p-0">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium">
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium">
                 SU
               </div>
             </Button>
