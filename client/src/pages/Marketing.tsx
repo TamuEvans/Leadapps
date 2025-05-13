@@ -209,12 +209,12 @@ export default function Marketing() {
               { image: "/images/students/student5.png", title: "Loan/Scholarship Support" },
               { image: "/images/students/student6.png", title: "Other", extraScale: true }
             ].map((service, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <div className="w-full relative" style={{ paddingTop: '110%' }}>
+              <div key={index} className="flex flex-col items-center group cursor-pointer">
+                <div className="w-full relative overflow-hidden rounded-xl" style={{ paddingTop: '110%' }}>
                   <img 
                     src={service.image} 
                     alt={service.title} 
-                    className={`absolute inset-0 w-full h-full object-cover rounded-xl transform ${service.extraScale ? 'scale-125' : 'scale-110'}`} 
+                    className={`absolute inset-0 w-full h-full object-cover transform ${service.extraScale ? 'scale-125 group-hover:scale-[1.3]' : 'scale-110 group-hover:scale-[1.15]'} transition-transform duration-300`} 
                   />
                 </div>
                 <p className="text-center font-medium text-gray-800 text-sm mt-3">{service.title}</p>
