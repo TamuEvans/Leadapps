@@ -104,10 +104,11 @@ const ApplicationStatusBadge = ({ status }: { status: string }) => {
       color = "bg-blue-100 text-blue-800";
       label = "Submitted";
       break;
-    case 'pending_payment':
+    // We've removed the payment step
+    /*case 'pending_payment':
       color = "bg-orange-100 text-orange-800";
       label = "Payment Required";
-      break;
+      break;*/
     case 'pending_review':
       color = "bg-yellow-100 text-yellow-800";
       label = "Pending Review";
