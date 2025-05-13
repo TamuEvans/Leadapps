@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useLocation, Link } from "wouter";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 import { 
   Search as SearchIcon, 
   MapPin, 
@@ -16,7 +20,8 @@ import {
   ScrollText,
   ClipboardList,
   FormInput,
-  X
+  X,
+  Loader2
 } from "lucide-react";
 import {
   Select,
@@ -188,6 +193,9 @@ const sortOptions = [
 ];
 
 const Search = () => {
+  // Navigation
+  const [, setLocation] = useLocation();
+  
   // State for search and filters
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [locationQuery, setLocationQuery] = useState<string>("");
@@ -215,6 +223,43 @@ const Search = () => {
   
   // Filter displayed results based on current search and filter values
   const [filteredResults, setFilteredResults] = useState(mockResults);
+  
+  // Mutation for creating a new application
+  const createApplicationMutation = useMutation({
+    mutationFn: async (data: any) => {
+      return apiRequest("POST", "/api/applications", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Application started!",
+        description: "You've been redirected to the application page to continue.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error starting application",
+        description: error.message || "There was an error starting your application. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+  
+  // Handle Apply Now button click
+  const handleApplyNow = async (program: any) => {
+    try {
+      // Create a new application for this program
+      await createApplicationMutation.mutateAsync({
+        programId: program.id,
+        // The backend will assign the studentId based on the authenticated user
+        status: "draft"
+      });
+      
+      // Redirect to the applications page
+      setLocation("/app/my-applications");
+    } catch (error) {
+      console.error("Error creating application:", error);
+    }
+  };
   
   // Effect to update filters when any search or filter value changes
   React.useEffect(() => {
@@ -651,8 +696,18 @@ const Search = () => {
                       <p className="text-gray-600 text-sm mt-3 line-clamp-2">{program.description}</p>
                       
                       <div className="mt-4 flex flex-wrap justify-end gap-2">
-                        <Button variant="outline">View Details</Button>
-                        <Button variant="default" className="bg-primary hover:bg-primary/90">Apply Now</Button>
+                        <Button variant="outline" asChild>
+                          <Link to={`/app/programs/${program.id}`}>
+                            View Details
+                          </Link>
+                        </Button>
+                        <Button 
+                          variant="default" 
+                          className="bg-primary hover:bg-primary/90"
+                          onClick={() => handleApplyNow(program)}
+                        >
+                          Apply Now
+                        </Button>
                       </div>
                     </div>
                   </div>

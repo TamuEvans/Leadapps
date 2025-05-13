@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useLocation, useRoute } from "wouter";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -31,70 +29,53 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-// Make sure to call loadStripe outside of a component's render to avoid
-// recreating the Stripe object on every render
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-
-// Payment form component
-const PaymentForm = ({ applicationId, applicationFee }: { applicationId: number, applicationFee: number }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+// Action to submit application
+const SubmitApplication = ({ applicationId }: { applicationId: number }) => {
   const [, navigate] = useLocation();
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    setIsLoading(true);
-    setErrorMessage(undefined);
-
-    try {
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          // Redirect to applications page on success
-          return_url: window.location.origin + "/app/applications?success=true&applicationId=" + applicationId,
-        },
+  
+  // Submit application mutation
+  const submitApplicationMutation = useMutation({
+    mutationFn: async (id: number) => {
+      return apiRequest("PATCH", `/api/applications/${id}`, { 
+        status: "submitted",
+        submissionDate: new Date().toISOString()
       });
-
-      if (error) {
-        setErrorMessage(error.message);
-      }
-    } catch (err: any) {
-      setErrorMessage(err.message || "An unexpected error occurred");
+    },
+    onSuccess: () => {
+      // Refresh the applications data
+      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      
+      // Redirect to applications page with success parameter
+      navigate("/app/applications?success=true", { replace: true });
+    },
+    onError: (error) => {
+      console.error("Error submitting application:", error);
+    }
+  });
+  
+  const handleSubmitApplication = async () => {
+    setIsLoading(true);
+    try {
+      await submitApplicationMutation.mutateAsync(applicationId);
+    } catch (error) {
+      console.error("Error in submit handler:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="rounded-md border border-gray-200 p-4">
-        <PaymentElement />
-      </div>
-
-      {errorMessage && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Payment Error</AlertTitle>
-          <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-      )}
-
+    <div className="space-y-6">
       <div className="text-sm text-gray-500 mb-4">
-        <p className="mb-2">You will be charged <strong>${(applicationFee/100).toFixed(2)} USD</strong> for this application fee.</p>
-        <p>This payment secures your application submission to the institution.</p>
+        <p className="mb-2">You are about to submit your application to the institution for review.</p>
+        <p>Once submitted, your application will be processed by the admissions team.</p>
       </div>
 
       <Button 
-        type="submit" 
+        onClick={handleSubmitApplication}
         className="w-full" 
-        disabled={!stripe || isLoading}
+        disabled={isLoading}
       >
         {isLoading ? (
           <>
@@ -102,43 +83,9 @@ const PaymentForm = ({ applicationId, applicationFee }: { applicationId: number,
             Processing...
           </>
         ) : (
-          <>Pay Application Fee</>
+          <>Submit Application</>
         )}
       </Button>
-    </form>
-  );
-};
-
-// Payment gateway component - wraps the payment form with Elements provider
-const PaymentGateway = ({ applicationId, applicationFee }: { applicationId: number, applicationFee: number }) => {
-  const [clientSecret, setClientSecret] = useState("");
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the component loads
-    apiRequest("POST", "/api/create-payment-intent", { 
-      applicationId, 
-      amount: applicationFee 
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret);
-      })
-      .catch(err => {
-        console.error("Error creating payment intent:", err);
-      });
-  }, [applicationId, applicationFee]);
-
-  return (
-    <div>
-      {clientSecret ? (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <PaymentForm applicationId={applicationId} applicationFee={applicationFee} />
-        </Elements>
-      ) : (
-        <div className="flex justify-center p-6">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      )}
     </div>
   );
 };
@@ -191,7 +138,7 @@ const ApplicationStatusBadge = ({ status }: { status: string }) => {
 const Applications = () => {
   const [, params] = useRoute("/app/applications");
   const [location, navigate] = useLocation();
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [showSubmitDialog, setShowSubmitDialog] = useState(false);
   const [currentApplication, setCurrentApplication] = useState<any>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -199,10 +146,9 @@ const Applications = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const success = urlParams.get('success');
-    const applicationId = urlParams.get('applicationId');
     
-    if (success === 'true' && applicationId) {
-      setSuccessMessage("Your application fee has been successfully paid! Your application is now submitted for review.");
+    if (success === 'true') {
+      setSuccessMessage("Your application has been successfully submitted for review!");
       
       // Clear the URL parameters after reading them
       navigate("/app/applications", { replace: true });
@@ -229,10 +175,10 @@ const Applications = () => {
     }).format(date);
   };
 
-  // Open payment dialog for a specific application
-  const handlePaymentClick = (application: any) => {
+  // Open submit dialog for a specific application
+  const handleSubmitClick = (application: any) => {
     setCurrentApplication(application);
-    setShowPaymentDialog(true);
+    setShowSubmitDialog(true);
   };
 
   return (
