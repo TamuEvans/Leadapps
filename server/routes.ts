@@ -359,6 +359,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (university) {
             application.universityName = university.name;
             application.universityLocation = university.country;
+            application.universityLogo = university.logoUrl;
           }
         }
       }
@@ -404,7 +405,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               ...app,
               programName: program.name,
               universityName: university?.name || "Unknown University",
-              universityLocation: university ? `${university.city}, ${university.country}` : "Unknown"
+              universityLocation: university ? `${university.city}, ${university.country}` : "Unknown",
+              universityLogo: university?.logoUrl || null
             };
           }
           
