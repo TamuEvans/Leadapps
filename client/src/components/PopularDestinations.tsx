@@ -7,6 +7,7 @@ type Destination = {
   id: string;
   name: string;
   flag: string;
+  multiFlags?: string[]; // Optional array of additional flags
   image: string;
   cityImage: string;
   cssClass: string;
@@ -17,9 +18,10 @@ const destinations: Destination[] = [
   {
     id: 'caribbean',
     name: 'Caribbean',
-    flag: '🇯🇲',
+    flag: '🇯🇲', // Jamaica
+    multiFlags: ['🇹🇹', '🇧🇧', '🇧🇸', '🇬🇩'], // Trinidad, Barbados, Bahamas, Grenada
     image: '/images/destinations/caribbean.svg',
-    cityImage: '/images/destinations/cities/kingston.svg',
+    cityImage: '/images/destinations/cities/grenada.webp',
     cssClass: 'kingston-bg',
     universities: 12
   },
@@ -83,7 +85,15 @@ export const PopularDestinations = () => {
                   <div className="flex flex-col h-full overflow-hidden">
                     <div className={`city-card ${destination.cssClass}`}>
                       {/* Flag in corner of image */}
-                      <span className="corner-flag">{destination.flag}</span>
+                      {destination.multiFlags ? (
+                        <div className="multi-flags">
+                          {destination.multiFlags.map((flag, index) => (
+                            <span key={index} className="flag">{flag}</span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="corner-flag">{destination.flag}</span>
+                      )}
                     </div>
                     <div className="white-card-footer">
                       <div className="destination-title">
