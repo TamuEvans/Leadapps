@@ -90,15 +90,15 @@ export default function Marketing() {
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
-          <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl mt-40 md:mt-48">
-            <div className="space-y-4 mb-4">
+          <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl mt-32 md:mt-40">
+            <div className="space-y-3 mb-3">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white modern-heading drop-shadow-lg">
                 study made simple.
               </h1>
               <p className="text-white text-sm md:text-base font-medium drop-shadow-md max-w-md">
                 Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 pt-1">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Link to="/app">
                   <Button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-xs md:text-sm font-medium border border-white/20 shadow-md">
                     Get Started
