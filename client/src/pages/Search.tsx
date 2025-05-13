@@ -262,8 +262,8 @@ const Search = () => {
       
       // Add a short delay to ensure the data is fetched before navigation
       setTimeout(() => {
-        // Redirect to the applications page
-        setLocation("/app/applications");
+        // Redirect to the applications page with a parameter indicating we came from search
+        setLocation("/app/applications?from=search");
       }, 300);
     } catch (error) {
       console.error("Error creating application:", error);

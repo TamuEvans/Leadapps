@@ -146,22 +146,6 @@ const Applications = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [deleteMessage, setDeleteMessage] = useState<string | null>(null);
 
-  // Extract success parameter from URL
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
-    
-    if (success === 'true') {
-      setSuccessMessage("Your application has been successfully submitted for review!");
-      
-      // Clear the URL parameters after reading them
-      navigate("/app/applications", { replace: true });
-      
-      // Refresh the applications data
-      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
-    }
-  }, [location, navigate]);
-
   // Define Application type
   interface Application {
     id: number;
@@ -189,6 +173,36 @@ const Applications = () => {
     refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
+  
+  // Effect to handle URL parameters and trigger refetches
+  useEffect(() => {
+    // Handle success parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const fromSearch = urlParams.get('from') === 'search';
+    
+    if (success === 'true') {
+      setSuccessMessage("Your application has been successfully submitted for review!");
+      
+      // Clear the URL parameters after reading them
+      navigate("/app/applications", { replace: true });
+      
+      // Refresh the applications data
+      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      refetch();
+    }
+    
+    // If coming from search, force a refetch
+    if (fromSearch) {
+      // Clear the URL parameter
+      navigate("/app/applications", { replace: true });
+      
+      // Force a delay and refetch
+      setTimeout(() => {
+        refetch();
+      }, 300);
+    }
+  }, [location, navigate, refetch]);
   
   // Force refetch on mount
   useEffect(() => {
