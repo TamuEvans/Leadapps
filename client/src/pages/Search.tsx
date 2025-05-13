@@ -141,7 +141,7 @@ const durations = [
 // Sort options
 const sortOptions = [
   { value: "relevance", label: "Relevance" },
-  { value: "name_asc", label: "Program Name A-Z" },
+  { value: "name_asc", label: "Programme Name A-Z" },
   { value: "inst_asc", label: "Institution Name A-Z" },
   { value: "tuition_low", label: "Tuition Low-High" }
 ];
@@ -228,7 +228,7 @@ const Search = () => {
   
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">Search Programs & Institutions</h1>
+      <h1 className="text-2xl font-bold text-gray-800">Search Programmes & Institutions</h1>
       
       {/* Search Bar & Primary Filters */}
       <Card className="bg-white shadow-sm">
@@ -241,7 +241,7 @@ const Search = () => {
               <div className="relative">
                 <Input
                   id="searchQuery"
-                  placeholder="Enter keywords, program name, or subject..."
+                  placeholder="Enter keywords, programme name, or subject..."
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -290,7 +290,7 @@ const Search = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <div>
                 <label htmlFor="programLevel" className="block text-xs font-medium text-gray-500 mb-1">
-                  Program Level
+                  Programme Level
                 </label>
                 <Select
                   value={programLevel}
@@ -580,7 +580,7 @@ const Search = () => {
           <SearchIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <h2 className="text-lg font-medium text-gray-700 mb-2">Start Your Search</h2>
           <p className="max-w-md mx-auto">
-            Enter a subject, program, or field of study above to search for educational programs that match your interests and qualifications.
+            Enter a subject, programme, or field of study above to search for educational programmes that match your interests and qualifications.
           </p>
         </div>
       )}
