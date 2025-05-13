@@ -39,8 +39,8 @@ const destinations: Destination[] = [
     name: 'USA',
     flag: '🇺🇸',
     image: '/images/destinations/usa.svg',
-    cityImage: '/images/destinations/cities/newyork.svg',
-    cssClass: 'newyork-bg',
+    cityImage: '/images/destinations/cities/miami.jpg',
+    cssClass: 'miami-bg',
     universities: 200
   },
   {
