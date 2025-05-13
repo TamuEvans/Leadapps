@@ -20,7 +20,7 @@ import { SiFacebook } from 'react-icons/si';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
-import MarketingLayout from '@/layouts/MarketingLayout';
+import LoginLayout from '@/layouts/LoginLayout';
 import { SocialLoginCompactButtons } from '@/components/SocialLoginButtons';
 
 // Login schema
@@ -130,8 +130,8 @@ export default function StudentLogin() {
   };
 
   return (
-    <MarketingLayout>
-      <div className="container mx-auto px-4 py-12">
+    <LoginLayout>
+      <div className="container mx-auto px-4 py-24 mt-8"> {/* Added mt-8 for 1 inch space after nav */}
         <div className="max-w-md mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">Student Portal</h1>
           <Card>
@@ -271,6 +271,6 @@ export default function StudentLogin() {
           </Card>
         </div>
       </div>
-    </MarketingLayout>
+    </LoginLayout>
   );
 }
