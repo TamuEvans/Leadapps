@@ -42,29 +42,36 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   // Get the page title based on current location path
   const getPageTitle = () => {
     switch (location) {
-      case "/":
+      case "/app":
         return "Home";
-      case "/profile":
+      case "/app/profile":
         return "Student Profile";
-      case "/search":
+      case "/app/search":
         return "Search";
-      case "/wishlist":
+      case "/app/wishlist":
         return "Wishlist";
-      case "/applications":
+      case "/app/applications":
         return "Applications";
-      case "/personality-hub":
+      case "/app/personality-hub":
         return "My Personality Hub";
-      case "/counselling":
+      case "/app/counselling":
         return "Counselling";
-      case "/articles":
+      case "/app/articles":
         return "Articles";
       default:
+        if (location.startsWith("/app/profile")) return "Student Profile";
+        if (location.startsWith("/app/search")) return "Search";
+        if (location.startsWith("/app/wishlist")) return "Wishlist";
+        if (location.startsWith("/app/applications")) return "Applications";
+        if (location.startsWith("/app/personality-hub")) return "My Personality Hub";
+        if (location.startsWith("/app/counselling")) return "Counselling";
+        if (location.startsWith("/app/articles")) return "Articles";
         return "Not Found";
     }
   };
 
   // Check if this is a subpage (not the home page)
-  const isSubPage = location !== "/";
+  const isSubPage = location !== "/app";
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-background">
@@ -82,7 +89,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   {isSubPage && (
                     <div 
                       className="text-gradient hover:underline flex items-center cursor-pointer mr-1"
-                      onClick={() => window.location.href = "/"}
+                      onClick={() => window.location.href = "/app"}
                     >
                       <ArrowLeft className="w-3 h-3 mr-1" /> Home
                     </div>

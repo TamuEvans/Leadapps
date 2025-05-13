@@ -37,14 +37,14 @@ const Sidebar = () => {
   }, [expanded]);
 
   const navigationItems = [
-    { path: "/", label: "Home", icon: <Home className="w-5 h-5" /> },
-    { path: "/profile", label: "Profile", icon: <User className="w-5 h-5" /> },
-    { path: "/search", label: "Search", icon: <Search className="w-5 h-5" /> },
-    { path: "/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" /> },
-    { path: "/applications", label: "Applications", icon: <FileText className="w-5 h-5" /> },
-    { path: "/personality-hub", label: "My Personality Hub", icon: <Brain className="w-5 h-5" /> },
-    { path: "/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" /> },
-    { path: "/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" /> },
+    { path: "/app", label: "Home", icon: <Home className="w-5 h-5" /> },
+    { path: "/app/profile", label: "Profile", icon: <User className="w-5 h-5" /> },
+    { path: "/app/search", label: "Search", icon: <Search className="w-5 h-5" /> },
+    { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" /> },
+    { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" /> },
+    { path: "/app/personality-hub", label: "My Personality Hub", icon: <Brain className="w-5 h-5" /> },
+    { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" /> },
+    { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" /> },
   ];
 
   const handleMouseEnter = () => {
@@ -107,7 +107,7 @@ const Sidebar = () => {
                 className={cn(
                   "flex items-center rounded-md cursor-pointer transition-all duration-200",
                   expanded ? "px-4 py-2" : "px-2 py-2 justify-center",
-                  location === item.path 
+                  (location === item.path || (item.path !== "/app" && location.startsWith(item.path)))
                     ? "bg-gradient-primary text-white font-medium" 
                     : "hover:bg-gray-100 text-gray-600"
                 )}
@@ -119,7 +119,7 @@ const Sidebar = () => {
               >
                 <span className={cn(
                   expanded ? "w-5" : "w-5",
-                  location === item.path ? "text-white" : "text-gray-500"
+                  (location === item.path || (item.path !== "/app" && location.startsWith(item.path))) ? "text-white" : "text-gray-500"
                 )}>
                   {item.icon}
                 </span>
