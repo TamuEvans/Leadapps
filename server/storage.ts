@@ -684,34 +684,62 @@ export class DatabaseStorage implements IStorage {
     offset: number = 0,
     filters?: { country?: string; name?: string }
   ): Promise<University[]> {
-    let query = db.select().from(universities);
-
+    // Start with empty conditions array
+    let conditions: any[] = [];
+    
+    // Add filters if provided
     if (filters) {
       if (filters.country) {
-        query = query.where(eq(universities.country, filters.country));
+        conditions.push(eq(universities.country, filters.country));
       }
       if (filters.name) {
-        query = query.where(ilike(universities.name, `%${filters.name}%`));
+        conditions.push(ilike(universities.name, `%${filters.name}%`));
       }
     }
-
-    return query.limit(limit).offset(offset).orderBy(universities.name);
+    
+    // Execute query with conditions if any exist
+    if (conditions.length > 0) {
+      return db
+        .select()
+        .from(universities)
+        .where(and(...conditions))
+        .limit(limit)
+        .offset(offset)
+        .orderBy(universities.name);
+    } else {
+      return db
+        .select()
+        .from(universities)
+        .limit(limit)
+        .offset(offset)
+        .orderBy(universities.name);
+    }
   }
 
   async getUniversityCount(filters?: { country?: string; name?: string }): Promise<number> {
-    let query = db.select({ count: sql<number>`count(*)` }).from(universities);
-
+    // Start with empty conditions array
+    let conditions: any[] = [];
+    
+    // Add filters if provided
     if (filters) {
       if (filters.country) {
-        query = query.where(eq(universities.country, filters.country));
+        conditions.push(eq(universities.country, filters.country));
       }
       if (filters.name) {
-        query = query.where(ilike(universities.name, `%${filters.name}%`));
+        conditions.push(ilike(universities.name, `%${filters.name}%`));
       }
     }
-
-    const [result] = await query;
-    return result?.count || 0;
+    
+    // Execute query with conditions if any exist
+    const query = db.select({ count: sql<number>`count(*)` }).from(universities);
+    
+    if (conditions.length > 0) {
+      const [result] = await query.where(and(...conditions));
+      return result?.count || 0;
+    } else {
+      const [result] = await query;
+      return result?.count || 0;
+    }
   }
 
   async createUniversity(universityData: Partial<InsertUniversity>): Promise<University> {
@@ -747,53 +775,74 @@ export class DatabaseStorage implements IStorage {
     offset: number = 0,
     filters?: { level?: string; discipline?: string; degree?: string; name?: string }
   ): Promise<Program[]> {
-    let query = db.select().from(programs).where(eq(programs.universityId, universityId));
-
+    // Start with the base query
+    let conditions = [eq(programs.universityId, universityId)];
+    
+    // Add filter conditions
     if (filters) {
       if (filters.level) {
-        query = query.where(eq(programs.level, filters.level));
+        conditions.push(eq(programs.level, filters.level));
       }
       if (filters.discipline) {
-        query = query.where(eq(programs.discipline, filters.discipline));
+        conditions.push(eq(programs.discipline, filters.discipline));
       }
       if (filters.degree) {
-        query = query.where(eq(programs.degree, filters.degree));
+        conditions.push(eq(programs.degree, filters.degree));
       }
       if (filters.name) {
-        query = query.where(ilike(programs.name, `%${filters.name}%`));
+        conditions.push(ilike(programs.name, `%${filters.name}%`));
       }
     }
-
-    return query.limit(limit).offset(offset).orderBy(programs.name);
+    
+    // Execute the query with all conditions
+    return db
+      .select()
+      .from(programs)
+      .where(and(...conditions))
+      .limit(limit)
+      .offset(offset)
+      .orderBy(programs.name);
   }
 
   async getProgramCount(
     universityId?: number,
     filters?: { level?: string; discipline?: string; degree?: string; name?: string }
   ): Promise<number> {
-    let query = db.select({ count: sql<number>`count(*)` }).from(programs);
-
+    // Start with empty conditions array
+    let conditions: any[] = [];
+    
+    // Add university filter if provided
     if (universityId) {
-      query = query.where(eq(programs.universityId, universityId));
+      conditions.push(eq(programs.universityId, universityId));
     }
-
+    
+    // Add additional filters if provided
     if (filters) {
       if (filters.level) {
-        query = query.where(eq(programs.level, filters.level));
+        conditions.push(eq(programs.level, filters.level));
       }
       if (filters.discipline) {
-        query = query.where(eq(programs.discipline, filters.discipline));
+        conditions.push(eq(programs.discipline, filters.discipline));
       }
       if (filters.degree) {
-        query = query.where(eq(programs.degree, filters.degree));
+        conditions.push(eq(programs.degree, filters.degree));
       }
       if (filters.name) {
-        query = query.where(ilike(programs.name, `%${filters.name}%`));
+        conditions.push(ilike(programs.name, `%${filters.name}%`));
       }
     }
-
-    const [result] = await query;
-    return result?.count || 0;
+    
+    // Execute query with all conditions
+    const query = db.select({ count: sql<number>`count(*)` }).from(programs);
+    
+    // Only add where clause if there are conditions
+    if (conditions.length > 0) {
+      const [result] = await query.where(and(...conditions));
+      return result?.count || 0;
+    } else {
+      const [result] = await query;
+      return result?.count || 0;
+    }
   }
 
   async createProgram(programData: Partial<InsertProgram>): Promise<Program> {
