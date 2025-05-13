@@ -76,7 +76,7 @@ export const PopularDestinations = () => {
               style={{ zIndex: destinations.length - index }}
             >
               <Link 
-                href={`/study-locations/${destination.id}`}
+                href="/"
                 className="block"
               >
                 <Card className="destination-card border-2 border-white">
