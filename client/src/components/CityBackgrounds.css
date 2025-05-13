@@ -36,7 +36,8 @@
 .city-card {
   position: relative;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   height: 11rem;
 }
 
@@ -77,46 +78,27 @@
   background-image: url('/images/destinations/cities/sydney.svg');
 }
 
-.card-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10; /* Much higher z-index to stay above all other elements */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.white-card-footer {
+  background-color: white;
   padding: 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 80%);
-  pointer-events: none; /* Allow clicks to pass through */
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  z-index: 5;
 }
 
-.card-content .city-name {
-  color: white;
-  font-weight: 800;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 2px 3px rgba(0, 0, 0, 0.7); /* Enhanced shadow for better visibility */
-  z-index: 20;
-  background: rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  backdrop-filter: blur(2px);
+.destination-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
 }
 
-.card-content .universities {
-  color: rgba(255, 255, 255, 1);
-  font-size: 1rem;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); /* Add shadow for better visibility */
-  z-index: 20;
-  background: rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  backdrop-filter: blur(2px);
+.universities-count {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
 }
 
 .flag-icon {

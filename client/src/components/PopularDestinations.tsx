@@ -79,28 +79,29 @@ export const PopularDestinations = () => {
                 href="/"
                 className="block"
               >
-                <Card className="destination-card border-2 border-white">
-                  <div className={`city-card ${destination.cssClass}`}>
-                    <div className="card-content">
-                      <div className="city-name">
+                <Card className="destination-card border-none overflow-hidden p-0">
+                  <div className="flex flex-col h-full">
+                    <div className={`city-card ${destination.cssClass}`}>
+                      {/* Image area - now free of text */}
+                    </div>
+                    <div className="white-card-footer">
+                      <div className="destination-title">
                         <span className="flag-icon">{destination.flag}</span>
                         {destination.name}
                       </div>
-                      <div className="universities">
+                      <div className="universities-count">
                         {destination.universities} Universities
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <div className="text-xs text-gray-500">
+                          Popular Destination
+                        </div>
+                        <span className="text-primary text-xs font-medium">
+                          View →
+                        </span>
                       </div>
                     </div>
                   </div>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-center">
-                      <div className="text-sm text-gray-600">
-                        Popular Destination
-                      </div>
-                      <span className="text-primary text-sm font-medium">
-                        View →
-                      </span>
-                    </div>
-                  </CardContent>
                 </Card>
               </Link>
             </div>
