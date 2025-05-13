@@ -1,0 +1,37 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#b22234" />
+  <rect y="15.4" width="400" height="15.4" fill="white" />
+  <rect y="46.2" width="400" height="15.4" fill="white" />
+  <rect y="77.0" width="400" height="15.4" fill="white" />
+  <rect y="107.8" width="400" height="15.4" fill="white" />
+  <rect y="138.6" width="400" height="15.4" fill="white" />
+  <rect y="169.4" width="400" height="15.4" fill="white" />
+  <rect width="160" height="108.4" fill="#3c3b6e" />
+  <text x="200" y="180" font-family="Arial" font-size="24" text-anchor="middle" fill="white">United States</text>
+  <text x="30" y="30" font-family="Arial" font-size="36" font-weight="bold" fill="white">🇺🇸</text>
+  
+  <!-- Stars -->
+  <g fill="white">
+    <circle cx="20" cy="20" r="6" />
+    <circle cx="50" cy="20" r="6" />
+    <circle cx="80" cy="20" r="6" />
+    <circle cx="110" cy="20" r="6" />
+    <circle cx="140" cy="20" r="6" />
+    
+    <circle cx="35" cy="40" r="6" />
+    <circle cx="65" cy="40" r="6" />
+    <circle cx="95" cy="40" r="6" />
+    <circle cx="125" cy="40" r="6" />
+    
+    <circle cx="20" cy="60" r="6" />
+    <circle cx="50" cy="60" r="6" />
+    <circle cx="80" cy="60" r="6" />
+    <circle cx="110" cy="60" r="6" />
+    <circle cx="140" cy="60" r="6" />
+    
+    <circle cx="35" cy="80" r="6" />
+    <circle cx="65" cy="80" r="6" />
+    <circle cx="95" cy="80" r="6" />
+    <circle cx="125" cy="80" r="6" />
+  </g>
+</svg>

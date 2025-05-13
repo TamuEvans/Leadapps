@@ -1,0 +1,8 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="white" />
+  <rect width="100" height="200" fill="#ff0000" />
+  <rect x="300" width="100" height="200" fill="#ff0000" />
+  <path d="M200 50 L210 80 L240 80 L215 100 L225 130 L200 110 L175 130 L185 100 L160 80 L190 80 Z" fill="#ff0000" />
+  <text x="200" y="180" font-family="Arial" font-size="24" text-anchor="middle" fill="#ff0000">Canada</text>
+  <text x="30" y="30" font-family="Arial" font-size="36" font-weight="bold" fill="#ff0000">🇨🇦</text>
+</svg>

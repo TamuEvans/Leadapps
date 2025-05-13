@@ -1,0 +1,9 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#00247d" />
+  <path d="M 0 0 L 400 200 M 400 0 L 0 200" stroke="white" stroke-width="40" />
+  <path d="M 0 0 L 400 200 M 400 0 L 0 200" stroke="#cf142b" stroke-width="20" />
+  <path d="M 200 0 L 200 200 M 0 100 L 400 100" stroke="white" stroke-width="60" />
+  <path d="M 200 0 L 200 200 M 0 100 L 400 100" stroke="#cf142b" stroke-width="30" />
+  <text x="200" y="180" font-family="Arial" font-size="24" text-anchor="middle" fill="white">United Kingdom</text>
+  <text x="30" y="30" font-family="Arial" font-size="36" font-weight="bold" fill="white">🇬🇧</text>
+</svg>

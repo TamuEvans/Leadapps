@@ -1,0 +1,34 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="#00008b" />
+  <path d="M0 0 L200 100 L0 200" fill="#00008b" />
+  
+  <!-- Union Jack -->
+  <path d="M0 0 L60 30 M60 0 L0 30" stroke="white" stroke-width="10" />
+  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#ff0000" stroke-width="5" />
+  <path d="M30 0 L30 30 M0 15 L60 15" stroke="white" stroke-width="15" />
+  <path d="M30 0 L30 30 M0 15 L60 15" stroke="#ff0000" stroke-width="8" />
+  
+  <!-- Stars -->
+  <g fill="white">
+    <!-- Commonwealth Star -->
+    <polygon points="100,30 105,45 120,45 110,55 115,70 100,60 85,70 90,55 80,45 95,45" />
+    
+    <!-- Alpha Crucis -->
+    <polygon points="300,150 303,158 312,158 306,164 309,172 300,167 291,172 294,164 288,158 297,158" />
+    
+    <!-- Beta Crucis -->
+    <polygon points="270,100 273,108 282,108 276,114 279,122 270,117 261,122 264,114 258,108 267,108" />
+    
+    <!-- Gamma Crucis -->
+    <polygon points="330,100 333,108 342,108 336,114 339,122 330,117 321,122 324,114 318,108 327,108" />
+    
+    <!-- Delta Crucis -->
+    <polygon points="350,130 353,138 362,138 356,144 359,152 350,147 341,152 344,144 338,138 347,138" />
+    
+    <!-- Epsilon Crucis -->
+    <polygon points="250,130 253,138 262,138 256,144 259,152 250,147 241,152 244,144 238,138 247,138" />
+  </g>
+  
+  <text x="200" y="180" font-family="Arial" font-size="24" text-anchor="middle" fill="white">Australia</text>
+  <text x="30" y="30" font-family="Arial" font-size="36" font-weight="bold" fill="white">🇦🇺</text>
+</svg>
