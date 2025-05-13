@@ -241,24 +241,24 @@ const Applications = () => {
                   </div>
                 </div>
                 
-                {application.status === 'pending_payment' && (
+                {application.status === 'draft' && (
                   <Alert className="mt-4 bg-amber-50 border-amber-200">
                     <Clock className="h-4 w-4 text-amber-600" />
-                    <AlertTitle className="text-amber-800">Payment Required</AlertTitle>
+                    <AlertTitle className="text-amber-800">Ready for Submission</AlertTitle>
                     <AlertDescription className="text-amber-700">
-                      Your application fee of ${(application.applicationFee/100).toFixed(2)} USD must be paid to proceed with your application.
+                      Your application is ready to be submitted for review. Click the submit button below to continue.
                     </AlertDescription>
                   </Alert>
                 )}
               </CardContent>
               
               <CardFooter className="bg-gray-50 px-6 py-3 flex justify-end">
-                {application.status === 'pending_payment' ? (
+                {application.status === 'draft' ? (
                   <Button 
-                    onClick={() => handlePaymentClick(application)}
+                    onClick={() => handleSubmitClick(application)}
                     className="bg-primary hover:bg-primary/90"
                   >
-                    Pay Application Fee
+                    Submit Application
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </Button>
                 ) : (
@@ -273,21 +273,18 @@ const Applications = () => {
         </div>
       )}
       
-      {/* Payment Dialog */}
-      <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+      {/* Submission Dialog */}
+      <Dialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Pay Application Fee</DialogTitle>
+            <DialogTitle>Submit Application</DialogTitle>
             <DialogDescription>
-              Complete your payment to submit your application to {currentApplication?.universityName}
+              Submit your application to {currentApplication?.universityName} for review
             </DialogDescription>
           </DialogHeader>
           
           {currentApplication && (
-            <PaymentGateway 
-              applicationId={currentApplication.id} 
-              applicationFee={currentApplication.applicationFee} 
-            />
+            <SubmitApplication applicationId={currentApplication.id} />
           )}
         </DialogContent>
       </Dialog>

@@ -1,5 +1,6 @@
-import { useParams, Link } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { useParams, Link, useLocation } from 'wouter';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 import {
   Card,
   CardContent,
@@ -12,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { toast } from '@/hooks/use-toast';
 import { 
   BookOpen, 
   Clock, 
@@ -24,7 +26,8 @@ import {
   Globe,
   FileText,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 
 interface University {
@@ -63,6 +66,7 @@ interface Program {
 export default function ProgramProfilePage() {
   const { id } = useParams<{ id: string }>();
   const programId = parseInt(id);
+  const [, navigate] = useLocation();
   
   // Fetch program details
   const { data: program, isLoading: isLoadingProgram, isError: isErrorProgram } = 
@@ -91,6 +95,38 @@ export default function ProgramProfilePage() {
       },
       enabled: !!program?.universityId,
     });
+  
+  // Create application mutation
+  const createApplicationMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/applications", {
+        programId: programId,
+        status: "draft",
+      });
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Application Created",
+        description: "Your application has been created successfully. You can now complete and submit it.",
+        variant: "default",
+      });
+      // Redirect to applications page
+      navigate("/app/applications");
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "There was an error creating your application. Please try again.",
+        variant: "destructive",
+      });
+      console.error("Application creation error:", error);
+    }
+  });
+
+  const handleApplyNow = () => {
+    createApplicationMutation.mutate();
+  };
   
   // Format currency
   const formatCurrency = (amount: number, currency: string) => {
@@ -136,13 +172,12 @@ export default function ProgramProfilePage() {
               Back to Search
             </Link>
           </Button>
-          {university && (
-            <Button asChild>
-              <a href={university.websiteUrl} target="_blank" rel="noopener noreferrer">
-                Apply Now
-              </a>
-            </Button>
-          )}
+          <Button 
+            onClick={handleApplyNow}
+            className="bg-primary hover:bg-primary/90"
+          >
+            Apply Now
+          </Button>
         </div>
       </div>
       
