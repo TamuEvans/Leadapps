@@ -141,35 +141,13 @@ export default function Marketing() {
                 </div>
                 <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
                   <div className="md:col-span-2">
-                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
-                      <option value="" disabled selected>Programme</option>
-                      <option value="business">Business Administration</option>
-                      <option value="computer-science">Computer Science</option>
-                      <option value="digital-marketing">Digital Marketing</option>
-                      <option value="engineering">Engineering</option>
-                      <option value="medicine">Medicine</option>
-                      <option value="law">Law</option>
-                    </select>
+                    <Input placeholder="Programme" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
                   </div>
                   <div className="md:col-span-2">
-                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
-                      <option value="" disabled selected>Country/Region</option>
-                      <option value="caribbean">Caribbean</option>
-                      <option value="uk">UK</option>
-                      <option value="usa">USA</option>
-                      <option value="canada">Canada</option>
-                      <option value="australia">Australia</option>
-                    </select>
+                    <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
                   </div>
                   <div className="md:col-span-2">
-                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
-                      <option value="" disabled selected>Study Level</option>
-                      <option value="undergraduate">Undergraduate</option>
-                      <option value="postgraduate">Postgraduate</option>
-                      <option value="phd">PhD</option>
-                      <option value="diploma">Diploma</option>
-                      <option value="certificate">Certificate</option>
-                    </select>
+                    <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
                   </div>
                   <div className="md:col-span-1">
                     <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
