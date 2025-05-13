@@ -184,7 +184,7 @@ export default function Marketing() {
       {/* Lead Logos Section (From your mockup) */}
       <section className="bg-white py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-center text-xl font-bold mb-10 text-blue-600">
+          <h2 className="text-center text-2xl md:text-3xl font-bold mb-10 made-tommy-gradient">
             REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR <span className="whitespace-nowrap">CARIBBEAN STUDENTS</span>
           </h2>
           

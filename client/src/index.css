@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Made Tommy Font */
+@font-face {
+  font-family: 'Made Tommy';
+  font-style: normal;
+  font-weight: 400;
+  /* Fallback to system fonts until we have the actual font files */
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Made Tommy';
+  font-style: normal;
+  font-weight: 700;
+  /* Fallback to system fonts until we have the actual font files */
+  src: local('Arial Bold'), local('Helvetica Bold'), local('sans-serif');
+  font-display: swap;
+}
+
 :root {
       --background: 0 0% 100%;
 --foreground: 20 14.3% 4.1%;
@@ -71,6 +90,17 @@
   
   .text-gradient {
     background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-light)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .made-tommy-gradient {
+    font-family: 'Made Tommy', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(45deg, rgb(92, 0, 240), rgb(0, 153, 255));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
