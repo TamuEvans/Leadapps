@@ -118,6 +118,10 @@ export interface IStorage {
   createApplicationDocument(document: Partial<InsertApplicationDocument>): Promise<ApplicationDocument>;
   updateApplicationDocument(id: number, document: Partial<InsertApplicationDocument>): Promise<ApplicationDocument>;
   deleteApplicationDocument(id: number): Promise<void>;
+  
+  // Profile Document operations
+  getProfileDocuments(profileId: number): Promise<any[]>;
+  createProfileDocument(document: any): Promise<any>;
 }
 
 export class MemStorage implements IStorage {

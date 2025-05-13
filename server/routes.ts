@@ -601,6 +601,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Get profile documents
+  app.get(`${apiPrefix}/profile/documents`, async (req, res) => {
+    try {
+      // In a real app, you'd get the profile ID from authenticated user
+      // For demo, we'll use the demo profile
+      const profile = await storage.getStudentProfileByUserId(1);
+      
+      if (!profile) {
+        return res.status(404).json({ message: "Profile not found" });
+      }
+      
+      const documents = await storage.getProfileDocuments(profile.id);
+      res.json(documents);
+    } catch (error) {
+      console.error("Error fetching profile documents:", error);
+      res.status(500).json({ message: "Failed to fetch profile documents" });
+    }
+  });
+  
+  // Upload document for a profile
+  app.post(`${apiPrefix}/profile/documents`, async (req, res) => {
+    try {
+      // In a real app, you'd get the profile ID from authenticated user
+      // For demo, we'll use the demo profile
+      const profile = await storage.getStudentProfileByUserId(1);
+      
+      if (!profile) {
+        return res.status(404).json({ message: "Profile not found" });
+      }
+      
+      // Handle file upload here
+      // For now, we'll create a document record with mock data
+      const documentData = {
+        profileId: profile.id,
+        type: req.body.documentType,
+        fileName: req.body.fileName || `${req.body.documentType.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+        fileUrl: `/documents/${req.body.documentType.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+        uploadDate: new Date().toISOString()
+      };
+      
+      const document = await storage.createProfileDocument(documentData);
+      res.status(201).json(document);
+    } catch (error) {
+      console.error("Error uploading profile document:", error);
+      res.status(500).json({ message: "Failed to upload profile document" });
+    }
+  });
+
   // Get student profile documents for an application
   app.get(`${apiPrefix}/applications/:id/profile-documents`, async (req, res) => {
     try {
@@ -622,26 +670,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json([]);
       }
       
-      // This would normally fetch documents from the student profile
-      // For now, returning sample data since we haven't implemented document upload yet
-      const profileDocuments = [
-        {
-          id: 1,
-          profileId: studentProfile.id,
-          type: "Personal Statement",
-          fileUrl: "/documents/personal-statement.pdf",
-          fileName: "personal-statement.pdf",
-          uploadDate: new Date().toISOString()
-        },
-        {
-          id: 2,
-          profileId: studentProfile.id,
-          type: "Academic Transcript",
-          fileUrl: "/documents/transcript.pdf",
-          fileName: "transcript.pdf",
-          uploadDate: new Date().toISOString()
-        }
-      ];
+      // Get actual profile documents
+      const profileDocuments = await storage.getProfileDocuments(studentProfile.id);
+      
+      // If no documents exist yet, return some sample data for demo purposes
+      if (profileDocuments.length === 0) {
+        return res.json([
+          {
+            id: 1,
+            profileId: studentProfile.id,
+            type: "Passport",
+            fileUrl: "/documents/passport.pdf",
+            fileName: "passport.pdf",
+            uploadDate: new Date().toISOString()
+          },
+          {
+            id: 2,
+            profileId: studentProfile.id,
+            type: "Academic Transcript",
+            fileUrl: "/documents/transcript.pdf",
+            fileName: "transcript.pdf",
+            uploadDate: new Date().toISOString()
+          }
+        ]);
+      }
       
       res.json(profileDocuments);
     } catch (error) {
