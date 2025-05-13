@@ -236,7 +236,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (pageNum - 1) * limitNum;
       
       const filters: { country?: string; name?: string } = {};
-      if (country) filters.country = country as string;
+      if (country && country !== 'all') filters.country = country as string;
       if (name) filters.name = name as string;
       
       const universities = await storage.getUniversities(limitNum, offset, filters);
@@ -291,9 +291,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offset = (pageNum - 1) * limitNum;
       
       const filters: { level?: string; discipline?: string; degree?: string; name?: string } = {};
-      if (level) filters.level = level as string;
-      if (discipline) filters.discipline = discipline as string;
-      if (degree) filters.degree = degree as string;
+      if (level && level !== 'all') filters.level = level as string;
+      if (discipline && discipline !== 'all') filters.discipline = discipline as string;
+      if (degree && degree !== 'all') filters.degree = degree as string;
       if (name) filters.name = name as string;
       
       const programs = await storage.getProgramsByUniversity(universityId, limitNum, offset, filters);

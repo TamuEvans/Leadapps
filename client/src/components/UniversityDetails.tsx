@@ -77,8 +77,8 @@ export function UniversityDetails() {
   const universityId = parseInt(id);
   
   // State for program filters
-  const [disciplineFilter, setDisciplineFilter] = useState('');
-  const [levelFilter, setLevelFilter] = useState('');
+  const [disciplineFilter, setDisciplineFilter] = useState('all');
+  const [levelFilter, setLevelFilter] = useState('all');
   const [nameFilter, setNameFilter] = useState('');
   const [page, setPage] = useState(1);
   const limit = 10; // Number of programs per page
@@ -99,8 +99,8 @@ export function UniversityDetails() {
   // Build the query string for programs API call
   const buildQueryString = () => {
     const params = new URLSearchParams();
-    if (disciplineFilter) params.append('discipline', disciplineFilter);
-    if (levelFilter) params.append('level', levelFilter);
+    if (disciplineFilter && disciplineFilter !== 'all') params.append('discipline', disciplineFilter);
+    if (levelFilter && levelFilter !== 'all') params.append('level', levelFilter);
     if (nameFilter) params.append('name', nameFilter);
     params.append('page', page.toString());
     params.append('limit', limit.toString());
@@ -142,7 +142,7 @@ export function UniversityDetails() {
   
   // Option lists for filters
   const disciplines = [
-    { value: "", label: "All Disciplines" },
+    { value: "all", label: "All Disciplines" },
     { value: "Computing", label: "Computing" },
     { value: "Business", label: "Business" },
     { value: "Engineering", label: "Engineering" },
@@ -156,7 +156,7 @@ export function UniversityDetails() {
   ];
   
   const levels = [
-    { value: "", label: "All Levels" },
+    { value: "all", label: "All Levels" },
     { value: "Undergraduate", label: "Undergraduate" },
     { value: "Graduate", label: "Graduate" },
     { value: "Doctoral", label: "Doctoral" },
