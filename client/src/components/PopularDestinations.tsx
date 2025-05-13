@@ -79,14 +79,14 @@ export const PopularDestinations = () => {
                 href="/"
                 className="block"
               >
-                <Card className="destination-card border-none overflow-hidden p-0">
-                  <div className="flex flex-col h-full">
+                <Card className="destination-card shadow-none border-none overflow-hidden p-0 bg-white">
+                  <div className="flex flex-col h-full overflow-hidden">
                     <div className={`city-card ${destination.cssClass}`}>
-                      {/* Image area - now free of text */}
+                      {/* Flag in corner of image */}
+                      <span className="corner-flag">{destination.flag}</span>
                     </div>
                     <div className="white-card-footer">
                       <div className="destination-title">
-                        <span className="flag-icon">{destination.flag}</span>
                         {destination.name}
                       </div>
                       <div className="universities-count">
