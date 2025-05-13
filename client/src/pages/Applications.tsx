@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "@/hooks/use-toast";
+import { toast, useToast } from "@/hooks/use-toast";
 import {
   Accordion,
   AccordionContent,
@@ -34,13 +34,19 @@ import {
 const SubmitApplication = ({ applicationId }: { applicationId: number }) => {
   const [, navigate] = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const { toast } = useToast();
   
   // Submit application mutation
   const submitApplicationMutation = useMutation({
     mutationFn: async (id: number) => {
       return apiRequest("PATCH", `/api/applications/${id}`, { 
         status: "submitted",
-        submissionDate: new Date().toISOString()
+        submissionDate: new Date().toISOString(),
+        feePaid: true, // Mark fee as paid
+        lastUpdated: new Date().toISOString(),
+        internalNotes: "Application submitted and ready for CX team review. Application fee paid."
       });
     },
     onSuccess: () => {
@@ -49,44 +55,154 @@ const SubmitApplication = ({ applicationId }: { applicationId: number }) => {
       
       // Redirect to application details page
       navigate(`/app/application/${applicationId}`, { replace: true });
+      
+      // Show success toast
+      toast({
+        title: "Application Submitted",
+        description: "Your application has been submitted and is now under review by our team.",
+      });
     },
     onError: (error) => {
       console.error("Error submitting application:", error);
+      
+      toast({
+        title: "Submission Error",
+        description: "There was an error submitting your application. Please try again.",
+        variant: "destructive",
+      });
     }
   });
   
-  const handleSubmitApplication = async () => {
+  // Simulate payment processing
+  const processPayment = () => {
     setIsLoading(true);
-    try {
-      await submitApplicationMutation.mutateAsync(applicationId);
-    } catch (error) {
-      console.error("Error in submit handler:", error);
-    } finally {
+    
+    // Simulate payment processing delay
+    setTimeout(() => {
+      setPaymentCompleted(true);
       setIsLoading(false);
-    }
+      
+      // Automatically submit the application after payment
+      submitApplicationMutation.mutate(applicationId);
+    }, 1500);
+  };
+  
+  const handleSubmitApplication = async () => {
+    // Show payment form first
+    setShowPaymentForm(true);
   };
   
   return (
     <div className="space-y-6">
-      <div className="text-sm text-gray-500 mb-4">
-        <p className="mb-2">You are about to submit your application to the institution for review.</p>
-        <p>Once submitted, your application will be processed by the admissions team.</p>
-      </div>
+      {!showPaymentForm ? (
+        <>
+          <div className="text-sm text-gray-500 mb-4">
+            <p className="mb-2">You are about to submit your application to the institution for review.</p>
+            <p>Once submitted, your application will be processed by the admissions team.</p>
+            <p className="mt-2 font-medium">An application fee of $50.00 is required to proceed.</p>
+          </div>
 
-      <Button 
-        onClick={handleSubmitApplication}
-        className="w-full" 
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Processing...
-          </>
-        ) : (
-          <>Submit Application</>
-        )}
-      </Button>
+          <Button 
+            onClick={handleSubmitApplication}
+            className="w-full" 
+            disabled={isLoading}
+          >
+            Continue to Payment
+          </Button>
+        </>
+      ) : (
+        <>
+          <div className="border rounded-lg p-4 bg-gray-50">
+            <h3 className="font-medium mb-2">Application Fee Payment</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Please complete the payment to submit your application. This fee is non-refundable.
+            </p>
+            
+            {!paymentCompleted ? (
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded border">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="col-span-2">
+                      <label className="block text-sm font-medium mb-1">Cardholder Name</label>
+                      <input
+                        type="text"
+                        placeholder="John Smith"
+                        className="w-full p-2 border rounded"
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <label className="block text-sm font-medium mb-1">Card Number</label>
+                      <input
+                        type="text"
+                        placeholder="4242 4242 4242 4242"
+                        className="w-full p-2 border rounded"
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Expiration Date</label>
+                      <input
+                        type="text"
+                        placeholder="MM/YY"
+                        className="w-full p-2 border rounded"
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">CVC</label>
+                      <input
+                        type="text"
+                        placeholder="123"
+                        className="w-full p-2 border rounded"
+                        disabled={isLoading}
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="border-t pt-3 mt-3">
+                    <div className="flex justify-between font-medium">
+                      <span>Application Fee:</span>
+                      <span>$50.00</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowPaymentForm(false)}
+                    disabled={isLoading}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={processPayment}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+                        Processing...
+                      </>
+                    ) : (
+                      "Pay & Submit Application"
+                    )}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-4">
+                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+                <h3 className="text-lg font-medium mb-1">Payment Successful!</h3>
+                <p className="text-gray-600">Your application is being submitted...</p>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

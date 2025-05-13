@@ -486,9 +486,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Application not found" });
       }
       
-      const updatedApplication = await storage.updateApplication(id, {
-        ...req.body
-      });
+      const applicationData = { ...req.body };
+      
+      // Ensure dates are properly formatted
+      if (applicationData.submissionDate && typeof applicationData.submissionDate === 'string') {
+        applicationData.submissionDate = new Date(applicationData.submissionDate);
+      }
+      
+      if (applicationData.lastUpdated && typeof applicationData.lastUpdated === 'string') {
+        applicationData.lastUpdated = new Date(applicationData.lastUpdated);
+      } else {
+        // Always update the lastUpdated field
+        applicationData.lastUpdated = new Date();
+      }
+      
+      const updatedApplication = await storage.updateApplication(id, applicationData);
       
       res.status(200).json(updatedApplication);
     } catch (error) {
