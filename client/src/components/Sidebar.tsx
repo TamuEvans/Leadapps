@@ -72,25 +72,25 @@ const Sidebar = () => {
     <>
       <div className={cn(
         "border-b border-gray-200 transition-all duration-200 ease-in-out",
-        "p-2 flex items-center h-12"
+        "p-3 flex items-center h-16"
       )}>
-        <div className="flex items-center justify-between h-8">
-          <div className="flex items-center h-8 w-32 overflow-hidden relative">
+        <div className="flex items-center justify-between h-10">
+          <div className="flex items-center h-10 w-40 overflow-hidden relative">
             <img 
               src={leadappsLogo} 
               alt="Leadapps Logo" 
               className={cn(
-                "h-8 absolute top-0 left-0 transition-opacity duration-300",
+                "h-10 absolute top-0 left-0 transition-opacity duration-300",
                 expanded ? "opacity-100" : "opacity-0"
               )} 
             />
             <div 
               className={cn(
-                "w-8 h-8 rounded-full logo-icon-bg flex items-center justify-center absolute top-0 left-0 transition-opacity duration-300",
+                "w-10 h-10 rounded-full logo-icon-bg flex items-center justify-center absolute top-0 left-0 transition-opacity duration-300",
                 expanded ? "opacity-0" : "opacity-100"
               )}
             >
-              <div className="text-white font-bold text-lg">L</div>
+              <div className="text-white font-bold text-xl">L</div>
             </div>
           </div>
           {!isMobile && (
