@@ -210,11 +210,11 @@ export default function Marketing() {
               { image: "/images/students/student6.png", title: "Other" }
             ].map((service, index) => (
               <div key={index} className="flex flex-col items-center">
-                <div className="w-full aspect-square rounded-xl overflow-hidden">
+                <div className="w-full relative" style={{ paddingTop: '100%' }}>
                   <img 
                     src={service.image} 
                     alt={service.title} 
-                    className="w-full h-full object-cover" 
+                    className="absolute inset-0 w-full h-full object-cover rounded-xl" 
                   />
                 </div>
                 <p className="text-center font-medium text-gray-800 text-sm mt-2">{service.title}</p>
