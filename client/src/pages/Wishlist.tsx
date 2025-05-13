@@ -170,6 +170,12 @@ const Wishlist = () => {
   
   return (
     <div className="space-y-6">
+      {copySuccess && (
+        <div className="fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 z-50 animate-in fade-in duration-300">
+          {copySuccess}
+        </div>
+      )}
+      
       <div className="flex flex-wrap justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">My Wishlist</h1>
         <Link href="/app/search">
@@ -250,6 +256,32 @@ const Wishlist = () => {
                     <p className="text-gray-600 text-sm mt-3 line-clamp-2">{program.description}</p>
                     
                     <div className="mt-4 flex flex-wrap justify-end gap-2">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="flex gap-1 items-center">
+                            <Share2 className="h-4 w-4" />
+                            <span>Share</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => shareProgramme(program, 'copy')}>
+                            <Copy className="h-4 w-4 mr-2" />
+                            <span>Copy to clipboard</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => shareProgramme(program, 'email')}>
+                            <Mail className="h-4 w-4 mr-2" />
+                            <span>Email</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => shareProgramme(program, 'whatsapp')}>
+                            <MessageSquare className="h-4 w-4 mr-2" />
+                            <span>WhatsApp</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => shareProgramme(program, 'sms')}>
+                            <MessageSquare className="h-4 w-4 mr-2" />
+                            <span>SMS</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                       <Button variant="outline">View Details</Button>
                       <Button variant="default" className="bg-primary hover:bg-primary/90">Apply Now</Button>
                     </div>
