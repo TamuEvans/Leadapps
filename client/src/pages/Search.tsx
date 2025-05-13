@@ -275,6 +275,11 @@ const Search = () => {
   
   // Clear all filters
   const clearAllFilters = () => {
+    // Clear search inputs
+    setSearchQuery("");
+    setLocationQuery("");
+    
+    // Clear dropdown filters
     setProgramLevel("all");
     setStudyArea("all");
     setInstitutionType("all");
@@ -282,6 +287,8 @@ const Search = () => {
     setTuition("any");
     setMode("any");
     setDuration("any");
+    
+    // Clear active filter tags
     setActiveFilters([]);
   };
   
