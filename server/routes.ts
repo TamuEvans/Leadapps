@@ -340,8 +340,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // In a real app with auth, you'd get the student ID from the authenticated user
       const studentId = 1; // Default for demo
       
+      // Get raw applications
       const applications = await storage.getApplicationsByStudent(studentId);
-      res.status(200).json(applications);
+      
+      // Enhance applications with program and university data
+      const enhancedApplications = await Promise.all(applications.map(async (app) => {
+        try {
+          // Get program details
+          const program = await storage.getProgram(app.programId);
+          
+          if (program) {
+            // Get university details
+            const university = await storage.getUniversity(program.universityId);
+            
+            return {
+              ...app,
+              programName: program.name,
+              universityName: university?.name || "Unknown University",
+              universityLocation: university ? `${university.city}, ${university.country}` : "Unknown"
+            };
+          }
+          
+          return {
+            ...app,
+            programName: "Unknown Program",
+            universityName: "Unknown University",
+            universityLocation: "Unknown"
+          };
+        } catch (err) {
+          console.error("Error enhancing application:", err);
+          return app;
+        }
+      }));
+      
+      res.status(200).json(enhancedApplications);
     } catch (error) {
       console.error("Error fetching applications:", error);
       res.status(500).json({ message: "Failed to fetch applications" });

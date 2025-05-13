@@ -159,8 +159,28 @@ const Applications = () => {
     }
   }, [location, navigate]);
 
+  // Define Application type
+  interface Application {
+    id: number;
+    programId: number;
+    programName?: string;
+    universityName?: string;
+    universityLocation?: string;
+    studentId: number;
+    status: string;
+    createdAt: string;
+    lastUpdated: string;
+    submissionDate: string | null;
+    decisionStatus?: string;
+    decisionDate?: string;
+    applicationFee?: number;
+    feePaid?: boolean;
+    notes?: string;
+    internalNotes?: string;
+  }
+
   // Fetch applications data
-  const { data: applications = [], isLoading } = useQuery({
+  const { data: applications = [], isLoading } = useQuery<Application[]>({
     queryKey: ["/api/applications"],
     retry: false,
   });
@@ -212,7 +232,7 @@ const Applications = () => {
         </Card>
       ) : (
         <div className="space-y-4">
-          {applications.map((application: any) => (
+          {applications.map((application) => (
             <Card key={application.id} className="overflow-hidden">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
