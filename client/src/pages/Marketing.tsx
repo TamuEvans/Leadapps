@@ -17,13 +17,20 @@ import sguLogo from '../assets/logos/sgu.jpg';
 import usfLogo from '../assets/logos/usf.png';
 import uwiLogo from '../assets/logos/uwi.png';
 
+// Define university logo array for easier mapping
+const universityLogos = [
+  { src: uwiLogo, alt: "University of West Indies", height: "h-16" },
+  { src: uccLogo, alt: "University of the Commonwealth Caribbean", height: "h-16" },
+  { src: utechLogo, alt: "University of Technology, Jamaica", height: "h-20" },
+  { src: sguLogo, alt: "St. George's University", height: "h-6" },
+  { src: humberLogo, alt: "Humber College", height: "h-16" },
+  { src: saitLogo, alt: "SAIT", height: "h-16" },
+  { src: usfLogo, alt: "University of South Florida", height: "h-16" },
+];
+
 export default function Marketing() {
   // Video reference for optimization
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const logoContainerRef = useRef<HTMLDivElement>(null);
-  const logoRowRef = useRef<HTMLDivElement>(null);
-  const [logoWidth, setLogoWidth] = useState(0);
   
   useEffect(() => {
     // Optimize video playback
@@ -44,30 +51,6 @@ export default function Marketing() {
       };
     }
   }, []);
-  
-  // Logo scrolling using a different approach for smooth infinite scrolling
-  useEffect(() => {
-    // Get width of single logo row (first set of logos)
-    if (logoRowRef.current) {
-      const logoRowWidth = logoRowRef.current.offsetWidth;
-      setLogoWidth(logoRowWidth);
-    }
-    
-    // Animate logos with smooth transition
-    const animateLogos = () => {
-      setScrollPosition(prev => {
-        // If we've scrolled the width of the first row, reset to 0
-        if (prev >= logoWidth) {
-          return 0;
-        }
-        return prev + 0.5; // Slower, smoother movement
-      });
-    };
-    
-    const scrollInterval = setInterval(animateLogos, 20);
-    
-    return () => clearInterval(scrollInterval);
-  }, [logoWidth]);
 
   // Popular destinations data
   const popularDestinations = [
@@ -193,63 +176,29 @@ export default function Marketing() {
             REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR <span className="whitespace-nowrap">CARIBBEAN STUDENTS</span>
           </h2>
           
-          <div className="relative overflow-hidden" ref={logoContainerRef}>
-            <div 
-              className="flex items-center py-4 whitespace-nowrap" 
-              style={{ 
-                transform: `translateX(-${scrollPosition}px)`,
-                transition: "transform 0.1s linear"
-              }}
-            >
-              {/* First set of logos - this set is used to measure width */}
-              <div ref={logoRowRef} className="flex">
-                <div className="flex-shrink-0 px-8">
-                  <img src={uwiLogo} alt="University of West Indies" className="h-16 object-contain" />
+          <div className="logo-marquee">
+            <div className="logo-track">
+              {/* First set of logos */}
+              {universityLogos.map((logo, index) => (
+                <div key={`logo-1-${index}`} className="logo-item">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className={`${logo.height} object-contain`} 
+                  />
                 </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={utechLogo} alt="University of Technology, Jamaica" className="h-20 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8 flex items-center">
-                  <img src={sguLogo} alt="St. George's University" className="h-6 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={saitLogo} alt="SAIT" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={usfLogo} alt="University of South Florida" className="h-16 object-contain" />
-                </div>
-              </div>
+              ))}
               
               {/* Duplicate set of logos for continuous scrolling */}
-              <div className="flex">
-                <div className="flex-shrink-0 px-8">
-                  <img src={uwiLogo} alt="University of West Indies" className="h-16 object-contain" />
+              {universityLogos.map((logo, index) => (
+                <div key={`logo-2-${index}`} className="logo-item">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className={`${logo.height} object-contain`} 
+                  />
                 </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={utechLogo} alt="University of Technology, Jamaica" className="h-20 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8 flex items-center">
-                  <img src={sguLogo} alt="St. George's University" className="h-6 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={saitLogo} alt="SAIT" className="h-16 object-contain" />
-                </div>
-                <div className="flex-shrink-0 px-8">
-                  <img src={usfLogo} alt="University of South Florida" className="h-16 object-contain" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

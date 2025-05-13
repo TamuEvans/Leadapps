@@ -134,4 +134,34 @@
   .sidebar-nav-item.active .sidebar-text {
     @apply text-white;
   }
+  
+  /* Logo Marquee Animation */
+  .logo-marquee {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .logo-track {
+    display: flex;
+    animation: marquee 25s linear infinite;
+    width: fit-content;
+  }
+  
+  .logo-item {
+    flex: 0 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
