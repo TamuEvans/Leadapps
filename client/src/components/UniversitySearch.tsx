@@ -200,7 +200,11 @@ export function UniversitySearch() {
                     <CardHeader>
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="text-xl">{university.name}</CardTitle>
+                          <Link href={`/app/universities/${university.id}`}>
+                            <CardTitle className="text-xl hover:text-blue-600 hover:underline cursor-pointer">
+                              {university.name}
+                            </CardTitle>
+                          </Link>
                           <CardDescription>
                             {university.city}, {university.country}
                           </CardDescription>
@@ -219,7 +223,7 @@ export function UniversitySearch() {
                       </Button>
                       <Button asChild className="flex-1">
                         <Link to={`/app/universities/${university.id}`}>
-                          View Programs
+                          View Profile
                         </Link>
                       </Button>
                     </CardFooter>
