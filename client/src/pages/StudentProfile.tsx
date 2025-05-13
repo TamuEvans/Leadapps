@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Save, ChevronLeft, ChevronRight, Plus, Upload, FileText, FileArchive, FileCheck } from "lucide-react";
+import { Save, ChevronLeft, ChevronRight, Plus, Upload, FileText, FileArchive, FileCheck, File, X } from "lucide-react";
 import FormSection from "@/components/FormSection";
 import { useToast } from "@/hooks/use-toast";
 import { useProfile } from "@/hooks/useProfile";
@@ -96,10 +96,34 @@ const profileSchema = z.object({
 // Type for the form values
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
+interface ProfileDocument {
+  id: number;
+  profileId: number;
+  documentType: string;
+  documentUrl: string;
+  fileName: string;
+  uploadedAt: string;
+}
+
 const StudentProfile = () => {
   const { toast } = useToast();
   const { profile, updateProfile, profileCompletionPercentage } = useProfile();
   const [, navigate] = useLocation();
+  const [documents, setDocuments] = useState<ProfileDocument[]>([]);
+  
+  // Fetch profile documents
+  useEffect(() => {
+    if (profile?.id) {
+      apiRequest("GET", `/api/profile/${profile.id}/documents`)
+        .then(response => response.json())
+        .then(data => {
+          setDocuments(data);
+        })
+        .catch(error => {
+          console.error("Error fetching profile documents:", error);
+        });
+    }
+  }, [profile?.id]);
   
   // State for dynamic arrays
   const [schools, setSchools] = useState<number[]>([0]);
@@ -1283,6 +1307,54 @@ const StudentProfile = () => {
                     <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
                   </div>
                   <p className="text-sm text-gray-500 mb-3">Upload a clear scan of your passport identification page</p>
+                  
+                  {/* Display existing passport documents */}
+                  {documents.filter(doc => doc.documentType === 'Passport').map((doc) => (
+                    <div key={doc.id} className="bg-white p-2 rounded border mb-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <File className="h-3 w-3 text-blue-600 mr-1" />
+                          <span className="text-xs text-gray-600">{doc.fileName}</span>
+                        </div>
+                        <div className="flex space-x-1">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-6 w-6 p-0"
+                            onClick={() => window.open(doc.documentUrl, '_blank')}
+                          >
+                            <FileText className="h-3 w-3 text-blue-600" />
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-6 w-6 p-0"
+                            onClick={() => {
+                              apiRequest("DELETE", `/api/profile/documents/${doc.id}`)
+                                .then(() => {
+                                  setDocuments(documents.filter(d => d.id !== doc.id));
+                                  toast({
+                                    title: "Document Deleted",
+                                    description: "The document has been deleted successfully.",
+                                  });
+                                })
+                                .catch(error => {
+                                  toast({
+                                    title: "Delete Error",
+                                    description: "There was an error deleting the document. Please try again.",
+                                    variant: "destructive",
+                                  });
+                                });
+                            }}
+                          >
+                            <X className="h-3 w-3 text-red-600" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Upload new passport */}
                   <div className="flex items-center justify-between">
                     <Input
                       id="passport-upload"
@@ -1297,7 +1369,9 @@ const StudentProfile = () => {
                           
                           // Upload the document
                           apiRequest("POST", "/api/profile/documents", formData)
-                            .then(response => {
+                            .then(response => response.json())
+                            .then(data => {
+                              setDocuments([...documents, data]);
                               toast({
                                 title: "Document Uploaded",
                                 description: "Your passport has been uploaded successfully.",
@@ -1321,7 +1395,11 @@ const StudentProfile = () => {
                     >
                       <Upload className="h-4 w-4 mr-1" /> Upload
                     </Button>
-                    <span className="text-xs text-gray-500">No file selected</span>
+                    <span className="text-xs text-gray-500">
+                      {documents.filter(doc => doc.documentType === 'Passport').length > 0 
+                        ? `${documents.filter(doc => doc.documentType === 'Passport').length} file(s) uploaded` 
+                        : 'No file selected'}
+                    </span>
                   </div>
                 </div>
                 
@@ -1339,7 +1417,41 @@ const StudentProfile = () => {
                     {/* First transcript upload */}
                     <div className="flex items-center justify-between bg-white p-2 rounded border">
                       <span className="text-xs text-gray-600">Transcript 1</span>
-                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                      <Input
+                        id="transcript-upload-1"
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            const formData = new FormData();
+                            formData.append('document', e.target.files[0]);
+                            formData.append('documentType', 'Academic Transcript');
+                            formData.append('fileName', e.target.files[0].name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Transcript ${e.target.files![0].name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: "There was an error uploading your transcript. Please try again.",
+                                  variant: "destructive",
+                                });
+                              });
+                          }
+                        }}
+                      />
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex items-center h-7 px-2"
+                        onClick={() => document.getElementById('transcript-upload-1')?.click()}
+                      >
                         <Upload className="h-3 w-3 mr-1" /> Upload
                       </Button>
                     </div>
@@ -1442,19 +1554,124 @@ const StudentProfile = () => {
                     {/* First certificate upload */}
                     <div className="flex items-center justify-between bg-white p-2 rounded border">
                       <span className="text-xs text-gray-600">Certificate 1</span>
-                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                      <Input
+                        id="certificate-upload-1"
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            const formData = new FormData();
+                            formData.append('document', e.target.files[0]);
+                            formData.append('documentType', 'Certificate/Diploma');
+                            formData.append('fileName', e.target.files[0].name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Certificate ${e.target.files![0].name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: "There was an error uploading your certificate. Please try again.",
+                                  variant: "destructive",
+                                });
+                              });
+                          }
+                        }}
+                      />
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex items-center h-7 px-2"
+                        onClick={() => document.getElementById('certificate-upload-1')?.click()}
+                      >
                         <Upload className="h-3 w-3 mr-1" /> Upload
                       </Button>
                     </div>
                     {/* Second certificate upload */}
                     <div className="flex items-center justify-between bg-white p-2 rounded border">
                       <span className="text-xs text-gray-600">Certificate 2</span>
-                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                      <Input
+                        id="certificate-upload-2"
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            const formData = new FormData();
+                            formData.append('document', e.target.files[0]);
+                            formData.append('documentType', 'Certificate/Diploma');
+                            formData.append('fileName', e.target.files[0].name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Certificate ${e.target.files![0].name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: "There was an error uploading your certificate. Please try again.",
+                                  variant: "destructive",
+                                });
+                              });
+                          }
+                        }}
+                      />
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex items-center h-7 px-2"
+                        onClick={() => document.getElementById('certificate-upload-2')?.click()}
+                      >
                         <Upload className="h-3 w-3 mr-1" /> Upload
                       </Button>
                     </div>
                     {/* Add more button */}
-                    <Button variant="ghost" size="sm" className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700">
+                    <Input
+                      id="certificate-upload-multiple"
+                      type="file"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          Array.from(e.target.files).forEach(file => {
+                            const formData = new FormData();
+                            formData.append('document', file);
+                            formData.append('documentType', 'Certificate/Diploma');
+                            formData.append('fileName', file.name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Certificate ${file.name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: `Error uploading ${file.name}. Please try again.`,
+                                  variant: "destructive",
+                                });
+                              });
+                          });
+                        }
+                      }}
+                    />
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700"
+                      onClick={() => document.getElementById('certificate-upload-multiple')?.click()}
+                    >
                       <Plus className="h-3 w-3 mr-1" /> Add another certificate
                     </Button>
                   </div>
