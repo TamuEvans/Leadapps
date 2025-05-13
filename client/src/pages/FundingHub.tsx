@@ -17,7 +17,13 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { Calendar, DollarSign, GraduationCap, Map, School, User } from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Calendar, DollarSign, GraduationCap, Map, School, User, X, Check, ChevronDown } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 // Mock data for loans
@@ -30,7 +36,7 @@ const mockLoans = [
     interest: "5.5%",
     repaymentPeriod: "5-15 years",
     eligibility: "Caribbean citizens pursuing undergraduate or graduate degrees",
-    locations: ["Caribbean"],
+    locations: ["Jamaica", "Trinidad", "Barbados"],
     featured: true
   },
   {
@@ -52,7 +58,7 @@ const mockLoans = [
     interest: "4.9%",
     repaymentPeriod: "10 years",
     eligibility: "Barbadian students pursuing graduate degrees",
-    locations: ["Caribbean", "US", "UK"],
+    locations: ["Barbados", "Grenada", "St. Lucia", "US", "UK"],
     featured: false
   },
   {
@@ -74,7 +80,7 @@ const mockLoans = [
     interest: "7.0%",
     repaymentPeriod: "3-7 years",
     eligibility: "Jamaican professionals pursuing additional qualifications",
-    locations: ["Caribbean", "US"],
+    locations: ["Jamaica", "US"],
     featured: false
   }
 ];
@@ -89,7 +95,7 @@ const mockScholarships = [
     coverage: "Tuition, books, housing stipend",
     deadline: "March 15, 2025",
     eligibility: "CARICOM citizens with exceptional academic performance",
-    locations: ["Caribbean", "UK", "Canada", "US"],
+    locations: ["Jamaica", "Trinidad", "Barbados", "Bahamas", "Grenada", "UK", "Canada", "US"],
     featured: true
   },
   {
