@@ -13,7 +13,9 @@ import {
   GraduationCap,
   Clock,
   DollarSign,
-  FileText,
+  ScrollText,
+  ClipboardList,
+  FormInput,
   X
 } from "lucide-react";
 import {
@@ -629,7 +631,7 @@ const Search = () => {
                           <span>Tuition: {program.tuition}</span>
                         </div>
                         <div className="flex items-center">
-                          <DollarSign className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                          <FormInput className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
                           <span>Application Fee: {program.applicationFee}</span>
                         </div>
                       </div>
