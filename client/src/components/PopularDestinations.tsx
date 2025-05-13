@@ -48,7 +48,7 @@ const destinations: Destination[] = [
     name: 'Canada',
     flag: '🇨🇦',
     image: '/images/destinations/canada.svg',
-    cityImage: '/images/destinations/cities/toronto.svg',
+    cityImage: '/images/destinations/cities/toronto-cn-tower.jpg',
     cssClass: 'toronto-bg',
     universities: 80
   },
