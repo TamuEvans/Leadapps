@@ -95,17 +95,17 @@ export default function Marketing() {
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white modern-heading drop-shadow-lg">
                 study made simple.
               </h1>
-              <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-xl">
+              <p className="text-white text-sm md:text-base font-medium drop-shadow-md max-w-md">
                 Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 pt-2 mb-24">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1 mb-16">
               <Link to="/app">
-                <Button className="px-6 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium border border-white/20 shadow-md">
+                <Button className="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm font-medium border border-white/20 shadow-md">
                   Get Started
                 </Button>
               </Link>
-              <Button variant="outline" className="py-5 text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+              <Button variant="outline" className="py-3 text-sm font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
             </div>
           </div>
 
