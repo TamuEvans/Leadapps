@@ -74,10 +74,10 @@ export default function Marketing() {
       <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/80 to-purple-100/80 backdrop-blur-sm z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 to-purple-100/30 z-10"></div>
           <video 
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
+            className="absolute inset-0 w-full h-full object-cover"
             autoPlay 
             loop 
             muted 
@@ -92,34 +92,34 @@ export default function Marketing() {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
             <div className="flex flex-col justify-center space-y-6">
-              <div className="space-y-4">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-gray-800 modern-heading">
+              <div className="space-y-4 bg-white/30 backdrop-blur-sm p-6 rounded-xl">
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-gray-800 modern-heading drop-shadow-sm">
                   study made simple.
                 </h1>
-                <p className="max-w-[600px] text-gray-600 md:text-xl">
+                <p className="max-w-[600px] text-gray-800 md:text-xl font-medium">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 ml-6">
                 <Link to="/app">
-                  <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium">
+                  <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium border border-white/20 shadow-md">
                     Get Started
                   </Button>
                 </Link>
-                <Button variant="outline" className="py-6 text-base font-medium">Learn More</Button>
+                <Button variant="outline" className="py-6 text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-lg border border-gray-100">
+            <div className="flex flex-col space-y-4 bg-white/40 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-white/20">
               <div className="text-center mb-4">
-                <h2 className="text-lg font-bold">Find Your Dream Program</h2>
-                <p className="text-sm text-gray-600">Explore our database of over 10,000 programs</p>
+                <h2 className="text-lg font-bold text-gray-900">Find Your Dream Program</h2>
+                <p className="text-sm text-gray-800">Explore our database of over 10,000 programs</p>
               </div>
               <div className="space-y-3">
-                <Input placeholder="Program (e.g. Computer Science)" />
-                <Input placeholder="Country/Region" />
-                <Input placeholder="Study Level" />
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600">
+                <Input placeholder="Program (e.g. Computer Science)" className="bg-white/80 border-gray-300" />
+                <Input placeholder="Country/Region" className="bg-white/80 border-gray-300" />
+                <Input placeholder="Study Level" className="bg-white/80 border-gray-300" />
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium">
                   <Search className="mr-2 h-4 w-4" /> Search Programs
                 </Button>
               </div>
