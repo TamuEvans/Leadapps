@@ -25,6 +25,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
+// Import university logos
+import uwiLogo from "@assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png";
+import uccLogo from "@assets/NEW_UCC_logo.jpg";
+import utechLogo from "@assets/utech_web.jpg";
+import sguLogo from "@assets/sgu-logo-grenada-horizontal-color_orig.jpg";
+import usfLogo from "@assets/usf-logo_orig.png";
+import saitLogo from "@assets/sait.png";
+import humberLogo from "@assets/humber-2col-cen_orig.gif";
+
 // Mock data for search results
 const mockResults = [
   {
@@ -36,20 +45,20 @@ const mockResults = [
     duration: "1 Year Full-time",
     mode: "On-Campus",
     tuition: "Approx. $15,000 USD/year",
-    description: "This program provides students with advanced analytical skills and knowledge to address complex business problems using data-driven approaches. Core modules include data mining, statistical analysis, and decision modeling.",
-    logo: "https://placehold.co/80"
+    description: "This programme provides students with advanced analytical skills and knowledge to address complex business problems using data-driven approaches. Core modules include data mining, statistical analysis, and decision modeling.",
+    logo: uwiLogo
   },
   {
     id: 2,
     programName: "Associate Degree in Computer Science",
-    institution: "Barbados Community College",
-    location: "Eyrie Howells' Road, St. Michael, Barbados",
+    institution: "University of the Commonwealth Caribbean",
+    location: "Kingston, Jamaica",
     level: "Associate's",
     duration: "2 Years",
     mode: "Full-time/Part-time",
-    tuition: "Approx. $3,000 BBD/year (Local)",
-    description: "Learn foundational skills in programming, databases, web development, and computer systems. This program prepares students for entry-level IT positions or transfer to bachelor's degree programs.",
-    logo: "https://placehold.co/80"
+    tuition: "Approx. $3,000 USD/year (Local)",
+    description: "Learn foundational skills in programming, databases, web development, and computer systems. This programme prepares students for entry-level IT positions or transfer to bachelor's degree programmes.",
+    logo: uccLogo
   },
   {
     id: 3,
@@ -60,8 +69,32 @@ const mockResults = [
     duration: "4 Years",
     mode: "Full-time",
     tuition: "Approx. $5,000 USD/year",
-    description: "This program covers structural engineering, transportation systems, environmental engineering, and construction management. Accredited by the Jamaica Institution of Engineers.",
-    logo: "https://placehold.co/80"
+    description: "This programme covers structural engineering, transportation systems, environmental engineering, and construction management. Accredited by the Jamaica Institution of Engineers.",
+    logo: utechLogo
+  },
+  {
+    id: 4,
+    programName: "Doctor of Medicine (MD)",
+    institution: "St. George's University",
+    location: "St. George's, Grenada",
+    level: "Doctorate",
+    duration: "4 Years",
+    mode: "On-Campus",
+    tuition: "Approx. $65,000 USD/year",
+    description: "The Doctor of Medicine programme at SGU provides a comprehensive medical education with clinical training opportunities in the US, UK, and Caribbean. SGU graduates practice in more than 50 countries around the world.",
+    logo: sguLogo
+  },
+  {
+    id: 5,
+    programName: "Master of Science in Cybersecurity",
+    institution: "University of South Florida",
+    location: "Tampa, Florida, USA",
+    level: "Master's",
+    duration: "2 Years",
+    mode: "Online/On-Campus",
+    tuition: "Approx. $30,000 USD total",
+    description: "This programme prepares students to develop, implement and manage secure computer systems and defend networks from cybersecurity threats through advanced coursework in cryptography, secure software, penetration testing, and security governance.",
+    logo: usfLogo
   }
 ];
 
@@ -537,8 +570,8 @@ const Search = () => {
                 <Card key={program.id} className="overflow-hidden">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row items-start gap-4">
-                      <div className="flex-shrink-0 bg-gray-100 rounded-md p-2 hidden md:block">
-                        <img src={program.logo} alt={program.institution} className="w-16 h-16 object-contain" />
+                      <div className="flex-shrink-0 bg-white rounded-md p-3 border border-gray-100 shadow-sm hidden md:block">
+                        <img src={program.logo} alt={program.institution} className="w-24 h-20 object-contain" />
                       </div>
                       
                       <div className="flex-grow">
@@ -584,8 +617,9 @@ const Search = () => {
                       
                       <p className="text-gray-600 text-sm mt-3 line-clamp-2">{program.description}</p>
                       
-                      <div className="mt-4 flex justify-end">
-                        <Button variant="default">View Details</Button>
+                      <div className="mt-4 flex flex-wrap justify-end gap-2">
+                        <Button variant="outline">View Details</Button>
+                        <Button variant="default" className="bg-primary hover:bg-primary/90">Apply Now</Button>
                       </div>
                     </div>
                   </div>
