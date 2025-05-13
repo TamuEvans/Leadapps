@@ -150,7 +150,7 @@ const Search = () => {
   // State for search and filters
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [locationQuery, setLocationQuery] = useState<string>("");
-  const [hasSearched, setHasSearched] = useState<boolean>(false);
+  const [hasSearched, setHasSearched] = useState<boolean>(true); // Set to true by default to show all programmes
   
   // Filter states
   const [programLevel, setProgramLevel] = useState<string>("all");
@@ -168,31 +168,66 @@ const Search = () => {
   // Active filters tracking for display
   const [activeFilters, setActiveFilters] = useState<{id: string, label: string}[]>([]);
   
-  // Handle search submission
-  const handleSearch = () => {
-    if (searchQuery.trim() !== "" || locationQuery.trim() !== "") {
-      setHasSearched(true);
-      
-      // Update active filters based on selections
-      const newFilters = [];
-      
-      if (programLevel !== "all") {
-        const label = programLevels.find(p => p.value === programLevel)?.label || "";
-        newFilters.push({id: `level_${programLevel}`, label: `Level: ${label}`});
-      }
-      
-      if (studyArea !== "all") {
-        const label = studyAreas.find(a => a.value === studyArea)?.label || "";
-        newFilters.push({id: `area_${studyArea}`, label: `Area: ${label}`});
-      }
-      
-      if (country !== "all") {
-        const label = countries.find(c => c.value === country)?.label || "";
-        newFilters.push({id: `country_${country}`, label: `Country: ${label}`});
-      }
-      
-      setActiveFilters(newFilters);
+  // Filter displayed results based on current search and filter values
+  const [filteredResults, setFilteredResults] = useState(mockResults);
+  
+  // Effect to update filters when any search or filter value changes
+  React.useEffect(() => {
+    // Update active filters based on selections
+    const newFilters = [];
+    
+    if (programLevel !== "all") {
+      const label = programLevels.find(p => p.value === programLevel)?.label || "";
+      newFilters.push({id: `level_${programLevel}`, label: `Level: ${label}`});
     }
+    
+    if (studyArea !== "all") {
+      const label = studyAreas.find(a => a.value === studyArea)?.label || "";
+      newFilters.push({id: `area_${studyArea}`, label: `Area: ${label}`});
+    }
+    
+    if (country !== "all") {
+      const label = countries.find(c => c.value === country)?.label || "";
+      newFilters.push({id: `country_${country}`, label: `Country: ${label}`});
+    }
+    
+    setActiveFilters(newFilters);
+    
+    // Filter results based on search query, location, and other filters
+    let results = [...mockResults];
+    
+    // Filter by search query
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase();
+      results = results.filter(program => 
+        program.programName.toLowerCase().includes(query) ||
+        program.description.toLowerCase().includes(query)
+      );
+    }
+    
+    // Filter by location
+    if (locationQuery.trim() !== "") {
+      const location = locationQuery.toLowerCase();
+      results = results.filter(program => 
+        program.institution.toLowerCase().includes(location) ||
+        program.location.toLowerCase().includes(location)
+      );
+    }
+    
+    // Filter by program level
+    if (programLevel !== "all") {
+      results = results.filter(program => 
+        program.level.toLowerCase().includes(programLevel.toLowerCase())
+      );
+    }
+    
+    setFilteredResults(results);
+  }, [searchQuery, locationQuery, programLevel, studyArea, country, tuition, mode, duration]);
+  
+  // Legacy handle search function (now just for the button click)
+  const handleSearch = () => {
+    // The search is now automatic through the useEffect, 
+    // but we'll keep this for the button for UX consistency
   };
   
   // Remove a specific filter
@@ -468,10 +503,12 @@ const Search = () => {
       {hasSearched ? (
         <div className="space-y-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-            <h2 className="text-sm text-gray-600">
-              Showing 1-{mockResults.length} of {mockResults.length} results 
-              {searchQuery && <span> for "{searchQuery}"</span>}
-            </h2>
+            <div className="bg-blue-50 p-2 px-4 rounded-md border border-blue-100 w-full md:w-auto">
+              <h2 className="text-sm font-medium text-blue-700">
+                Showing {filteredResults.length > 0 ? `1-${filteredResults.length}` : '0'} of {filteredResults.length} programmes
+                {searchQuery && <span> for "{searchQuery}"</span>}
+              </h2>
+            </div>
             
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-600">Sort by:</span>
@@ -495,16 +532,17 @@ const Search = () => {
           
           {/* Results List */}
           <div className="space-y-4">
-            {mockResults.map(program => (
-              <Card key={program.id} className="overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row items-start gap-4">
-                    <div className="flex-shrink-0 bg-gray-100 rounded-md p-2 hidden md:block">
-                      <img src={program.logo} alt={program.institution} className="w-16 h-16 object-contain" />
-                    </div>
-                    
-                    <div className="flex-grow">
-                      <div className="flex justify-between items-start">
+            {filteredResults.length > 0 ? (
+              filteredResults.map(program => (
+                <Card key={program.id} className="overflow-hidden">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row items-start gap-4">
+                      <div className="flex-shrink-0 bg-gray-100 rounded-md p-2 hidden md:block">
+                        <img src={program.logo} alt={program.institution} className="w-16 h-16 object-contain" />
+                      </div>
+                      
+                      <div className="flex-grow">
+                        <div className="flex justify-between items-start">
                         <div>
                           <h3 className="text-lg font-semibold text-gray-900">{program.programName}</h3>
                           <p className="text-primary font-medium">{program.institution}</p>
@@ -553,7 +591,16 @@ const Search = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            ))
+            ) : (
+              <div className="p-8 text-center bg-gray-50 rounded-lg border border-gray-100">
+                <SearchIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
+                <h3 className="text-lg font-medium text-gray-700 mb-1">No programmes found</h3>
+                <p className="text-gray-500 max-w-md mx-auto">
+                  Try adjusting your search criteria or filters to find more programmes.
+                </p>
+              </div>
+            )}
           </div>
           
           {/* Pagination */}
