@@ -42,7 +42,7 @@ const Sidebar = () => {
     { path: "/app/university-search", label: "Universities", icon: <GraduationCap className="w-5 h-5" /> },
     { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" /> },
     { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" /> },
-    { path: "/app/personality-hub", label: "My Personality Hub", icon: <Brain className="w-5 h-5" /> },
+    { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" /> },
     { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" /> },
     { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" /> },
     { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" /> },
@@ -110,8 +110,8 @@ const Sidebar = () => {
               <Link to={item.path}>
                 <div
                   className={cn(
-                    "flex items-center rounded-md cursor-pointer transition-all duration-200",
-                    expanded ? "px-4 py-2" : "px-2 py-2 justify-center",
+                    "flex items-center rounded-md cursor-pointer h-10 transition-all duration-200",
+                    expanded ? "px-4" : "px-2 justify-center",
                     isActive(item.path) 
                       ? "bg-gradient-primary text-white font-medium" 
                       : "hover:bg-gray-100 text-gray-600"
@@ -125,9 +125,14 @@ const Sidebar = () => {
                   )}>
                     {item.icon}
                   </span>
-                  {expanded && (
-                    <span className="ml-3 transition-opacity duration-200">{item.label}</span>
-                  )}
+                  <span 
+                    className={cn(
+                      "ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
+                      expanded ? "opacity-100 max-w-[200px]" : "opacity-0 max-w-0"
+                    )}
+                  >
+                    {item.label}
+                  </span>
                 </div>
               </Link>
             </li>
@@ -161,8 +166,9 @@ const Sidebar = () => {
   return (
     <aside 
       className={cn(
-        "bg-white min-h-screen border-r border-gray-200 fixed transition-all duration-300 ease-in-out z-30 top-0 left-0",
-        expanded ? "w-60" : "w-16"
+        "bg-white min-h-screen border-r border-gray-200 fixed z-30 top-0 left-0",
+        "transition-all duration-300 ease-in-out",
+        expanded ? "w-64" : "w-16"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
