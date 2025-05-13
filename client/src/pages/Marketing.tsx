@@ -71,7 +71,7 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full py-20 md:py-32 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
+      <section className="w-full py-32 md:py-48 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
@@ -89,7 +89,7 @@ export default function Marketing() {
           </video>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 mt-8">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 mt-20">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
             <div className="flex flex-col justify-center space-y-6">
               <div className="space-y-4">
