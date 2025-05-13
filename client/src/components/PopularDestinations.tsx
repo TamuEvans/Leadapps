@@ -29,7 +29,6 @@ const destinations: Destination[] = [
     id: 'united-kingdom',
     name: 'UK',
     flag: '🇬🇧',
-    multiFlags: ['🇬🇧', '🏴󠁧󠁢󠁥󠁮󠁧󠁿', '🏴󠁧󠁢󠁳󠁣󠁴󠁿', '🏴󠁧󠁢󠁷󠁬󠁳󠁿', '🇮🇪'], // UK, England, Scotland, Wales, Northern Ireland
     image: '/images/destinations/uk.svg',
     cityImage: '/images/destinations/cities/london-bridge.jpg',
     cssClass: 'london-bg',
