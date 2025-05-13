@@ -1284,7 +1284,41 @@ const StudentProfile = () => {
                   </div>
                   <p className="text-sm text-gray-500 mb-3">Upload a clear scan of your passport identification page</p>
                   <div className="flex items-center justify-between">
-                    <Button variant="outline" size="sm" className="flex items-center">
+                    <Input
+                      id="passport-upload"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          const formData = new FormData();
+                          formData.append('document', e.target.files[0]);
+                          formData.append('documentType', 'Passport');
+                          formData.append('fileName', e.target.files[0].name);
+                          
+                          // Upload the document
+                          apiRequest("POST", "/api/profile/documents", formData)
+                            .then(response => {
+                              toast({
+                                title: "Document Uploaded",
+                                description: "Your passport has been uploaded successfully.",
+                              });
+                            })
+                            .catch(error => {
+                              toast({
+                                title: "Upload Error",
+                                description: "There was an error uploading your document. Please try again.",
+                                variant: "destructive",
+                              });
+                            });
+                        }
+                      }}
+                    />
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex items-center"
+                      onClick={() => document.getElementById('passport-upload')?.click()}
+                    >
                       <Upload className="h-4 w-4 mr-1" /> Upload
                     </Button>
                     <span className="text-xs text-gray-500">No file selected</span>

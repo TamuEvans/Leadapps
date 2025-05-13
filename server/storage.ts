@@ -931,6 +931,34 @@ export class DatabaseStorage implements IStorage {
   async deleteApplicationDocument(id: number): Promise<void> {
     await db.delete(applicationDocuments).where(eq(applicationDocuments.id, id));
   }
+  
+  // Profile Document operations
+  async getProfileDocuments(profileId: number): Promise<any[]> {
+    try {
+      console.log(`Getting profile documents for profile ID: ${profileId}`);
+      // In a real implementation, this would query the database
+      // For demonstration, return an empty array
+      return [];
+    } catch (error) {
+      console.error("Error in getProfileDocuments:", error);
+      throw error;
+    }
+  }
+  
+  async createProfileDocument(document: any): Promise<any> {
+    try {
+      console.log(`Creating profile document:`, document);
+      // In a real implementation, this would insert into the database
+      return {
+        id: Math.floor(Math.random() * 1000) + 1,
+        ...document,
+        createdAt: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error("Error in createProfileDocument:", error);
+      throw error;
+    }
+  }
 }
 
 // Use DatabaseStorage instead of MemStorage
