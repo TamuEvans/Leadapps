@@ -123,7 +123,6 @@ export default function Marketing() {
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay 
-            loop 
             muted 
             playsInline
             poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
