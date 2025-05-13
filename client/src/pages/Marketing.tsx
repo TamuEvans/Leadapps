@@ -136,18 +136,40 @@ export default function Marketing() {
             <div className="bg-white/40 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 max-w-5xl mx-auto px-5 py-4">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
                 <div className="lg:col-span-3 text-center lg:text-left">
-                  <h2 className="text-lg font-bold text-gray-900">Find Your Program</h2>
-                  <p className="text-xs text-gray-800 hidden lg:block">10,000+ programs worldwide</p>
+                  <h2 className="text-lg font-bold text-gray-900">Find Your Programme</h2>
+                  <p className="text-xs text-gray-800 hidden lg:block">10,000+ programmes worldwide</p>
                 </div>
                 <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
                   <div className="md:col-span-2">
-                    <Input placeholder="Program" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
+                      <option value="" disabled selected>Programme</option>
+                      <option value="business">Business Administration</option>
+                      <option value="computer-science">Computer Science</option>
+                      <option value="digital-marketing">Digital Marketing</option>
+                      <option value="engineering">Engineering</option>
+                      <option value="medicine">Medicine</option>
+                      <option value="law">Law</option>
+                    </select>
                   </div>
                   <div className="md:col-span-2">
-                    <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
+                      <option value="" disabled selected>Country/Region</option>
+                      <option value="caribbean">Caribbean</option>
+                      <option value="uk">UK</option>
+                      <option value="usa">USA</option>
+                      <option value="canada">Canada</option>
+                      <option value="australia">Australia</option>
+                    </select>
                   </div>
                   <div className="md:col-span-2">
-                    <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                    <select className="bg-white/80 border-gray-300 h-10 text-sm w-full rounded-md">
+                      <option value="" disabled selected>Study Level</option>
+                      <option value="undergraduate">Undergraduate</option>
+                      <option value="postgraduate">Postgraduate</option>
+                      <option value="phd">PhD</option>
+                      <option value="diploma">Diploma</option>
+                      <option value="certificate">Certificate</option>
+                    </select>
                   </div>
                   <div className="md:col-span-1">
                     <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
