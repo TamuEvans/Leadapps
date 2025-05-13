@@ -19,6 +19,7 @@ import FairsEvents from "@/pages/FairsEvents";
 import StudyLocation from "@/pages/StudyLocation";
 import ServicePage from "@/pages/ServicePage";
 import AppHome from "@/pages/AppHome";
+import FundingHub from "@/pages/FundingHub";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -101,6 +102,14 @@ function App() {
             <MainLayout>
               <ProtectedRoute testMode={true}>
                 <Articles />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/funding-hub">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <FundingHub />
               </ProtectedRoute>
             </MainLayout>
           </Route>
