@@ -264,7 +264,8 @@ export default function Home() {
                         <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
                           Google
                         </Button>
-                        <Button variant="outline" onClick={() => window.location.href = '/api/auth/facebook'}>
+                        <Button variant="outline" className="bg-[#1877F2] text-white hover:bg-[#166FE5]" onClick={() => window.location.href = '/api/auth/facebook'}>
+                          <SiFacebook className="mr-2 h-5 w-5 text-white" />
                           Facebook
                         </Button>
                       </div>
@@ -351,7 +352,7 @@ export default function Home() {
                         <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
                           Google
                         </Button>
-                        <Button variant="outline" onClick={() => window.location.href = '/api/auth/facebook'}>
+                        <Button variant="outline" className="bg-[#1877F2] text-white hover:bg-[#166FE5]" onClick={() => window.location.href = '/api/auth/facebook'}>
                           Facebook
                         </Button>
                       </div>
