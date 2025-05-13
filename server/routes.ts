@@ -334,6 +334,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get a single application by ID
+  app.get(`${apiPrefix}/applications/:id`, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      const application = await storage.getApplication(id);
+      
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      // If the application has a programId, get the program details
+      if (application.programId) {
+        const program = await storage.getProgram(application.programId);
+        if (program) {
+          application.programName = program.name;
+          
+          // Get university details for the program
+          const university = await storage.getUniversity(program.universityId);
+          if (university) {
+            application.universityName = university.name;
+            application.universityLocation = university.country;
+          }
+        }
+      }
+      
+      res.json(application);
+    } catch (error) {
+      console.error("Error fetching application:", error);
+      res.status(500).json({ message: "Failed to fetch application" });
+    }
+  });
+
   // Get applications for a student
   app.get(`${apiPrefix}/applications`, async (req, res) => {
     try {
@@ -527,6 +563,112 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error creating application document:", error);
       res.status(500).json({ message: "Failed to create application document" });
+    }
+  });
+  
+  // Get student profile documents for an application
+  app.get(`${apiPrefix}/applications/:id/profile-documents`, async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+      if (isNaN(applicationId)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      const application = await storage.getApplication(applicationId);
+      
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      // Get student profile to access their documents
+      const studentProfile = await storage.getStudentProfile(application.studentId);
+      
+      if (!studentProfile) {
+        return res.json([]);
+      }
+      
+      // This would normally fetch documents from the student profile
+      // For now, returning sample data since we haven't implemented document upload yet
+      const profileDocuments = [
+        {
+          id: 1,
+          profileId: studentProfile.id,
+          type: "Personal Statement",
+          fileUrl: "/documents/personal-statement.pdf",
+          fileName: "personal-statement.pdf",
+          uploadDate: new Date().toISOString()
+        },
+        {
+          id: 2,
+          profileId: studentProfile.id,
+          type: "Academic Transcript",
+          fileUrl: "/documents/transcript.pdf",
+          fileName: "transcript.pdf",
+          uploadDate: new Date().toISOString()
+        }
+      ];
+      
+      res.json(profileDocuments);
+    } catch (error) {
+      console.error("Error fetching profile documents:", error);
+      res.status(500).json({ message: "Failed to fetch profile documents" });
+    }
+  });
+  
+  // Get application notes
+  app.get(`${apiPrefix}/applications/:id/notes`, async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+      if (isNaN(applicationId)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      // For now, returning sample data since we haven't implemented notes yet
+      const notes = [
+        {
+          id: 1,
+          applicationId,
+          text: "Please upload your passport as soon as possible to proceed with your application.",
+          createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+          isStaff: true
+        },
+        {
+          id: 2,
+          applicationId,
+          text: "I've uploaded my passport. Please let me know if there's anything else needed.",
+          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          isStaff: false
+        }
+      ];
+      
+      res.json(notes);
+    } catch (error) {
+      console.error("Error fetching application notes:", error);
+      res.status(500).json({ message: "Failed to fetch application notes" });
+    }
+  });
+  
+  // Add application note
+  app.post(`${apiPrefix}/applications/:id/notes`, async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+      if (isNaN(applicationId)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      const { text, createdAt } = req.body;
+      
+      // For now, just return success response since we haven't implemented notes storage
+      res.status(201).json({
+        id: Date.now(),
+        applicationId,
+        text,
+        createdAt,
+        isStaff: false
+      });
+    } catch (error) {
+      console.error("Error adding note:", error);
+      res.status(500).json({ message: "Failed to add note" });
     }
   });
 
