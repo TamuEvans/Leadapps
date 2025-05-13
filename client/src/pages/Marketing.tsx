@@ -89,39 +89,49 @@ export default function Marketing() {
           </video>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="grid gap-6 lg:grid-cols-[1fr_300px] lg:gap-12 items-center">
-            <div className="flex flex-col justify-center space-y-8">
-              <div className="space-y-6">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-white modern-heading drop-shadow-md">
-                  study made simple.
-                </h1>
-                <p className="max-w-[600px] text-white md:text-xl font-medium drop-shadow-sm">
-                  Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/app">
-                  <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium border border-white/20 shadow-md">
-                    Get Started
-                  </Button>
-                </Link>
-                <Button variant="outline" className="py-6 text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
-              </div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full justify-center">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="space-y-6 max-w-4xl mb-12">
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl xl:text-8xl text-white modern-heading drop-shadow-lg">
+                study made simple.
+              </h1>
+              <p className="text-white md:text-2xl font-medium drop-shadow-md max-w-3xl mx-auto px-4">
+                Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
+              </p>
             </div>
-
-            <div className="flex flex-col space-y-3 bg-white/40 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-white/20 max-w-[300px]">
-              <div className="text-center mb-2">
-                <h2 className="text-lg font-bold text-gray-900">Find Your Program</h2>
-                <p className="text-xs text-gray-800">10,000+ programs worldwide</p>
-              </div>
-              <div className="space-y-3">
-                <Input placeholder="Program (e.g. Computer Science)" className="bg-white/80 border-gray-300 h-10 text-sm" />
-                <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm" />
-                <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm" />
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
-                  <Search className="mr-2 h-4 w-4" /> Search Programs
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 mb-24">
+              <Link to="/app">
+                <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium border border-white/20 shadow-md">
+                  Get Started
                 </Button>
+              </Link>
+              <Button variant="outline" className="py-6 text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+            </div>
+          </div>
+
+          <div className="absolute bottom-8 left-0 right-0 mx-auto">
+            <div className="bg-white/40 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 max-w-5xl mx-auto px-5 py-4">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+                <div className="lg:col-span-3 text-center lg:text-left">
+                  <h2 className="text-lg font-bold text-gray-900">Find Your Program</h2>
+                  <p className="text-xs text-gray-800 hidden lg:block">10,000+ programs worldwide</p>
+                </div>
+                <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
+                  <div className="md:col-span-2">
+                    <Input placeholder="Program" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
+                  </div>
+                  <div className="md:col-span-1">
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
+                      <Search className="h-4 w-4 md:mr-2" /> <span className="hidden md:inline">Search</span>
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
