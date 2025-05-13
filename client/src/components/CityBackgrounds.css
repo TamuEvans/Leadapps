@@ -31,8 +31,6 @@
               url('/images/destinations/cities/sydney.webp');
   background-size: cover;
   background-position: center;
-  background-size: cover;
-  background-position: center;
 }
 
 .city-card {
@@ -78,7 +76,7 @@
 }
 
 .sydney-bg::before {
-  background-image: url('/images/destinations/cities/sydney.svg');
+  background-image: url('/images/destinations/cities/sydney.webp');
 }
 
 .white-card-footer {

@@ -57,7 +57,7 @@ const destinations: Destination[] = [
     name: 'Australia',
     flag: '🇦🇺',
     image: '/images/destinations/australia.svg',
-    cityImage: '/images/destinations/cities/sydney.svg',
+    cityImage: '/images/destinations/cities/sydney.webp',
     cssClass: 'sydney-bg',
     universities: 40
   }
