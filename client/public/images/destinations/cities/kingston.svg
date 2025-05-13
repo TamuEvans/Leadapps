@@ -1,0 +1,63 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a7ab8" />
+      <stop offset="100%" stop-color="#7eb1e2" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#skyGradient)" />
+  
+  <!-- Ocean -->
+  <rect y="150" width="400" height="50" fill="#0373b7" />
+  
+  <!-- Mountains -->
+  <polygon points="0,150 50,90 100,130 150,80 200,120 250,70 300,100 350,60 400,120 400,150" fill="#2e5d35" />
+  
+  <!-- Buildings -->
+  <rect x="20" y="100" width="30" height="50" fill="#e6d1bd" />
+  <rect x="50" y="90" width="25" height="60" fill="#d4c5b5" />
+  <rect x="75" y="110" width="40" height="40" fill="#e6d1bd" />
+  <rect x="115" y="85" width="35" height="65" fill="#d4c5b5" />
+  <rect x="150" y="95" width="45" height="55" fill="#e6d1bd" />
+  <rect x="195" y="105" width="30" height="45" fill="#d4c5b5" />
+  <rect x="225" y="80" width="20" height="70" fill="#e6d1bd" />
+  <rect x="245" y="100" width="40" height="50" fill="#d4c5b5" />
+  <rect x="285" y="90" width="25" height="60" fill="#e6d1bd" />
+  <rect x="310" y="110" width="30" height="40" fill="#d4c5b5" />
+  <rect x="340" y="70" width="15" height="80" fill="#e6d1bd" />
+  <rect x="355" y="100" width="25" height="50" fill="#d4c5b5" />
+  
+  <!-- Building Details -->
+  <rect x="25" y="110" width="5" height="10" fill="#639bd3" />
+  <rect x="35" y="110" width="5" height="10" fill="#639bd3" />
+  <rect x="25" y="125" width="5" height="10" fill="#639bd3" />
+  <rect x="35" y="125" width="5" height="10" fill="#639bd3" />
+  
+  <rect x="55" y="100" width="5" height="10" fill="#639bd3" />
+  <rect x="65" y="100" width="5" height="10" fill="#639bd3" />
+  <rect x="55" y="115" width="5" height="10" fill="#639bd3" />
+  <rect x="65" y="115" width="5" height="10" fill="#639bd3" />
+  <rect x="55" y="130" width="5" height="10" fill="#639bd3" />
+  <rect x="65" y="130" width="5" height="10" fill="#639bd3" />
+  
+  <!-- Palm Trees -->
+  <rect x="10" y="120" width="4" height="30" fill="#7c541d" />
+  <path d="M 12 120 C 5 110 -2 115 12 105 C 26 115 19 110 12 120" fill="#0b8a28" />
+  
+  <rect x="380" y="120" width="4" height="30" fill="#7c541d" />
+  <path d="M 382 120 C 375 110 368 115 382 105 C 396 115 389 110 382 120" fill="#0b8a28" />
+  
+  <!-- Small Boats -->
+  <path d="M 50 155 L 40 165 L 70 165 L 60 155 Z" fill="#a0522d" />
+  <rect x="52" y="150" width="6" height="5" fill="#a0522d" />
+  
+  <path d="M 300 160 L 290 170 L 325 170 L 315 160 Z" fill="#a0522d" />
+  <rect x="302" y="155" width="6" height="5" fill="#a0522d" />
+  
+  <!-- Sun -->
+  <circle cx="350" cy="40" r="20" fill="#ffd700" />
+  
+  <!-- Title -->
+  <text x="200" y="190" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Kingston, Jamaica</text>
+</svg>

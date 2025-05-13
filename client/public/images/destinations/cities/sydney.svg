@@ -1,0 +1,64 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a90e2" />
+      <stop offset="100%" stop-color="#87cefa" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#skyGradient)" />
+  
+  <!-- Sydney Harbor -->
+  <rect y="150" width="400" height="50" fill="#1e90ff" />
+  
+  <!-- Sydney Opera House -->
+  <ellipse cx="160" cy="150" rx="100" ry="5" fill="#edf2f7" />
+  
+  <!-- Opera House Sails -->
+  <path d="M 100 150 Q 120 100 140 150" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+  <path d="M 130 150 Q 150 90 170 150" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+  <path d="M 160 150 Q 180 80 200 150" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+  <path d="M 190 150 Q 210 90 230 150" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+  
+  <!-- Sydney Harbor Bridge -->
+  <path d="M 250 120 Q 300 80 350 120" fill="none" stroke="#4a5568" stroke-width="10" />
+  <rect x="250" y="120" width="10" height="30" fill="#4a5568" />
+  <rect x="340" y="120" width="10" height="30" fill="#4a5568" />
+  
+  <!-- City Buildings -->
+  <rect x="275" y="90" width="15" height="60" fill="#cbd5e0" />
+  <rect x="290" y="70" width="20" height="80" fill="#a0aec0" />
+  <rect x="310" y="80" width="15" height="70" fill="#cbd5e0" />
+  
+  <!-- Building Windows -->
+  <rect x="278" y="95" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  <rect x="284" y="95" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  <rect x="278" y="105" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  <rect x="284" y="105" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  <rect x="278" y="115" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  <rect x="284" y="115" width="3" height="5" fill="#ffffff" opacity="0.6" />
+  
+  <rect x="293" y="75" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  <rect x="303" y="75" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  <rect x="293" y="85" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  <rect x="303" y="85" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  <rect x="293" y="95" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  <rect x="303" y="95" width="4" height="6" fill="#ffffff" opacity="0.6" />
+  
+  <!-- Small Boats -->
+  <path d="M 80 165 L 70 175 L 100 175 L 90 165 Z" fill="#ffffff" />
+  <rect x="83" y="160" width="4" height="5" fill="#a0aec0" />
+  
+  <path d="M 220 170 L 210 180 L 240 180 L 230 170 Z" fill="#ffffff" />
+  <rect x="223" y="165" width="4" height="5" fill="#a0aec0" />
+  
+  <!-- Sun -->
+  <circle cx="50" cy="50" r="20" fill="#ffd700" />
+  
+  <!-- Clouds -->
+  <ellipse cx="100" cy="40" rx="25" ry="15" fill="#ffffff" opacity="0.7" />
+  <ellipse cx="300" cy="30" rx="30" ry="10" fill="#ffffff" opacity="0.5" />
+  
+  <!-- Title -->
+  <text x="200" y="190" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Sydney, Australia</text>
+</svg>

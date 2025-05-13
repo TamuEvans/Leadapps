@@ -1,0 +1,63 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a7ab8" />
+      <stop offset="100%" stop-color="#7eb1e2" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#skyGradient)" />
+  
+  <!-- Water -->
+  <rect y="150" width="400" height="50" fill="#2c5d8c" />
+  
+  <!-- Skyline -->
+  <!-- Empire State Building -->
+  <rect x="100" y="50" width="20" height="100" fill="#c9c0ab" />
+  <rect x="105" y="30" width="10" height="20" fill="#a19784" />
+  <rect x="107" y="15" width="6" height="15" fill="#827a6c" />
+  
+  <!-- Chrysler Building -->
+  <rect x="140" y="60" width="16" height="90" fill="#c9c0ab" />
+  <polygon points="148,40 156,60 140,60" fill="#a19784" />
+  <polygon points="148,30 152,40 144,40" fill="#827a6c" />
+  
+  <!-- One World Trade Center -->
+  <rect x="180" y="45" width="25" height="105" fill="#a6c1d6" />
+  <polygon points="192.5,25 205,45 180,45" fill="#7d9aaf" />
+  
+  <!-- Flatiron Building -->
+  <polygon points="230,85 245,85 245,150 230,150" fill="#c9c0ab" />
+  
+  <!-- Random Skyscrapers -->
+  <rect x="30" y="80" width="15" height="70" fill="#a6c1d6" />
+  <rect x="50" y="65" width="10" height="85" fill="#c9c0ab" />
+  <rect x="65" y="90" width="20" height="60" fill="#a6c1d6" />
+  <rect x="260" y="75" width="20" height="75" fill="#c9c0ab" />
+  <rect x="285" y="60" width="15" height="90" fill="#a6c1d6" />
+  <rect x="305" y="90" width="25" height="60" fill="#c9c0ab" />
+  <rect x="335" y="70" width="17" height="80" fill="#a6c1d6" />
+  <rect x="360" y="85" width="20" height="65" fill="#c9c0ab" />
+  
+  <!-- Building Windows -->
+  <rect x="33" y="85" width="3" height="5" fill="#e9e9e9" />
+  <rect x="39" y="85" width="3" height="5" fill="#e9e9e9" />
+  <rect x="33" y="95" width="3" height="5" fill="#e9e9e9" />
+  <rect x="39" y="95" width="3" height="5" fill="#e9e9e9" />
+  <rect x="33" y="105" width="3" height="5" fill="#e9e9e9" />
+  <rect x="39" y="105" width="3" height="5" fill="#e9e9e9" />
+  
+  <rect x="52" y="70" width="2" height="5" fill="#e9e9e9" />
+  <rect x="56" y="70" width="2" height="5" fill="#e9e9e9" />
+  <rect x="52" y="80" width="2" height="5" fill="#e9e9e9" />
+  <rect x="56" y="80" width="2" height="5" fill="#e9e9e9" />
+  
+  <!-- Statue of Liberty (simplified) -->
+  <rect x="15" y="110" width="6" height="40" fill="#87b38d" />
+  <circle cx="18" cy="105" r="5" fill="#87b38d" />
+  <rect x="16" y="95" width="4" height="7" fill="#87b38d" />
+  <rect x="21" y="102" width="7" height="2" fill="#87b38d" />
+  
+  <!-- Title -->
+  <text x="200" y="190" font-family="Arial" font-size="16" fill="white" text-anchor="middle">New York, United States</text>
+</svg>
