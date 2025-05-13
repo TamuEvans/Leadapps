@@ -6,6 +6,12 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { 
   Heart, 
   DollarSign, 
@@ -14,7 +20,11 @@ import {
   GraduationCap,
   Building,
   FormInput,
-  X
+  X,
+  Share2,
+  Copy,
+  Mail,
+  MessageSquare
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -101,6 +111,17 @@ const Wishlist = () => {
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
   
+  // Toast state for copy notification
+  const [copySuccess, setCopySuccess] = useState<string | null>(null);
+  
+  // Show toast notification
+  useEffect(() => {
+    if (copySuccess) {
+      const timer = setTimeout(() => setCopySuccess(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [copySuccess]);
+  
   // Get favorite programs based on IDs
   const favoriteProgrammes = mockResults.filter(program => favorites.includes(program.id));
   
@@ -109,6 +130,42 @@ const Wishlist = () => {
     const newFavorites = favorites.filter(id => id !== programId);
     setFavorites(newFavorites);
     localStorage.setItem('programFavorites', JSON.stringify(newFavorites));
+  };
+  
+  // Share programme via different methods
+  const shareProgramme = (program: any, method: string) => {
+    // Generate a description for sharing
+    const shareText = `Check out this programme: ${program.programName} at ${program.institution} in ${program.location}. Tuition: ${program.tuition}`;
+    
+    switch (method) {
+      case 'copy':
+        navigator.clipboard.writeText(shareText)
+          .then(() => {
+            // Show success message
+            setCopySuccess('Copied to clipboard!');
+          })
+          .catch(err => {
+            console.error('Failed to copy text: ', err);
+            setCopySuccess('Failed to copy to clipboard!');
+          });
+        break;
+      case 'email':
+        const emailSubject = `Check out this programme: ${program.programName}`;
+        const emailBody = encodeURIComponent(shareText);
+        window.open(`mailto:?subject=${emailSubject}&body=${emailBody}`);
+        setCopySuccess('Email client opened!');
+        break;
+      case 'whatsapp':
+        window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`);
+        setCopySuccess('WhatsApp opened!');
+        break;
+      case 'sms':
+        window.open(`sms:?body=${encodeURIComponent(shareText)}`);
+        setCopySuccess('SMS opened!');
+        break;
+      default:
+        break;
+    }
   };
   
   return (
