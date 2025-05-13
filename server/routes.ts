@@ -337,11 +337,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get applications for a student
   app.get(`${apiPrefix}/applications`, async (req, res) => {
     try {
-      // In a real app with auth, you'd get the student ID from the authenticated user
-      const studentId = 1; // Default for demo
+      // First, check if our demo user exists - we'll reuse the same demo user
+      let user = await storage.getUserByEmail("demo@example.com");
       
-      // Get raw applications
-      const applications = await storage.getApplicationsByStudent(studentId);
+      // If no demo user, return empty applications
+      if (!user) {
+        return res.status(200).json([]);
+      }
+      
+      // Check for a student profile for this user
+      let profile = await storage.getStudentProfileByUserId(user.id);
+      if (!profile) {
+        return res.status(200).json([]);
+      }
+      
+      // Get applications for this user's profile
+      const applications = await storage.getApplicationsByStudent(profile.id);
       
       // Enhance applications with program and university data
       const enhancedApplications = await Promise.all(applications.map(async (app) => {
@@ -383,13 +394,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create application
   app.post(`${apiPrefix}/applications`, async (req, res) => {
     try {
-      // In a real app with auth, you'd get the student ID from the authenticated user
-      const userId = 1; // Default for demo
+      // In a demo without auth, we'll create a demo user if needed
       
-      // Check if the student profile exists, if not create one
-      let profile = await storage.getStudentProfileByUserId(userId);
+      // First, check if our demo user exists
+      let user = await storage.getUserByEmail("demo@example.com");
+      
+      // If not, create the demo user
+      if (!user) {
+        user = await storage.createUser({
+          email: "demo@example.com", 
+          username: "demouser",
+          password: "password123",
+          firstName: "Demo",
+          lastName: "User",
+          isVerified: true,
+          profileImageUrl: null,
+          googleId: null,
+          facebookId: null,
+          updatedAt: null
+        });
+      }
+      
+      // Now check for a student profile for this user
+      let profile = await storage.getStudentProfileByUserId(user.id);
       if (!profile) {
-        profile = await storage.createStudentProfile({ userId });
+        profile = await storage.createStudentProfile({ userId: user.id });
       }
       
       const applicationData = {
