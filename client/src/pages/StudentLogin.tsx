@@ -182,15 +182,7 @@ export default function StudentLogin() {
                           <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
-                          Google
-                        </Button>
-                        <Button variant="outline" className="bg-[#1877F2] text-white hover:bg-[#166FE5]" onClick={() => window.location.href = '/api/auth/facebook'}>
-                          <SiFacebook className="mr-2 h-5 w-5 text-white" />
-                          Facebook
-                        </Button>
-                      </div>
+                      <SocialLoginCompactButtons />
                     </form>
                   </Form>
                 </TabsContent>
@@ -270,14 +262,7 @@ export default function StudentLogin() {
                           <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
-                          Google
-                        </Button>
-                        <Button variant="outline" className="bg-[#1877F2] text-white hover:bg-[#166FE5]" onClick={() => window.location.href = '/api/auth/facebook'}>
-                          Facebook
-                        </Button>
-                      </div>
+                      <SocialLoginCompactButtons />
                     </form>
                   </Form>
                 </TabsContent>
