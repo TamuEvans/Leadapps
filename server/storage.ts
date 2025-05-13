@@ -131,6 +131,7 @@ export class MemStorage implements IStorage {
   private testsMap: Map<number, Test>;
   private workExperiencesMap: Map<number, WorkExperience>;
   private sessionsMap: Map<string, any>; // Token -> Session
+  private profileDocumentsMap: Map<number, any>; // Document ID -> Document
   
   // ID counters for each entity
   private userIdCounter: number;
@@ -138,6 +139,7 @@ export class MemStorage implements IStorage {
   private schoolIdCounter: number;
   private testIdCounter: number;
   private workExperienceIdCounter: number;
+  private documentIdCounter: number;
 
   constructor() {
     this.usersMap = new Map();
@@ -146,12 +148,14 @@ export class MemStorage implements IStorage {
     this.testsMap = new Map();
     this.workExperiencesMap = new Map();
     this.sessionsMap = new Map();
+    this.profileDocumentsMap = new Map();
     
     this.userIdCounter = 1;
     this.profileIdCounter = 1;
     this.schoolIdCounter = 1;
     this.testIdCounter = 1;
     this.workExperienceIdCounter = 1;
+    this.documentIdCounter = 1;
     
     // Add a default user for testing
     this.createUser({
@@ -471,6 +475,38 @@ export class MemStorage implements IStorage {
     for (const workExperience of workExperiencesToDelete) {
       await this.deleteWorkExperience(workExperience.id);
     }
+  }
+  
+  // Profile Document operations
+  async getProfileDocuments(profileId: number): Promise<any[]> {
+    const documents: any[] = [];
+    
+    // Use Array.from to avoid MapIterator compatibility issues
+    Array.from(this.profileDocumentsMap.entries()).forEach(([_, document]) => {
+      if (document.profileId === profileId) {
+        documents.push(document);
+      }
+    });
+    
+    return documents;
+  }
+  
+  async createProfileDocument(document: any): Promise<any> {
+    const id = this.documentIdCounter++;
+    
+    const newDocument = {
+      id,
+      profileId: document.profileId,
+      type: document.type || document.documentType,
+      fileName: document.fileName,
+      fileUrl: document.fileUrl,
+      uploadDate: new Date().toISOString(),
+      createdAt: new Date()
+    };
+    
+    this.profileDocumentsMap.set(id, newDocument);
+    
+    return newDocument;
   }
 }
 

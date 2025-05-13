@@ -1346,12 +1346,83 @@ const StudentProfile = () => {
                     {/* Second transcript upload */}
                     <div className="flex items-center justify-between bg-white p-2 rounded border">
                       <span className="text-xs text-gray-600">Transcript 2</span>
-                      <Button variant="outline" size="sm" className="flex items-center h-7 px-2">
+                      <Input
+                        id="transcript-upload-2"
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            const formData = new FormData();
+                            formData.append('document', e.target.files[0]);
+                            formData.append('documentType', 'Academic Transcript');
+                            formData.append('fileName', e.target.files[0].name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Transcript ${e.target.files![0].name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: "There was an error uploading your transcript. Please try again.",
+                                  variant: "destructive",
+                                });
+                              });
+                          }
+                        }}
+                      />
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex items-center h-7 px-2"
+                        onClick={() => document.getElementById('transcript-upload-2')?.click()}
+                      >
                         <Upload className="h-3 w-3 mr-1" /> Upload
                       </Button>
                     </div>
                     {/* Add more button */}
-                    <Button variant="ghost" size="sm" className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700">
+                    <Input
+                      id="transcript-upload-multiple"
+                      type="file"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          Array.from(e.target.files).forEach(file => {
+                            const formData = new FormData();
+                            formData.append('document', file);
+                            formData.append('documentType', 'Academic Transcript');
+                            formData.append('fileName', file.name);
+                            
+                            // Upload the document
+                            apiRequest("POST", "/api/profile/documents", formData)
+                              .then(response => {
+                                toast({
+                                  title: "Document Uploaded",
+                                  description: `Transcript ${file.name} has been uploaded successfully.`,
+                                });
+                              })
+                              .catch(error => {
+                                toast({
+                                  title: "Upload Error",
+                                  description: `Error uploading ${file.name}. Please try again.`,
+                                  variant: "destructive",
+                                });
+                              });
+                          });
+                        }
+                      }}
+                    />
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="w-full flex items-center justify-center text-blue-600 hover:text-blue-700"
+                      onClick={() => document.getElementById('transcript-upload-multiple')?.click()}
+                    >
                       <Plus className="h-3 w-3 mr-1" /> Add another transcript
                     </Button>
                   </div>
