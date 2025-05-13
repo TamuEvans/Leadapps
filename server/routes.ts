@@ -3,13 +3,21 @@ import express from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import { storage } from "./storage";
-import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema } from "@shared/schema";
+import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema, Application } from "@shared/schema";
 import { z } from "zod";
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import { configurePassport } from './auth/passportConfig';
 import { authMiddleware, requireAuth } from './auth/authMiddleware';
 import authRoutes from './auth/authRoutes';
+
+// Extended Application type with additional fields from related tables
+interface ExtendedApplication extends Application {
+  programName?: string;
+  universityName?: string;
+  universityLocation?: string;
+  universityLogo?: string;
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Serve static files from the public directory
@@ -347,11 +355,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid application ID" });
       }
       
-      const application = await storage.getApplication(id);
+      const applicationData = await storage.getApplication(id);
       
-      if (!application) {
+      if (!applicationData) {
         return res.status(404).json({ message: "Application not found" });
       }
+      
+      // Cast to extended application type
+      const application = applicationData as unknown as ExtendedApplication;
       
       // If the application has a programId, get the program details
       if (application.programId) {
@@ -399,6 +410,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Enhance applications with program and university data
       const enhancedApplications = await Promise.all(applications.map(async (app) => {
         try {
+          // Cast to extended application type
+          const enhancedApp = app as unknown as ExtendedApplication;
+          
           // Get program details
           const program = await storage.getProgram(app.programId);
           
@@ -406,21 +420,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // Get university details
             const university = await storage.getUniversity(program.universityId);
             
-            return {
-              ...app,
-              programName: program.name,
-              universityName: university?.name || "Unknown University",
-              universityLocation: university ? `${university.city}, ${university.country}` : "Unknown",
-              universityLogo: university?.logoUrl || null
-            };
+            enhancedApp.programName = program.name;
+            enhancedApp.universityName = university?.name || "Unknown University";
+            enhancedApp.universityLocation = university ? `${university.city}, ${university.country}` : "Unknown";
+            enhancedApp.universityLogo = university?.logoUrl || null;
+            
+            return enhancedApp;
           }
           
-          return {
-            ...app,
-            programName: "Unknown Program",
-            universityName: "Unknown University",
-            universityLocation: "Unknown"
-          };
+          enhancedApp.programName = "Unknown Program";
+          enhancedApp.universityName = "Unknown University";
+          enhancedApp.universityLocation = "Unknown";
+          
+          return enhancedApp;
         } catch (err) {
           console.error("Error enhancing application:", err);
           return app;
