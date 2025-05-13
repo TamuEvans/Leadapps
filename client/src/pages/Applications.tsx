@@ -183,10 +183,17 @@ const Applications = () => {
   }
 
   // Fetch applications data
-  const { data: applications = [], isLoading } = useQuery<Application[]>({
+  const { data: applications = [], isLoading, refetch } = useQuery<Application[]>({
     queryKey: ["/api/applications"],
     retry: false,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
+  
+  // Force refetch on mount
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -207,6 +214,7 @@ const Applications = () => {
     onSuccess: () => {
       // Refresh the applications data
       queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      refetch(); // Immediately refetch as well
       
       // Show success message
       setDeleteMessage("Application has been successfully deleted.");

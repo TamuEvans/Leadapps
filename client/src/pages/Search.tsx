@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, Link } from "wouter";
 import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -230,6 +230,9 @@ const Search = () => {
       return apiRequest("POST", "/api/applications", data);
     },
     onSuccess: () => {
+      // Invalidate applications query to refresh the data
+      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      
       toast({
         title: "Application started!",
         description: "You've been redirected to the application page to continue.",
@@ -248,14 +251,20 @@ const Search = () => {
   const handleApplyNow = async (program: any) => {
     try {
       // Create a new application for this program
-      await createApplicationMutation.mutateAsync({
+      const response = await createApplicationMutation.mutateAsync({
         programId: program.id,
         // The backend will assign the studentId based on the authenticated user
         status: "draft"
       });
       
-      // Redirect to the applications page
-      setLocation("/app/applications");
+      // Wait for the response to be processed
+      await response.json();
+      
+      // Add a short delay to ensure the data is fetched before navigation
+      setTimeout(() => {
+        // Redirect to the applications page
+        setLocation("/app/applications");
+      }, 300);
     } catch (error) {
       console.error("Error creating application:", error);
     }
