@@ -25,12 +25,26 @@ export default function Marketing() {
 
   useEffect(() => {
     // Optimize video playback
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-      videoRef.current.playsInline = true;
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      
+      // Play once then pause
+      const handleVideoEnd = () => {
+        videoElement.pause();
+      };
+      
+      videoElement.addEventListener('ended', handleVideoEnd);
+      
+      return () => {
+        videoElement.removeEventListener('ended', handleVideoEnd);
+      };
     }
-    
-    // Logo scrolling animation
+  }, []);
+  
+  // Separate effect for logo scrolling
+  useEffect(() => {
     const scrollInterval = setInterval(() => {
       setScrollPosition(prev => {
         if (logoRef.current) {
@@ -195,8 +209,8 @@ export default function Marketing() {
               <div className="flex-shrink-0 px-8">
                 <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
               </div>
-              <div className="flex-shrink-0 px-8">
-                <img src={sguLogo} alt="St. George's University" className="h-16 object-contain" />
+              <div className="flex-shrink-0 px-8 flex items-center">
+                <img src={sguLogo} alt="St. George's University" className="h-12 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
                 <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
@@ -218,8 +232,8 @@ export default function Marketing() {
               <div className="flex-shrink-0 px-8">
                 <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
               </div>
-              <div className="flex-shrink-0 px-8">
-                <img src={sguLogo} alt="St. George's University" className="h-16 object-contain" />
+              <div className="flex-shrink-0 px-8 flex items-center">
+                <img src={sguLogo} alt="St. George's University" className="h-12 object-contain" />
               </div>
               <div className="flex-shrink-0 px-8">
                 <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
