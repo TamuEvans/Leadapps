@@ -117,7 +117,7 @@ const mockScholarships = [
     coverage: "Tuition only",
     deadline: "April 10, 2025",
     eligibility: "Caribbean students pursuing STEM degrees",
-    locations: ["Caribbean", "US", "Canada"],
+    locations: ["Jamaica", "Trinidad", "Barbados", "St. Lucia", "Dominica", "US", "Canada"],
     featured: false
   },
   {
@@ -128,7 +128,7 @@ const mockScholarships = [
     coverage: "Tuition and books",
     deadline: "May 1, 2025",
     eligibility: "Jamaican students pursuing education degrees",
-    locations: ["Caribbean", "UK"],
+    locations: ["Jamaica", "UK"],
     featured: false
   },
   {
@@ -139,15 +139,31 @@ const mockScholarships = [
     coverage: "Full tuition and stipend",
     deadline: "February 28, 2025",
     eligibility: "Caribbean students pursuing medical and healthcare fields",
-    locations: ["Caribbean", "US", "UK"],
+    locations: ["Jamaica", "Trinidad", "Barbados", "Bahamas", "St. Lucia", "Grenada", "US", "UK"],
     featured: true
   }
+];
+
+// Available country options
+const countries = [
+  { value: "Jamaica", label: "Jamaica" },
+  { value: "Trinidad", label: "Trinidad & Tobago" },
+  { value: "Barbados", label: "Barbados" },
+  { value: "Bahamas", label: "Bahamas" },
+  { value: "Grenada", label: "Grenada" },
+  { value: "St. Lucia", label: "St. Lucia" },
+  { value: "Dominica", label: "Dominica" },
+  { value: "US", label: "United States" },
+  { value: "UK", label: "United Kingdom" },
+  { value: "Canada", label: "Canada" },
+  { value: "Australia", label: "Australia" }
 ];
 
 const FundingHub = () => {
   const [activeTab, setActiveTab] = useState("scholarships");
   const [searchQuery, setSearchQuery] = useState("");
-  const [locationFilter, setLocationFilter] = useState("");
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
   
   // Filter function for loans
   const filteredLoans = mockLoans.filter(loan => {
@@ -155,7 +171,8 @@ const FundingHub = () => {
                          loan.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          loan.eligibility.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesLocation = locationFilter === "all" || locationFilter === "" || loan.locations.includes(locationFilter);
+    const matchesLocation = selectedCountries.length === 0 || 
+                           loan.locations.some(location => selectedCountries.includes(location));
     
     return matchesSearch && matchesLocation;
   });
@@ -166,7 +183,8 @@ const FundingHub = () => {
                          scholarship.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          scholarship.eligibility.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesLocation = locationFilter === "all" || locationFilter === "" || scholarship.locations.includes(locationFilter);
+    const matchesLocation = selectedCountries.length === 0 || 
+                           scholarship.locations.some(location => selectedCountries.includes(location));
     
     return matchesSearch && matchesLocation;
   });
@@ -188,20 +206,66 @@ const FundingHub = () => {
             className="w-full"
           />
         </div>
-        <div className="w-full md:w-[200px]">
-          <Select value={locationFilter} onValueChange={setLocationFilter}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filter by location" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Locations</SelectItem>
-              <SelectItem value="Caribbean">Caribbean</SelectItem>
-              <SelectItem value="US">United States</SelectItem>
-              <SelectItem value="UK">United Kingdom</SelectItem>
-              <SelectItem value="Canada">Canada</SelectItem>
-              <SelectItem value="Australia">Australia</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="w-full md:w-[280px]">
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                className="w-full justify-between"
+              >
+                {selectedCountries.length > 0
+                  ? `${selectedCountries.length} location${selectedCountries.length > 1 ? "s" : ""} selected`
+                  : "Filter by location"}
+                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[280px] p-0">
+              <Command>
+                <CommandInput placeholder="Search location..." />
+                <CommandList>
+                  <CommandEmpty>No location found.</CommandEmpty>
+                  <CommandGroup>
+                    {countries.map((country) => (
+                      <CommandItem
+                        key={country.value}
+                        value={country.value}
+                        onSelect={() => {
+                          setSelectedCountries((prev) => {
+                            if (prev.includes(country.value)) {
+                              return prev.filter((c) => c !== country.value);
+                            } else {
+                              return [...prev, country.value];
+                            }
+                          });
+                        }}
+                      >
+                        <div className="mr-2 flex h-4 w-4 items-center justify-center">
+                          {selectedCountries.includes(country.value) ? (
+                            <Check className="h-4 w-4" />
+                          ) : null}
+                        </div>
+                        {country.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                  {selectedCountries.length > 0 && (
+                    <div className="border-t border-gray-200 p-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full justify-center text-xs"
+                        onClick={() => setSelectedCountries([])}
+                      >
+                        Clear selection
+                      </Button>
+                    </div>
+                  )}
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
       
