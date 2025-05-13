@@ -1,0 +1,187 @@
+.kingston-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+              url('/images/destinations/cities/kingston.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.london-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+              url('/images/destinations/cities/london.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.newyork-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+              url('/images/destinations/cities/newyork.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.toronto-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+              url('/images/destinations/cities/toronto.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.sydney-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+              url('/images/destinations/cities/sydney.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.city-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  height: 11rem;
+}
+
+.city-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  transition: transform 0.5s ease-in-out;
+}
+
+.city-card:hover::before {
+  transform: scale(1.15);
+}
+
+.kingston-bg::before {
+  background-image: url('/images/destinations/cities/kingston.svg');
+}
+
+.london-bg::before {
+  background-image: url('/images/destinations/cities/london.svg');
+}
+
+.newyork-bg::before {
+  background-image: url('/images/destinations/cities/newyork.svg');
+}
+
+.toronto-bg::before {
+  background-image: url('/images/destinations/cities/toronto.svg');
+}
+
+.sydney-bg::before {
+  background-image: url('/images/destinations/cities/sydney.svg');
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
+.card-content .city-name {
+  color: white;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-content .universities {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+}
+
+.flag-icon {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Card deck effect */
+.card-deck {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.card-deck .card-wrapper {
+  position: relative;
+  transition: transform 0.4s ease, z-index 0.05s;
+  margin-left: -3.5rem;
+  width: 16rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+}
+
+.card-deck .card-wrapper:first-child {
+  margin-left: 0;
+}
+
+.card-deck .card-wrapper:hover {
+  transform: translateY(-1.5rem) scale(1.05) rotate(0deg) !important;
+  z-index: 50;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Add slight rotation to cards for more realistic deck feel */
+.card-deck .card-wrapper:nth-child(1) {
+  transform: rotate(-2deg);
+}
+
+.card-deck .card-wrapper:nth-child(2) {
+  transform: rotate(-1deg);
+}
+
+.card-deck .card-wrapper:nth-child(3) {
+  transform: rotate(0deg);
+}
+
+.card-deck .card-wrapper:nth-child(4) {
+  transform: rotate(1deg);
+}
+
+.card-deck .card-wrapper:nth-child(5) {
+  transform: rotate(2deg);
+}
+
+/* Add card shadow effects */
+.destination-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.destination-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .card-deck {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-deck .card-wrapper {
+    margin-left: 0;
+    margin-top: -4rem;
+    width: 85%;
+    max-width: 16rem;
+  }
+  
+  .card-deck .card-wrapper:first-child {
+    margin-top: 0;
+  }
+  
+  .card-deck .card-wrapper:hover {
+    transform: translateY(-0.5rem) scale(1.05) rotate(0deg) !important;
+  }
+}

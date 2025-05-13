@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { Card, CardContent } from '@/components/ui/card';
+import './CityBackgrounds.css';
 
 type Destination = {
   id: string;
@@ -8,6 +9,7 @@ type Destination = {
   flag: string;
   image: string;
   cityImage: string;
+  cssClass: string;
   universities: number;
 };
 
@@ -18,6 +20,7 @@ const destinations: Destination[] = [
     flag: '🇯🇲',
     image: '/images/destinations/caribbean.svg',
     cityImage: '/images/destinations/cities/kingston.svg',
+    cssClass: 'kingston-bg',
     universities: 12
   },
   {
@@ -26,6 +29,7 @@ const destinations: Destination[] = [
     flag: '🇬🇧',
     image: '/images/destinations/uk.svg',
     cityImage: '/images/destinations/cities/london.svg',
+    cssClass: 'london-bg',
     universities: 150
   },
   {
@@ -34,6 +38,7 @@ const destinations: Destination[] = [
     flag: '🇺🇸',
     image: '/images/destinations/usa.svg',
     cityImage: '/images/destinations/cities/newyork.svg',
+    cssClass: 'newyork-bg',
     universities: 200
   },
   {
@@ -42,6 +47,7 @@ const destinations: Destination[] = [
     flag: '🇨🇦',
     image: '/images/destinations/canada.svg',
     cityImage: '/images/destinations/cities/toronto.svg',
+    cssClass: 'toronto-bg',
     universities: 80
   },
   {
@@ -50,6 +56,7 @@ const destinations: Destination[] = [
     flag: '🇦🇺',
     image: '/images/destinations/australia.svg',
     cityImage: '/images/destinations/cities/sydney.svg',
+    cssClass: 'sydney-bg',
     universities: 40
   }
 ];
@@ -61,55 +68,43 @@ export const PopularDestinations = () => {
         <h2 className="text-3xl font-bold text-center mb-12">Popular Destinations</h2>
         
         {/* Card Deck */}
-        <div className="flex flex-wrap justify-center">
-          <div className="w-full max-w-5xl">
-            <div className="relative flex flex-wrap justify-center gap-4 md:gap-8">
-              {destinations.map((destination, index) => (
-                <Link 
-                  key={destination.id} 
-                  href={`/study-locations/${destination.id}`}
-                  className="block"
-                >
-                  <div 
-                    className="group relative w-64 transition-all duration-300 hover:z-10 hover:scale-105"
-                    style={{ marginLeft: index > 0 ? '-40px' : '0' }}
-                  >
-                    <Card className="overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 h-full border-2 border-white">
-                      <div className="relative">
-                        {/* Flag image overlay */}
-                        <div 
-                          className="absolute inset-0 h-44 bg-cover bg-center opacity-30" 
-                          style={{ 
-                            backgroundImage: `url(${destination.image})` 
-                          }}
-                        />
-                        
-                        {/* City image */}
-                        <div 
-                          className="h-44 bg-cover bg-center" 
-                          style={{ 
-                            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url(${destination.cityImage})` 
-                          }}
-                        >
-                          <div className="w-full h-full flex items-end p-4">
-                            <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 text-sm font-medium">
-                              {destination.flag} {destination.name}
-                            </div>
-                          </div>
-                        </div>
+        <div className="card-deck">
+          {destinations.map((destination, index) => (
+            <div
+              key={destination.id}
+              className="card-wrapper"
+              style={{ zIndex: destinations.length - index }}
+            >
+              <Link 
+                href={`/study-locations/${destination.id}`}
+                className="block"
+              >
+                <Card className="destination-card border-2 border-white">
+                  <div className={`city-card ${destination.cssClass}`}>
+                    <div className="card-content">
+                      <div className="city-name">
+                        <span className="flag-icon">{destination.flag}</span>
+                        {destination.name}
                       </div>
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-center">
-                          <div className="text-sm text-gray-600">{destination.universities} Universities</div>
-                          <span className="text-primary text-sm font-medium">View →</span>
-                        </div>
-                      </CardContent>
-                    </Card>
+                      <div className="universities">
+                        {destination.universities} Universities
+                      </div>
+                    </div>
                   </div>
-                </Link>
-              ))}
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <div className="text-sm text-gray-600">
+                        Popular Destination
+                      </div>
+                      <span className="text-primary text-sm font-medium">
+                        View →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
