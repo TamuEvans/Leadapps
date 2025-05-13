@@ -149,7 +149,7 @@ const FundingHub = () => {
                          loan.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          loan.eligibility.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesLocation = locationFilter === "" || loan.locations.includes(locationFilter);
+    const matchesLocation = locationFilter === "all" || locationFilter === "" || loan.locations.includes(locationFilter);
     
     return matchesSearch && matchesLocation;
   });
@@ -160,7 +160,7 @@ const FundingHub = () => {
                          scholarship.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          scholarship.eligibility.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesLocation = locationFilter === "" || scholarship.locations.includes(locationFilter);
+    const matchesLocation = locationFilter === "all" || locationFilter === "" || scholarship.locations.includes(locationFilter);
     
     return matchesSearch && matchesLocation;
   });
@@ -188,7 +188,7 @@ const FundingHub = () => {
               <SelectValue placeholder="Filter by location" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Locations</SelectItem>
+              <SelectItem value="all">All Locations</SelectItem>
               <SelectItem value="Caribbean">Caribbean</SelectItem>
               <SelectItem value="US">United States</SelectItem>
               <SelectItem value="UK">United Kingdom</SelectItem>
