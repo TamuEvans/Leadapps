@@ -18,6 +18,7 @@ import InfoCentre from "@/pages/InfoCentre";
 import FairsEvents from "@/pages/FairsEvents";
 import StudyLocation from "@/pages/StudyLocation";
 import ServicePage from "@/pages/ServicePage";
+import AppHome from "@/pages/AppHome";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -43,7 +44,7 @@ function App() {
           <Route path="/app">
             <MainLayout>
               <Switch>
-                <Route path="/app" component={Search} />
+                <Route path="/app" component={AppHome} />
                 <Route path="/app/profile">
                   <ProtectedRoute testMode={true}>
                     <StudentProfile />
@@ -51,22 +52,22 @@ function App() {
                 </Route>
                 <Route path="/app/search" component={Search} />
                 <Route path="/app/wishlist">
-                  <ProtectedRoute>
+                  <ProtectedRoute testMode={true}>
                     <Wishlist />
                   </ProtectedRoute>
                 </Route>
                 <Route path="/app/applications">
-                  <ProtectedRoute>
+                  <ProtectedRoute testMode={true}>
                     <Applications />
                   </ProtectedRoute>
                 </Route>
                 <Route path="/app/personality-hub">
-                  <ProtectedRoute>
+                  <ProtectedRoute testMode={true}>
                     <PersonalityHub />
                   </ProtectedRoute>
                 </Route>
                 <Route path="/app/counselling">
-                  <ProtectedRoute>
+                  <ProtectedRoute testMode={true}>
                     <Counselling />
                   </ProtectedRoute>
                 </Route>
