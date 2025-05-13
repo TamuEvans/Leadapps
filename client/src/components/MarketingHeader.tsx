@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
+import { Bell, ChevronDown } from 'lucide-react';
 import logoImage from '../assets/logo.png';
 
 const MarketingHeader = () => {
@@ -77,14 +77,18 @@ const MarketingHeader = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <Link to="/student-login" className="hidden sm:block">
-            <Button variant="outline" size="sm" className="text-blue-600 border-blue-600 hover:bg-blue-50 text-xs h-7 min-w-[100px] whitespace-nowrap">
-              Student Login
-            </Button>
-          </Link>
+          <Button variant="ghost" size="icon" className="relative text-gray-500 h-8 w-8">
+            <Bell className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              3
+            </span>
+          </Button>
+          
           <Link to="/app">
-            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs h-7 min-w-[90px] whitespace-nowrap">
-              Get Started
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full p-0">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium">
+                SU
+              </div>
             </Button>
           </Link>
         </div>

@@ -9,29 +9,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LogOut, Settings, User } from 'lucide-react';
+import { Bell, LogOut, Settings, User } from 'lucide-react';
 import { Link } from 'wouter';
 
 export function UserMenu() {
   const { user, isAuthenticated, logout } = useAuth();
 
-  // If not authenticated, show login/register buttons
-  if (!isAuthenticated) {
-    return (
-      <div className="flex items-center gap-2">
-        <Link href="/login">
-          <Button variant="outline" size="sm">
-            Sign In
-          </Button>
-        </Link>
-        <Link href="/register">
-          <Button className="bg-gradient-primary" size="sm">
-            Sign Up
-          </Button>
-        </Link>
-      </div>
-    );
-  }
+  // If not authenticated, show profile picture and notifications anyway (for design consistency)
+  // In a real app, we'd check isAuthenticated and redirect to login if needed
 
   // Get user initials for avatar fallback
   const getInitials = () => {
@@ -44,50 +29,61 @@ export function UserMenu() {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.profileImageUrl || ''} alt={user?.firstName || ''} />
-            <AvatarFallback className="bg-primary text-white">
-              {getInitials()}
-            </AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
-              {user?.firstName} {user?.lastName}
-            </p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
-            </p>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <Link href="/profile">
-          <DropdownMenuItem className="cursor-pointer">
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+    <div className="flex items-center space-x-3">
+      {/* Notifications icon */}
+      <Button variant="ghost" size="icon" className="relative text-gray-500">
+        <Bell className="h-5 w-5" />
+        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+          3
+        </span>
+      </Button>
+      
+      {/* User profile dropdown */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user?.profileImageUrl || ''} alt={user?.firstName || ''} />
+              <AvatarFallback className="bg-primary text-white">
+                {getInitials()}
+              </AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">
+                {user?.firstName || 'Student'} {user?.lastName || 'User'}
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {user?.email || 'student@example.com'}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <Link href="/app/profile">
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/app/settings">
+            <DropdownMenuItem className="cursor-pointer">
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem 
+            className="cursor-pointer text-red-500 focus:text-red-500" 
+            onClick={() => logout()}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
           </DropdownMenuItem>
-        </Link>
-        <Link href="/settings">
-          <DropdownMenuItem className="cursor-pointer">
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
-        </Link>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem 
-          className="cursor-pointer text-red-500 focus:text-red-500" 
-          onClick={() => logout()}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
