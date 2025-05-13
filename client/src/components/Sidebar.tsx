@@ -3,12 +3,11 @@ import { cn } from "@/lib/utils";
 import { useMobile } from "@/hooks/use-mobile";
 import { 
   Home, User, Search, Heart, FileText, 
-  Brain, MessageCircle, Newspaper, ChevronRight
+  Brain, MessageCircle, Newspaper, ChevronRight, Menu
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 import leadappsLogo from "../assets/leadapps-logo.png";
 
 const Sidebar = () => {
@@ -16,8 +15,7 @@ const Sidebar = () => {
   const isMobile = useMobile();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
-
+  
   // Set expanded to false initially on desktop after a short delay
   useEffect(() => {
     if (!isMobile) {
@@ -31,7 +29,7 @@ const Sidebar = () => {
   // Dispatch event when expanded state changes so MainLayout can respond
   useEffect(() => {
     const event = new CustomEvent('sidebarStateChange', { 
-      detail: { expanded: expanded } 
+      detail: { expanded } 
     });
     window.dispatchEvent(event);
   }, [expanded]);
@@ -49,20 +47,22 @@ const Sidebar = () => {
 
   const handleMouseEnter = () => {
     if (!isMobile) {
-      setIsHovering(true);
       setExpanded(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (!isMobile) {
-      setIsHovering(false);
       setExpanded(false);
     }
   };
 
   const toggleExpanded = () => {
     setExpanded(!expanded);
+  };
+  
+  const isActive = (path: string) => {
+    return location === path || (path !== "/app" && location.startsWith(path));
   };
 
   const SidebarContent = () => (
@@ -96,6 +96,7 @@ const Sidebar = () => {
           )}
         </div>
       </div>
+      
       <nav className={cn(
         "transition-all duration-200 ease-in-out",
         expanded ? "p-2" : "p-1"
@@ -103,30 +104,29 @@ const Sidebar = () => {
         <ul className="space-y-1">
           {navigationItems.map((item) => (
             <li key={item.path}>
-              <div
-                className={cn(
-                  "flex items-center rounded-md cursor-pointer transition-all duration-200",
-                  expanded ? "px-4 py-2" : "px-2 py-2 justify-center",
-                  (location === item.path || (item.path !== "/app" && location.startsWith(item.path)))
-                    ? "bg-gradient-primary text-white font-medium" 
-                    : "hover:bg-gray-100 text-gray-600"
-                )}
-                onClick={() => {
-                  setOpen(false);
-                  window.location.href = item.path;
-                }}
-                title={!expanded ? item.label : undefined}
-              >
-                <span className={cn(
-                  expanded ? "w-5" : "w-5",
-                  (location === item.path || (item.path !== "/app" && location.startsWith(item.path))) ? "text-white" : "text-gray-500"
-                )}>
-                  {item.icon}
-                </span>
-                {expanded && (
-                  <span className="ml-3 transition-opacity duration-200">{item.label}</span>
-                )}
-              </div>
+              <Link to={item.path}>
+                <div
+                  className={cn(
+                    "flex items-center rounded-md cursor-pointer transition-all duration-200",
+                    expanded ? "px-4 py-2" : "px-2 py-2 justify-center",
+                    isActive(item.path) 
+                      ? "bg-gradient-primary text-white font-medium" 
+                      : "hover:bg-gray-100 text-gray-600"
+                  )}
+                  onClick={() => setOpen(false)}
+                  title={!expanded ? item.label : undefined}
+                >
+                  <span className={cn(
+                    "w-5",
+                    isActive(item.path) ? "text-white" : "text-gray-500"
+                  )}>
+                    {item.icon}
+                  </span>
+                  {expanded && (
+                    <span className="ml-3 transition-opacity duration-200">{item.label}</span>
+                  )}
+                </div>
+              </Link>
             </li>
           ))}
         </ul>

@@ -87,12 +87,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-1 text-sm">
                   {isSubPage && (
-                    <div 
+                    <Link 
+                      to="/app" 
                       className="text-gradient hover:underline flex items-center cursor-pointer mr-1"
-                      onClick={() => window.location.href = "/app"}
                     >
                       <ArrowLeft className="w-3 h-3 mr-1" /> Home
-                    </div>
+                    </Link>
                   )}
                   {isSubPage && (
                     <>
