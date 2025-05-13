@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "@/hooks/use-toast";
 import {
   Accordion,
   AccordionContent,
@@ -140,8 +141,10 @@ const Applications = () => {
   const [, params] = useRoute("/app/applications");
   const [location, navigate] = useLocation();
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [currentApplication, setCurrentApplication] = useState<any>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [deleteMessage, setDeleteMessage] = useState<string | null>(null);
 
   // Extract success parameter from URL
   useEffect(() => {
@@ -196,10 +199,54 @@ const Applications = () => {
     }).format(date);
   };
 
+  // Delete application mutation
+  const deleteApplicationMutation = useMutation({
+    mutationFn: async (id: number) => {
+      return apiRequest("DELETE", `/api/applications/${id}`);
+    },
+    onSuccess: () => {
+      // Refresh the applications data
+      queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
+      
+      // Show success message
+      setDeleteMessage("Application has been successfully deleted.");
+      
+      // Clear the message after a few seconds
+      setTimeout(() => {
+        setDeleteMessage(null);
+      }, 5000);
+    },
+    onError: (error) => {
+      toast({
+        title: "Error deleting application",
+        description: error.message || "There was an error deleting your application. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+
   // Open submit dialog for a specific application
   const handleSubmitClick = (application: any) => {
     setCurrentApplication(application);
     setShowSubmitDialog(true);
+  };
+  
+  // Open delete dialog for a specific application
+  const handleDeleteClick = (application: any) => {
+    setCurrentApplication(application);
+    setShowDeleteDialog(true);
+  };
+  
+  // Handle delete confirmation
+  const handleDeleteConfirm = async () => {
+    if (!currentApplication) return;
+    
+    try {
+      await deleteApplicationMutation.mutateAsync(currentApplication.id);
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error("Error deleting application:", error);
+    }
   };
 
   return (
@@ -212,6 +259,16 @@ const Applications = () => {
           <AlertTitle className="text-green-800">Success!</AlertTitle>
           <AlertDescription className="text-green-700">
             {successMessage}
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      {deleteMessage && (
+        <Alert className="bg-blue-50 border-blue-200">
+          <Check className="h-4 w-4 text-blue-600" />
+          <AlertTitle className="text-blue-800">Success!</AlertTitle>
+          <AlertDescription className="text-blue-700">
+            {deleteMessage}
           </AlertDescription>
         </Alert>
       )}
@@ -273,21 +330,31 @@ const Applications = () => {
                 )}
               </CardContent>
               
-              <CardFooter className="bg-gray-50 px-6 py-3 flex justify-end">
-                {application.status === 'draft' ? (
-                  <Button 
-                    onClick={() => handleSubmitClick(application)}
-                    className="bg-primary hover:bg-primary/90"
-                  >
-                    Submit Application
-                    <ChevronRight className="h-4 w-4 ml-1" />
-                  </Button>
-                ) : (
-                  <Button variant="outline">
-                    View Details
-                    <ChevronRight className="h-4 w-4 ml-1" />
-                  </Button>
-                )}
+              <CardFooter className="bg-gray-50 px-6 py-3 flex justify-between items-center">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="text-red-500 hover:text-red-700 hover:bg-red-50" 
+                  onClick={() => handleDeleteClick(application)}
+                >
+                  Delete Application
+                </Button>
+                <div>
+                  {application.status === 'draft' ? (
+                    <Button 
+                      onClick={() => handleSubmitClick(application)}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      Submit Application
+                      <ChevronRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  ) : (
+                    <Button variant="outline">
+                      View Details
+                      <ChevronRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  )}
+                </div>
               </CardFooter>
             </Card>
           ))}
@@ -307,6 +374,46 @@ const Applications = () => {
           {currentApplication && (
             <SubmitApplication applicationId={currentApplication.id} />
           )}
+        </DialogContent>
+      </Dialog>
+      
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete Application</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this application? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {currentApplication && (
+            <div className="pt-4 pb-2">
+              <p className="text-sm text-gray-600 mb-4">
+                You are about to delete your application to:
+              </p>
+              <div className="bg-gray-50 p-3 rounded-md border border-gray-100 mb-4">
+                <p className="font-medium">{currentApplication.programName}</p>
+                <p className="text-sm text-gray-600">{currentApplication.universityName}</p>
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter className="flex justify-between gap-4 sm:justify-between">
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              Delete Application
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
