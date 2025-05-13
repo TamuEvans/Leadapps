@@ -69,7 +69,8 @@ personalityAssessmentRouter.post("/", async (req, res) => {
     const result = await analyzePersonality(assessmentDataCopy);
     
     // Get the authenticated user ID if available
-    const userId = req.user?.id;
+    // Using any type since the user object structure depends on auth implementation
+    const userId = (req.user as any)?.claims?.sub;
     
     // Store the assessment result
     const assessmentResult = {
