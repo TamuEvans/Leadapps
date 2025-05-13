@@ -335,7 +335,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get applications for a student
-  app.get(`${apiPrefix}/applications`, requireAuth, async (req, res) => {
+  app.get(`${apiPrefix}/applications`, async (req, res) => {
     try {
       // In a real app with auth, you'd get the student ID from the authenticated user
       const studentId = 1; // Default for demo
@@ -349,7 +349,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create application
-  app.post(`${apiPrefix}/applications`, requireAuth, async (req, res) => {
+  app.post(`${apiPrefix}/applications`, async (req, res) => {
     try {
       // In a real app with auth, you'd get the student ID from the authenticated user
       const studentId = 1; // Default for demo
@@ -357,7 +357,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const applicationData = {
         studentId,
         ...req.body,
-        status: "Draft", // Default status for new applications
+        status: "draft", // Default status for new applications with lowercase status
         createdAt: new Date(),
         lastUpdated: new Date()
       };
@@ -371,7 +371,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update application
-  app.patch(`${apiPrefix}/applications/:id`, requireAuth, async (req, res) => {
+  app.patch(`${apiPrefix}/applications/:id`, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -398,7 +398,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Delete application
-  app.delete(`${apiPrefix}/applications/:id`, requireAuth, async (req, res) => {
+  app.delete(`${apiPrefix}/applications/:id`, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
