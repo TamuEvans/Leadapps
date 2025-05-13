@@ -11,6 +11,8 @@ import Search from "@/pages/Search";
 import Wishlist from "@/pages/Wishlist";
 import Applications from "@/pages/Applications";
 import PersonalityHub from "@/pages/PersonalityHub";
+import PersonalityAssessment from "@/pages/PersonalityAssessment";
+import PersonalityResults from "@/pages/PersonalityResults";
 import Counselling from "@/pages/Counselling";
 import Articles from "@/pages/Articles";
 import AboutUs from "@/pages/AboutUs";
@@ -99,6 +101,22 @@ function App() {
             <MainLayout>
               <ProtectedRoute testMode={true}>
                 <PersonalityHub />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/personality-assessment">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <PersonalityAssessment />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/personality-results/:id">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <PersonalityResults />
               </ProtectedRoute>
             </MainLayout>
           </Route>
