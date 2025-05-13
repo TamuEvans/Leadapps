@@ -141,7 +141,9 @@ export default function Marketing() {
       {/* Lead Logos Section (From your mockup) */}
       <section className="bg-white py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-center text-xl font-bold mb-10 text-purple-800">REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR CARIBBEAN STUDENTS</h2>
+          <h2 className="text-center text-xl font-bold mb-10 text-blue-600">
+            REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR <span className="whitespace-nowrap">CARIBBEAN STUDENTS</span>
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-6 items-center">
             {Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="flex justify-center">
