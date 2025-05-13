@@ -40,25 +40,73 @@ function App() {
           {/* Services routes */}
           <Route path="/services/:service" component={ServicePage} />
 
-          {/* App routes with MainLayout */}
-          <Route path="/app/:rest*">
+          {/* App routes */}
+          <Route path="/app">
             <MainLayout>
-              <Switch>
-                <Route path="/app" component={AppHome} />
-                <Route path="/app/profile" component={StudentProfile} />
-                <Route path="/app/search" component={Search} />
-                <Route path="/app/wishlist" component={Wishlist} />
-                <Route path="/app/applications" component={Applications} />
-                <Route path="/app/personality-hub" component={PersonalityHub} />
-                <Route path="/app/counselling" component={Counselling} />
-                <Route path="/app/articles" component={Articles} />
-                <Route component={NotFound} />
-              </Switch>
+              <ProtectedRoute testMode={true}>
+                <AppHome />
+              </ProtectedRoute>
             </MainLayout>
           </Route>
           
-          {/* Catch-all route */}
-          <Route component={NotFound} />
+          <Route path="/app/profile">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <StudentProfile />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/search">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <Search />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/wishlist">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <Wishlist />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/applications">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <Applications />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/personality-hub">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <PersonalityHub />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/counselling">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <Counselling />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/articles">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <Articles />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          {/* Fallback route for any unmatched routes */}
+          <Route path="/:rest*" component={NotFound} />
         </Switch>
         <Toaster />
       </TooltipProvider>
