@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
+import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
 import backgroundVideo from '../assets/background-video.mp4';
 
@@ -51,15 +52,6 @@ export default function Marketing() {
       };
     }
   }, []);
-
-  // Popular destinations data
-  const popularDestinations = [
-    { name: 'United Kingdom', flag: '🇬🇧', universities: 129, image: 'https://source.unsplash.com/random/300x200/?london' },
-    { name: 'Australia', flag: '🇦🇺', universities: 43, image: 'https://source.unsplash.com/random/300x200/?sydney' },
-    { name: 'Canada', flag: '🇨🇦', universities: 96, image: 'https://source.unsplash.com/random/300x200/?toronto' },
-    { name: 'United States', flag: '🇺🇸', universities: 215, image: 'https://source.unsplash.com/random/300x200/?newyork' },
-    { name: 'New Zealand', flag: '🇳🇿', universities: 17, image: 'https://source.unsplash.com/random/300x200/?auckland' },
-  ];
 
   // Popular programs data
   const popularPrograms = [
@@ -230,23 +222,7 @@ export default function Marketing() {
       </section>
 
       {/* Popular Destinations Section */}
-      <section className="w-full py-12 bg-gray-50">
-        <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Popular Destinations</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {popularDestinations.map((destination, index) => (
-              <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                <div className="h-32 bg-cover bg-center" style={{ backgroundImage: `url(${destination.image})` }}></div>
-                <div className="p-4 bg-white">
-                  <div className="text-xl mb-1">{destination.flag}</div>
-                  <h3 className="font-medium text-lg">{destination.name}</h3>
-                  <p className="text-sm text-gray-600">{destination.universities} Universities</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PopularDestinations />
 
       {/* Popular Programs Section */}
       <section className="w-full py-12 bg-white">
