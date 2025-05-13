@@ -209,14 +209,16 @@ export default function Marketing() {
               { image: "/images/students/student5.png", title: "Loan/Scholarship Support" },
               { image: "/images/students/student6.png", title: "Other" }
             ].map((service, index) => (
-              <Card key={index} className="bg-white border-none shadow-md rounded-xl overflow-hidden">
-                <CardContent className="flex flex-col items-center justify-center p-0 h-full">
-                  <img src={service.image} alt={service.title} className="w-full h-auto" />
-                  <div className="p-3">
-                    <p className="text-center font-medium text-gray-800">{service.title}</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-full aspect-square rounded-xl overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+                <p className="text-center font-medium text-gray-800 text-sm mt-2">{service.title}</p>
+              </div>
             ))}
           </div>
         </div>
