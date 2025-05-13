@@ -25,7 +25,7 @@ const destinations: Destination[] = [
   },
   {
     id: 'united-kingdom',
-    name: 'United Kingdom',
+    name: 'UK',
     flag: '🇬🇧',
     image: '/images/destinations/uk.svg',
     cityImage: '/images/destinations/cities/london.svg',
@@ -34,7 +34,7 @@ const destinations: Destination[] = [
   },
   {
     id: 'united-states',
-    name: 'United States',
+    name: 'USA',
     flag: '🇺🇸',
     image: '/images/destinations/usa.svg',
     cityImage: '/images/destinations/cities/newyork.svg',
@@ -92,10 +92,7 @@ export const PopularDestinations = () => {
                       <div className="universities-count">
                         {destination.universities} Universities
                       </div>
-                      <div className="flex justify-between items-center mt-2">
-                        <div className="text-xs text-gray-500">
-                          Popular Destination
-                        </div>
+                      <div className="flex justify-end items-center mt-2">
                         <span className="text-primary text-xs font-medium">
                           View →
                         </span>
