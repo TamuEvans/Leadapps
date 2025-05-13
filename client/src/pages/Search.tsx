@@ -204,7 +204,11 @@ const Search = () => {
   const [sortBy, setSortBy] = useState<string>("relevance");
   
   // Favorite/wishlist tracking
-  const [favorites, setFavorites] = useState<number[]>([]);
+  // Initialize favorites from localStorage
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const savedFavorites = localStorage.getItem('programFavorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
   
   // Active filters tracking for display
   const [activeFilters, setActiveFilters] = useState<{id: string, label: string}[]>([]);
@@ -302,11 +306,19 @@ const Search = () => {
   
   // Toggle program favorite/wishlist status
   const toggleFavorite = (programId: number) => {
-    if (favorites.includes(programId)) {
-      setFavorites(favorites.filter(id => id !== programId));
-    } else {
-      setFavorites([...favorites, programId]);
-    }
+    const newFavorites = favorites.includes(programId)
+      ? favorites.filter(id => id !== programId)
+      : [...favorites, programId];
+      
+    // Update state
+    setFavorites(newFavorites);
+    
+    // Save to localStorage
+    localStorage.setItem('programFavorites', JSON.stringify(newFavorites));
+    
+    // Show feedback toast (optional)
+    const action = favorites.includes(programId) ? 'removed from' : 'added to';
+    console.log(`Program ${action} your wishlist`);
   };
   
   return (
