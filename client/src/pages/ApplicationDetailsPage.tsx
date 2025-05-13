@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Tabs,
   TabsContent,
@@ -275,6 +276,27 @@ const ApplicationDetailsPage = () => {
         <p className="text-gray-600 mb-4">
           Application ID: {application.id} | Submitted: {application.submissionDate ? new Date(application.submissionDate).toLocaleDateString() : "Not submitted yet"}
         </p>
+        
+        {/* CX Team Notification: Show only for submitted applications that are not in assessment yet */}
+        {application.status === 'submitted' && (
+          <Alert className="mb-6 bg-blue-50 border-blue-300">
+            <AlertCircle className="h-4 w-4 text-blue-600" />
+            <AlertTitle className="text-blue-800 font-semibold">Attention CX Team</AlertTitle>
+            <AlertDescription className="text-blue-700">
+              This application has been recently submitted and payment has been completed. 
+              Please review the attached documents and begin the assessment process.
+              <div className="mt-3">
+                <Button 
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => handleStatusUpdate('assessment')}
+                >
+                  Begin Assessment
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
         
         <div className="mb-6">
           <p className="text-sm text-gray-500 mb-2">Application Progress</p>
