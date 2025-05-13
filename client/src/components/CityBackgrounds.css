@@ -1,33 +1,33 @@
 .kingston-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
               url('/images/destinations/cities/kingston.svg');
   background-size: cover;
   background-position: center;
 }
 
 .london-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
               url('/images/destinations/cities/london.svg');
   background-size: cover;
   background-position: center;
 }
 
 .newyork-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
               url('/images/destinations/cities/newyork.svg');
   background-size: cover;
   background-position: center;
 }
 
 .toronto-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
               url('/images/destinations/cities/toronto.svg');
   background-size: cover;
   background-position: center;
 }
 
 .sydney-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
               url('/images/destinations/cities/sydney.svg');
   background-size: cover;
   background-position: center;
@@ -52,6 +52,7 @@
   background-position: center;
   transform: scale(1.05);
   transition: transform 0.5s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .city-card:hover::before {
