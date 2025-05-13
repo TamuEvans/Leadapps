@@ -17,13 +17,10 @@ const MarketingLayout: React.FC<MarketingLayoutProps> = ({ children }) => {
       <footer className="bg-gray-100 text-gray-800 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            {/* Logo and brief description - 3 columns on md+ screens */}
+            {/* Logo and social icons - 3 columns on md+ screens */}
             <div className="md:col-span-3 flex flex-col items-start">
               <img src={logoImage} alt="Leadapps Logo" className="h-10 mb-4" />
-              <p className="text-sm text-gray-600 mt-2 pr-4">
-                Revolutionizing tertiary education access for Caribbean students through innovative technology solutions.
-              </p>
-              <div className="flex space-x-4 mt-6">
+              <div className="flex space-x-4 mt-4">
                 <a href="#" className="text-gray-600 hover:text-blue-600">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                 </a>
@@ -42,45 +39,45 @@ const MarketingLayout: React.FC<MarketingLayoutProps> = ({ children }) => {
             {/* Navigation sections - 9 columns divided into 3 sections on md+ screens */}
             <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
-                <h3 className="font-bold mb-4 text-blue-600">About</h3>
+                <h3 className="font-bold mb-4 text-blue-600 text-xs">About</h3>
                 <ul className="space-y-2">
-                  <li><a href="#" className="hover:underline">About Us</a></li>
-                  <li><a href="#" className="hover:underline">Careers</a></li>
-                  <li><a href="#" className="hover:underline">Partners</a></li>
-                  <li><a href="#" className="hover:underline">Press</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">About Us</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Careers</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Partners</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Press</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-bold mb-4 text-blue-600">Services</h3>
+                <h3 className="font-bold mb-4 text-blue-600 text-xs">Services</h3>
                 <ul className="space-y-2">
-                  <li><a href="#" className="hover:underline">Study Abroad</a></li>
-                  <li><a href="#" className="hover:underline">Visa Counseling</a></li>
-                  <li><a href="#" className="hover:underline">Test Preparation</a></li>
-                  <li><a href="#" className="hover:underline">Scholarships</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Study Abroad</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Visa Counseling</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Test Preparation</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Scholarships</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-bold mb-4 text-blue-600">Resources</h3>
+                <h3 className="font-bold mb-4 text-blue-600 text-xs">Resources</h3>
                 <ul className="space-y-2">
-                  <li><a href="#" className="hover:underline">Blog</a></li>
-                  <li><a href="#" className="hover:underline">Guides</a></li>
-                  <li><a href="#" className="hover:underline">Events</a></li>
-                  <li><a href="#" className="hover:underline">Webinars</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Blog</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Guides</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Events</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Webinars</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-bold mb-4 text-blue-600">Legal</h3>
+                <h3 className="font-bold mb-4 text-blue-600 text-xs">Legal</h3>
                 <ul className="space-y-2">
-                  <li><a href="#" className="hover:underline">Terms</a></li>
-                  <li><a href="#" className="hover:underline">Privacy</a></li>
-                  <li><a href="#" className="hover:underline">Cookies</a></li>
-                  <li><a href="#" className="hover:underline">Contact</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Terms</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Privacy</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Cookies</a></li>
+                  <li><a href="#" className="hover:underline text-xs text-gray-600 hover:text-blue-600">Contact</a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-gray-200 text-center text-gray-500">
-            <p>© 2025 Leadapps. All rights reserved.</p>
+            <p className="text-xs">© 2025 Leadapps. All rights reserved.</p>
           </div>
         </div>
       </footer>
