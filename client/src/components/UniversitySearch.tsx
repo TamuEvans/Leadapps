@@ -48,7 +48,7 @@ interface UniversitiesResponse {
 export function UniversitySearch() {
   // State for filters
   const [nameFilter, setNameFilter] = useState('');
-  const [countryFilter, setCountryFilter] = useState('');
+  const [countryFilter, setCountryFilter] = useState('all');
   const [page, setPage] = useState(1);
   const limit = 6; // Number of universities per page
   
@@ -56,7 +56,7 @@ export function UniversitySearch() {
   const buildQueryString = () => {
     const params = new URLSearchParams();
     if (nameFilter) params.append('name', nameFilter);
-    if (countryFilter) params.append('country', countryFilter);
+    if (countryFilter && countryFilter !== 'all') params.append('country', countryFilter);
     params.append('page', page.toString());
     params.append('limit', limit.toString());
     return params.toString();
@@ -95,7 +95,7 @@ export function UniversitySearch() {
   
   // Countries list for filter
   const countries = [
-    { value: "", label: "All Countries" },
+    { value: "all", label: "All Countries" },
     { value: "Jamaica", label: "Jamaica" },
     { value: "Trinidad", label: "Trinidad" },
     { value: "Barbados", label: "Barbados" },
