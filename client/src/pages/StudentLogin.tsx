@@ -15,10 +15,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
+import { FcGoogle } from 'react-icons/fc';
+import { SiFacebook } from 'react-icons/si';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
 import MarketingLayout from '@/layouts/MarketingLayout';
+import { SocialLoginCompactButtons } from '@/components/SocialLoginButtons';
 
 // Login schema
 const loginSchema = z.object({
