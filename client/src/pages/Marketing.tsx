@@ -71,10 +71,10 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
+      <section className="w-full py-20 md:py-32 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 to-purple-100/30 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
           <video 
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
@@ -89,18 +89,18 @@ export default function Marketing() {
           </video>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 mt-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
             <div className="flex flex-col justify-center space-y-6">
-              <div className="space-y-4 bg-white/30 backdrop-blur-sm p-6 rounded-xl">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-gray-800 modern-heading drop-shadow-sm">
+              <div className="space-y-4">
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-7xl text-white modern-heading drop-shadow-md">
                   study made simple.
                 </h1>
-                <p className="max-w-[600px] text-gray-800 md:text-xl font-medium">
+                <p className="max-w-[600px] text-white md:text-xl font-medium drop-shadow-sm">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 pt-2 ml-6">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link to="/app">
                   <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-medium border border-white/20 shadow-md">
                     Get Started
