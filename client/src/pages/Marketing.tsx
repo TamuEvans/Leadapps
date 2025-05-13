@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,9 +8,20 @@ import MarketingLayout from '@/layouts/MarketingLayout';
 import logoImage from '../assets/logo.png';
 import backgroundVideo from '../assets/background-video.mp4';
 
+// University logos
+import uccLogo from '../assets/logos/ucc.jpg';
+import utechLogo from '../assets/logos/utech.jpg';
+import humberLogo from '../assets/logos/humber.gif';
+import saitLogo from '../assets/logos/sait.png';
+import sguLogo from '../assets/logos/sgu.jpg';
+import usfLogo from '../assets/logos/usf.png';
+import uwiLogo from '../assets/logos/uwi.png';
+
 export default function Marketing() {
   // Video reference for optimization
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Optimize video playback
@@ -18,6 +29,25 @@ export default function Marketing() {
       videoRef.current.muted = true;
       videoRef.current.playsInline = true;
     }
+    
+    // Logo scrolling animation
+    const scrollInterval = setInterval(() => {
+      setScrollPosition(prev => {
+        if (logoRef.current) {
+          const containerWidth = logoRef.current.scrollWidth;
+          const viewportWidth = logoRef.current.offsetWidth;
+          
+          // Reset to beginning when scrolled through all logos
+          if (prev >= containerWidth - viewportWidth) {
+            return 0;
+          }
+          return prev + 1;
+        }
+        return prev;
+      });
+    }, 20);
+    
+    return () => clearInterval(scrollInterval);
   }, []);
 
   // Popular destinations data
@@ -144,14 +174,63 @@ export default function Marketing() {
           <h2 className="text-center text-xl font-bold mb-10 text-blue-600">
             REVOLUTIONIZING TERTIARY EDUCATION ACCESS FOR <span className="whitespace-nowrap">CARIBBEAN STUDENTS</span>
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-6 items-center">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="flex justify-center">
-                <div className="h-16 w-28 bg-gray-200 rounded-lg flex items-center justify-center text-sm text-gray-500">
-                  Partner {index + 1}
-                </div>
+          
+          <div className="relative overflow-hidden">
+            <div 
+              ref={logoRef}
+              className="flex items-center py-4" 
+              style={{ 
+                transform: `translateX(-${scrollPosition}px)`,
+                width: "200%", // Make the container twice as wide for continuous scrolling
+                transition: "transform 0.1s linear"
+              }}
+            >
+              {/* First set of logos */}
+              <div className="flex-shrink-0 px-8">
+                <img src={uwiLogo} alt="University of West Indies" className="h-16 object-contain" />
               </div>
-            ))}
+              <div className="flex-shrink-0 px-8">
+                <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={sguLogo} alt="St. George's University" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={saitLogo} alt="SAIT" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={usfLogo} alt="University of South Florida" className="h-16 object-contain" />
+              </div>
+              
+              {/* Duplicate set of logos for continuous scrolling */}
+              <div className="flex-shrink-0 px-8">
+                <img src={uwiLogo} alt="University of West Indies" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={uccLogo} alt="University of the Commonwealth Caribbean" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={utechLogo} alt="University of Technology, Jamaica" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={sguLogo} alt="St. George's University" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={humberLogo} alt="Humber College" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={saitLogo} alt="SAIT" className="h-16 object-contain" />
+              </div>
+              <div className="flex-shrink-0 px-8">
+                <img src={usfLogo} alt="University of South Florida" className="h-16 object-contain" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
