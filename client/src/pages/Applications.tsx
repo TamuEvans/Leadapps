@@ -47,8 +47,8 @@ const SubmitApplication = ({ applicationId }: { applicationId: number }) => {
       // Refresh the applications data
       queryClient.invalidateQueries({ queryKey: ["/api/applications"] });
       
-      // Redirect to applications page with success parameter
-      navigate("/app/applications?success=true", { replace: true });
+      // Redirect to application details page
+      navigate(`/app/application/${applicationId}`, { replace: true });
     },
     onError: (error) => {
       console.error("Error submitting application:", error);
@@ -361,17 +361,29 @@ const Applications = () => {
                 >
                   Delete Application
                 </Button>
-                <div>
+                <div className="flex gap-2">
                   {application.status === 'draft' ? (
-                    <Button 
-                      onClick={() => handleSubmitClick(application)}
-                      className="bg-primary hover:bg-primary/90"
-                    >
-                      Submit Application
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
+                    <>
+                      <Button 
+                        variant="outline"
+                        onClick={() => navigate(`/app/application/${application.id}`)}
+                      >
+                        View Details
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                      <Button 
+                        onClick={() => handleSubmitClick(application)}
+                        className="bg-primary hover:bg-primary/90"
+                      >
+                        Submit Application
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </>
                   ) : (
-                    <Button variant="outline">
+                    <Button 
+                      variant="outline"
+                      onClick={() => navigate(`/app/application/${application.id}`)}
+                    >
                       View Details
                       <ChevronRight className="h-4 w-4 ml-1" />
                     </Button>
