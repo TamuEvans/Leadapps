@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Save, ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { Save, ChevronLeft, ChevronRight, Plus, Upload, FileText, FileArchive, FileCheck } from "lucide-react";
 import FormSection from "@/components/FormSection";
 import { useToast } from "@/hooks/use-toast";
 import { useProfile } from "@/hooks/useProfile";
@@ -206,9 +206,6 @@ const StudentProfile = () => {
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
       });
-      
-      // Navigate to the search page after successful profile update
-      navigate("/app/search");
     } catch (error) {
       console.error("Error saving profile:", error);
       toast({
@@ -244,13 +241,13 @@ const StudentProfile = () => {
     setWorkExperiences(workExperiences.filter((i) => i !== index));
   };
   
-  // Save draft handler
-  const saveDraft = () => {
+  // Save profile handler
+  const saveProfile = () => {
     const currentValues = form.getValues();
     updateProfile(currentValues);
     toast({
-      title: "Draft Saved",
-      description: "Your profile draft has been saved.",
+      title: "Profile Saved",
+      description: "Your profile has been successfully saved.",
     });
   };
   
@@ -1271,29 +1268,103 @@ const StudentProfile = () => {
               </>
             )}
           </FormSection>
+
+          {/* Documents Upload Section */}
+          <FormSection title="Important Documents" description="Upload important documents for your applications. Documents can be uploaded at a later date if not currently available.">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Passport Document */}
+                <div className="border rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center">
+                      <FileText className="h-5 w-5 text-blue-600 mr-2" />
+                      <h4 className="font-medium">Passport</h4>
+                    </div>
+                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mb-3">Upload a clear scan of your passport identification page</p>
+                  <div className="flex items-center justify-between">
+                    <Button variant="outline" size="sm" className="flex items-center">
+                      <Upload className="h-4 w-4 mr-1" /> Upload
+                    </Button>
+                    <span className="text-xs text-gray-500">No file selected</span>
+                  </div>
+                </div>
+                
+                {/* Academic Transcript */}
+                <div className="border rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center">
+                      <FileArchive className="h-5 w-5 text-blue-600 mr-2" />
+                      <h4 className="font-medium">Academic Transcript</h4>
+                    </div>
+                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mb-3">Upload your most recent academic transcript</p>
+                  <div className="flex items-center justify-between">
+                    <Button variant="outline" size="sm" className="flex items-center">
+                      <Upload className="h-4 w-4 mr-1" /> Upload
+                    </Button>
+                    <span className="text-xs text-gray-500">No file selected</span>
+                  </div>
+                </div>
+                
+                {/* Certificate/Diploma */}
+                <div className="border rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center">
+                      <FileCheck className="h-5 w-5 text-blue-600 mr-2" />
+                      <h4 className="font-medium">Certificate/Diploma</h4>
+                    </div>
+                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Optional</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mb-3">Upload your highest educational certificate</p>
+                  <div className="flex items-center justify-between">
+                    <Button variant="outline" size="sm" className="flex items-center">
+                      <Upload className="h-4 w-4 mr-1" /> Upload
+                    </Button>
+                    <span className="text-xs text-gray-500">No file selected</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-sm text-gray-500 bg-blue-50 p-3 rounded border border-blue-100">
+                <p className="font-medium text-blue-700 mb-1">Note:</p>
+                <p>These documents are not required now, but will be needed when you apply to programmes. You can return to this page and upload them at any time.</p>
+              </div>
+            </div>
+          </FormSection>
           
-          {/* Form Buttons */}
-          <div className="flex justify-between mt-8">
+          {/* Sticky Footer with Form Buttons */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-10 flex justify-between">
             <Button
               type="button"
+              onClick={() => navigate("/app")}
               variant="outline"
-              onClick={saveDraft}
             >
-              <Save className="h-4 w-4 mr-2" /> Save Draft
+              <ChevronLeft className="h-4 w-4 mr-2" /> Back to Home
             </Button>
             <div className="flex space-x-3">
               <Button
                 type="button"
-                variant="outline"
-                onClick={() => navigate("/app")}
+                onClick={saveProfile}
+                className="bg-primary hover:bg-primary/90"
               >
-                <ChevronLeft className="h-4 w-4 mr-2" /> Previous
+                <Save className="h-4 w-4 mr-2" /> Save Profile
               </Button>
-              <Button type="submit" className="bg-primary hover:bg-primary/90">
-                Next <ChevronRight className="h-4 w-4 ml-2" />
+              <Button
+                type="button"
+                onClick={() => navigate("/app/search")}
+                variant="outline"
+                className="bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Search for Programmes <ChevronRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
           </div>
+          
+          {/* Extra space at the bottom for sticky footer */}
+          <div className="h-20"></div>
         </form>
       </Form>
     </div>
