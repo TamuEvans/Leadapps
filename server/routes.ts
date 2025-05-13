@@ -227,6 +227,245 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Get universities with filtering and pagination
+  app.get(`${apiPrefix}/universities`, async (req, res) => {
+    try {
+      const { country, name, page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 20;
+      const offset = (pageNum - 1) * limitNum;
+      
+      const filters: { country?: string; name?: string } = {};
+      if (country) filters.country = country as string;
+      if (name) filters.name = name as string;
+      
+      const universities = await storage.getUniversities(limitNum, offset, filters);
+      const total = await storage.getUniversityCount(filters);
+      
+      res.status(200).json({
+        data: universities,
+        pagination: {
+          total,
+          page: pageNum,
+          limit: limitNum,
+          totalPages: Math.ceil(total / limitNum)
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching universities:", error);
+      res.status(500).json({ message: "Failed to fetch universities" });
+    }
+  });
+  
+  // Get single university by ID
+  app.get(`${apiPrefix}/universities/:id`, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid university ID" });
+      }
+      
+      const university = await storage.getUniversity(id);
+      if (!university) {
+        return res.status(404).json({ message: "University not found" });
+      }
+      
+      res.status(200).json(university);
+    } catch (error) {
+      console.error("Error fetching university:", error);
+      res.status(500).json({ message: "Failed to fetch university" });
+    }
+  });
+  
+  // Get programs for a university with filtering and pagination
+  app.get(`${apiPrefix}/universities/:id/programs`, async (req, res) => {
+    try {
+      const universityId = parseInt(req.params.id);
+      if (isNaN(universityId)) {
+        return res.status(400).json({ message: "Invalid university ID" });
+      }
+      
+      const { level, discipline, degree, name, page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 20;
+      const offset = (pageNum - 1) * limitNum;
+      
+      const filters: { level?: string; discipline?: string; degree?: string; name?: string } = {};
+      if (level) filters.level = level as string;
+      if (discipline) filters.discipline = discipline as string;
+      if (degree) filters.degree = degree as string;
+      if (name) filters.name = name as string;
+      
+      const programs = await storage.getProgramsByUniversity(universityId, limitNum, offset, filters);
+      const total = await storage.getProgramCount(universityId, filters);
+      
+      res.status(200).json({
+        data: programs,
+        pagination: {
+          total,
+          page: pageNum,
+          limit: limitNum,
+          totalPages: Math.ceil(total / limitNum)
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching programs:", error);
+      res.status(500).json({ message: "Failed to fetch programs" });
+    }
+  });
+  
+  // Get single program by ID
+  app.get(`${apiPrefix}/programs/:id`, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid program ID" });
+      }
+      
+      const program = await storage.getProgram(id);
+      if (!program) {
+        return res.status(404).json({ message: "Program not found" });
+      }
+      
+      res.status(200).json(program);
+    } catch (error) {
+      console.error("Error fetching program:", error);
+      res.status(500).json({ message: "Failed to fetch program" });
+    }
+  });
+
+  // Get applications for a student
+  app.get(`${apiPrefix}/applications`, requireAuth, async (req, res) => {
+    try {
+      // In a real app with auth, you'd get the student ID from the authenticated user
+      const studentId = 1; // Default for demo
+      
+      const applications = await storage.getApplicationsByStudent(studentId);
+      res.status(200).json(applications);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      res.status(500).json({ message: "Failed to fetch applications" });
+    }
+  });
+  
+  // Create application
+  app.post(`${apiPrefix}/applications`, requireAuth, async (req, res) => {
+    try {
+      // In a real app with auth, you'd get the student ID from the authenticated user
+      const studentId = 1; // Default for demo
+      
+      const applicationData = {
+        studentId,
+        ...req.body,
+        status: "Draft", // Default status for new applications
+        createdAt: new Date(),
+        lastUpdated: new Date()
+      };
+      
+      const application = await storage.createApplication(applicationData);
+      res.status(201).json(application);
+    } catch (error) {
+      console.error("Error creating application:", error);
+      res.status(500).json({ message: "Failed to create application" });
+    }
+  });
+  
+  // Update application
+  app.patch(`${apiPrefix}/applications/:id`, requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      // In a real app, you'd check if the application belongs to the authenticated user
+      
+      const application = await storage.getApplication(id);
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      const updatedApplication = await storage.updateApplication(id, {
+        ...req.body,
+        lastUpdated: new Date()
+      });
+      
+      res.status(200).json(updatedApplication);
+    } catch (error) {
+      console.error("Error updating application:", error);
+      res.status(500).json({ message: "Failed to update application" });
+    }
+  });
+  
+  // Delete application
+  app.delete(`${apiPrefix}/applications/:id`, requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      // In a real app, you'd check if the application belongs to the authenticated user
+      
+      const application = await storage.getApplication(id);
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      await storage.deleteApplication(id);
+      res.status(204).send();
+    } catch (error) {
+      console.error("Error deleting application:", error);
+      res.status(500).json({ message: "Failed to delete application" });
+    }
+  });
+  
+  // Application document routes
+  // Get documents for an application
+  app.get(`${apiPrefix}/applications/:id/documents`, requireAuth, async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+      if (isNaN(applicationId)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      // In a real app, you'd check if the application belongs to the authenticated user
+      
+      const documents = await storage.getApplicationDocumentsByApplication(applicationId);
+      res.status(200).json(documents);
+    } catch (error) {
+      console.error("Error fetching application documents:", error);
+      res.status(500).json({ message: "Failed to fetch application documents" });
+    }
+  });
+  
+  // Upload document for an application
+  app.post(`${apiPrefix}/applications/:id/documents`, requireAuth, async (req, res) => {
+    try {
+      const applicationId = parseInt(req.params.id);
+      if (isNaN(applicationId)) {
+        return res.status(400).json({ message: "Invalid application ID" });
+      }
+      
+      // In a real app, you'd check if the application belongs to the authenticated user
+      
+      // In a real app, you'd handle file uploads here
+      // For now, we'll just create a document record with the provided data
+      
+      const documentData = {
+        applicationId,
+        ...req.body,
+        uploadedAt: new Date()
+      };
+      
+      const document = await storage.createApplicationDocument(documentData);
+      res.status(201).json(document);
+    } catch (error) {
+      console.error("Error creating application document:", error);
+      res.status(500).json({ message: "Failed to create application document" });
+    }
+  });
+
   // Calculate profile completion percentage
   async function calculateProfileCompletion(profile: any, schools: any[] = [], tests: any[] = []) {
     const requiredFields = [
