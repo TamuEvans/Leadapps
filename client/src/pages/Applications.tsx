@@ -271,6 +271,7 @@ const Applications = () => {
     programName?: string;
     universityName?: string;
     universityLocation?: string;
+    universityLogo?: string;
     studentId: number;
     status: string;
     createdAt: string;
@@ -282,6 +283,8 @@ const Applications = () => {
     feePaid?: boolean;
     notes?: string;
     internalNotes?: string;
+    intakePeriod?: string;
+    intakeYear?: number;
   }
 
   // Fetch applications data
@@ -433,11 +436,24 @@ const Applications = () => {
             <Card key={application.id} className="overflow-hidden">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-lg font-semibold">{application.programName}</CardTitle>
-                    <CardDescription>
-                      {application.universityName}, {application.universityLocation}
-                    </CardDescription>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-md overflow-hidden bg-gray-100 flex items-center justify-center">
+                      {application.universityLogo ? (
+                        <img 
+                          src={application.universityLogo} 
+                          alt={`${application.universityName} logo`}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <FileText className="h-6 w-6 text-gray-400" />
+                      )}
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg font-semibold">{application.programName}</CardTitle>
+                      <CardDescription>
+                        {application.universityName}, {application.universityLocation}
+                      </CardDescription>
+                    </div>
                   </div>
                   <ApplicationStatusBadge status={application.status} />
                 </div>
@@ -456,6 +472,34 @@ const Applications = () => {
                   <div>
                     <p className="text-sm text-gray-500">Last Updated</p>
                     <p className="font-medium">{formatDate(application.lastUpdated)}</p>
+                  </div>
+                </div>
+                
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Intake Period</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-xs text-gray-500 mb-1">Term</p>
+                      <p className="font-medium">
+                        {application.intakePeriod || 
+                          (application.status === 'draft' ? 
+                            <span className="text-amber-600">Not selected yet</span> : 
+                            <span className="text-gray-500">Not specified</span>
+                          )
+                        }
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 mb-1">Year</p>
+                      <p className="font-medium">
+                        {application.intakeYear || 
+                          (application.status === 'draft' ? 
+                            <span className="text-amber-600">Not selected yet</span> : 
+                            <span className="text-gray-500">Not specified</span>
+                          )
+                        }
+                      </p>
+                    </div>
                   </div>
                 </div>
                 

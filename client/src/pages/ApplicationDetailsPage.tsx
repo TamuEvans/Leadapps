@@ -397,9 +397,84 @@ const ApplicationDetailsPage = () => {
       <Tabs defaultValue="documents">
         <TabsList className="mb-4">
           <TabsTrigger value="documents">Required Documents</TabsTrigger>
+          <TabsTrigger value="intake">Intake Period</TabsTrigger>
           <TabsTrigger value="notes">Notes & Communication</TabsTrigger>
           <TabsTrigger value="status">Application Status</TabsTrigger>
         </TabsList>
+        
+        <TabsContent value="intake">
+          <Card>
+            <CardHeader>
+              <CardTitle>Intake Period Selection</CardTitle>
+              <CardDescription>
+                Select your preferred intake term and year for this application.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Term</label>
+                  <div className="space-y-4">
+                    {['Winter', 'Summer', 'Fall'].map((term) => (
+                      <div 
+                        key={term} 
+                        className={`
+                          border rounded-lg p-4 cursor-pointer transition-all
+                          ${application.intakePeriod === term ? 
+                            'border-primary bg-primary/5' : 
+                            'hover:border-gray-300'
+                          }
+                        `}
+                        onClick={() => handleIntakeUpdate('intakePeriod', term)}
+                      >
+                        <div className="flex items-center">
+                          <div className={`w-4 h-4 rounded-full mr-3 flex items-center justify-center ${
+                            application.intakePeriod === term ? 'bg-primary' : 'border border-gray-300'
+                          }`}>
+                            {application.intakePeriod === term && (
+                              <Check className="h-3 w-3 text-white" />
+                            )}
+                          </div>
+                          <span className="font-medium">{term}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Year</label>
+                  <div className="space-y-4">
+                    {[2024, 2025, 2026, 2027].map((year) => (
+                      <div 
+                        key={year} 
+                        className={`
+                          border rounded-lg p-4 cursor-pointer transition-all
+                          ${application.intakeYear === year ? 
+                            'border-primary bg-primary/5' : 
+                            'hover:border-gray-300'
+                          }
+                        `}
+                        onClick={() => handleIntakeUpdate('intakeYear', year)}
+                      >
+                        <div className="flex items-center">
+                          <div className={`w-4 h-4 rounded-full mr-3 flex items-center justify-center ${
+                            application.intakeYear === year ? 'bg-primary' : 'border border-gray-300'
+                          }`}>
+                            {application.intakeYear === year && (
+                              <Check className="h-3 w-3 text-white" />
+                            )}
+                          </div>
+                          <span className="font-medium">{year}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
         
         <TabsContent value="documents">
           <Card>
