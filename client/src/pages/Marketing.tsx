@@ -200,7 +200,7 @@ export default function Marketing() {
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-center mb-8">Simply one platform</h2>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-5 max-w-6xl mx-auto">
             {[
               { image: "/images/students/student1.png", title: "Career Guidance" },
               { image: "/images/students/student2.png", title: "Programme Search" },
@@ -210,14 +210,14 @@ export default function Marketing() {
               { image: "/images/students/student6.png", title: "Other" }
             ].map((service, index) => (
               <div key={index} className="flex flex-col items-center">
-                <div className="w-full relative" style={{ paddingTop: '100%' }}>
+                <div className="w-full relative" style={{ paddingTop: '110%' }}>
                   <img 
                     src={service.image} 
                     alt={service.title} 
-                    className="absolute inset-0 w-full h-full object-cover rounded-xl" 
+                    className="absolute inset-0 w-full h-full object-cover rounded-xl transform scale-110" 
                   />
                 </div>
-                <p className="text-center font-medium text-gray-800 text-sm mt-2">{service.title}</p>
+                <p className="text-center font-medium text-gray-800 text-sm mt-3">{service.title}</p>
               </div>
             ))}
           </div>
