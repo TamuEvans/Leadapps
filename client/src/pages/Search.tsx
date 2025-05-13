@@ -13,6 +13,7 @@ import {
   GraduationCap,
   Clock,
   DollarSign,
+  FileText,
   X
 } from "lucide-react";
 import {
@@ -45,6 +46,7 @@ const mockResults = [
     duration: "1 Year Full-time",
     mode: "On-Campus",
     tuition: "Approx. $15,000 USD/year",
+    applicationFee: "$50 USD",
     description: "This programme provides students with advanced analytical skills and knowledge to address complex business problems using data-driven approaches. Core modules include data mining, statistical analysis, and decision modeling.",
     logo: uwiLogo
   },
@@ -57,6 +59,7 @@ const mockResults = [
     duration: "2 Years",
     mode: "Full-time/Part-time",
     tuition: "Approx. $3,000 USD/year (Local)",
+    applicationFee: "$30 USD",
     description: "Learn foundational skills in programming, databases, web development, and computer systems. This programme prepares students for entry-level IT positions or transfer to bachelor's degree programmes.",
     logo: uccLogo
   },
@@ -69,6 +72,7 @@ const mockResults = [
     duration: "4 Years",
     mode: "Full-time",
     tuition: "Approx. $5,000 USD/year",
+    applicationFee: "$40 USD",
     description: "This programme covers structural engineering, transportation systems, environmental engineering, and construction management. Accredited by the Jamaica Institution of Engineers.",
     logo: utechLogo
   },
@@ -81,6 +85,7 @@ const mockResults = [
     duration: "4 Years",
     mode: "On-Campus",
     tuition: "Approx. $65,000 USD/year",
+    applicationFee: "$250 USD",
     description: "The Doctor of Medicine programme at SGU provides a comprehensive medical education with clinical training opportunities in the US, UK, and Caribbean. SGU graduates practice in more than 50 countries around the world.",
     logo: sguLogo
   },
@@ -93,6 +98,7 @@ const mockResults = [
     duration: "2 Years",
     mode: "Online/On-Campus",
     tuition: "Approx. $30,000 USD total",
+    applicationFee: "$85 USD",
     description: "This programme prepares students to develop, implement and manage secure computer systems and defend networks from cybersecurity threats through advanced coursework in cryptography, secure software, penetration testing, and security governance.",
     logo: usfLogo
   }
@@ -617,9 +623,15 @@ const Search = () => {
                         </div>
                       </div>
                       
-                      <div className="flex items-center text-sm text-gray-600 mt-2">
-                        <DollarSign className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                        <span>Tuition: {program.tuition}</span>
+                      <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">
+                        <div className="flex items-center">
+                          <DollarSign className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                          <span>Tuition: {program.tuition}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <DollarSign className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                          <span>Application Fee: {program.applicationFee}</span>
+                        </div>
                       </div>
                       
                       <p className="text-gray-600 text-sm mt-3 line-clamp-2">{program.description}</p>
