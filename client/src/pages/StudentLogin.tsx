@@ -131,7 +131,7 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="container mx-auto px-4 py-24 mt-4"> {/* Added mt-4 for 1/2 inch space after nav */}
+      <div className="container mx-auto px-4 py-24 mt-2"> {/* Added mt-2 for 1/4 inch space after nav */}
         <div className="max-w-md mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">Student Portal</h1>
           <Card>
