@@ -36,16 +36,16 @@ const Sidebar = () => {
   }, [expanded]);
 
   const navigationItems = [
-    { path: "/app", label: "Home", icon: <Home className="w-5 h-5" /> },
-    { path: "/app/profile", label: "Profile", icon: <User className="w-5 h-5" /> },
-    { path: "/app/search", label: "Search", icon: <Search className="w-5 h-5" /> },
-    { path: "/app/university-search", label: "Universities", icon: <GraduationCap className="w-5 h-5" /> },
-    { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" /> },
-    { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" /> },
-    { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" /> },
-    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" /> },
-    { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" /> },
-    { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" /> },
+    { path: "/app", label: "Home", icon: <Home className="w-5 h-5" size={20} /> },
+    { path: "/app/profile", label: "Profile", icon: <User className="w-5 h-5" size={20} /> },
+    { path: "/app/search", label: "Search", icon: <Search className="w-5 h-5" size={20} /> },
+    { path: "/app/university-search", label: "Universities", icon: <GraduationCap className="w-5 h-5" size={20} /> },
+    { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" size={20} /> },
+    { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" size={20} /> },
+    { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
+    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
+    { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" size={20} /> },
+    { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
   ];
 
   const handleMouseEnter = () => {
@@ -112,6 +112,7 @@ const Sidebar = () => {
                   className={cn(
                     "flex items-center rounded-md cursor-pointer h-10 transition-all duration-200",
                     expanded ? "px-4" : "px-2 justify-center",
+                    !expanded && "justify-center", // Always center when collapsed
                     isActive(item.path) 
                       ? "bg-gradient-primary text-white font-medium" 
                       : "hover:bg-gray-100 text-gray-600"
@@ -119,12 +120,14 @@ const Sidebar = () => {
                   onClick={() => setOpen(false)}
                   title={!expanded ? item.label : undefined}
                 >
-                  <span className={cn(
-                    "w-5",
-                    isActive(item.path) ? "text-white" : "text-gray-500"
-                  )}>
-                    {item.icon}
-                  </span>
+                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                    <span className={cn(
+                      "flex items-center justify-center",
+                      isActive(item.path) ? "text-white" : "text-gray-500"
+                    )}>
+                      {item.icon}
+                    </span>
+                  </div>
                   <span 
                     className={cn(
                       "ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
