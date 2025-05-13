@@ -131,7 +131,7 @@ export default function Marketing() {
                 study made simple.
               </h1>
               <p className="text-white text-sm md:text-base font-medium drop-shadow-md max-w-md">
-                Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
+                Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
               </p>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Link to="/app">
