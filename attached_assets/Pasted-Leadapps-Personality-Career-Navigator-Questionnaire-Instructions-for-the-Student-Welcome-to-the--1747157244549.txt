@@ -1,0 +1,196 @@
+Leadapps Personality & Career Navigator Questionnaire
+Instructions for the Student:
+"Welcome to the Leadapps Personality & Career Navigator! This questionnaire is designed to help you understand more about your preferences, interests, and work styles. There are no right or wrong answers – just choose the option that feels most like you, most of the time. Your honest responses will help us suggest study fields, careers, and university environments that might be a great fit for your unique profile. This is a tool for self-discovery, so relax and enjoy the process!"
+Section 1: How You Interact and Get Energized
+(Focus: Interaction Style)
+(Format: Forced-choice or Likert scale. For this example, using forced-choice for brevity.)
+When starting a new project, I usually prefer to:
+A) Discuss ideas with a group to get initial energy and direction.
+B) Think things through on my own first to develop my initial concepts.
+After a busy week of social activities, I tend to feel:
+A) Energized and ready for more.
+B) Drained and in need of some quiet time to recharge.
+In a learning environment, I learn best by:
+A) Actively participating in discussions and group activities.
+B) Listening, observing, and reflecting on the material presented.
+When meeting new people, I am more likely to:
+A) Easily strike up conversations with several people.
+B) Prefer to have a deeper conversation with one or two individuals.
+My ideal weekend often involves:
+A) Spending time with a number of friends or engaging in group outings.
+B) Having quiet time for my hobbies, reading, or spending time with a close friend or two.
+(Scoring: Count A's for "Group-Energized" and B's for "Reflection-Energized")
+Section 2: How You Perceive and Process Information
+(Focus: Information Focus)
+When learning a new skill, I prefer:
+A) Clear, step-by-step instructions and practical examples.
+B) Understanding the overall concept and how it connects to other ideas.
+I am usually more interested in:
+A) The factual details and specifics of a situation.
+B) The underlying patterns, possibilities, and future implications.
+When describing an event, I tend to focus on:
+A) What actually happened, providing specific details in sequence.
+B) The overall impression or meaning of the event and what it might lead to.
+I trust information more if it is:
+A) Based on direct experience, tangible evidence, and proven methods.
+B) Innovative, thought-provoking, and opens up new perspectives.
+In problem-solving, I first tend to:
+A) Look at the current realities and practical constraints.
+B) Brainstorm various possibilities and imaginative solutions.
+(Scoring: Count A's for "Detail-Oriented & Practical" and B's for "Big-Picture & Conceptual")
+Section 3: How You Make Decisions
+(Focus: Decision Approach)
+When making an important decision, I primarily rely on:
+A) Logical analysis, objective criteria, and a clear assessment of pros and cons.
+B) My personal values, how the decision will impact others, and what feels right.
+I believe it's more important to be:
+A) Fair and consistent, applying principles equally to everyone.
+B) Compassionate and understanding, considering individual circumstances.
+In a disagreement, I am more likely to focus on:
+A) The logical flaws in an argument and finding the most rational solution.
+B) Maintaining harmony and ensuring everyone feels heard and respected.
+When giving feedback, I tend to be:
+A) Direct, honest, and focused on areas for improvement, even if it's critical.
+B) Tactful, encouraging, and focused on positive aspects and potential.
+A good decision for me is one that:
+A) Is demonstrably effective and based on sound reasoning.
+B) Aligns with my core beliefs and contributes positively to relationships.
+(Scoring: Count A's for "Logic-Driven & Objective" and B's for "Values-Driven & Empathetic")
+Section 4: How You Organize Your Work and Life
+(Focus: Work Organization)
+I generally prefer to work on projects where:
+A) There's a clear plan, deadlines are set, and tasks are well-defined.
+B) There's flexibility to explore options, adapt as I go, and work in bursts of energy.
+When it comes to deadlines, I usually:
+A) Like to finish tasks well in advance to avoid last-minute pressure.
+B) Find I do my best work closer to the deadline when the pressure is on.
+My workspace tends to be:
+A) Organized and tidy, with things in their designated places.
+B) More flexible, with various projects and materials accessible as needed.
+When planning a trip, I am more likely to:
+A) Create a detailed itinerary and make reservations well in advance.
+B) Have a general idea of where I want to go and decide on specifics as I travel.
+I feel more comfortable when:
+A) Decisions are made, and I know what to expect.
+B) Options are kept open, and I can respond to new information or opportunities.
+(Scoring: Count A's for "Planned & Structured" and B's for "Flexible & Spontaneous")
+Section 5: Your Core Activity Interests
+(Focus: Core Activity Interests)
+(Format: Likert Scale - "Strongly Dislike" to "Strongly Like" for each activity/statement. This section would be much longer in reality, covering a wide range of activities.)
+Instructions: For each activity below, please indicate how much you think you would enjoy doing it, regardless of whether you have training or experience.
+(Scale: 1-Strongly Dislike, 2-Dislike, 3-Neutral, 4-Like, 5-Strongly Like)
+Working with Data & Logic:
+Analyzing statistics and identifying trends. (1 2 3 4 5)
+Developing software or writing code. (1 2 3 4 5)
+Solving complex mathematical problems. (1 2 3 4 5)
+Conducting detailed research and fact-checking. (1 2 3 4 5)
+Organizing and managing large datasets. (1 2 3 4 5)
+Helping & Guiding Others:
+Teaching or training individuals. (1 2 3 4 5)
+Providing counselling or advice. (1 2 3 4 5)
+Caring for people's health and well-being. (1 2 3 4 5)
+Mediating conflicts and helping people find common ground. (1 2 3 4 5)
+Volunteering for a social cause. (1 2 3 4 5)
+Creating & Designing:
+Writing stories, poems, or articles. (1 2 3 4 5)
+Playing a musical instrument or composing music. (1 2 3 4 5)
+Drawing, painting, or sculpting. (1 2 3 4 5)
+Designing websites, graphics, or products. (1 2 3 4 5)
+Performing (acting, dancing, singing). (1 2 3 4 5)
+Building & Fixing Things:
+Working with tools and machinery. (1 2 3 4 5)
+Repairing mechanical or electronic equipment. (1 2 3 4 5)
+Constructing things (e.g., models, furniture, structures). (1 2 3 4 5)
+Working outdoors with plants or animals. (1 2 3 4 5)
+Understanding how physical systems work. (1 2 3 4 5)
+Leading & Persuading:
+Managing projects and leading teams. (1 2 3 4 5)
+Selling products or services. (1 2 3 4 5)
+Negotiating deals or contracts. (1 2 3 4 5)
+Public speaking or debating. (1 2 3 4 5)
+Starting and running a business or organization. (1 2 3 4 5)
+Organizing & Supporting:
+Planning and coordinating events. (1 2 3 4 5)
+Keeping detailed records and managing administrative tasks. (1 2 3 4 5)
+Providing customer service and support. (1 2 3 4 5)
+Ensuring processes run smoothly and efficiently. (1 2 3 4 5)
+Managing budgets and financial information. (1 2 3 4 5)
+(Scoring: Sum scores for each category. Top 2-3 categories indicate primary interest areas.)
+Section 6: Your Preferred Work Functions & Environment
+(Focus: Preferred Work Functions/Environment)
+(Format: Rank preferences or choose from sets of descriptors.)
+Part A: Task Preferences
+I prefer tasks that are generally:
+A) Clearly defined with established procedures.
+B) Varied, allowing for new challenges and creative problem-solving.
+C) A mix of both routine and novel tasks.
+I am most effective when working:
+A) Independently, with minimal supervision.
+B) Collaboratively as part of a team.
+C) In a role that balances independent work with teamwork.
+I enjoy work that involves: (Select up to 3)
+Deep thinking and analysis.
+Interacting frequently with many different people.
+Physical activity or hands-on work.
+Precision and attention to detail.
+Influencing or persuading others.
+Helping or nurturing others.
+Generating new ideas and innovating.
+Following set procedures and ensuring quality.
+Part B: Environment Preferences
+I thrive in an environment that is:
+A) Fast-paced and dynamic, with many things happening at once.
+B) Calm and predictable, allowing for focused concentration.
+C) Moderately paced with a good balance of activity and focus time.
+I prefer a work setting with:
+A) Clear rules, structures, and hierarchies.
+B) A high degree of autonomy and freedom to manage my own approach.
+C) Some structure but also flexibility to adapt.
+The following work environment aspects are important to me: (Select up to 3 that are MOST important)
+Opportunity for continuous learning and development.
+Strong sense of community and teamwork.
+Recognition for individual achievements.
+Work-life balance and flexibility.
+Clear paths for advancement.
+A mission-driven or socially impactful organization.
+Stability and job security.
+Creative and innovative atmosphere.
+(Scoring: This section is more qualitative but can be used to tag preferences. E.g., if a student consistently chooses options indicating a preference for structure, that's a key data point.)
+Section 7: Your Values in Education & Career
+(Focus: Values Clarification - adapted from common values exercises)
+Instructions: Below is a list of work-related values. Please select the FIVE (5) values that are MOST important to you in your future studies and career. Then, from those five, please rank them from 1 (Most Important) to 5.
+Achievement (accomplishing challenging goals)
+Adventure (experiencing novelty and excitement)
+Autonomy (independence, self-direction)
+Creativity (opportunity for innovation and self-expression)
+Financial Gain (high earning potential)
+Helping Others (contributing to the well-being of others)
+Integrity (acting in accordance with one's moral principles)
+Influence (having an impact or control over others/outcomes)
+Intellectual Stimulation (engaging in thought-provoking work)
+Job Security (stability and predictability)
+Leadership (guiding and directing others)
+Learning & Growth (opportunities for continuous development)
+Recognition (being acknowledged for contributions)
+Responsibility (being accountable for outcomes)
+Variety (engaging in diverse tasks and activities)
+Work-Life Balance (harmony between professional and personal life)
+Working with People (strong interpersonal connections)
+Working Alone (focus and solitude)
+Your Top 5 Values & Ranking:
+Most Important: _________________________
+(Scoring: The ranked top 5 values are key outputs.)
+Output & Profile Generation:
+Based on the responses, the Leadapps system would generate a profile summary:
+Interaction Style: e.g., "Primarily Group-Energized"
+Information Focus: e.g., "Leans towards Big-Picture & Conceptual"
+Decision Approach: e.g., "Strongly Values-Driven & Empathetic"
+Work Organization: e.g., "Prefers a Planned & Structured approach"
+Top 3 Core Activity Interests: e.g., 1. Helping & Guiding Others, 2. Creating & Designing, 3. Organizing & Supporting.
+Key Work Function/Environment Preferences: e.g., "Prefers collaborative tasks," "Values continuous learning," "Thrives in a moderately paced environment."
+Top 5 Core Values: e.g., 1. Helping Others, 2. Learning & Growth, etc.
+This profile is then used by the Leadapps matching engine to suggest:
+Study Fields: e.g., Social Work, Education, Graphic Design, Event Management.
+Career Paths: e.g., Teacher, Counsellor, UI/UX Designer, Non-profit Manager.
+University/College Environment Types: e.g., "Smaller, community-focused universities," "Institutions known for strong arts programs and collaborative learning."
+This questionnaire provides a framework. The number of questions in each section would need to be expanded for better reliability, and the wording carefully crafted and tested. Remember the legal and psychometric disclaimers!
