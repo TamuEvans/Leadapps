@@ -1,5 +1,7 @@
 import type { Express } from "express";
+import express from "express";
 import { createServer, type Server } from "http";
+import path from "path";
 import { storage } from "./storage";
 import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema } from "@shared/schema";
 import { z } from "zod";
@@ -10,6 +12,9 @@ import { authMiddleware, requireAuth } from './auth/authMiddleware';
 import authRoutes from './auth/authRoutes';
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve static files from the public directory
+  app.use(express.static(path.join(process.cwd(), 'public')));
+  
   // Add middleware
   app.use(cookieParser());
   
