@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'wouter';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Search, User, Heart, School, BookOpen, Headphones } from 'lucide-react';
+import { 
+  Search, User, Heart, School, BookOpen, Headphones,
+  BookOpenText, CalendarDays, Clock, ExternalLink
+} from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export function AppHome() {
@@ -69,6 +72,38 @@ export function AppHome() {
       university: "University of Melbourne",
       program: "Business Administration",
       image: "/images/programs/melbourne-business.jpg"
+    }
+  ];
+  
+  // Suggested articles
+  const suggestedArticles = [
+    {
+      title: "How to Secure Scholarships for International Students",
+      summary: "Learn about the top scholarship opportunities for Caribbean students and how to successfully apply.",
+      category: "Scholarships",
+      readTime: "5 min read",
+      date: "May 10, 2025"
+    },
+    {
+      title: "Choosing the Right University: Key Factors to Consider",
+      summary: "Discover the most important factors to consider when selecting a university abroad.",
+      category: "University Selection",
+      readTime: "7 min read",
+      date: "May 8, 2025"
+    },
+    {
+      title: "Navigating Student Visa Applications: A Complete Guide",
+      summary: "A step-by-step guide to securing your student visa for studying in the US, UK, Canada, or Caribbean.",
+      category: "Visa Information",
+      readTime: "8 min read",
+      date: "May 5, 2025"
+    },
+    {
+      title: "Top Career Paths for Business Graduates in 2025",
+      summary: "Explore the most promising career trajectories for business graduates in today's global economy.",
+      category: "Career Insights",
+      readTime: "6 min read",
+      date: "May 1, 2025"
     }
   ];
 
@@ -192,6 +227,50 @@ export function AppHome() {
               </Button>
             </CardFooter>
           </Card>
+        </section>
+
+        {/* Suggested Articles */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Suggested Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {suggestedArticles.map((article, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-md transition-shadow duration-200">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-lg">{article.title}</CardTitle>
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
+                      {article.category}
+                    </span>
+                  </div>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">{article.summary}</p>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <CalendarDays className="h-3 w-3 mr-1" />
+                    <span>{article.date}</span>
+                    <span className="mx-2">•</span>
+                    <Clock className="h-3 w-3 mr-1" />
+                    <span>{article.readTime}</span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <div className="flex items-center justify-center">
+                      <BookOpenText className="h-4 w-4 mr-2" />
+                      Read Article
+                      <ExternalLink className="h-3 w-3 ml-1" />
+                    </div>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center mt-4">
+            <Button variant="ghost" className="flex items-center">
+              <BookOpen className="h-4 w-4 mr-2" />
+              View All Articles
+            </Button>
+          </div>
         </section>
       </div>
     </div>
