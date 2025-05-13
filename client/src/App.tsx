@@ -24,6 +24,7 @@ import UniversitySearchPage from "@/pages/UniversitySearchPage";
 import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
+import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -82,6 +83,14 @@ function App() {
             <MainLayout>
               <ProtectedRoute testMode={true}>
                 <Applications />
+              </ProtectedRoute>
+            </MainLayout>
+          </Route>
+          
+          <Route path="/app/application/:id">
+            <MainLayout>
+              <ProtectedRoute testMode={true}>
+                <ApplicationDetailsPage />
               </ProtectedRoute>
             </MainLayout>
           </Route>
