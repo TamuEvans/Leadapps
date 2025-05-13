@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, jsonb, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, jsonb, timestamp, varchar, date } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -182,3 +182,117 @@ export const registerSchema = z.object({
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+// University API Integration
+
+// Application statuses as a constant
+export const APPLICATION_STATUSES = {
+  DRAFT: 'draft',
+  SUBMITTED: 'submitted',
+  PENDING_REVIEW: 'pending_review',
+  UNDER_REVIEW: 'under_review',
+  ADDITIONAL_DOCUMENTS_REQUIRED: 'additional_documents_required',
+  ACCEPTED: 'accepted',
+  REJECTED: 'rejected',
+  WAITLISTED: 'waitlisted',
+  DEFERRED: 'deferred',
+  WITHDRAWN: 'withdrawn'
+} as const;
+
+// Universities table
+export const universities = pgTable("universities", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  country: text("country").notNull(),
+  city: text("city").notNull(),
+  logoUrl: text("logo_url"),
+  websiteUrl: text("website_url"),
+  apiEndpoint: text("api_endpoint"),
+  apiKey: text("api_key"),
+  description: text("description"),
+  acceptsDirectApplications: boolean("accepts_direct_applications").default(false),
+  applicationFee: integer("application_fee"),
+  applicationDeadlines: jsonb("application_deadlines"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// University Programs table 
+export const programs = pgTable("programs", {
+  id: serial("id").primaryKey(),
+  universityId: integer("university_id").references(() => universities.id).notNull(),
+  name: text("name").notNull(),
+  degree: text("degree").notNull(),
+  level: text("level").notNull(),
+  discipline: text("discipline").notNull(),
+  duration: text("duration"),
+  tuitionFee: integer("tuition_fee"),
+  currency: text("currency").default("USD"),
+  applicationDeadline: date("application_deadline"),
+  startDates: jsonb("start_dates").array(),
+  description: text("description"),
+  requirements: jsonb("requirements"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Applications table - tracks applications to universities/programs
+export const applications = pgTable("applications", {
+  id: serial("id").primaryKey(),
+  studentId: integer("student_id").references(() => studentProfiles.id).notNull(),
+  programId: integer("program_id").references(() => programs.id).notNull(),
+  status: text("status").default(APPLICATION_STATUSES.DRAFT).notNull(),
+  submissionDate: timestamp("submission_date"),
+  lastUpdated: timestamp("last_updated").defaultNow(),
+  externalReferenceId: text("external_reference_id"),
+  additionalDocuments: jsonb("additional_documents").array(),
+  applicationData: jsonb("application_data"),
+  feedback: text("feedback"),
+  internalNotes: text("internal_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Application Documents table
+export const applicationDocuments = pgTable("application_documents", {
+  id: serial("id").primaryKey(),
+  applicationId: integer("application_id").references(() => applications.id).notNull(),
+  documentType: text("document_type").notNull(),
+  documentUrl: text("document_url").notNull(),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
+  status: text("status").default("pending"),
+  notes: text("notes"),
+});
+
+// Create insert schemas for the new tables
+export const insertUniversitySchema = createInsertSchema(universities, {
+  id: undefined,
+  createdAt: undefined,
+  updatedAt: undefined
+});
+
+export const insertProgramSchema = createInsertSchema(programs, {
+  id: undefined,
+  createdAt: undefined,
+  updatedAt: undefined
+});
+
+export const insertApplicationSchema = createInsertSchema(applications, {
+  id: undefined,
+  createdAt: undefined
+});
+
+export const insertApplicationDocumentSchema = createInsertSchema(applicationDocuments, {
+  id: undefined,
+  uploadedAt: undefined
+});
+
+// Define types for the new tables
+export type InsertUniversity = z.infer<typeof insertUniversitySchema>;
+export type InsertProgram = z.infer<typeof insertProgramSchema>;
+export type InsertApplication = z.infer<typeof insertApplicationSchema>;
+export type InsertApplicationDocument = z.infer<typeof insertApplicationDocumentSchema>;
+
+export type University = typeof universities.$inferSelect;
+export type Program = typeof programs.$inferSelect;
+export type Application = typeof applications.$inferSelect;
+export type ApplicationDocument = typeof applicationDocuments.$inferSelect;
