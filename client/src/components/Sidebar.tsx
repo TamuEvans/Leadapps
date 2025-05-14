@@ -4,7 +4,7 @@ import { useMobile } from "@/hooks/use-mobile";
 import { 
   Home, User, Search, Heart, FileText, 
   Brain, MessageCircle, Newspaper, ChevronRight, Menu,
-  DollarSign, GraduationCap
+  DollarSign, GraduationCap, Sparkles
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -43,6 +43,7 @@ const Sidebar = () => {
     { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" size={20} /> },
     { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" size={20} /> },
     { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
+    { path: "/app/recommendations", label: "AI Recommendations", icon: <Sparkles className="w-5 h-5" size={20} /> },
     { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
     { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" size={20} /> },
     { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
