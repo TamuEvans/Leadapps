@@ -86,25 +86,25 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         }`}
       >
         <div className="relative">
-          <header className="bg-white border-b border-gray-200 sticky top-0 z-20">
+          <header className="bg-gradient-to-r from-blue-600 to-indigo-700 border-b border-gray-200 sticky top-0 z-20 shadow-md">
             <div className="container mx-auto px-4 py-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-1 text-sm">
+                <div className="flex items-center space-x-1 text-sm text-white">
                   {isSubPage && (
                     <Link 
                       to="/app" 
-                      className="text-gradient hover:underline flex items-center cursor-pointer mr-1"
+                      className="text-white hover:underline flex items-center cursor-pointer mr-1"
                     >
                       <ArrowLeft className="w-3 h-3 mr-1" /> Home
                     </Link>
                   )}
                   {isSubPage && (
                     <>
-                      <span className="text-gray-500 mx-1">/</span>
-                      <span className="text-gray-700">{getPageTitle()}</span>
+                      <span className="text-white/70 mx-1">/</span>
+                      <span className="text-white font-medium">{getPageTitle()}</span>
                     </>
                   )}
-                  {!isSubPage && <span className="text-gray-700">{getPageTitle()}</span>}
+                  {!isSubPage && <span className="text-white font-medium">{getPageTitle()}</span>}
                 </div>
                 {/* User Menu */}
                 <UserMenu />
