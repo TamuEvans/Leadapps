@@ -6,6 +6,7 @@ import { useMobile } from "@/hooks/use-mobile";
 import { UserMenu } from "@/components/UserMenu";
 import AIGuideButton from "@/components/AIGuideButton";
 import ContextualTips from "@/components/ContextualTips";
+import UserProgress from "@/components/UserProgress";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -112,9 +113,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </header>
         </div>
         <div className="p-4 md:p-6">
-          {children}
+          {/* App content with UserProgress sidebar on desktop */}
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              {children}
+            </div>
+            
+            {/* UserProgress - only on larger screens */}
+            {!isMobile && location === "/app" && (
+              <div className="md:w-80 lg:w-96 hidden md:block">
+                <UserProgress />
+              </div>
+            )}
+          </div>
         </div>
-        {/* Add AI Guide Button and Contextual Tips */}
+        
+        {/* Interactive Elements */}
         <AIGuideButton />
         <ContextualTips />
       </main>
