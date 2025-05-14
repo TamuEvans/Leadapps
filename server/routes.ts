@@ -11,7 +11,6 @@ import { configurePassport } from './auth/passportConfig';
 import { authMiddleware, requireAuth } from './auth/authMiddleware';
 import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
-import openAIService from './services/openai';
 
 // Extended Application type with additional fields from related tables
 interface ExtendedApplication extends Application {
@@ -43,52 +42,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // API routes prefix
   const apiPrefix = "/api";
-  
-  // Program recommendations API route
-  app.get(`${apiPrefix}/program-recommendations`, async (req, res) => {
-    try {
-      // In a real app, you'd get userId from session or token
-      // For now, we'll always default to user 1 for demo purposes
-      const userId = req.user?.id || 1;
-      
-      // Get the student profile
-      const studentProfile = await storage.getStudentProfileByUserId(userId);
-      if (!studentProfile) {
-        return res.status(404).json({ message: "Student profile not found" });
-      }
-      
-      // Get the student's schools, tests, and work experiences
-      const schools = await storage.getSchoolsByProfileId(studentProfile.id);
-      const tests = await storage.getTestsByProfileId(studentProfile.id);
-      const workExperiences = await storage.getWorkExperiencesByProfileId(studentProfile.id);
-      
-      // Get existing applications to exclude from recommendations
-      const applications = await storage.getApplicationsByStudent(studentProfile.id);
-      const existingProgramIds = applications.map(app => app.programId);
-      
-      // Create enriched profile with related data
-      const enrichedProfile = {
-        ...studentProfile,
-        schools,
-        tests,
-        workExperiences
-      };
-      
-      // Generate AI recommendations
-      const recommendations = await openAIService.generateProgramRecommendations(
-        enrichedProfile, 
-        existingProgramIds
-      );
-      
-      res.json(recommendations);
-    } catch (error) {
-      console.error("Failed to generate program recommendations:", error);
-      res.status(500).json({ 
-        message: "Failed to generate program recommendations", 
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  });
 
   // User registration
   app.post(`${apiPrefix}/register`, async (req, res) => {
