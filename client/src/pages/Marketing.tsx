@@ -4,7 +4,25 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
-import { Search, Briefcase, Globe, School, Award, BookOpen, Plus, Minus } from 'lucide-react';
+import { 
+  Search, 
+  Briefcase, 
+  Globe, 
+  School, 
+  Award, 
+  BookOpen, 
+  Plus, 
+  Minus, 
+  Code, 
+  LineChart, 
+  GraduationCap, 
+  BarChart3, 
+  Stethoscope, 
+  Scale, 
+  BrainCircuit, 
+  PencilRuler, 
+  ChevronRight
+} from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
@@ -85,12 +103,20 @@ export default function Marketing() {
     }
   }, []);
 
-  // Popular programs data
+  // Popular programs data with icons
   const popularPrograms = [
-    { name: 'Business Administration', students: '12,450+', image: 'https://source.unsplash.com/random/300x200/?business' },
-    { name: 'Computer Science', students: '9,870+', image: 'https://source.unsplash.com/random/300x200/?computer' },
-    { name: 'Digital Marketing', students: '7,345+', image: 'https://source.unsplash.com/random/300x200/?marketing' },
-    { name: 'MBA', students: '6,890+', image: 'https://source.unsplash.com/random/300x200/?mba' },
+    { name: 'Business Administration', icon: Briefcase, color: 'bg-blue-50 text-blue-600' },
+    { name: 'Computer Science', icon: Code, color: 'bg-purple-50 text-purple-600' },
+    { name: 'Digital Marketing', icon: LineChart, color: 'bg-green-50 text-green-600' },
+    { name: 'Medicine', icon: Stethoscope, color: 'bg-red-50 text-red-600' },
+    { name: 'Law', icon: Scale, color: 'bg-amber-50 text-amber-600' },
+    { name: 'Psychology', icon: BrainCircuit, color: 'bg-indigo-50 text-indigo-600' },
+    { name: 'MBA', icon: BarChart3, color: 'bg-cyan-50 text-cyan-600' },
+    { name: 'Engineering', icon: PencilRuler, color: 'bg-orange-50 text-orange-600' },
+    { name: 'Education', icon: School, color: 'bg-emerald-50 text-emerald-600' },
+    { name: 'Data Science', icon: GraduationCap, color: 'bg-rose-50 text-rose-600' },
+    { name: 'Nursing', icon: Award, color: 'bg-teal-50 text-teal-600' },
+    { name: 'Accounting', icon: BookOpen, color: 'bg-sky-50 text-sky-600' },
   ];
 
   // Testimonials data
@@ -295,16 +321,52 @@ export default function Marketing() {
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {popularPrograms.map((program, index) => (
-              <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url(${program.image})` }}></div>
-                <div className="p-4">
-                  <h3 className="font-medium text-lg">{program.name}</h3>
-                  <p className="text-sm text-gray-600">{program.students} Students</p>
-                </div>
-              </div>
-            ))}
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {popularPrograms.map((program, index) => {
+              const Icon = program.icon;
+              return (
+                <Button
+                  key={index}
+                  variant="outline"
+                  className={`${program.color} h-auto py-3 px-4 border-2 border-opacity-50 hover:opacity-90 transition-all group`}
+                  onClick={() => {
+                    // Build query string
+                    const queryParams = new URLSearchParams();
+                    queryParams.append('program', program.name);
+                    
+                    // Check authentication status
+                    if (isAuthenticated) {
+                      // If user is logged in, redirect to search page
+                      setLocation(`/app/search?${queryParams.toString()}`);
+                    } else {
+                      // If user is not logged in, redirect to login page with return URL
+                      localStorage.setItem('searchParams', queryParams.toString());
+                      setLocation('/student-login?returnUrl=' + encodeURIComponent(`/app/search?${queryParams.toString()}`));
+                    }
+                  }}
+                >
+                  <Icon className="h-5 w-5 mr-2" />
+                  <span className="text-sm font-medium">{program.name}</span>
+                </Button>
+              );
+            })}
+          </div>
+          
+          <div className="mt-6 text-center">
+            <Button 
+              variant="default"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 mt-4 flex items-center"
+              onClick={() => {
+                // Redirect to full programs search page
+                if (isAuthenticated) {
+                  setLocation('/app/search');
+                } else {
+                  setLocation('/student-login?returnUrl=' + encodeURIComponent('/app/search'));
+                }
+              }}
+            >
+              View All Programs <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
