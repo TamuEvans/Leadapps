@@ -51,7 +51,20 @@ const helpTips: HelpTip[] = [
     dismissible: true,
     action: {
       label: 'Start Now',
-      onClick: () => document.getElementById('basic-info-section')?.scrollIntoView({ behavior: 'smooth' })
+      onClick: () => {
+        // Find the basic info section by class name or h2 content
+        const basicInfoSection = 
+          document.querySelector('.basic-info-section') || 
+          Array.from(document.querySelectorAll('h2')).find(el => 
+            el.textContent?.includes('Basic Information'))?.parentElement;
+            
+        if (basicInfoSection) {
+          basicInfoSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // Fallback: scroll to top of profile content
+          document.querySelector('.profile-content')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     }
   },
   {
@@ -60,9 +73,23 @@ const helpTips: HelpTip[] = [
     description: 'Adding your school history and test scores greatly improves our ability to match you with suitable programs.',
     type: 'tip',
     location: '/app/profile',
-    element: 'education-section',
     priority: 90,
-    dismissible: true
+    dismissible: true,
+    action: {
+      label: 'Go to Education Section',
+      onClick: () => {
+        // Find the education section by class name or heading content
+        const educationSection = 
+          document.querySelector('.education-section') || 
+          Array.from(document.querySelectorAll('h2, h3')).find(el => 
+            el.textContent?.includes('Education') || 
+            el.textContent?.includes('School'))?.parentElement;
+            
+        if (educationSection) {
+          educationSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
   },
   {
     id: 'documents-upload',
@@ -70,9 +97,23 @@ const helpTips: HelpTip[] = [
     description: 'Having your documents ready in advance makes the application process much faster when you are ready to apply.',
     type: 'info',
     location: '/app/profile',
-    element: 'documents-section',
     priority: 80,
-    dismissible: true
+    dismissible: true,
+    action: {
+      label: 'View Documents Section',
+      onClick: () => {
+        // Find the documents section by class name or heading content
+        const documentsSection = 
+          document.querySelector('.documents-section') || 
+          Array.from(document.querySelectorAll('h2, h3')).find(el => 
+            el.textContent?.includes('Document') || 
+            el.textContent?.includes('Files'))?.parentElement;
+            
+        if (documentsSection) {
+          documentsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
   },
   
   // Search page tips
@@ -83,7 +124,18 @@ const helpTips: HelpTip[] = [
     type: 'tip',
     location: '/app/search',
     priority: 100,
-    dismissible: true
+    dismissible: true,
+    action: {
+      label: 'Show Filters',
+      onClick: () => {
+        // Show search filters
+        const searchFilterButton = document.querySelector('button[aria-label="Filter"]') || 
+                                 document.querySelector('button:has(.filter-icon)');
+        if (searchFilterButton) {
+          (searchFilterButton as HTMLElement).click();
+        }
+      }
+    }
   },
   {
     id: 'university-search',
@@ -92,7 +144,23 @@ const helpTips: HelpTip[] = [
     type: 'info',
     location: '/app/university-search',
     priority: 90,
-    dismissible: true
+    dismissible: true,
+    action: {
+      label: 'See Available Programs',
+      onClick: () => {
+        // Find the first university card and click it
+        const firstUniversityCard = document.querySelector('.university-card');
+        if (firstUniversityCard) {
+          (firstUniversityCard as HTMLElement).click();
+        } else {
+          // Show search filters if no universities
+          const searchFilterButton = document.querySelector('button[aria-label="Filter"]');
+          if (searchFilterButton) {
+            (searchFilterButton as HTMLElement).click();
+          }
+        }
+      }
+    }
   },
   
   // Application tips
@@ -304,8 +372,8 @@ export const ContextualTips: React.FC = () => {
         Reset all help bubbles
       </Button>
       
-      <style>
-        {`
+      <style dangerouslySetInnerHTML={{
+        __html: `
           @keyframes slideInRight {
             from {
               transform: translateX(100%);
@@ -319,8 +387,8 @@ export const ContextualTips: React.FC = () => {
           .animate-slideInRight {
             animation: slideInRight 0.3s ease-out;
           }
-        `}
-      </style>
+        `
+      }} />
     </div>
   );
 };
