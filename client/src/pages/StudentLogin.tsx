@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -49,15 +49,24 @@ export default function StudentLogin() {
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const { toast } = useToast();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
+  const [returnUrl, setReturnUrl] = useState('/app/profile');
 
-  // If already authenticated, redirect to app profile
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      setLocation('/app/profile');
+  // Parse return URL from query parameters and check authentication
+  useEffect(() => {
+    // Parse return URL from query parameters
+    const params = new URLSearchParams(window.location.search);
+    const returnUrlParam = params.get('returnUrl');
+    if (returnUrlParam) {
+      setReturnUrl(returnUrlParam);
     }
-  }, [isAuthenticated, setLocation]);
+    
+    // If already authenticated, redirect to return URL or default profile
+    if (isAuthenticated) {
+      setLocation(returnUrl);
+    }
+  }, [isAuthenticated, setLocation, location, returnUrl]);
 
   // Login form
   const loginForm = useForm<LoginFormValues>({
@@ -86,7 +95,8 @@ export default function StudentLogin() {
     try {
       await apiRequest('POST', '/api/auth/login', data);
       
-      setLocation('/app/profile');
+      // Redirect to the return URL if set, otherwise to profile
+      setLocation(returnUrl);
     } catch (error) {
       let message = 'Login failed';
       if (error instanceof Error) {
@@ -113,7 +123,8 @@ export default function StudentLogin() {
         description: 'Your account has been created successfully.',
       });
       
-      setLocation('/app/profile');
+      // Redirect to the return URL if set, otherwise to profile
+      setLocation(returnUrl);
     } catch (error) {
       let message = 'Registration failed';
       if (error instanceof Error) {
