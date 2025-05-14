@@ -2,6 +2,7 @@ import { Route, Switch } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
+import usePathname from "@/hooks/use-pathname";
 import MainLayout from "./layouts/MainLayout";
 import NotFound from "@/pages/not-found";
 import Marketing from "@/pages/Marketing";
@@ -48,6 +49,7 @@ function App() {
 
 function AppContent() {
   const { currentAchievement, dismissAchievement } = useAchievements();
+  const pathname = usePathname();
   
   return (
     <>
@@ -201,8 +203,10 @@ function AppContent() {
       {/* Toaster for notifications */}
       <Toaster />
       
-      {/* Interactive Onboarding Tour */}
-      <InteractiveTour enabled={true} />
+      {/* Interactive Onboarding Tour - only on app pages */}
+      {window.location.pathname.startsWith('/app') && (
+        <InteractiveTour enabled={true} />
+      )}
       
       {/* Achievement celebration popup */}
       {currentAchievement && (
