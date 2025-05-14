@@ -83,20 +83,25 @@ export const useProfile = () => {
   const { data: profile, isLoading, error } = useQuery<ProfileData>({
     queryKey: ["/api/profile"],
     staleTime: 1000 * 60 * 5, // 5 minutes
-    refetchOnWindowFocus: false,
-    onError: (error) => {
-      console.error("Error fetching profile:", error);
-      // We don't show a toast here as it would appear on every page load
-    }
+    refetchOnWindowFocus: false
   });
   
   // Update profile mutation
   const updateProfileMutation = useMutation({
-    mutationFn: (updatedProfile: Partial<ProfileData>) => {
-      return apiRequest("PATCH", "/api/profile", updatedProfile);
+    mutationFn: async (updatedProfile: Partial<ProfileData>) => {
+      const response = await apiRequest("POST", "/api/profile", updatedProfile);
+      const data = await response.json();
+      return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Immediately update the completion percentage if it's in the response
+      if (data && data.completionPercentage !== undefined) {
+        setProfileCompletionPercentage(data.completionPercentage);
+      }
+      
+      // Invalidate the profile query to refresh the data
       queryClient.invalidateQueries({ queryKey: ["/api/profile"] });
+      
       toast({
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
@@ -114,21 +119,14 @@ export const useProfile = () => {
   
   // Get profile completion percentage from profile data
   useEffect(() => {
-    if (profile) {
-      // Use the completionPercentage from the profile data if available
-      if (profile.completionPercentage !== undefined) {
-        setProfileCompletionPercentage(profile.completionPercentage);
-      }
+    if (profile && typeof profile === 'object' && 'completionPercentage' in profile) {
+      setProfileCompletionPercentage(profile.completionPercentage || 0);
     }
   }, [profile]);
   
-  // For demo purposes, if there's no backend yet
+  // Update profile function
   const updateProfile = (updatedProfile: Partial<ProfileData>) => {
-    // Calculate updated completion percentage
-    const newProfile = { ...profile, ...updatedProfile };
-    queryClient.setQueryData(["/api/profile"], newProfile);
-    
-    // Also trigger the mutation in case there's a backend
+    // Trigger the mutation to update the profile
     updateProfileMutation.mutate(updatedProfile);
   };
   
