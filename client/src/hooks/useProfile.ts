@@ -4,6 +4,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
 interface ProfileData {
+  // Profile ID and metadata
+  id?: number;
+  userId?: number;
+  completionPercentage?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  
   // Personal Information
   firstName?: string;
   middleName?: string;
@@ -73,14 +80,13 @@ export const useProfile = () => {
   const [profileCompletionPercentage, setProfileCompletionPercentage] = useState<number>(0);
   
   // Get profile data
-  const { data: profile, isLoading, error } = useQuery({
+  const { data: profile, isLoading, error } = useQuery<ProfileData>({
     queryKey: ["/api/profile"],
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
-    onError: () => {
-      // For demo purposes, we'll just return an empty object on error
-      // and not show an error toast since we don't have a backend yet
-      return {};
+    onError: (error) => {
+      console.error("Error fetching profile:", error);
+      // We don't show a toast here as it would appear on every page load
     }
   });
   
@@ -106,35 +112,13 @@ export const useProfile = () => {
     },
   });
   
-  // Calculate profile completion percentage
+  // Get profile completion percentage from profile data
   useEffect(() => {
     if (profile) {
-      // This is a simplified way to calculate completion
-      // In a real app, you'd want to weigh different fields differently
-      const requiredFields = [
-        "firstName", "lastName", "dateOfBirth", "primaryLanguage", 
-        "countryOfCitizenship", "maritalStatus", "gender",
-        "address1", "city", "province", "country", "postalCode", "email", "phoneNumber",
-        "intendedFieldsOfStudy", "preferredStudyLevel", "expectedStartTerm", 
-        "expectedStartYear", "preferredStudyDestinations", "onlineLearningInterest",
-        "fundingSources", "scholarshipInterest",
-        "educationCountry", "highestEducationLevel", "gradingScheme", "overallGrade",
-        "isEnglishFirstLanguage"
-      ];
-      
-      // Count how many required fields are filled
-      const filledFields = requiredFields.filter(field => {
-        // @ts-ignore - Dynamic access
-        const value = profile[field];
-        if (Array.isArray(value)) {
-          return value.length > 0;
-        }
-        return value !== undefined && value !== null && value !== "";
-      });
-      
-      // Calculate percentage
-      const percentage = Math.round((filledFields.length / requiredFields.length) * 100);
-      setProfileCompletionPercentage(percentage);
+      // Use the completionPercentage from the profile data if available
+      if (profile.completionPercentage !== undefined) {
+        setProfileCompletionPercentage(profile.completionPercentage);
+      }
     }
   }, [profile]);
   
