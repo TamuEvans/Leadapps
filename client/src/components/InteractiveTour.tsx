@@ -126,6 +126,11 @@ const InteractiveTour: React.FC<InteractiveTourProps> = ({ enabled = false }) =>
     return saved ? JSON.parse(saved) : {};
   });
   
+  // Button visibility states
+  const [isButtonsVisible, setIsButtonsVisible] = useState(true);
+  const [isHovering, setIsHovering] = useState(false);
+  const [mouseActivity, setMouseActivity] = useState(0);
+  
   // Get the base path for determining which tour to show
   const getBasePath = (path: string) => {
     // Extract the base path (e.g., '/app/profile' from '/app/profile/123')
@@ -161,6 +166,29 @@ const InteractiveTour: React.FC<InteractiveTourProps> = ({ enabled = false }) =>
       setStepsEnabled(false);
     }
   }, [location, tourCompleted]);
+  
+  // Track mouse movement and hide buttons after inactivity
+  useEffect(() => {
+    // Show buttons on mouse movement
+    const handleMouseMove = () => {
+      setMouseActivity(prev => prev + 1);
+      setIsButtonsVisible(true);
+    };
+    
+    // Hide buttons after 5 seconds of inactivity (unless hovering)
+    const inactivityTimer = setInterval(() => {
+      if (!isHovering) {
+        setIsButtonsVisible(false);
+      }
+    }, 5000);
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(inactivityTimer);
+    };
+  }, [isHovering, mouseActivity]);
   
   // Mark tour as completed for current page
   const handleTourComplete = () => {
@@ -217,27 +245,35 @@ const InteractiveTour: React.FC<InteractiveTourProps> = ({ enabled = false }) =>
       
       <Hints enabled={hintsEnabled} hints={[]} />
       
-      {/* Tour restart button - Fixed at top right of screen */}
-      <div className="fixed top-20 right-4 z-10 flex gap-2">
-        <Button 
-          onClick={startTour} 
-          variant="outline" 
-          size="sm" 
-          className="bg-white/90 shadow-sm flex items-center gap-1 text-xs"
-        >
-          <BookOpen className="h-3.5 w-3.5 mr-1" />
-          Tour
-        </Button>
-        
-        <Button 
-          onClick={resetAllTours} 
-          variant="outline" 
-          size="sm" 
-          className="bg-white/90 shadow-sm flex items-center gap-1 text-xs"
-        >
-          <Star className="h-3.5 w-3.5 mr-1" />
-          Reset Tours
-        </Button>
+      {/* Tour restart button - Fixed at top right of screen with auto-hide */}
+      <div 
+        className={`fixed top-20 z-10 transition-all duration-500 ease-in-out ${isButtonsVisible ? 'right-4' : '-right-16'}`}
+        onMouseEnter={() => { setIsHovering(true); setIsButtonsVisible(true); }}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        {/* Animated indicator dot visible when buttons are hidden */}
+        <div className={`absolute -left-2 top-5 w-3 h-3 rounded-full bg-indigo-500 transition-opacity duration-300 ${!isButtonsVisible ? 'animate-pulse opacity-70' : 'opacity-0'}`}></div>
+        <div className="flex flex-col gap-2">
+          <Button 
+            onClick={startTour} 
+            variant="outline" 
+            size="sm" 
+            className="bg-white/90 shadow-sm flex items-center gap-1 text-xs w-24 justify-center"
+          >
+            <BookOpen className="h-3.5 w-3.5 mr-1" />
+            Tour
+          </Button>
+          
+          <Button 
+            onClick={resetAllTours} 
+            variant="outline" 
+            size="sm" 
+            className="bg-white/90 shadow-sm flex items-center gap-1 text-xs w-24 justify-center"
+          >
+            <Star className="h-3.5 w-3.5 mr-1" />
+            Reset Tours
+          </Button>
+        </div>
       </div>
     </>
   );
