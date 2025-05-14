@@ -28,7 +28,7 @@ import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
-import RecommendationsPage from "@/pages/RecommendationsPage";
+
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 import AchievementProvider, { useAchievements } from "@/contexts/AchievementContext";
@@ -160,14 +160,6 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute testMode={true}>
               <FundingHub />
-            </ProtectedRoute>
-          </MainLayout>
-        </Route>
-        
-        <Route path="/app/recommendations">
-          <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <RecommendationsPage />
             </ProtectedRoute>
           </MainLayout>
         </Route>
