@@ -30,24 +30,27 @@ import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import RecommendationsPage from "@/pages/RecommendationsPage";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
+import AchievementProvider from "@/contexts/AchievementContext";
+import AchievementCelebration from "@/components/AchievementCelebration";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Switch>
-          {/* Marketing website routes */}
-          <Route path="/" component={Marketing} />
-          <Route path="/student-login" component={StudentLogin} />
-          <Route path="/about-us" component={AboutUs} />
-          <Route path="/info-centre" component={InfoCentre} />
-          <Route path="/fairs-events" component={FairsEvents} />
-          
-          {/* Study routes */}
-          <Route path="/study/:location" component={StudyLocation} />
-          
-          {/* Services routes */}
-          <Route path="/services/:service" component={ServicePage} />
+      <AchievementProvider>
+        <TooltipProvider>
+          <Switch>
+            {/* Marketing website routes */}
+            <Route path="/" component={Marketing} />
+            <Route path="/student-login" component={StudentLogin} />
+            <Route path="/about-us" component={AboutUs} />
+            <Route path="/info-centre" component={InfoCentre} />
+            <Route path="/fairs-events" component={FairsEvents} />
+            
+            {/* Study routes */}
+            <Route path="/study/:location" component={StudyLocation} />
+            
+            {/* Services routes */}
+            <Route path="/services/:service" component={ServicePage} />
 
           {/* App routes */}
           <Route path="/app">

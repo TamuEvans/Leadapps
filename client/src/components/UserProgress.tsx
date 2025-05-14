@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAchievements } from '@/contexts/AchievementContext';
-import { Trophy, Award, Star } from 'lucide-react';
+import { Trophy, Award, Star, CheckCircle } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
@@ -96,7 +96,7 @@ const UserProgress: React.FC = () => {
             <Award className="w-4 h-4 text-indigo-500" />
             <span>Achievements</span>
           </h4>
-          <span className="text-xs text-gray-500">{unlockedAchievements.length}/{achievements.length}</span>
+          <span className="text-xs text-gray-500">{unlockedAchievements.length}/{unlockedAchievements.length + 4}</span>
         </div>
         
         <div className="grid grid-cols-4 gap-2">
@@ -109,7 +109,7 @@ const UserProgress: React.FC = () => {
                     {achievement.icon === 'medal' && <Award className="h-5 w-5 text-blue-500" />}
                     {achievement.icon === 'star' && <Star className="h-5 w-5 text-purple-500" />}
                     {achievement.icon === 'award' && <Award className="h-5 w-5 text-green-500" />}
-                    {achievement.icon === 'check' && <CheckCircleIcon className="h-5 w-5 text-teal-500" />}
+                    {achievement.icon === 'check' && <CheckCircle className="h-5 w-5 text-teal-500" />}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
