@@ -48,20 +48,24 @@ const Sidebar = () => {
     { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
   ];
 
+  // Keep track of whether the sidebar was manually toggled
+  const [manuallyCollapsed, setManuallyCollapsed] = useState(false);
+  
   const handleMouseEnter = () => {
-    if (!isMobile) {
+    if (!isMobile && !manuallyCollapsed) {
       setExpanded(true);
     }
   };
 
   const handleMouseLeave = () => {
-    if (!isMobile) {
+    if (!isMobile && !manuallyCollapsed) {
       setExpanded(false);
     }
   };
 
   const toggleExpanded = () => {
     setExpanded(!expanded);
+    setManuallyCollapsed(true); // Set manual collapse when user clicks the button
   };
   
   const isActive = (path: string) => {
@@ -93,17 +97,14 @@ const Sidebar = () => {
               <div className="text-white font-bold text-xl">L</div>
             </div>
           </div>
-          {!isMobile && (
+          {!isMobile && expanded && (
             <Button 
               variant="ghost" 
               size="sm" 
               className="p-1 h-6 w-6"
               onClick={toggleExpanded}
             >
-              <ChevronRight className={cn(
-                "h-4 w-4 transition-transform duration-200",
-                expanded ? "rotate-180" : "rotate-0"
-              )} />
+              <ChevronRight className="h-4 w-4 transition-transform duration-200 rotate-180" />
             </Button>
           )}
         </div>
