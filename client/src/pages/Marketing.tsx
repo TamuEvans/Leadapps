@@ -21,7 +21,20 @@ import {
   Scale, 
   BrainCircuit, 
   PencilRuler, 
-  ChevronRight
+  ChevronRight,
+  Microscope,
+  Leaf,
+  Building2,
+  Camera,
+  LayoutPanelTop,
+  Plane,
+  Languages,
+  PersonStanding,
+  Wine,
+  Utensils,
+  Music,
+  FileDigit,
+  Palette
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
@@ -60,6 +73,9 @@ export default function Marketing() {
   const [programSearch, setProgramSearch] = useState('');
   const [countrySearch, setCountrySearch] = useState('');
   const [studyLevelSearch, setStudyLevelSearch] = useState('');
+  
+  // State for program display
+  const [displayedPrograms, setDisplayedPrograms] = useState(15); // Show 15 initially
   
   // Function to handle search form submission
   const handleSearch = (e: React.FormEvent) => {
@@ -117,6 +133,19 @@ export default function Marketing() {
     { name: 'Data Science', icon: GraduationCap, color: 'bg-rose-50 text-rose-600' },
     { name: 'Nursing', icon: Award, color: 'bg-teal-50 text-teal-600' },
     { name: 'Accounting', icon: BookOpen, color: 'bg-sky-50 text-sky-600' },
+    { name: 'Biology', icon: Microscope, color: 'bg-lime-50 text-lime-600' },
+    { name: 'Environmental Science', icon: Leaf, color: 'bg-green-50 text-green-600' },
+    { name: 'Architecture', icon: Building2, color: 'bg-gray-50 text-gray-600' },
+    { name: 'Media Studies', icon: Camera, color: 'bg-fuchsia-50 text-fuchsia-600' },
+    { name: 'Computer Engineering', icon: LayoutPanelTop, color: 'bg-violet-50 text-violet-600' },
+    { name: 'Tourism', icon: Plane, color: 'bg-blue-50 text-blue-600' },
+    { name: 'Languages', icon: Languages, color: 'bg-yellow-50 text-yellow-600' },
+    { name: 'Sport Science', icon: PersonStanding, color: 'bg-orange-50 text-orange-600' },
+    { name: 'Hospitality', icon: Wine, color: 'bg-pink-50 text-pink-600' },
+    { name: 'Culinary Arts', icon: Utensils, color: 'bg-red-50 text-red-600' },
+    { name: 'Music', icon: Music, color: 'bg-indigo-50 text-indigo-600' },
+    { name: 'Finance', icon: FileDigit, color: 'bg-emerald-50 text-emerald-600' },
+    { name: 'Fine Arts', icon: Palette, color: 'bg-purple-50 text-purple-600' },
   ];
 
   // Testimonials data
@@ -322,7 +351,7 @@ export default function Marketing() {
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {popularPrograms.map((program, index) => {
+            {popularPrograms.slice(0, displayedPrograms).map((program, index) => {
               const Icon = program.icon;
               return (
                 <Button
@@ -357,15 +386,20 @@ export default function Marketing() {
               variant="default"
               className="bg-gradient-to-r from-blue-600 to-indigo-600 mt-4 flex items-center"
               onClick={() => {
-                // Redirect to full programs search page
-                if (isAuthenticated) {
-                  setLocation('/app/search');
+                if (displayedPrograms < popularPrograms.length) {
+                  // If not all programs are displayed, show more
+                  setDisplayedPrograms(Math.min(displayedPrograms + 12, popularPrograms.length));
                 } else {
-                  setLocation('/student-login?returnUrl=' + encodeURIComponent('/app/search'));
+                  // If all programs are already displayed, redirect to search page
+                  if (isAuthenticated) {
+                    setLocation('/app/search');
+                  } else {
+                    setLocation('/student-login?returnUrl=' + encodeURIComponent('/app/search'));
+                  }
                 }
               }}
             >
-              View All Programs <ChevronRight className="ml-1 h-4 w-4" />
+              View More <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
         </div>
