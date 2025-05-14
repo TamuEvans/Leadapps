@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
 import { UserMenu } from "@/components/UserMenu";
 import AIGuideButton from "@/components/AIGuideButton";
+import ContextualTips from "@/components/ContextualTips";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -113,8 +114,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <div className="p-4 md:p-6">
           {children}
         </div>
-        {/* Add AI Guide Button */}
+        {/* Add AI Guide Button and Contextual Tips */}
         <AIGuideButton />
+        <ContextualTips />
       </main>
     </div>
   );
