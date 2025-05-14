@@ -19,7 +19,7 @@ const MarketingHeader = () => {
     <header className="bg-white/90 backdrop-blur-sm border-b border-gray-200/50 fixed w-full z-50 top-0 left-0">
       <div className="container mx-auto px-4 py-3 flex items-center">
         <Link to="/" className="flex items-center flex-shrink-0 mr-4">
-          <img src={logoImage} alt="Leadapps Logo" className="h-7 w-auto" />
+          <img src={logoImage} alt="Leadapps Logo" className="h-10 w-auto" />
         </Link>
         
         <div className="hidden md:flex flex-1 justify-center">
