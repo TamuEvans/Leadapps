@@ -74,8 +74,7 @@ export default function Marketing() {
   const [countrySearch, setCountrySearch] = useState('');
   const [studyLevelSearch, setStudyLevelSearch] = useState('');
   
-  // State for program display
-  const [displayedPrograms, setDisplayedPrograms] = useState(15); // Show 15 initially
+  // No longer need displayedPrograms state as we're showing all programs
   
   // Function to handle search form submission
   const handleSearch = (e: React.FormEvent) => {
@@ -351,7 +350,7 @@ export default function Marketing() {
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {popularPrograms.slice(0, displayedPrograms).map((program, index) => {
+            {popularPrograms.map((program, index) => {
               const Icon = program.icon;
               return (
                 <Button
@@ -381,21 +380,16 @@ export default function Marketing() {
             })}
           </div>
           
-          <div className="mt-6 text-center">
+          <div className="mt-10 flex justify-center">
             <Button 
               variant="default"
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 mt-4 flex items-center"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-2 flex items-center"
               onClick={() => {
-                if (displayedPrograms < popularPrograms.length) {
-                  // If not all programs are displayed, show more
-                  setDisplayedPrograms(Math.min(displayedPrograms + 12, popularPrograms.length));
+                // Always redirect to the search page in the app
+                if (isAuthenticated) {
+                  setLocation('/app/search');
                 } else {
-                  // If all programs are already displayed, redirect to search page
-                  if (isAuthenticated) {
-                    setLocation('/app/search');
-                  } else {
-                    setLocation('/student-login?returnUrl=' + encodeURIComponent('/app/search'));
-                  }
+                  setLocation('/student-login?returnUrl=' + encodeURIComponent('/app/search'));
                 }
               }}
             >
