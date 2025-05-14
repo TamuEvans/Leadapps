@@ -164,8 +164,8 @@ export default function AIGuideButton() {
       // Delay the toast slightly to ensure it appears after page load
       const timer = setTimeout(() => {
         toast({
-          title: "Meet Your LeadApps AI Guide!",
-          description: "Click the AI button in the bottom-right corner anytime you need help navigating the app or have questions about your study journey.",
+          title: "Need help? I'm here!",
+          description: "I can answer questions and help you navigate LeadApps. Click the AI button in the corner anytime.",
           action: (
             <Button 
               variant="outline" 
@@ -177,15 +177,16 @@ export default function AIGuideButton() {
               className="flex items-center gap-1"
             >
               <HelpCircle className="h-4 w-4" />
-              Try it now
+              Try it
             </Button>
           ),
+          className: "bg-opacity-95 border border-blue-100"
         });
         
         // Set local flag to avoid showing again in this session
         localStorage.setItem('hasSeenAIIntro', 'true');
         setHasShownIntro(true);
-      }, 1500);
+      }, 2500);
       
       return () => clearTimeout(timer);
     }
@@ -263,9 +264,14 @@ export default function AIGuideButton() {
     <>
       {/* Floating AI Guide Button with pulse animation */}
       <div className="fixed bottom-6 right-6 z-50">
-        {/* Pulse ring animation */}
+        {/* Subtle pulse ring animation */}
         {!localStorage.getItem('hasClickedAIGuide') && (
-          <span className="absolute inset-0 rounded-full animate-ping opacity-75 bg-gradient-primary"></span>
+          <span className="absolute inset-0 rounded-full opacity-40 bg-gradient-primary" 
+                style={{ 
+                  animation: 'subtle-pulse 3s infinite', 
+                  animationTimingFunction: 'ease-in-out'
+                }}>
+          </span>
         )}
         <Button 
           className="relative h-14 w-14 rounded-full shadow-lg bg-gradient-primary"
