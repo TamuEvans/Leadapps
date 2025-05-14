@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Bot,
@@ -8,7 +8,8 @@ import {
   MessageSquare,
   Volume2,
   VolumeX,
-  SendHorizontal
+  SendHorizontal,
+  HelpCircle
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -17,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock predefined context-aware responses based on the current page
 const getMockResponse = (page: string, query: string) => {
@@ -133,6 +135,7 @@ interface ChatMessage {
   sender: 'user' | 'ai';
   message: string;
   timestamp: Date;
+  isTyping?: boolean;
 }
 
 export default function AIGuideButton() {
@@ -149,6 +152,44 @@ export default function AIGuideButton() {
   const [voiceOutput, setVoiceOutput] = useState(false);
   const [activeTab, setActiveTab] = useState("chat");
   const [location] = useLocation();
+  const [hasShownIntro, setHasShownIntro] = useState(false);
+  const { toast } = useToast();
+  
+  // Show welcome notification when component mounts
+  useEffect(() => {
+    // Check if we've already shown the intro to avoid showing it on each page navigation
+    const hasSeenIntro = localStorage.getItem('hasSeenAIIntro');
+    
+    if (!hasSeenIntro && !hasShownIntro) {
+      // Delay the toast slightly to ensure it appears after page load
+      const timer = setTimeout(() => {
+        toast({
+          title: "Meet Your LeadApps AI Guide!",
+          description: "Click the AI button in the bottom-right corner anytime you need help navigating the app or have questions about your study journey.",
+          action: (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => {
+                setIsOpen(true);
+                setHasShownIntro(true);
+              }}
+              className="flex items-center gap-1"
+            >
+              <HelpCircle className="h-4 w-4" />
+              Try it now
+            </Button>
+          ),
+        });
+        
+        // Set local flag to avoid showing again in this session
+        localStorage.setItem('hasSeenAIIntro', 'true');
+        setHasShownIntro(true);
+      }, 1500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
   
   // Handle sending a new message
   const handleSendMessage = () => {
@@ -163,7 +204,17 @@ export default function AIGuideButton() {
     
     setMessages(prev => [...prev, userMessage]);
     
-    // Simulate AI response
+    // Add a typing indicator first
+    const typingIndicator: ChatMessage = {
+      sender: 'ai',
+      message: "...",
+      timestamp: new Date(),
+      isTyping: true
+    };
+    
+    setMessages(prev => [...prev, typingIndicator]);
+    
+    // Simulate AI response with delay to show typing
     setTimeout(() => {
       const responseMessage: ChatMessage = {
         sender: 'ai',
@@ -171,8 +222,13 @@ export default function AIGuideButton() {
         timestamp: new Date()
       };
       
-      setMessages(prev => [...prev, responseMessage]);
-    }, 500);
+      // Replace typing indicator with actual response
+      setMessages(prev => 
+        prev.map((msg, i) => 
+          i === prev.length - 1 && msg.isTyping ? responseMessage : msg
+        )
+      );
+    }, 1500);
     
     setInput("");
   };
@@ -205,13 +261,22 @@ export default function AIGuideButton() {
   
   return (
     <>
-      {/* Floating AI Guide Button */}
-      <Button 
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50 bg-gradient-primary"
-        onClick={() => setIsOpen(true)}
-      >
-        <Bot className="h-6 w-6 text-white" />
-      </Button>
+      {/* Floating AI Guide Button with pulse animation */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {/* Pulse ring animation */}
+        {!localStorage.getItem('hasClickedAIGuide') && (
+          <span className="absolute inset-0 rounded-full animate-ping opacity-75 bg-gradient-primary"></span>
+        )}
+        <Button 
+          className="relative h-14 w-14 rounded-full shadow-lg bg-gradient-primary"
+          onClick={() => {
+            setIsOpen(true);
+            localStorage.setItem('hasClickedAIGuide', 'true');
+          }}
+        >
+          <Bot className="h-6 w-6 text-white" />
+        </Button>
+      </div>
       
       {/* AI Guide Chat Modal */}
       {isOpen && (
@@ -272,7 +337,15 @@ export default function AIGuideButton() {
                               : 'bg-gray-100 text-gray-800'
                           }`}
                         >
-                          <p className="text-sm">{msg.message}</p>
+                          {msg.isTyping ? (
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                              <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                              <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                            </div>
+                          ) : (
+                            <p className="text-sm">{msg.message}</p>
+                          )}
                           <p className="text-xs opacity-70 mt-1">
                             {msg.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                           </p>
