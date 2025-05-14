@@ -33,6 +33,25 @@ export default function Marketing() {
   // Video reference for optimization
   const videoRef = useRef<HTMLVideoElement>(null);
   
+  // State for search form inputs
+  const [programSearch, setProgramSearch] = useState('');
+  const [countrySearch, setCountrySearch] = useState('');
+  const [studyLevelSearch, setStudyLevelSearch] = useState('');
+  
+  // Function to handle search form submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Build query string with search parameters
+    const queryParams = new URLSearchParams();
+    if (programSearch) queryParams.append('program', programSearch);
+    if (countrySearch) queryParams.append('country', countrySearch);
+    if (studyLevelSearch) queryParams.append('level', studyLevelSearch);
+    
+    // Redirect to app search page with query parameters
+    window.location.href = `/app/search?${queryParams.toString()}`;
+  };
+  
   useEffect(() => {
     // Optimize video playback
     const videoElement = videoRef.current;
@@ -146,28 +165,48 @@ export default function Marketing() {
 
           <div className="absolute bottom-8 left-0 right-0 mx-auto">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 max-w-5xl mx-auto px-5 py-4">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
-                <div className="lg:col-span-3 text-center lg:text-left">
-                  <h2 className="text-lg font-bold text-gray-900">Find Your Programme</h2>
-                  <p className="text-xs text-gray-800 hidden lg:block">10,000+ programmes worldwide</p>
+              <form onSubmit={handleSearch}>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+                  <div className="lg:col-span-3 text-center lg:text-left">
+                    <h2 className="text-lg font-bold text-gray-900">Find Your Programme</h2>
+                    <p className="text-xs text-gray-800 hidden lg:block">10,000+ programmes worldwide</p>
+                  </div>
+                  <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
+                    <div className="md:col-span-2">
+                      <Input 
+                        placeholder="Programme" 
+                        value={programSearch}
+                        onChange={(e) => setProgramSearch(e.target.value)}
+                        className="bg-white/80 border-gray-300 h-10 text-sm w-full" 
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Input 
+                        placeholder="Country/Region" 
+                        value={countrySearch}
+                        onChange={(e) => setCountrySearch(e.target.value)}
+                        className="bg-white/80 border-gray-300 h-10 text-sm w-full" 
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Input 
+                        placeholder="Study Level" 
+                        value={studyLevelSearch}
+                        onChange={(e) => setStudyLevelSearch(e.target.value)}
+                        className="bg-white/80 border-gray-300 h-10 text-sm w-full" 
+                      />
+                    </div>
+                    <div className="md:col-span-1">
+                      <Button 
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm"
+                      >
+                        <Search className="h-4 w-4 md:mr-2" /> <span className="hidden md:inline">Search</span>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-                <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
-                  <div className="md:col-span-2">
-                    <Input placeholder="Programme" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <Input placeholder="Country/Region" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <Input placeholder="Study Level" className="bg-white/80 border-gray-300 h-10 text-sm w-full" />
-                  </div>
-                  <div className="md:col-span-1">
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm">
-                      <Search className="h-4 w-4 md:mr-2" /> <span className="hidden md:inline">Search</span>
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

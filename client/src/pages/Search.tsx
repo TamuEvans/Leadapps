@@ -194,12 +194,30 @@ const sortOptions = [
 
 const Search = () => {
   // Navigation
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   
   // State for search and filters
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [locationQuery, setLocationQuery] = useState<string>("");
   const [hasSearched, setHasSearched] = useState<boolean>(true); // Set to true by default to show all programmes
+  
+  // Parse query parameters from URL when component mounts
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const program = params.get('program');
+    const country = params.get('country');
+    const level = params.get('level');
+    
+    // Set state based on URL parameters
+    if (program) setSearchQuery(program);
+    if (country) setLocationQuery(country);
+    if (level) setProgramLevel(level);
+    
+    // If any parameter is present, trigger a search
+    if (program || country || level) {
+      setHasSearched(true);
+    }
+  }, [location]);
   
   // Filter states
   const [programLevel, setProgramLevel] = useState<string>("all");
