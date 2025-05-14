@@ -224,7 +224,7 @@ export function UniversityDetails() {
               <div className="flex gap-2">
                 <Button asChild variant="outline" size="sm">
                   <a href={university.websiteUrl} target="_blank" rel="noopener noreferrer">
-                    Visit University Website
+                    Official University Website
                   </a>
                 </Button>
               </div>

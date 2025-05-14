@@ -308,7 +308,7 @@ export default function UniversityProfilePage() {
                     <div className="mt-6">
                       <Button asChild>
                         <a href={university.websiteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                          Visit Official Website <ExternalLink className="h-4 w-4" />
+                          Official University Website <ExternalLink className="h-4 w-4" />
                         </a>
                       </Button>
                     </div>
