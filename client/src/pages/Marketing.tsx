@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
@@ -30,6 +31,10 @@ const universityLogos = [
 ];
 
 export default function Marketing() {
+  // Auth status
+  const { isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
+  
   // Video reference for optimization
   const videoRef = useRef<HTMLVideoElement>(null);
   
@@ -48,8 +53,16 @@ export default function Marketing() {
     if (countrySearch) queryParams.append('country', countrySearch);
     if (studyLevelSearch) queryParams.append('level', studyLevelSearch);
     
-    // Redirect to app search page with query parameters
-    window.location.href = `/app/search?${queryParams.toString()}`;
+    // Check authentication status
+    if (isAuthenticated) {
+      // If user is logged in, redirect to search page
+      setLocation(`/app/search?${queryParams.toString()}`);
+    } else {
+      // If user is not logged in, redirect to login page with return URL
+      // Store search parameters in localStorage to use after login
+      localStorage.setItem('searchParams', queryParams.toString());
+      setLocation('/student-login?returnUrl=' + encodeURIComponent(`/app/search?${queryParams.toString()}`));
+    }
   };
   
   useEffect(() => {
