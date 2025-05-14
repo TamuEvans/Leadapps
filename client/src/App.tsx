@@ -204,12 +204,12 @@ function AppContent() {
       <Toaster />
       
       {/* Interactive Onboarding Tour - only on app pages */}
-      {window.location.pathname.startsWith('/app') && (
+      {pathname.startsWith('/app') && (
         <InteractiveTour enabled={true} />
       )}
       
-      {/* Achievement celebration popup */}
-      {currentAchievement && (
+      {/* Achievement celebration popup - only on app pages */}
+      {pathname.startsWith('/app') && currentAchievement && (
         <AchievementCelebration 
           achievement={currentAchievement}
           onClose={dismissAchievement}
