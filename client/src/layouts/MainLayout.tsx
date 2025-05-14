@@ -113,19 +113,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </header>
         </div>
         <div className="p-4 md:p-6">
-          {/* App content with UserProgress sidebar on desktop */}
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              {children}
+          {/* Main content without sidebar layout */}
+          {children}
+          
+          {/* UserProgress - compact floating widget at the bottom right only on home page */}
+          {location === "/app" && (
+            <div className="fixed bottom-20 right-5 z-30 w-60 hidden md:block">
+              <UserProgress />
             </div>
-            
-            {/* UserProgress - only on larger screens */}
-            {!isMobile && location === "/app" && (
-              <div className="md:w-80 lg:w-96 hidden md:block">
-                <UserProgress />
-              </div>
-            )}
-          </div>
+          )}
         </div>
         
         {/* Interactive Elements */}
