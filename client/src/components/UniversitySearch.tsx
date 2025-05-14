@@ -217,9 +217,9 @@ export function UniversitySearch() {
                     </CardContent>
                     <CardFooter className="flex gap-2">
                       <Button asChild variant="outline" className="flex-1">
-                        <a href={university.websiteUrl} target="_blank" rel="noopener noreferrer">
-                          Visit Website
-                        </a>
+                        <Link to={`/app/universities/${university.id}?tab=programs`}>
+                          Explore Programmes
+                        </Link>
                       </Button>
                       <Button asChild className="flex-1">
                         <Link to={`/app/universities/${university.id}`}>

@@ -48,6 +48,17 @@ interface Program {
 }
 
 export default function UniversityProfilePage() {
+  // Get the tab from the URL query parameter
+  const getTabFromUrl = () => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get('tab');
+      if (tab === 'programs' || tab === 'admission') {
+        return tab;
+      }
+    }
+    return 'overview'; // Default tab
+  };
   const { id } = useParams<{ id: string }>();
   const universityId = parseInt(id);
   
@@ -113,7 +124,7 @@ export default function UniversityProfilePage() {
                 <Button asChild className="w-full">
                   <a href={university.websiteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                     <Globe className="h-4 w-4" />
-                    Visit Website
+                    Official Website
                   </a>
                 </Button>
                 <Button variant="outline" className="w-full">
@@ -137,7 +148,7 @@ export default function UniversityProfilePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="overview" className="w-full">
+              <Tabs defaultValue={getTabFromUrl()} className="w-full">
                 <TabsList className="grid grid-cols-3">
                   <TabsTrigger value="overview">Overview</TabsTrigger>
                   <TabsTrigger value="programs">Programs</TabsTrigger>
