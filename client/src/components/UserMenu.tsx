@@ -31,7 +31,7 @@ export function UserMenu() {
   return (
     <div className="flex items-center space-x-3">
       {/* Notifications icon */}
-      <Button variant="ghost" size="icon" className="relative text-gray-500 h-10 w-10">
+      <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 h-10 w-10">
         <Bell className="h-6 w-6" />
         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
           3
@@ -41,10 +41,10 @@ export function UserMenu() {
       {/* User profile dropdown */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-            <Avatar className="h-10 w-10">
+          <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-white/10">
+            <Avatar className="h-10 w-10 border-2 border-white/80">
               <AvatarImage src={user?.profileImageUrl || ''} alt={user?.firstName || ''} />
-              <AvatarFallback className="bg-primary text-white">
+              <AvatarFallback className="bg-white text-indigo-700 font-semibold">
                 {getInitials()}
               </AvatarFallback>
             </Avatar>
