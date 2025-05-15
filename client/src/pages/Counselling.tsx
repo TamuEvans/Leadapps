@@ -177,11 +177,52 @@ const Counselling = () => {
     location: [] as string[],
   });
   
+  // Selected search values
+  const [selectedGender, setSelectedGender] = useState<string>("");
+  const [selectedDestination, setSelectedDestination] = useState<string>("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
+  
   // Get unique values for filters
   const uniqueDestinations = getUniqueValues(counsellors, 'destinations');
   const uniqueSpecialties = getUniqueValues(counsellors, 'specialties');
   const uniqueLocations = counsellors.map(c => c.location).filter((loc, index, self) => self.indexOf(loc) === index).sort();
   
+  // Handle filter changes
+  useEffect(() => {
+    const newFilters = { ...filters };
+    
+    // Update gender filter
+    if (selectedGender) {
+      newFilters.gender = [selectedGender];
+    } else {
+      newFilters.gender = [];
+    }
+    
+    // Update destinations filter
+    if (selectedDestination) {
+      newFilters.destinations = [selectedDestination];
+    } else {
+      newFilters.destinations = [];
+    }
+    
+    // Update specialties filter
+    if (selectedSpecialty) {
+      newFilters.specialties = [selectedSpecialty];
+    } else {
+      newFilters.specialties = [];
+    }
+    
+    // Update location filter
+    if (selectedLocation) {
+      newFilters.location = [selectedLocation];
+    } else {
+      newFilters.location = [];
+    }
+    
+    setFilters(newFilters);
+  }, [selectedGender, selectedDestination, selectedSpecialty, selectedLocation]);
+
   // Filter counsellors when filters or search change
   useEffect(() => {
     let result = counsellors;
@@ -233,12 +274,10 @@ const Counselling = () => {
   
   // Clear all filters
   const clearFilters = () => {
-    setFilters({
-      gender: [],
-      destinations: [],
-      specialties: [],
-      location: [],
-    });
+    setSelectedGender("");
+    setSelectedDestination("");
+    setSelectedSpecialty("");
+    setSelectedLocation("");
     setSearchQuery('');
   };
 
@@ -353,69 +392,70 @@ const Counselling = () => {
               {/* Gender Filter */}
               <div>
                 <h3 className="text-sm font-medium mb-2">Gender</h3>
-                <div className="space-y-2">
-                  {["Male", "Female"].map((gender) => (
-                    <div key={gender} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`gender-${gender}`} 
-                        checked={filters.gender.includes(gender)}
-                        onCheckedChange={() => toggleFilter('gender', gender)}
-                      />
-                      <Label htmlFor={`gender-${gender}`} className="text-sm font-normal">{gender}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select value={selectedGender} onValueChange={setSelectedGender}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Genders</SelectItem>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               {/* Destination Filter */}
               <div>
                 <h3 className="text-sm font-medium mb-2">Destination Markets</h3>
-                <div className="space-y-2">
-                  {uniqueDestinations.map((destination) => (
-                    <div key={destination} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`destination-${destination}`} 
-                        checked={filters.destinations.includes(destination)}
-                        onCheckedChange={() => toggleFilter('destinations', destination)}
-                      />
-                      <Label htmlFor={`destination-${destination}`} className="text-sm font-normal">{destination}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select value={selectedDestination} onValueChange={setSelectedDestination}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select destination" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Destinations</SelectItem>
+                    {uniqueDestinations.map((destination) => (
+                      <SelectItem key={destination} value={destination}>
+                        {destination}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               {/* Specialties Filter */}
               <div>
                 <h3 className="text-sm font-medium mb-2">Program Specialties</h3>
-                <div className="h-36 overflow-y-auto pr-2 space-y-2">
-                  {uniqueSpecialties.map((specialty) => (
-                    <div key={specialty} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`specialty-${specialty}`} 
-                        checked={filters.specialties.includes(specialty)}
-                        onCheckedChange={() => toggleFilter('specialties', specialty)}
-                      />
-                      <Label htmlFor={`specialty-${specialty}`} className="text-sm font-normal">{specialty}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select specialty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Specialties</SelectItem>
+                    {uniqueSpecialties.map((specialty) => (
+                      <SelectItem key={specialty} value={specialty}>
+                        {specialty}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               {/* Location Filter */}
               <div>
                 <h3 className="text-sm font-medium mb-2">Location</h3>
-                <div className="h-36 overflow-y-auto pr-2 space-y-2">
-                  {uniqueLocations.map((location) => (
-                    <div key={location} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`location-${location}`} 
-                        checked={filters.location.includes(location)}
-                        onCheckedChange={() => toggleFilter('location', location)}
-                      />
-                      <Label htmlFor={`location-${location}`} className="text-sm font-normal">{location}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Locations</SelectItem>
+                    {uniqueLocations.map((location) => (
+                      <SelectItem key={location} value={location}>
+                        {location}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             
