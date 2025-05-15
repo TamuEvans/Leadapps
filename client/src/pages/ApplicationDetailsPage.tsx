@@ -476,7 +476,7 @@ const ApplicationDetailsPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Year</label>
                   <div className="space-y-4">
-                    {[2024, 2025, 2026, 2027].map((year) => (
+                    {[2025, 2026, 2027, 2028].map((year) => (
                       <div 
                         key={year} 
                         className={`
