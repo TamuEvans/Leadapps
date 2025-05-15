@@ -46,23 +46,26 @@ export const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 
 export const SocialLoginCompactButtons: React.FC = () => {
   return (
-    <div className="grid grid-cols-3 gap-2">
-      <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
-        <FcGoogle className="h-5 w-5" />
+    <div className="flex flex-col space-y-2">
+      <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'} className="w-full">
+        <FcGoogle className="mr-2 h-5 w-5" />
+        Google
       </Button>
       <Button 
         variant="outline" 
-        className="bg-[#1877F2] text-white hover:bg-[#166FE5]" 
+        className="w-full bg-[#1877F2] text-white hover:bg-[#166FE5]" 
         onClick={() => window.location.href = '/api/auth/facebook'}
       >
-        <SiFacebook className="h-5 w-5 text-white" />
+        <SiFacebook className="mr-2 h-5 w-5 text-white" />
+        Facebook
       </Button>
       <Button 
         variant="outline" 
-        className="bg-black text-white hover:bg-gray-800" 
+        className="w-full bg-black text-white hover:bg-gray-800" 
         onClick={() => window.location.href = '/api/auth/apple'}
       >
-        <SiApple className="h-5 w-5 text-white" />
+        <SiApple className="mr-2 h-5 w-5 text-white" />
+        Apple
       </Button>
     </div>
   );
