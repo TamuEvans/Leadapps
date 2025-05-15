@@ -178,10 +178,10 @@ const Counselling = () => {
   });
   
   // Selected search values
-  const [selectedGender, setSelectedGender] = useState<string>("");
-  const [selectedDestination, setSelectedDestination] = useState<string>("");
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const [selectedGender, setSelectedGender] = useState<string>("all");
+  const [selectedDestination, setSelectedDestination] = useState<string>("all");
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("all");
+  const [selectedLocation, setSelectedLocation] = useState<string>("all");
   
   // Get unique values for filters
   const uniqueDestinations = getUniqueValues(counsellors, 'destinations');
@@ -193,28 +193,28 @@ const Counselling = () => {
     const newFilters = { ...filters };
     
     // Update gender filter
-    if (selectedGender) {
+    if (selectedGender && selectedGender !== 'all') {
       newFilters.gender = [selectedGender];
     } else {
       newFilters.gender = [];
     }
     
     // Update destinations filter
-    if (selectedDestination) {
+    if (selectedDestination && selectedDestination !== 'all') {
       newFilters.destinations = [selectedDestination];
     } else {
       newFilters.destinations = [];
     }
     
     // Update specialties filter
-    if (selectedSpecialty) {
+    if (selectedSpecialty && selectedSpecialty !== 'all') {
       newFilters.specialties = [selectedSpecialty];
     } else {
       newFilters.specialties = [];
     }
     
     // Update location filter
-    if (selectedLocation) {
+    if (selectedLocation && selectedLocation !== 'all') {
       newFilters.location = [selectedLocation];
     } else {
       newFilters.location = [];
@@ -274,10 +274,10 @@ const Counselling = () => {
   
   // Clear all filters
   const clearFilters = () => {
-    setSelectedGender("");
-    setSelectedDestination("");
-    setSelectedSpecialty("");
-    setSelectedLocation("");
+    setSelectedGender("all");
+    setSelectedDestination("all");
+    setSelectedSpecialty("all");
+    setSelectedLocation("all");
     setSearchQuery('');
   };
 
@@ -397,7 +397,7 @@ const Counselling = () => {
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Genders</SelectItem>
+                    <SelectItem value="all">All Genders</SelectItem>
                     <SelectItem value="Male">Male</SelectItem>
                     <SelectItem value="Female">Female</SelectItem>
                   </SelectContent>
@@ -412,7 +412,7 @@ const Counselling = () => {
                     <SelectValue placeholder="Select destination" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Destinations</SelectItem>
+                    <SelectItem value="all">All Destinations</SelectItem>
                     {uniqueDestinations.map((destination) => (
                       <SelectItem key={destination} value={destination}>
                         {destination}
@@ -430,7 +430,7 @@ const Counselling = () => {
                     <SelectValue placeholder="Select specialty" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Specialties</SelectItem>
+                    <SelectItem value="all">All Specialties</SelectItem>
                     {uniqueSpecialties.map((specialty) => (
                       <SelectItem key={specialty} value={specialty}>
                         {specialty}
@@ -448,7 +448,7 @@ const Counselling = () => {
                     <SelectValue placeholder="Select location" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Locations</SelectItem>
+                    <SelectItem value="all">All Locations</SelectItem>
                     {uniqueLocations.map((location) => (
                       <SelectItem key={location} value={location}>
                         {location}
