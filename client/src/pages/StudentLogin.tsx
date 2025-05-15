@@ -15,8 +15,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { FcGoogle } from 'react-icons/fc';
-import { SiFacebook } from 'react-icons/si';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
@@ -142,9 +140,11 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4"> {/* Center vertically and horizontally */}
-        <div className="max-w-md w-full">
-          <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Student Portal</h1>
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+        <div className="w-full max-w-md px-4">
+          <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            Student Portal
+          </h1>
           <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl">
             <CardContent className="pt-6 px-6">
               <Tabs defaultValue="login" className="w-full">
