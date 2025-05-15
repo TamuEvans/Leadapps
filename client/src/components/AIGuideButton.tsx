@@ -280,7 +280,7 @@ export default function AIGuideButton() {
             localStorage.setItem('hasClickedAIGuide', 'true');
           }}
         >
-          <Bot className="h-8 w-8 text-white" />
+          <Bot className="h-10 w-10 text-white" />
         </Button>
       </div>
       
