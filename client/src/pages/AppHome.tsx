@@ -196,7 +196,7 @@ export function AppHome() {
                   </div>
                   <div className="text-right">
                     <span className="text-sm font-medium text-amber-600">30 days left</span>
-                    <p className="text-xs text-gray-500">December 15, 2024</p>
+                    <p className="text-xs text-gray-500">December 15, 2025</p>
                   </div>
                 </div>
                 <div className="p-4 flex justify-between items-center">

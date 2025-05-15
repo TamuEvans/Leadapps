@@ -9,19 +9,19 @@ const Articles = () => {
       title: "How to Write a Compelling Personal Statement",
       description: "Learn the key elements of a standout personal statement that will impress admissions committees.",
       category: "Application Tips",
-      date: "May 15, 2023"
+      date: "May 15, 2025"
     },
     {
       title: "Scholarship Opportunities for Caribbean Students",
       description: "Discover scholarships specifically available for students from Caribbean nations pursuing higher education.",
       category: "Scholarships",
-      date: "April 28, 2023"
+      date: "April 28, 2025"
     },
     {
       title: "Choosing the Right Program: Factors to Consider",
       description: "Important factors to consider when selecting an educational program that aligns with your goals.",
       category: "Program Selection",
-      date: "April 10, 2023"
+      date: "April 10, 2025"
     }
   ];
 
@@ -60,7 +60,7 @@ const Articles = () => {
           <ul className="space-y-3">
             <li className="flex items-center justify-between p-3 border border-gray-100 rounded-md hover:bg-gray-50 transition cursor-pointer">
               <div>
-                <h3 className="text-sm font-medium">2023 University Application Guide</h3>
+                <h3 className="text-sm font-medium">2025 University Application Guide</h3>
                 <p className="text-xs text-gray-500">PDF Guide</p>
               </div>
               <Button variant="ghost" size="sm" className="text-primary">
