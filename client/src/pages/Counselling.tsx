@@ -303,6 +303,25 @@ const Counselling = () => {
       result = result.filter(c => filters.location.includes(c.location));
     }
     
+    // Helper function to extract numeric min cost from cost range string
+    const getMinCost = (costRange: string): number => {
+      if (!costRange) return 0;
+      // Extract the first number from strings like "$80-110 per hour"
+      const match = costRange.match(/\$(\d+)/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
+    
+    // Filter by cost range
+    if (filters.costRange) {
+      const costRange = costRanges.find(cr => cr.id === filters.costRange);
+      if (costRange) {
+        result = result.filter(c => {
+          const minCost = getMinCost(c.costRange);
+          return minCost >= costRange.min && minCost <= costRange.max;
+        });
+      }
+    }
+    
     setFilteredCounsellors(result);
   }, [searchQuery, filters]);
   
@@ -434,7 +453,7 @@ const Counselling = () => {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Gender Filter */}
               <div>
                 <h3 className="text-sm font-medium mb-2">Gender</h3>
@@ -498,6 +517,24 @@ const Counselling = () => {
                     {uniqueLocations.map((location) => (
                       <SelectItem key={location} value={location}>
                         {location}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {/* Cost Range Filter */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Cost Range</h3>
+                <Select value={selectedCostRange} onValueChange={setSelectedCostRange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select price range" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Price Ranges</SelectItem>
+                    {costRanges.map((range) => (
+                      <SelectItem key={range.id} value={range.id}>
+                        {range.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
