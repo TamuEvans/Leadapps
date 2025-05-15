@@ -266,7 +266,7 @@ export default function AIGuideButton() {
       <div className="fixed bottom-6 right-6 z-50">
         {/* Subtle pulse ring animation */}
         {!localStorage.getItem('hasClickedAIGuide') && (
-          <span className="absolute inset-0 rounded-full opacity-40 bg-gradient-primary" 
+          <span className="absolute inset-0 h-16 w-16 rounded-full opacity-40 bg-gradient-primary" 
                 style={{ 
                   animation: 'subtle-pulse 3s infinite', 
                   animationTimingFunction: 'ease-in-out'
@@ -274,13 +274,13 @@ export default function AIGuideButton() {
           </span>
         )}
         <Button 
-          className="relative h-14 w-14 rounded-full shadow-lg bg-gradient-primary"
+          className="relative h-16 w-16 rounded-full shadow-lg bg-gradient-primary"
           onClick={() => {
             setIsOpen(true);
             localStorage.setItem('hasClickedAIGuide', 'true');
           }}
         >
-          <Bot className="h-10 w-10 text-white" />
+          <Bot className="h-12 w-12 text-white" />
         </Button>
       </div>
       
