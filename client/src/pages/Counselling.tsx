@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap } from "lucide-react";
+import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap, Search, Filter } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Counsellor data
 const counsellors = [
@@ -149,8 +153,94 @@ const counsellors = [
   }
 ];
 
+// Helper function to get unique values from counsellor data
+const getUniqueValues = (data: any[], key: string): string[] => {
+  const valuesSet = new Set<string>();
+  data.forEach(item => {
+    if (Array.isArray(item[key])) {
+      item[key].forEach((value: string) => valuesSet.add(value));
+    }
+  });
+  return Array.from(valuesSet).sort();
+};
+
 const Counselling = () => {
   const [selectedCounsellor, setSelectedCounsellor] = useState<number | null>(null);
+  const [filteredCounsellors, setFilteredCounsellors] = useState(counsellors);
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Filter states
+  const [filters, setFilters] = useState({
+    gender: [] as string[],
+    destinations: [] as string[],
+    specialties: [] as string[],
+    location: [] as string[],
+  });
+  
+  // Get unique values for filters
+  const uniqueDestinations = getUniqueValues(counsellors, 'destinations');
+  const uniqueSpecialties = getUniqueValues(counsellors, 'specialties');
+  const uniqueLocations = counsellors.map(c => c.location).filter((loc, index, self) => self.indexOf(loc) === index).sort();
+  
+  // Filter counsellors when filters or search change
+  useEffect(() => {
+    let result = counsellors;
+    
+    // Filter by search query
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(c => 
+        c.name.toLowerCase().includes(query) || 
+        c.bio.toLowerCase().includes(query) || 
+        c.specialties.some((s: string) => s.toLowerCase().includes(query))
+      );
+    }
+    
+    // Filter by gender
+    if (filters.gender.length > 0) {
+      result = result.filter(c => filters.gender.includes(c.gender));
+    }
+    
+    // Filter by destinations
+    if (filters.destinations.length > 0) {
+      result = result.filter(c => c.destinations.some((d: string) => filters.destinations.includes(d)));
+    }
+    
+    // Filter by specialties
+    if (filters.specialties.length > 0) {
+      result = result.filter(c => c.specialties.some((s: string) => filters.specialties.includes(s)));
+    }
+    
+    // Filter by location
+    if (filters.location.length > 0) {
+      result = result.filter(c => filters.location.includes(c.location));
+    }
+    
+    setFilteredCounsellors(result);
+  }, [searchQuery, filters]);
+  
+  // Toggle filter function
+  const toggleFilter = (category: 'gender' | 'destinations' | 'specialties' | 'location', value: string) => {
+    setFilters(prev => {
+      const currentValues = [...prev[category]];
+      if (currentValues.includes(value)) {
+        return { ...prev, [category]: currentValues.filter(v => v !== value) };
+      } else {
+        return { ...prev, [category]: [...currentValues, value] };
+      }
+    });
+  };
+  
+  // Clear all filters
+  const clearFilters = () => {
+    setFilters({
+      gender: [],
+      destinations: [],
+      specialties: [],
+      location: [],
+    });
+    setSearchQuery('');
+  };
 
   return (
     <div className="space-y-8 pb-8">
@@ -231,8 +321,112 @@ const Counselling = () => {
             </p>
           </div>
           
+          {/* Search and Filter Bar */}
+          <div className="mb-6 bg-white rounded-lg shadow-sm p-4 border border-gray-100">
+            <div className="flex flex-col md:flex-row gap-4 mb-4">
+              <div className="flex-grow">
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+                  <Input
+                    placeholder="Search counsellors by name, specialty, or keywords..."
+                    className="pl-9"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-1"
+                  onClick={() => clearFilters()}
+                >
+                  <Filter className="h-4 w-4" />
+                  Clear Filters
+                </Button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {/* Gender Filter */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Gender</h3>
+                <div className="space-y-2">
+                  {["Male", "Female"].map((gender) => (
+                    <div key={gender} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`gender-${gender}`} 
+                        checked={filters.gender.includes(gender)}
+                        onCheckedChange={() => toggleFilter('gender', gender)}
+                      />
+                      <Label htmlFor={`gender-${gender}`} className="text-sm font-normal">{gender}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Destination Filter */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Destination Markets</h3>
+                <div className="space-y-2">
+                  {uniqueDestinations.map((destination) => (
+                    <div key={destination} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`destination-${destination}`} 
+                        checked={filters.destinations.includes(destination)}
+                        onCheckedChange={() => toggleFilter('destinations', destination)}
+                      />
+                      <Label htmlFor={`destination-${destination}`} className="text-sm font-normal">{destination}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Specialties Filter */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Program Specialties</h3>
+                <div className="h-36 overflow-y-auto pr-2 space-y-2">
+                  {uniqueSpecialties.map((specialty) => (
+                    <div key={specialty} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`specialty-${specialty}`} 
+                        checked={filters.specialties.includes(specialty)}
+                        onCheckedChange={() => toggleFilter('specialties', specialty)}
+                      />
+                      <Label htmlFor={`specialty-${specialty}`} className="text-sm font-normal">{specialty}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Location Filter */}
+              <div>
+                <h3 className="text-sm font-medium mb-2">Location</h3>
+                <div className="h-36 overflow-y-auto pr-2 space-y-2">
+                  {uniqueLocations.map((location) => (
+                    <div key={location} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`location-${location}`} 
+                        checked={filters.location.includes(location)}
+                        onCheckedChange={() => toggleFilter('location', location)}
+                      />
+                      <Label htmlFor={`location-${location}`} className="text-sm font-normal">{location}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Results count */}
+            <div className="mt-4 text-sm text-gray-500">
+              Showing {filteredCounsellors.length} of {counsellors.length} counsellors
+            </div>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {counsellors.map((counsellor) => (
+            {filteredCounsellors.map((counsellor) => (
               <Card 
                 key={counsellor.id} 
                 className={`bg-white transition-all ${
@@ -250,7 +444,13 @@ const Counselling = () => {
                     <AvatarImage src={counsellor.avatar} alt={counsellor.name} />
                   </Avatar>
                   <div>
-                    <CardTitle className="text-lg">{counsellor.name}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-lg">{counsellor.name}</CardTitle>
+                      <Badge variant="outline" className="text-xs">
+                        <User className="h-2.5 w-2.5 mr-1" />
+                        {counsellor.gender}
+                      </Badge>
+                    </div>
                     <CardDescription>{counsellor.title}</CardDescription>
                     <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
                       <MapPin className="h-3 w-3" />
@@ -269,10 +469,21 @@ const Counselling = () => {
                     <span className="text-sm text-gray-600">{counsellor.education}</span>
                   </div>
                   
+                  <div className="mb-2">
+                    <h4 className="text-sm font-medium mb-1">Destinations:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {counsellor.destinations.map((destination: string, index: number) => (
+                        <Badge key={index} variant="outline" className="text-xs bg-blue-50">
+                          {destination}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="mb-3">
                     <h4 className="text-sm font-medium mb-1">Specialties:</h4>
                     <div className="flex flex-wrap gap-1">
-                      {counsellor.specialties.map((specialty, index) => (
+                      {counsellor.specialties.map((specialty: string, index: number) => (
                         <Badge key={index} variant="secondary" className="text-xs">
                           {specialty}
                         </Badge>
