@@ -76,10 +76,14 @@ const Sidebar = () => {
   const SidebarContent = () => (
     <>
       <div className={cn(
-        "border-b border-gray-200 transition-all duration-200 ease-in-out",
-        "p-3 flex items-center h-16"
+        "border-b border-blue-800 transition-all duration-200 ease-in-out",
+        "flex items-center h-16",
+        expanded ? "p-3 bg-blue-800" : "p-3 bg-blue-900 justify-center"
       )}>
-        <div className="flex items-center justify-between h-10">
+        <div className={cn(
+          "flex items-center h-10",
+          expanded ? "justify-between w-full" : "justify-center w-10"
+        )}>
           <div className="flex items-center h-10 w-40 overflow-hidden relative">
             <img 
               src={leadappsLogo} 
@@ -102,7 +106,7 @@ const Sidebar = () => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="p-1 h-6 w-6"
+              className="p-1 h-6 w-6 text-white hover:bg-blue-700"
               onClick={toggleExpanded}
             >
               <ChevronRight className="h-4 w-4 transition-transform duration-200 rotate-180" />
@@ -125,8 +129,10 @@ const Sidebar = () => {
                     expanded ? "px-4" : "px-2 justify-center",
                     !expanded && "justify-center", // Always center when collapsed
                     isActive(item.path) 
-                      ? "bg-gradient-primary text-white font-medium" 
-                      : "hover:bg-gray-100 text-gray-600"
+                      ? "bg-blue-700 text-white font-medium" 
+                      : expanded
+                        ? "hover:bg-blue-700/70 text-white/90"
+                        : "text-white/90 hover:bg-blue-800"
                   )}
                   onClick={() => setOpen(false)}
                   title={!expanded ? item.label : undefined}
@@ -134,7 +140,7 @@ const Sidebar = () => {
                   <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
                     <span className={cn(
                       "flex items-center justify-center",
-                      isActive(item.path) ? "text-white" : "text-gray-500"
+                      isActive(item.path) ? "text-white" : expanded ? "text-white/90" : "text-white"
                     )}>
                       {item.icon}
                     </span>
@@ -142,7 +148,7 @@ const Sidebar = () => {
                   <span 
                     className={cn(
                       "ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
-                      expanded ? "opacity-100 max-w-[200px]" : "opacity-0 max-w-0"
+                      expanded ? "opacity-100 max-w-[200px] text-white" : "opacity-0 max-w-0"
                     )}
                   >
                     {item.label}
@@ -167,7 +173,7 @@ const Sidebar = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64">
+            <SheetContent side="left" className="p-0 w-64 bg-gradient-to-r from-blue-900 to-blue-700 border-r-blue-900">
               <SidebarContent />
             </SheetContent>
           </Sheet>
@@ -180,9 +186,9 @@ const Sidebar = () => {
   return (
     <aside 
       className={cn(
-        "bg-white min-h-screen border-r border-gray-200 fixed z-30 top-0 left-0",
+        "min-h-screen fixed z-30 top-0 left-0 border-r border-gray-200",
         "transition-all duration-300 ease-in-out",
-        expanded ? "w-64" : "w-16"
+        expanded ? "w-64 bg-gradient-to-r from-blue-900 to-blue-700" : "w-16 bg-blue-900"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
