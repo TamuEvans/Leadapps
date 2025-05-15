@@ -76,9 +76,9 @@ const Sidebar = () => {
   const SidebarContent = () => (
     <>
       <div className={cn(
-        "border-b border-blue-800 transition-all duration-200 ease-in-out",
+        "border-b border-gray-200 transition-all duration-200 ease-in-out",
         "flex items-center h-16",
-        expanded ? "p-3 bg-blue-800" : "p-3 bg-blue-900 justify-center"
+        expanded ? "p-3 bg-white" : "p-3 bg-white justify-center"
       )}>
         <div className={cn(
           "flex items-center h-10",
@@ -106,7 +106,7 @@ const Sidebar = () => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="p-1 h-6 w-6 text-white hover:bg-blue-700"
+              className="p-1 h-6 w-6 text-gray-600 hover:bg-gray-100"
               onClick={toggleExpanded}
             >
               <ChevronRight className="h-4 w-4 transition-transform duration-200 rotate-180" />
@@ -173,7 +173,7 @@ const Sidebar = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64 bg-gradient-to-r from-blue-900 to-blue-700 border-r-blue-900">
+            <SheetContent side="left" className="p-0 w-64 bg-gradient-to-r from-blue-900 to-blue-700 border-r-blue-900" style={{ borderRight: "1px solid #1e3a8a" }}>
               <SidebarContent />
             </SheetContent>
           </Sheet>
