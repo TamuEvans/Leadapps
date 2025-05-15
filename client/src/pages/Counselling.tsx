@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Counsellor data
 const counsellors = [
@@ -131,20 +130,16 @@ const counsellors = [
 ];
 
 const Counselling = () => {
-  const [activeTab, setActiveTab] = useState("services");
   const [selectedCounsellor, setSelectedCounsellor] = useState<number | null>(null);
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-8 pb-8">
       <h1 className="text-2xl font-bold text-gray-800 text-center">Counselling Services</h1>
       
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="services">Services</TabsTrigger>
-          <TabsTrigger value="counsellors">Choose Your Counsellor</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="services" className="space-y-6">
+      <div className="space-y-8">
+        {/* Service Options */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Service Options</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="bg-white shadow-sm">
               <CardHeader className="pb-2 flex flex-col items-center">
@@ -191,24 +186,26 @@ const Counselling = () => {
               </CardContent>
             </Card>
           </div>
-          
-          <Card className="bg-white shadow-sm">
-            <CardHeader className="flex flex-col items-center">
-              <CardTitle className="text-center">Upcoming Sessions</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center p-12 text-gray-500">
-              <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-              <h2 className="text-lg font-medium text-gray-700 mb-2">No Upcoming Sessions</h2>
-              <p className="max-w-md mx-auto">
-                You haven't scheduled any counselling sessions yet. Book a session to get personalized guidance for your educational journey.
-              </p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+        </div>
         
-        <TabsContent value="counsellors">
+        {/* Upcoming Sessions */}
+        <Card className="bg-white shadow-sm">
+          <CardHeader className="flex flex-col items-center">
+            <CardTitle className="text-center">Upcoming Sessions</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center p-12 text-gray-500">
+            <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <h2 className="text-lg font-medium text-gray-700 mb-2">No Upcoming Sessions</h2>
+            <p className="max-w-md mx-auto">
+              You haven't scheduled any counselling sessions yet. Book a session to get personalized guidance for your educational journey.
+            </p>
+          </CardContent>
+        </Card>
+        
+        {/* Choose Your Counsellor */}
+        <div>
           <div className="mb-6">
-            <h2 className="text-xl font-medium text-gray-700 mb-2">Our Counselling Team</h2>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">Choose Your Counsellor</h2>
             <p className="text-gray-600">
               Select a counsellor who specializes in your areas of interest for personalized guidance on your educational journey.
             </p>
@@ -276,8 +273,8 @@ const Counselling = () => {
               </Card>
             ))}
           </div>
-        </TabsContent>
-      </Tabs>
+        </div>
+      </div>
     </div>
   );
 };
