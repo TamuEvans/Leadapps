@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import leadappsLogo from "../assets/leadapps-logo.png";
+import leadappsIcon from "../assets/leadapps-icon.png";
 
 const Sidebar = () => {
   const [location] = useLocation();
@@ -88,14 +89,14 @@ const Sidebar = () => {
                 expanded ? "opacity-100" : "opacity-0"
               )} 
             />
-            <div 
+            <img 
+              src={leadappsIcon} 
+              alt="Leadapps Icon" 
               className={cn(
-                "w-10 h-10 rounded-full logo-icon-bg flex items-center justify-center absolute top-0 left-0 transition-opacity duration-300",
+                "w-10 h-10 absolute top-0 left-0 transition-opacity duration-300",
                 expanded ? "opacity-0" : "opacity-100"
               )}
-            >
-              <div className="text-white font-bold text-xl">L</div>
-            </div>
+            />
           </div>
           {!isMobile && expanded && (
             <Button 
