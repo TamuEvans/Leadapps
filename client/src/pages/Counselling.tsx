@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 const counsellors = [
   {
     id: 1,
-    name: "Dr. Amara Johnson",
+    name: "Dr. Shanice Thompson",
     avatar: "",
     title: "Senior Education Advisor",
     specialties: ["US Applications", "Medical Schools", "Scholarship Guidance"],
@@ -17,23 +17,23 @@ const counsellors = [
     education: "Ph.D. in Educational Psychology, Harvard University",
     location: "Kingston, Jamaica",
     languages: ["English", "Spanish"],
-    bio: "Dr. Johnson specializes in guiding Caribbean students through competitive US medical school applications. With over a decade of experience, she has helped hundreds of students secure scholarships and placements at top institutions."
+    bio: "Dr. Thompson specializes in guiding Caribbean students through competitive US medical school applications. Her expertise is primarily focused on US destinations, particularly for medical and healthcare programs. With over a decade of experience, she has helped hundreds of students secure scholarships and placements at top American institutions."
   },
   {
     id: 2,
-    name: "Michael Chen, M.Ed.",
+    name: "Kwame Richardson, M.Ed.",
     avatar: "",
     title: "International Admissions Specialist",
     specialties: ["Canadian Immigration", "Engineering Programs", "Graduate Applications"],
     experience: "8 years",
     education: "M.Ed. in Higher Education, University of Toronto",
     location: "Port of Spain, Trinidad",
-    languages: ["English", "Mandarin"],
-    bio: "Michael's expertise lies in navigating the Canadian education system and immigration processes. He provides strategic guidance for engineering and technical program applications with a special focus on research opportunities."
+    languages: ["English", "French"],
+    bio: "Kwame's expertise lies in navigating the Canadian education system and immigration processes. He focuses exclusively on Canadian destinations, providing strategic guidance for engineering and technical program applications with a special emphasis on research opportunities and post-graduation work permits in Canada."
   },
   {
     id: 3,
-    name: "Sophia Williams",
+    name: "Rhianna Blackman",
     avatar: "",
     title: "Career Counsellor & Essay Coach",
     specialties: ["Personal Statements", "Interview Preparation", "UK Universities"],
@@ -41,23 +41,23 @@ const counsellors = [
     education: "M.A. in Creative Writing, University of Edinburgh",
     location: "Bridgetown, Barbados",
     languages: ["English", "French"],
-    bio: "Sophia combines her writing expertise with in-depth knowledge of UK university admissions to help students craft compelling personal statements. She also provides comprehensive interview coaching for Oxbridge and Russell Group applications."
+    bio: "Rhianna combines her writing expertise with in-depth knowledge of UK university admissions to help students craft compelling personal statements. Her focus is exclusively on UK destinations, particularly Russell Group universities. She provides comprehensive interview coaching for Oxbridge and other competitive UK program applications."
   },
   {
     id: 4,
-    name: "Dr. Rajiv Patel",
+    name: "Dr. Andre Campbell",
     avatar: "",
     title: "STEM Education Specialist",
     specialties: ["Technology Programs", "Research Applications", "Scholarship Applications"],
     experience: "15 years",
     education: "Ph.D. in Computer Science, MIT",
     location: "Georgetown, Guyana",
-    languages: ["English", "Hindi"],
-    bio: "With a background in computer science research, Dr. Patel specializes in guiding students toward technology and engineering programs. He helps students identify research opportunities and prepare competitive applications for STEM scholarships."
+    languages: ["English", "Portuguese"],
+    bio: "With a background in computer science research, Dr. Campbell specializes in guiding students toward technology and engineering programs across multiple destinations. His expertise spans US, Canadian, and UK technology programs, with particular emphasis on helping students identify research opportunities and prepare competitive applications for STEM scholarships internationally."
   },
   {
     id: 5,
-    name: "Gabriela Sanchez",
+    name: "Gabriela Ramirez",
     avatar: "",
     title: "Arts & Humanities Advisor",
     specialties: ["Visual Arts Programs", "Portfolio Development", "Creative Scholarships"],
@@ -65,11 +65,11 @@ const counsellors = [
     education: "MFA in Fine Arts, Rhode Island School of Design",
     location: "San Juan, Puerto Rico",
     languages: ["English", "Spanish"],
-    bio: "Gabriela guides creative students through specialized arts program applications. She provides portfolio development advice and helps students navigate audition processes for performing arts and fine arts programs worldwide."
+    bio: "Gabriela guides creative students through specialized arts program applications. Her expertise covers both Caribbean and US destinations for arts education. She provides portfolio development advice and helps students navigate audition processes for performing arts and fine arts programs at Caribbean institutions and top US conservatories."
   },
   {
     id: 6,
-    name: "Thomas Bennett",
+    name: "Dwayne Braithwaite",
     avatar: "",
     title: "Financial Aid Specialist",
     specialties: ["Scholarship Applications", "Financial Planning", "Budget Guidance"],
@@ -77,23 +77,23 @@ const counsellors = [
     education: "MBA in Finance, London School of Economics",
     location: "Nassau, Bahamas",
     languages: ["English"],
-    bio: "Thomas specializes in helping students navigate the financial aspects of international education. He provides expert guidance on scholarship applications, student loans, and developing realistic financial plans for studying abroad."
+    bio: "Dwayne specializes in helping students navigate the financial aspects of international education. His expertise spans all major destinations (US, UK, Canada, and the Caribbean), providing tailored guidance on scholarship applications, student loans, and developing realistic financial plans for studying abroad in any of these regions."
   },
   {
     id: 7,
-    name: "Dr. Leila Abrams",
+    name: "Dr. Asha Mathurin",
     avatar: "",
     title: "Medical & Health Sciences Advisor",
     specialties: ["Pre-Med Programs", "Nursing Applications", "Healthcare Careers"],
     experience: "14 years",
     education: "M.D., Johns Hopkins University",
     location: "Kingston, Jamaica",
-    languages: ["English", "Arabic"],
-    bio: "Dr. Abrams provides specialized guidance for students pursuing medical and health science careers. With experience as a medical school admissions committee member, she offers insider perspective on competitive healthcare program applications."
+    languages: ["English", "Hindi"],
+    bio: "Dr. Mathurin provides specialized guidance for students pursuing medical and health science careers across multiple destinations. Her advising covers programs in the Caribbean, US, and UK, with particular expertise in Caribbean and US medical schools. With experience as a medical school admissions committee member, she offers insider perspective on competitive healthcare program applications."
   },
   {
     id: 8,
-    name: "James Wilson",
+    name: "Marcus Charles",
     avatar: "",
     title: "Graduate Studies Expert",
     specialties: ["MBA Applications", "Law School Admissions", "Advanced Degrees"],
@@ -101,31 +101,31 @@ const counsellors = [
     education: "J.D., Yale Law School",
     location: "St. George's, Grenada",
     languages: ["English"],
-    bio: "James specializes in graduate-level applications, particularly for MBA and law programs. He provides comprehensive guidance on entrance exams, application strategies, and connecting educational choices with long-term career goals."
+    bio: "Marcus specializes in graduate-level applications, particularly for MBA and law programs. His expertise is primarily focused on US destinations, with additional knowledge of Canadian options. He provides comprehensive guidance on entrance exams, application strategies, and connecting educational choices with long-term career goals for students seeking advanced degrees in North America."
   },
   {
     id: 9,
-    name: "Anika Forsyth",
+    name: "Ayanna Dupont",
     avatar: "",
     title: "Student Transition Specialist",
     specialties: ["First-Year Experience", "Cultural Adjustment", "Student Wellbeing"],
     experience: "7 years",
     education: "M.Sc. in Psychology, University of the West Indies",
     location: "Castries, St. Lucia",
-    languages: ["English", "French"],
-    bio: "Anika focuses on the emotional and psychological aspects of studying abroad. She provides guidance on cultural adjustment, homesickness, and developing healthy coping strategies for the challenges of international education."
+    languages: ["English", "French", "Creole"],
+    bio: "Ayanna focuses on the emotional and psychological aspects of studying abroad. She provides guidance on cultural adjustment across multiple destinations, with special expertise in the transition to UK and Canadian universities. Her counseling helps students develop healthy coping strategies for the specific challenges of each destination's educational environment and cultural context."
   },
   {
     id: 10,
-    name: "David Kwong",
+    name: "Terrell Baptiste",
     avatar: "",
     title: "Technology & Digital Media Specialist",
     specialties: ["Computer Science", "Digital Arts", "Tech Scholarships"],
     experience: "8 years",
     education: "M.Sc. in Computer Science, Stanford University",
     location: "Port of Spain, Trinidad",
-    languages: ["English", "Cantonese"],
-    bio: "David specializes in technology education pathways, including computer science, digital media, and emerging tech fields. He helps students identify programs aligned with specific tech career goals and prepare competitive applications."
+    languages: ["English", "French"],
+    bio: "Terrell specializes in technology education pathways, including computer science, digital media, and emerging tech fields. His advising primarily covers US and Canadian destinations for tech education, with particular expertise in Silicon Valley connections. He helps students identify programs aligned with specific tech career goals and prepare competitive applications for North American tech hubs."
   }
 ];
 
