@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
-import { SiFacebook } from 'react-icons/si';
+import { SiFacebook, SiApple } from 'react-icons/si';
 
 interface SocialLoginButtonsProps {
   variant?: 'login' | 'signup';
@@ -12,6 +12,7 @@ export const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
 }) => {
   const googleText = variant === 'login' ? 'Continue with Google' : 'Sign up with Google';
   const facebookText = variant === 'login' ? 'Continue with Facebook' : 'Sign up with Facebook';
+  const appleText = variant === 'login' ? 'Continue with Apple' : 'Sign up with Apple';
   
   return (
     <div className="flex flex-col space-y-3">
@@ -31,24 +32,37 @@ export const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         <SiFacebook className="mr-2 h-5 w-5 text-white" />
         {facebookText}
       </Button>
+      <Button 
+        variant="outline" 
+        className="w-full bg-black text-white hover:bg-gray-800" 
+        onClick={() => window.location.href = '/api/auth/apple'}
+      >
+        <SiApple className="mr-2 h-5 w-5 text-white" />
+        {appleText}
+      </Button>
     </div>
   );
 };
 
 export const SocialLoginCompactButtons: React.FC = () => {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-3 gap-2">
       <Button variant="outline" onClick={() => window.location.href = '/api/auth/google'}>
-        <FcGoogle className="mr-2 h-5 w-5" />
-        Google
+        <FcGoogle className="h-5 w-5" />
       </Button>
       <Button 
         variant="outline" 
         className="bg-[#1877F2] text-white hover:bg-[#166FE5]" 
         onClick={() => window.location.href = '/api/auth/facebook'}
       >
-        <SiFacebook className="mr-2 h-5 w-5 text-white" />
-        Facebook
+        <SiFacebook className="h-5 w-5 text-white" />
+      </Button>
+      <Button 
+        variant="outline" 
+        className="bg-black text-white hover:bg-gray-800" 
+        onClick={() => window.location.href = '/api/auth/apple'}
+      >
+        <SiApple className="h-5 w-5 text-white" />
       </Button>
     </div>
   );
