@@ -280,7 +280,7 @@ export default function AIGuideButton() {
             localStorage.setItem('hasClickedAIGuide', 'true');
           }}
         >
-          <Bot className="h-6 w-6 text-white" />
+          <Bot className="h-8 w-8 text-white" />
         </Button>
       </div>
       
@@ -291,7 +291,7 @@ export default function AIGuideButton() {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b">
               <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 bg-gradient-primary">
+                <Avatar className="h-10 w-10 bg-gradient-primary">
                   <AvatarFallback>AI</AvatarFallback>
                   <AvatarImage src="/assets/ai-avatar.png" alt="AI Guide" />
                 </Avatar>
