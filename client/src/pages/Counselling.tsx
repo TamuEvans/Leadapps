@@ -159,6 +159,9 @@ const counsellors = [
     education: "M.Sc. in Psychology, University of the West Indies",
     location: "Castries, St. Lucia",
     languages: ["English", "French", "Creole"],
+    costRange: "$80-110 per hour",
+    rating: 4.5,
+    reviewCount: 68,
     bio: "Ayanna focuses on the emotional and psychological aspects of studying abroad. She provides guidance on cultural adjustment across multiple destinations, with special expertise in the transition to UK and Canadian universities. Her counseling helps students develop healthy coping strategies for the specific challenges of each destination's educational environment and cultural context."
   },
   {
@@ -173,6 +176,9 @@ const counsellors = [
     education: "M.Sc. in Computer Science, Stanford University",
     location: "Port of Spain, Trinidad",
     languages: ["English", "French"],
+    costRange: "$90-130 per hour",
+    rating: 4.8,
+    reviewCount: 95,
     bio: "Terrell specializes in technology education pathways, including computer science, digital media, and emerging tech fields. His advising primarily covers US and Canadian destinations for tech education, with particular expertise in Silicon Valley connections. He helps students identify programs aligned with specific tech career goals and prepare competitive applications for North American tech hubs."
   }
 ];
@@ -199,6 +205,7 @@ const Counselling = () => {
     destinations: [] as string[],
     specialties: [] as string[],
     location: [] as string[],
+    costRange: '',
   });
   
   // Selected search values
@@ -206,11 +213,19 @@ const Counselling = () => {
   const [selectedDestination, setSelectedDestination] = useState<string>("all");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("all");
   const [selectedLocation, setSelectedLocation] = useState<string>("all");
+  const [selectedCostRange, setSelectedCostRange] = useState<string>("all");
   
   // Get unique values for filters
   const uniqueDestinations = getUniqueValues(counsellors, 'destinations');
   const uniqueSpecialties = getUniqueValues(counsellors, 'specialties');
   const uniqueLocations = counsellors.map(c => c.location).filter((loc, index, self) => self.indexOf(loc) === index).sort();
+  
+  // Define cost ranges for filtering
+  const costRanges = [
+    { id: "budget", label: "Budget ($70-90/hr)", min: 70, max: 90 },
+    { id: "standard", label: "Standard ($90-120/hr)", min: 90, max: 120 },
+    { id: "premium", label: "Premium ($120+/hr)", min: 120, max: 999 }
+  ];
   
   // Handle filter changes
   useEffect(() => {
@@ -244,8 +259,15 @@ const Counselling = () => {
       newFilters.location = [];
     }
     
+    // Update cost range filter
+    if (selectedCostRange && selectedCostRange !== 'all') {
+      newFilters.costRange = selectedCostRange;
+    } else {
+      newFilters.costRange = '';
+    }
+    
     setFilters(newFilters);
-  }, [selectedGender, selectedDestination, selectedSpecialty, selectedLocation]);
+  }, [selectedGender, selectedDestination, selectedSpecialty, selectedLocation, selectedCostRange]);
 
   // Filter counsellors when filters or search change
   useEffect(() => {
@@ -524,6 +546,31 @@ const Counselling = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-2">
+                  {/* Rating */}
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center">
+                      <div className="flex mr-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star 
+                            key={star} 
+                            className={`h-4 w-4 ${star <= Math.floor(counsellor.rating) 
+                              ? 'text-yellow-400 fill-yellow-400' 
+                              : star - 0.5 <= counsellor.rating 
+                                ? 'text-yellow-400 fill-yellow-400 opacity-60' 
+                                : 'text-gray-300'
+                            }`} 
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm font-medium">{counsellor.rating}</span>
+                      <span className="text-xs text-gray-500 ml-1">({counsellor.reviewCount})</span>
+                    </div>
+                    <div className="flex items-center">
+                      <DollarSign className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-medium text-gray-700">{counsellor.costRange}</span>
+                    </div>
+                  </div>
+                
                   <div className="flex items-center gap-2 mb-2">
                     <Briefcase className="h-4 w-4 text-gray-400" />
                     <span className="text-sm text-gray-600">{counsellor.experience} experience</span>
