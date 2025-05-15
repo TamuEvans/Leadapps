@@ -140,7 +140,7 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] pt-16">
         <div className="w-full max-w-md px-4">
           <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Student Portal
