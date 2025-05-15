@@ -343,6 +343,7 @@ const Counselling = () => {
     setSelectedDestination("all");
     setSelectedSpecialty("all");
     setSelectedLocation("all");
+    setSelectedCostRange("all");
     setSearchQuery('');
   };
 
