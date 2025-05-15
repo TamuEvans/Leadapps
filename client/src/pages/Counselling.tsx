@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap, Search, Filter } from "lucide-react";
+import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap, Search, Filter, Star, DollarSign } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,9 @@ const counsellors = [
     education: "Ph.D. in Educational Psychology, Harvard University",
     location: "Kingston, Jamaica",
     languages: ["English", "Spanish"],
+    costRange: "$100-150 per hour",
+    rating: 4.9,
+    reviewCount: 127,
     bio: "Dr. Thompson specializes in guiding Caribbean students through competitive US medical school applications. Her expertise is primarily focused on US destinations, particularly for medical and healthcare programs. With over a decade of experience, she has helped hundreds of students secure scholarships and placements at top American institutions."
   },
   {
@@ -37,6 +40,9 @@ const counsellors = [
     education: "M.Ed. in Higher Education, University of Toronto",
     location: "Port of Spain, Trinidad",
     languages: ["English", "French"],
+    costRange: "$85-120 per hour",
+    rating: 4.7,
+    reviewCount: 92,
     bio: "Kwame's expertise lies in navigating the Canadian education system and immigration processes. He focuses exclusively on Canadian destinations, providing strategic guidance for engineering and technical program applications with a special emphasis on research opportunities and post-graduation work permits in Canada."
   },
   {
@@ -51,6 +57,9 @@ const counsellors = [
     education: "M.A. in Creative Writing, University of Edinburgh",
     location: "Bridgetown, Barbados",
     languages: ["English", "French"],
+    costRange: "$70-100 per hour",
+    rating: 4.8,
+    reviewCount: 84,
     bio: "Rhianna combines her writing expertise with in-depth knowledge of UK university admissions to help students craft compelling personal statements. Her focus is exclusively on UK destinations, particularly Russell Group universities. She provides comprehensive interview coaching for Oxbridge and other competitive UK program applications."
   },
   {
@@ -65,6 +74,9 @@ const counsellors = [
     education: "Ph.D. in Computer Science, MIT",
     location: "Georgetown, Guyana",
     languages: ["English", "Portuguese"],
+    costRange: "$110-170 per hour",
+    rating: 4.9,
+    reviewCount: 156,
     bio: "With a background in computer science research, Dr. Campbell specializes in guiding students toward technology and engineering programs across multiple destinations. His expertise spans US, Canadian, and UK technology programs, with particular emphasis on helping students identify research opportunities and prepare competitive applications for STEM scholarships internationally."
   },
   {
@@ -79,6 +91,9 @@ const counsellors = [
     education: "MFA in Fine Arts, Rhode Island School of Design",
     location: "San Juan, Puerto Rico",
     languages: ["English", "Spanish"],
+    costRange: "$90-120 per hour",
+    rating: 4.6,
+    reviewCount: 73,
     bio: "Gabriela guides creative students through specialized arts program applications. Her expertise covers both Caribbean and US destinations for arts education. She provides portfolio development advice and helps students navigate audition processes for performing arts and fine arts programs at Caribbean institutions and top US conservatories."
   },
   {
@@ -93,6 +108,9 @@ const counsellors = [
     education: "MBA in Finance, London School of Economics",
     location: "Nassau, Bahamas",
     languages: ["English"],
+    costRange: "$95-140 per hour",
+    rating: 4.8,
+    reviewCount: 112,
     bio: "Dwayne specializes in helping students navigate the financial aspects of international education. His expertise spans all major destinations (US, UK, Canada, and the Caribbean), providing tailored guidance on scholarship applications, student loans, and developing realistic financial plans for studying abroad in any of these regions."
   },
   {
@@ -107,6 +125,9 @@ const counsellors = [
     education: "M.D., Johns Hopkins University",
     location: "Kingston, Jamaica",
     languages: ["English", "Hindi"],
+    costRange: "$120-180 per hour",
+    rating: 5.0,
+    reviewCount: 143,
     bio: "Dr. Mathurin provides specialized guidance for students pursuing medical and health science careers across multiple destinations. Her advising covers programs in the Caribbean, US, and UK, with particular expertise in Caribbean and US medical schools. With experience as a medical school admissions committee member, she offers insider perspective on competitive healthcare program applications."
   },
   {
@@ -121,6 +142,9 @@ const counsellors = [
     education: "J.D., Yale Law School",
     location: "St. George's, Grenada",
     languages: ["English"],
+    costRange: "$100-150 per hour",
+    rating: 4.7,
+    reviewCount: 91,
     bio: "Marcus specializes in graduate-level applications, particularly for MBA and law programs. His expertise is primarily focused on US destinations, with additional knowledge of Canadian options. He provides comprehensive guidance on entrance exams, application strategies, and connecting educational choices with long-term career goals for students seeking advanced degrees in North America."
   },
   {
