@@ -173,7 +173,7 @@ const Sidebar = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64 bg-gradient-to-r from-blue-900 to-blue-700 border-r-blue-900" style={{ borderRight: "1px solid #1e3a8a" }}>
+            <SheetContent side="left" className="p-0 w-64 bg-blue-900 border-r-blue-900" style={{ borderRight: "1px solid #1e3a8a" }}>
               <SidebarContent />
             </SheetContent>
           </Sheet>
@@ -188,7 +188,7 @@ const Sidebar = () => {
       className={cn(
         "min-h-screen fixed z-30 top-0 left-0 border-r border-gray-200",
         "transition-all duration-300 ease-in-out",
-        expanded ? "w-64 bg-gradient-to-r from-blue-900 to-blue-700" : "w-16 bg-blue-900"
+        expanded ? "w-64 bg-blue-900" : "w-16 bg-blue-900"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
