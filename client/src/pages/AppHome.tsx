@@ -4,9 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { 
   Search, User, Heart, School, BookOpen, Headphones,
-  BookOpenText, CalendarDays, Clock, ExternalLink
+  BookOpenText, CalendarDays, Clock, ExternalLink, 
+  GraduationCap, Sparkles
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import ProgramRecommendations from '@/components/ProgramRecommendations';
 
 export function AppHome() {
   const { user } = useAuth();
@@ -128,6 +130,18 @@ export function AppHome() {
               <Link to="/app/search">Explore Programs</Link>
             </Button>
           </div>
+        </section>
+        
+        {/* AI Program Recommendations */}
+        <section>
+          <div className="flex items-center mb-4">
+            <h2 className="text-xl font-semibold">AI-Powered Program Recommendations</h2>
+            <div className="ml-2 flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+              <Sparkles className="h-3 w-3 mr-1" />
+              AI Powered
+            </div>
+          </div>
+          <ProgramRecommendations />
         </section>
 
         {/* Quick Links Section */}

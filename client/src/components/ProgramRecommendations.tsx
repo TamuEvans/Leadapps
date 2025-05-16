@@ -167,12 +167,11 @@ export default function ProgramRecommendations() {
                     
                     <Progress 
                       value={recommendation.matchScore} 
-                      className="h-2 mt-2" 
-                      indicatorColor={
-                        recommendation.matchScore >= 90 ? 'bg-green-600' : 
-                        recommendation.matchScore >= 75 ? 'bg-blue-600' : 
-                        recommendation.matchScore >= 60 ? 'bg-amber-500' : 'bg-slate-400'
-                      }
+                      className={`h-2 mt-2 ${
+                        recommendation.matchScore >= 90 ? '[&>div]:bg-green-600' : 
+                        recommendation.matchScore >= 75 ? '[&>div]:bg-blue-600' : 
+                        recommendation.matchScore >= 60 ? '[&>div]:bg-amber-500' : '[&>div]:bg-slate-400'
+                      }`}
                     />
                     
                     <div className="mt-4">
