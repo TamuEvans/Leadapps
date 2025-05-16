@@ -1,7 +1,7 @@
 import { Router } from "express";
 import OpenAI from "openai";
 import { storage } from "../storage";
-import { isAuthenticated } from "../auth";
+import { requireAuth } from "../auth/authMiddleware";
 
 // Initialize OpenAI
 const openai = new OpenAI({
@@ -12,7 +12,7 @@ const openai = new OpenAI({
 const programRecommendationsRouter = Router();
 
 // Get AI-powered program recommendations based on student profile
-programRecommendationsRouter.get("/:profileId", isAuthenticated, async (req, res) => {
+programRecommendationsRouter.get("/:profileId", requireAuth, async (req, res) => {
   try {
     const { profileId } = req.params;
     

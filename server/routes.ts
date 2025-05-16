@@ -11,6 +11,7 @@ import { configurePassport } from './auth/passportConfig';
 import { authMiddleware, requireAuth } from './auth/authMiddleware';
 import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
+import programRecommendationsRouter from './api/programRecommendations';
 
 // Extended Application type with additional fields from related tables
 interface ExtendedApplication extends Application {
@@ -39,6 +40,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register personality assessment routes
   app.use('/api/personality-assessment', personalityAssessmentRouter);
+  
+  // Register program recommendations routes
+  app.use('/api/program-recommendations', programRecommendationsRouter);
   
   // API routes prefix
   const apiPrefix = "/api";
