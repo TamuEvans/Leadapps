@@ -58,6 +58,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         return "Applications";
       case "/app/personality-hub":
         return "My Personality Hub";
+      case "/app/funding-hub":
+        return "Funding Hub";
       case "/app/counselling":
         return "Counselling";
       case "/app/articles":
@@ -68,6 +70,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         if (location.startsWith("/app/wishlist")) return "Wishlist";
         if (location.startsWith("/app/applications")) return "Applications";
         if (location.startsWith("/app/personality-hub")) return "My Personality Hub";
+        if (location.startsWith("/app/funding-hub")) return "Funding Hub";
         if (location.startsWith("/app/counselling")) return "Counselling";
         if (location.startsWith("/app/articles")) return "Articles";
         return "Not Found";
