@@ -86,25 +86,27 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         }`}
       >
         <div className="relative">
-          <header className="bg-white sticky top-0 z-20 shadow-sm border-b border-gray-100">
-            <div className="container mx-auto px-4 py-3">
+          <header className="bg-gradient-to-r from-blue-900 to-blue-800 sticky top-0 z-20 shadow-md">
+            <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-1 text-sm">
+                <div className="flex items-center">
                   {isSubPage && (
                     <Link 
                       to="/app" 
-                      className="text-primary hover:text-primary-light flex items-center cursor-pointer mr-1 transition-colors"
+                      className="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 flex items-center mr-3 transition-colors"
                     >
-                      <ArrowLeft className="w-3 h-3 mr-1" /> Home
+                      <ArrowLeft className="w-4 h-4" />
                     </Link>
                   )}
-                  {isSubPage && (
-                    <>
-                      <span className="text-gray-400 mx-1">/</span>
-                      <span className="text-gray-800 font-medium">{getPageTitle()}</span>
-                    </>
-                  )}
-                  {!isSubPage && <span className="text-gray-800 font-medium">{getPageTitle()}</span>}
+                  <div className="flex items-center">
+                    {!isSubPage ? (
+                      <h1 className="text-white font-semibold text-lg">{getPageTitle()}</h1>
+                    ) : (
+                      <>
+                        <h1 className="text-white font-semibold text-lg">{getPageTitle()}</h1>
+                      </>
+                    )}
+                  </div>
                 </div>
                 {/* User Menu */}
                 <UserMenu />
