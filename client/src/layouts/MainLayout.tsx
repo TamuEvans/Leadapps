@@ -88,35 +88,33 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           isMobile ? "" : (sidebarExpanded ? "md:ml-60" : "md:ml-16")
         }`}
       >
-        <div className="relative">
-          <header className="bg-white sticky top-0 z-20 shadow-sm border-b border-slate-200">
-            <div className="container mx-auto px-4 py-3">
-              <div className="flex items-center justify-between">
+        <header className="bg-white sticky top-0 z-20 shadow-sm border-b border-slate-200">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                {isSubPage && (
+                  <Link 
+                    to="/app" 
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg p-1.5 flex items-center mr-3 transition-colors"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                  </Link>
+                )}
                 <div className="flex items-center">
-                  {isSubPage && (
-                    <Link 
-                      to="/app" 
-                      className="bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg p-1.5 flex items-center mr-3 transition-colors"
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                    </Link>
-                  )}
-                  <div className="flex items-center">
-                    {!isSubPage ? (
+                  {!isSubPage ? (
+                    <h1 className="text-slate-800 font-medium text-base border-l-4 border-primary pl-2">{getPageTitle()}</h1>
+                  ) : (
+                    <>
                       <h1 className="text-slate-800 font-medium text-base border-l-4 border-primary pl-2">{getPageTitle()}</h1>
-                    ) : (
-                      <>
-                        <h1 className="text-slate-800 font-medium text-base border-l-4 border-primary pl-2">{getPageTitle()}</h1>
-                      </>
-                    )}
-                  </div>
+                    </>
+                  )}
                 </div>
-                {/* User Menu */}
-                <UserMenu />
               </div>
+              {/* User Menu */}
+              <UserMenu />
             </div>
-          </header>
-        </div>
+          </div>
+        </header>
         <div className="p-4 md:p-6">
           {/* Main content without sidebar layout */}
           {children}
