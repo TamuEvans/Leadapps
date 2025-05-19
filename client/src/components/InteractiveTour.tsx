@@ -149,19 +149,13 @@ const InteractiveTour: React.FC<InteractiveTourProps> = ({ enabled = false }) =>
     const basePath = getBasePath(location);
     const steps = tourSteps[basePath as keyof typeof tourSteps] || [];
     
-    // If this is a user's first visit to this page and we have steps for it
-    const isFirstVisit = !tourCompleted[basePath];
-    
-    if (steps.length > 0 && isFirstVisit) {
+    // Update the current steps for this location, but don't auto-start the tour
+    if (steps.length > 0) {
       setCurrentSteps(steps);
       setInitialStep(0);
       
-      // Wait a moment for the page to load before showing the tour
-      const timer = setTimeout(() => {
-        setStepsEnabled(true);
-      }, 1000);
-      
-      return () => clearTimeout(timer);
+      // Don't automatically enable the tour
+      setStepsEnabled(false);
     } else {
       setStepsEnabled(false);
     }
