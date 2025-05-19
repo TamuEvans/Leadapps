@@ -49,17 +49,17 @@ const MarketingHeader = () => {
                 onMouseEnter={() => handleMouseEnter('services')} 
                 onMouseLeave={handleMouseLeave}
               >
-                <Link to="/services/application-assistance" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
-                  Services <ChevronDown className="ml-1 h-3 w-3" />
+                <Link to="/services/counselling" className="flex items-center text-gray-600 hover:text-blue-600 text-xs font-medium">
+                  Support Services <ChevronDown className="ml-1 h-3 w-3" />
                 </Link>
                 <div 
                   className={`absolute left-0 top-full mt-1 w-52 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'services' ? 'block' : 'hidden'}`}
                 >
                   <div className="py-3 px-1">
-                    <div className="mb-2"><Link to="/services/application-assistance" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Application Assistance</Link></div>
-                    <div className="mb-2"><Link to="/services/visa-guidance" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Visa Guidance</Link></div>
-                    <div className="mb-2"><Link to="/services/accommodation" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Accommodation</Link></div>
-                    <div className="mb-2"><Link to="/services/test-preparation" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Test Preparation</Link></div>
+                    <div className="mb-2"><Link to="/services/counselling" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Study Counselling</Link></div>
+                    <div className="mb-2"><Link to="/services/personality-hub" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Personality Hub</Link></div>
+                    <div className="mb-2"><Link to="/services/exam-prep-hub" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Exam Prep Hub</Link></div>
+                    <div className="mb-2"><Link to="/services/funding-hub" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Funding Hub</Link></div>
                   </div>
                 </div>
               </li>
