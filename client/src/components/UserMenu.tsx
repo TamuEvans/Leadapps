@@ -30,10 +30,10 @@ export function UserMenu() {
 
   return (
     <div className="flex items-center space-x-3">
-      {/* Notifications icon with very large bell */}
+      {/* Notifications icon */}
       <div className="relative mr-2">
-        <Button variant="ghost" size="icon" className="text-gray-600 hover:bg-gray-100 h-14 w-14 flex items-center justify-center">
-          <Bell className="h-12 w-12" />
+        <Button variant="ghost" size="icon" className="text-gray-600 hover:bg-gray-100">
+          <Bell className="h-5 w-5" />
         </Button>
         <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
           3
