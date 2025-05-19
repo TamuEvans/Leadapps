@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { 
   Search, User, Heart, School, BookOpen, Headphones,
   BookOpenText, CalendarDays, Clock, ExternalLink, 
-  GraduationCap, Sparkles
+  GraduationCap, Sparkles, Brain, DollarSign
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ProgramRecommendations from '@/components/ProgramRecommendations';
@@ -241,6 +241,96 @@ export function AppHome() {
               </Button>
             </CardFooter>
           </Card>
+        </section>
+
+        {/* Support Hubs Section */}
+        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
+          <h2 className="text-xl font-semibold mb-4">Support Hubs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Personality Hub */}
+            <Card className="bg-white border-t-4 border-purple-500 hover:shadow-md transition-shadow duration-200">
+              <CardHeader className="pb-2">
+                <div className="flex items-center">
+                  <div className="mr-3 bg-purple-100 p-3 rounded-full">
+                    <Brain className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <CardTitle className="text-lg">Personality Hub</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="pb-4">
+                <p className="text-gray-600 text-sm mb-3">
+                  Discover your strengths, interests, and ideal career paths with our personality assessment tools.
+                </p>
+                <div className="flex items-center text-xs text-gray-500 mb-2">
+                  <span className="flex items-center text-purple-600 font-medium">
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    Personality Assessment
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" size="sm" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50" asChild>
+                  <Link to="/app/personality-hub">Explore Hub</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Exam Prep Hub */}
+            <Card className="bg-white border-t-4 border-blue-500 hover:shadow-md transition-shadow duration-200">
+              <CardHeader className="pb-2">
+                <div className="flex items-center">
+                  <div className="mr-3 bg-blue-100 p-3 rounded-full">
+                    <BookOpen className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <CardTitle className="text-lg">Exam Prep Hub</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="pb-4">
+                <p className="text-gray-600 text-sm mb-3">
+                  Access resources and preparation materials for standardized tests like SAT, ACT, GRE, GMAT, and more.
+                </p>
+                <div className="flex items-center text-xs text-gray-500 mb-2">
+                  <span className="flex items-center text-blue-600 font-medium">
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    Practice Tests & Guides
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" size="sm" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50" asChild>
+                  <Link to="/app/exam-prep-hub">Explore Hub</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Funding Hub */}
+            <Card className="bg-white border-t-4 border-green-500 hover:shadow-md transition-shadow duration-200">
+              <CardHeader className="pb-2">
+                <div className="flex items-center">
+                  <div className="mr-3 bg-green-100 p-3 rounded-full">
+                    <DollarSign className="h-6 w-6 text-green-600" />
+                  </div>
+                  <CardTitle className="text-lg">Funding Hub</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="pb-4">
+                <p className="text-gray-600 text-sm mb-3">
+                  Find scholarships, financial aid opportunities, and funding resources tailored to your academic profile.
+                </p>
+                <div className="flex items-center text-xs text-gray-500 mb-2">
+                  <span className="flex items-center text-green-600 font-medium">
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    Scholarship Matches
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" size="sm" className="w-full border-green-200 text-green-700 hover:bg-green-50" asChild>
+                  <Link to="/app/funding-hub">Explore Hub</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </section>
 
         {/* Suggested Articles */}
