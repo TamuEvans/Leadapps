@@ -171,7 +171,7 @@ const Sidebar = () => {
         
         {/* Separator between main nav and hubs */}
         <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
-          <Separator className="bg-blue-700/40" />
+          <Separator className="bg-white/30" />
         </div>
         
         {/* Hub navigation group */}
