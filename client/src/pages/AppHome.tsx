@@ -287,7 +287,7 @@ export function AppHome() {
               </CardHeader>
               <CardContent className="pb-4">
                 <p className="text-gray-600 text-sm mb-3">
-                  Access resources and preparation materials for standardized tests like SAT, ACT, GRE, GMAT, and more.
+                  Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.
                 </p>
                 <div className="flex items-center text-xs text-gray-500 mb-2">
                   <span className="flex items-center text-blue-600 font-medium">

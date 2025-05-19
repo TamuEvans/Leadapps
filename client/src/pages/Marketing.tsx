@@ -443,7 +443,7 @@ export default function Marketing() {
                 <BookOpen className="h-8 w-8 text-indigo-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Exam Prep Hub</h3>
-              <p className="text-gray-600 text-sm mb-4">Access resources and preparation materials for standardized tests like SAT, ACT, GRE, GMAT, and more.</p>
+              <p className="text-gray-600 text-sm mb-4">Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.</p>
               <Button variant="outline" className="mt-auto text-indigo-600 border-indigo-200 hover:bg-indigo-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
