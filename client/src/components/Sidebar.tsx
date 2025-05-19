@@ -52,8 +52,8 @@ const Sidebar = () => {
   // Support hub navigation items
   const hubNavigationItems = [
     { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
-    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
     { path: "/app/exam-prep-hub", label: "Exam Prep Hub", icon: <BookOpen className="w-5 h-5" size={20} /> },
+    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
   ];
 
   // Keep track of whether the sidebar was manually toggled
