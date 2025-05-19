@@ -4,11 +4,12 @@ import { useMobile } from "@/hooks/use-mobile";
 import { 
   Home, User, Search, Heart, FileText, 
   Brain, MessageCircle, Newspaper, ChevronRight, Menu,
-  DollarSign, GraduationCap, Sparkles
+  DollarSign, GraduationCap, Sparkles, BookOpen
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import leadappsLogo from "../assets/leadapps-logo.png";
 import leadappsIcon from "../assets/leadapps-icon.png";
 
@@ -36,17 +37,23 @@ const Sidebar = () => {
     window.dispatchEvent(event);
   }, [expanded]);
 
-  const navigationItems = [
+  // Main navigation items (search and apply related)
+  const mainNavigationItems = [
     { path: "/app", label: "Home", icon: <Home className="w-5 h-5" size={20} /> },
     { path: "/app/profile", label: "Profile", icon: <User className="w-5 h-5" size={20} /> },
     { path: "/app/search", label: "Search", icon: <Search className="w-5 h-5" size={20} /> },
     { path: "/app/university-search", label: "Universities", icon: <GraduationCap className="w-5 h-5" size={20} /> },
     { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" size={20} /> },
     { path: "/app/applications", label: "Applications", icon: <FileText className="w-5 h-5" size={20} /> },
-    { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
-    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
     { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" size={20} /> },
     { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
+  ];
+
+  // Support hub navigation items
+  const hubNavigationItems = [
+    { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
+    { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
+    { path: "/app/exam-prep-hub", label: "Exam Prep Hub", icon: <BookOpen className="w-5 h-5" size={20} /> },
   ];
 
   // Keep track of whether the sidebar was manually toggled
@@ -72,6 +79,44 @@ const Sidebar = () => {
   const isActive = (path: string) => {
     return location === path || (path !== "/app" && location.startsWith(path));
   };
+
+  const renderNavItem = (item: { path: string; label: string; icon: JSX.Element }) => (
+    <li key={item.path}>
+      <Link to={item.path}>
+        <div
+          className={cn(
+            "flex items-center rounded-md cursor-pointer h-10 transition-all duration-200",
+            expanded ? "px-4" : "px-2 justify-center",
+            !expanded && "justify-center", // Always center when collapsed
+            isActive(item.path) 
+              ? "bg-blue-700 text-white font-medium" 
+              : expanded
+                ? "hover:bg-blue-700/70 text-white/90"
+                : "text-white/90 hover:bg-blue-800"
+          )}
+          onClick={() => setOpen(false)}
+          title={!expanded ? item.label : undefined}
+        >
+          <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+            <span className={cn(
+              "flex items-center justify-center",
+              isActive(item.path) ? "text-white" : expanded ? "text-white/90" : "text-white"
+            )}>
+              {item.icon}
+            </span>
+          </div>
+          <span 
+            className={cn(
+              "ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
+              expanded ? "opacity-100 max-w-[200px] text-white" : "opacity-0 max-w-0"
+            )}
+          >
+            {item.label}
+          </span>
+        </div>
+      </Link>
+    </li>
+  );
 
   const SidebarContent = () => (
     <>
@@ -119,44 +164,19 @@ const Sidebar = () => {
         "transition-all duration-200 ease-in-out",
         "p-2"
       )}>
+        {/* Main navigation group */}
         <ul className="space-y-1">
-          {navigationItems.map((item) => (
-            <li key={item.path}>
-              <Link to={item.path}>
-                <div
-                  className={cn(
-                    "flex items-center rounded-md cursor-pointer h-10 transition-all duration-200",
-                    expanded ? "px-4" : "px-2 justify-center",
-                    !expanded && "justify-center", // Always center when collapsed
-                    isActive(item.path) 
-                      ? "bg-blue-700 text-white font-medium" 
-                      : expanded
-                        ? "hover:bg-blue-700/70 text-white/90"
-                        : "text-white/90 hover:bg-blue-800"
-                  )}
-                  onClick={() => setOpen(false)}
-                  title={!expanded ? item.label : undefined}
-                >
-                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
-                    <span className={cn(
-                      "flex items-center justify-center",
-                      isActive(item.path) ? "text-white" : expanded ? "text-white/90" : "text-white"
-                    )}>
-                      {item.icon}
-                    </span>
-                  </div>
-                  <span 
-                    className={cn(
-                      "ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
-                      expanded ? "opacity-100 max-w-[200px] text-white" : "opacity-0 max-w-0"
-                    )}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
+          {mainNavigationItems.map(renderNavItem)}
+        </ul>
+        
+        {/* Separator between main nav and hubs */}
+        <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
+          <Separator className="bg-blue-700/40" />
+        </div>
+        
+        {/* Hub navigation group */}
+        <ul className="space-y-1">
+          {hubNavigationItems.map(renderNavItem)}
         </ul>
       </nav>
     </>
