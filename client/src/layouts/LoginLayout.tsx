@@ -1,5 +1,4 @@
 import React from 'react';
-import MarketingHeader from '@/components/MarketingHeader';
 import { Toaster } from '@/components/ui/toaster';
 
 interface LoginLayoutProps {
@@ -9,11 +8,9 @@ interface LoginLayoutProps {
 const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <MarketingHeader />
-      <main className="flex-grow">
+      <main className="flex-grow flex justify-center items-center">
         {children}
       </main>
-      {/* No footer for login pages */}
       <Toaster />
     </div>
   );

@@ -20,6 +20,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
 import LoginLayout from '@/layouts/LoginLayout';
 import { SocialLoginCompactButtons } from '@/components/SocialLoginButtons';
+import logoImage from '../assets/logo.png';
 
 // Login schema
 const loginSchema = z.object({
@@ -140,11 +141,11 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] pt-16">
+      <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="w-full max-w-md px-4">
-          <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            Student Portal
-          </h1>
+          <div className="flex justify-center mb-8">
+            <img src={logoImage} alt="LeadApps Logo" className="h-16" />
+          </div>
           <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl">
             <CardContent className="pt-6 px-6">
               <Tabs defaultValue="login" className="w-full">
