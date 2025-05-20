@@ -164,6 +164,14 @@ function AppContent() {
             </ProtectedRoute>
           </MainLayout>
         </Route>
+
+        <Route path="/app/exam-prep-hub">
+          <MainLayout>
+            <ProtectedRoute testMode={true}>
+              <ExamPrepHub />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
         
         <Route path="/app/university-search">
           <MainLayout>

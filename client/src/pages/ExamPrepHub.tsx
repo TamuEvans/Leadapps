@@ -13,6 +13,8 @@ import {
   Star,
   Filter,
   Search,
+  MessageCircle,
+  ChevronRight,
 } from 'lucide-react';
 import { 
   Card, 
@@ -396,7 +398,7 @@ export default function ExamPrepHub() {
                     <SelectValue placeholder={selectedExamType ? "Choose a subject" : "Select exam type first"} />
                   </SelectTrigger>
                   <SelectContent>
-                    {selectedExamType && subjects[selectedExamType as keyof typeof subjects].map(subject => (
+                    {selectedExamType && subjects[selectedExamType as keyof typeof subjects]?.map(subject => (
                       <SelectItem key={subject} value={subject}>
                         {subject}
                       </SelectItem>
@@ -440,7 +442,7 @@ export default function ExamPrepHub() {
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex items-center">
-                  <Flashcard className="h-5 w-5 mr-2 text-green-600" />
+                  <Bookmark className="h-5 w-5 mr-2 text-green-600" />
                   Flashcards
                 </CardTitle>
               </CardHeader>
@@ -481,190 +483,6 @@ export default function ExamPrepHub() {
                 <Button variant="outline" className="w-full">Access Question Bank</Button>
               </CardFooter>
             </Card>
-          </div>
-        </TabsContent>
-        
-        {/* Practice Tests Tab Content */}
-        <TabsContent value="practice" className="space-y-6">
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Test Your Knowledge</h2>
-            <p className="text-gray-600 mb-6">
-              Challenge yourself with practice tests designed to mirror actual exam conditions. 
-              Track your progress and identify areas for improvement.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Test Builder Card */}
-              <Card className="bg-white">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <BookOpenCheck className="h-5 w-5 mr-2 text-blue-600" />
-                    Test Builder
-                  </CardTitle>
-                  <CardDescription>
-                    Create custom tests tailored to your needs
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm mb-4">
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Select specific topics and subtopics</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Choose question types and difficulty levels</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Set time limits and test format</span>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Build Custom Test
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              {/* Full Exam Mode Card */}
-              <Card className="bg-white">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Clock className="h-5 w-5 mr-2 text-purple-600" />
-                    Full Exam Mode
-                  </CardTitle>
-                  <CardDescription>
-                    Simulate real exam conditions with full-length tests
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm mb-4">
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Complete mock exams with accurate timing</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Experience realistic exam format and question mix</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>Receive detailed performance analysis</span>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
-                    Take Mock Exam
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
-          </div>
-          
-          {/* Recent and Recommended Tests */}
-          <div className="grid grid-cols-1 gap-6">
-            <div>
-              <h3 className="text-lg font-medium mb-4">Recently Created Tests</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">CSEC Mathematics: Algebra</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 45 minutes | 25 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-blue-50 text-blue-700">Custom Test</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">Continue Test</Button>
-                  </CardFooter>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">CAPE Physics: Mechanics</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 60 minutes | 30 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-green-50 text-green-700">Topic Focus</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">Continue Test</Button>
-                  </CardFooter>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">CSEC English: Comprehension</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 40 minutes | 20 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-amber-50 text-amber-700">Completed</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">View Results</Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium mb-4">Recommended for You</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">CSEC Mathematics: Mock Paper 1</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 90 minutes | 60 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-purple-50 text-purple-700">Full Exam</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">Start Exam</Button>
-                  </CardFooter>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">BGCSE Science: Mixed Topics</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 45 minutes | 30 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-blue-50 text-blue-700">Recommended</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">Start Test</Button>
-                  </CardFooter>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">SAT Math: Problem Solving</CardTitle>
-                    <CardDescription className="text-xs flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> 35 minutes | 20 questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-2">
-                    <Badge className="bg-green-50 text-green-700">Topic Focus</Badge>
-                  </CardContent>
-                  <CardFooter className="pt-0">
-                    <Button variant="outline" size="sm" className="w-full">Start Test</Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            </div>
           </div>
         </TabsContent>
         
@@ -766,7 +584,87 @@ export default function ExamPrepHub() {
           </div>
         </TabsContent>
         
-        {/* Coursework Hub Tab Content */}
+        {/* Other content tabs (simplified for now) */}
+        <TabsContent value="practice" className="space-y-6">
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h2 className="text-xl font-semibold mb-4">Test Your Knowledge</h2>
+            <p className="text-gray-600 mb-6">
+              Challenge yourself with practice tests designed to mirror actual exam conditions. 
+              Track your progress and identify areas for improvement.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Test Builder Card */}
+              <Card className="bg-white">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BookOpenCheck className="h-5 w-5 mr-2 text-blue-600" />
+                    Test Builder
+                  </CardTitle>
+                  <CardDescription>
+                    Create custom tests tailored to your needs
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm mb-4">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Select specific topics and subtopics</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Choose question types and difficulty levels</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Set time limits and test format</span>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                    Build Custom Test
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Full Exam Mode Card */}
+              <Card className="bg-white">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Clock className="h-5 w-5 mr-2 text-purple-600" />
+                    Full Exam Mode
+                  </CardTitle>
+                  <CardDescription>
+                    Simulate real exam conditions with full-length tests
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm mb-4">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Complete mock exams with accurate timing</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Experience realistic exam format and question mix</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-4 w-4 mr-2 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Receive detailed performance analysis</span>
+                    </li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                    Take Mock Exam
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </TabsContent>
+        
         <TabsContent value="coursework" className="space-y-6">
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg mb-6">
             <h2 className="text-xl font-semibold mb-2">Coursework Hub</h2>
@@ -775,199 +673,92 @@ export default function ExamPrepHub() {
               Get help with structured approaches to your coursework requirements.
             </p>
             
-            <div className="flex flex-col md:flex-row gap-4 items-end">
-              <div className="flex-1 space-y-2">
-                <label className="text-sm font-medium">Select Exam Type</label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose an exam type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="csec">CSEC</SelectItem>
-                    <SelectItem value="cape">CAPE</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div className="flex-1 space-y-2">
-                <label className="text-sm font-medium">Select Subject</label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose a subject" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="biology">Biology</SelectItem>
-                    <SelectItem value="chemistry">Chemistry</SelectItem>
-                    <SelectItem value="physics">Physics</SelectItem>
-                    <SelectItem value="information-technology">Information Technology</SelectItem>
-                    <SelectItem value="english">English</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <Button className="md:mb-0 bg-amber-600">
-                <Search className="h-4 w-4 mr-2" />
-                Find Resources
-              </Button>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {/* Example Repository Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center">
-                  <FileText className="h-5 w-5 mr-2 text-amber-600" />
-                  Example Repository
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Browse high-quality examples of completed coursework for reference and guidance.
-                </p>
-                <div className="space-y-3">
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">CSEC Biology SBA Examples</p>
-                    <p className="text-gray-500 text-xs">Complete lab write-ups with annotations</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">CAPE Communication Studies IA</p>
-                    <p className="text-gray-500 text-xs">Sample portfolios with feedback</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">CSEC English A SBA Samples</p>
-                    <p className="text-gray-500 text-xs">Portfolio examples with grading comments</p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">View Repository</Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Guidance Articles Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center">
-                  <BookOpen className="h-5 w-5 mr-2 text-green-600" />
-                  Guidance Articles
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Read expert articles on how to approach and excel in different types of coursework.
-                </p>
-                <div className="space-y-3">
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">Choosing a Good SBA/IA Topic</p>
-                    <p className="text-gray-500 text-xs">Tips for selecting manageable topics</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">Data Collection Techniques</p>
-                    <p className="text-gray-500 text-xs">Methods and best practices</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">Avoiding Plagiarism</p>
-                    <p className="text-gray-500 text-xs">Proper citation and referencing guide</p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">Read Articles</Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Self-Grading Tools Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center">
-                  <CheckCircle className="h-5 w-5 mr-2 text-blue-600" />
-                  Self-Grading Tools
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Use interactive checklists based on official rubrics to evaluate your own coursework.
-                </p>
-                <div className="space-y-3">
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">CSEC Science SBA Checklist</p>
-                    <p className="text-gray-500 text-xs">Verify all required elements</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">CAPE Internal Assessment Evaluator</p>
-                    <p className="text-gray-500 text-xs">Score your work against the marking scheme</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
-                    <p className="font-medium">Pre-Submission Final Check</p>
-                    <p className="text-gray-500 text-xs">Comprehensive verification tool</p>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">Access Tools</Button>
-              </CardFooter>
-            </Card>
-          </div>
-          
-          {/* Featured Coursework Examples */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">Featured Coursework Examples</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="hover:shadow-md transition-shadow">
-                <CardHeader className="p-4 pb-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-base">CSEC Biology SBA</CardTitle>
-                      <CardDescription>Osmosis Investigation</CardDescription>
-                    </div>
-                    <Badge className="bg-green-50 text-green-700">Exemplar</Badge>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Example Repository Card */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <FileText className="h-5 w-5 mr-2 text-amber-600" />
+                    Example Repository
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="p-4 pt-1">
-                  <p className="text-sm text-gray-600 mb-3">
-                    A comprehensive lab report investigating the effects of osmosis on plant cells, including detailed methodology and data analysis.
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Browse high-quality examples of completed coursework for reference and guidance.
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Laboratory</Badge>
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Data Analysis</Badge>
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Graphs</Badge>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">CSEC Biology SBA Examples</p>
+                      <p className="text-gray-500 text-xs">Complete lab write-ups with annotations</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">CAPE Communication Studies IA</p>
+                      <p className="text-gray-500 text-xs">Sample portfolios with feedback</p>
+                    </div>
                   </div>
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Button variant="outline" className="w-full text-sm">View Example</Button>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">View Repository</Button>
                 </CardFooter>
               </Card>
               
-              <Card className="hover:shadow-md transition-shadow">
-                <CardHeader className="p-4 pb-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-base">CAPE Communication Studies IA</CardTitle>
-                      <CardDescription>Language & Society Analysis</CardDescription>
-                    </div>
-                    <Badge className="bg-green-50 text-green-700">Exemplar</Badge>
-                  </div>
+              {/* Guidance Articles Card */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <BookOpen className="h-5 w-5 mr-2 text-green-600" />
+                    Guidance Articles
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="p-4 pt-1">
-                  <p className="text-sm text-gray-600 mb-3">
-                    A well-structured analysis of language usage in Caribbean media, including reflective components and presentation materials.
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Read expert articles on how to approach and excel in different types of coursework.
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Analysis</Badge>
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Reflection</Badge>
-                    <Badge variant="outline" className="bg-blue-50 text-xs">Presentation</Badge>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">Choosing a Good SBA/IA Topic</p>
+                      <p className="text-gray-500 text-xs">Tips for selecting manageable topics</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">Data Collection Techniques</p>
+                      <p className="text-gray-500 text-xs">Methods and best practices</p>
+                    </div>
                   </div>
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Button variant="outline" className="w-full text-sm">View Example</Button>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Read Articles</Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Self-Grading Tools Card */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg flex items-center">
+                    <CheckCircle className="h-5 w-5 mr-2 text-blue-600" />
+                    Self-Grading Tools
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Use interactive checklists based on official rubrics to evaluate your own coursework.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">CSEC Science SBA Checklist</p>
+                      <p className="text-gray-500 text-xs">Verify all required elements</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded text-sm">
+                      <p className="font-medium">CAPE Internal Assessment Evaluator</p>
+                      <p className="text-gray-500 text-xs">Score your work against the marking scheme</p>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Access Tools</Button>
                 </CardFooter>
               </Card>
             </div>
-          </section>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
