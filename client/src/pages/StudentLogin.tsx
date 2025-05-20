@@ -182,8 +182,12 @@ export default function StudentLogin() {
                       <div className="text-right">
                         <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
                       </div>
-                      <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600" disabled={isLoginLoading}>
-                        {isLoginLoading ? 'Logging in...' : 'Login'}
+                      <Button 
+                        type="button" 
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600"
+                        onClick={() => setLocation("/app")}
+                      >
+                        Access as Guest
                       </Button>
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center">
@@ -262,8 +266,12 @@ export default function StudentLogin() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600" disabled={isRegisterLoading}>
-                        {isRegisterLoading ? 'Creating Account...' : 'Create Account'}
+                      <Button 
+                        type="button" 
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600"
+                        onClick={() => setLocation("/app")}
+                      >
+                        Access as Guest
                       </Button>
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center">
