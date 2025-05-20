@@ -204,7 +204,7 @@ export default function ExamPrepHub() {
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex items-center">
-                  <GraduationCap className="h-5 w-5 mr-2 text-blue-600" />
+                  <BookOpen className="h-5 w-5 mr-2 text-blue-600" />
                   Select Your Exam
                 </CardTitle>
               </CardHeader>
