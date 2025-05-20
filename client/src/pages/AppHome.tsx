@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { 
   Search, User, Heart, School, BookOpen, Headphones,
   BookOpenText, CalendarDays, Clock, ExternalLink, 
-  GraduationCap, Sparkles, Brain, DollarSign
+  GraduationCap, Sparkles, Brain, DollarSign, Users
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ProgramRecommendations from '@/components/ProgramRecommendations';
@@ -299,6 +299,34 @@ export function AppHome() {
               <CardFooter>
                 <Button variant="outline" size="sm" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50" asChild>
                   <Link to="/app/exam-prep-hub">Explore Hub</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            {/* Study Groups */}
+            <Card className="bg-white border-t-4 border-indigo-500 hover:shadow-md transition-shadow duration-200">
+              <CardHeader className="pb-2">
+                <div className="flex items-center">
+                  <div className="mr-3 bg-indigo-100 p-3 rounded-full">
+                    <Users className="h-6 w-6 text-indigo-600" />
+                  </div>
+                  <CardTitle className="text-lg">Study Groups</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="pb-4">
+                <p className="text-gray-600 text-sm mb-3">
+                  Join or create peer study groups to collaborate, share resources, and learn together with other students.
+                </p>
+                <div className="flex items-center text-xs text-gray-500 mb-2">
+                  <span className="flex items-center text-indigo-600 font-medium">
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    Social Learning & Collaboration
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" size="sm" className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50" asChild>
+                  <Link to="/app/study-groups">Join a Group</Link>
                 </Button>
               </CardFooter>
             </Card>
