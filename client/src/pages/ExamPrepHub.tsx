@@ -23,8 +23,8 @@ import {
   MapPin,
   BellDot,
   MessageSquare,
-  CalendarRange,
   ArrowUpRight,
+  CalendarRange,
 } from 'lucide-react';
 import { 
   Card, 
@@ -821,7 +821,7 @@ export default function ExamPrepHub() {
                       
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm mb-4">
                         <div className="flex items-center text-gray-600">
-                          <Calendar className="h-4 w-4 mr-2 text-indigo-500" />
+                          <Clock className="h-4 w-4 mr-2 text-indigo-500" />
                           <span>Meets {group.meetingFrequency}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
@@ -839,7 +839,7 @@ export default function ExamPrepHub() {
                           <p className="text-sm font-medium text-blue-700 mb-1">Next Session</p>
                           <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-700">
                             <div className="flex items-center">
-                              <Calendar className="h-3 w-3 mr-1 text-blue-500" />
+                              <Clock className="h-3 w-3 mr-1 text-blue-500" />
                               <span>{new Date(group.nextSession.date).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center">
