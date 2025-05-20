@@ -53,7 +53,6 @@ const Sidebar = () => {
   const hubNavigationItems = [
     { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
     { path: "/app/exam-prep-hub", label: "Exam Prep Hub", icon: <BookOpen className="w-5 h-5" size={20} /> },
-    { path: "/app/study-groups", label: "Study Groups", icon: <Users className="w-5 h-5" size={20} /> },
     { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
   ];
 

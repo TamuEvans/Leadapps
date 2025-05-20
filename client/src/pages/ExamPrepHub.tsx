@@ -15,6 +15,16 @@ import {
   Search,
   MessageCircle,
   ChevronRight,
+  Plus,
+  UserPlus,
+  School,
+  Globe,
+  Video,
+  MapPin,
+  BellDot,
+  MessageSquare,
+  CalendarRange,
+  ArrowUpRight,
 } from 'lucide-react';
 import { 
   Card, 
@@ -55,6 +65,214 @@ const examTypes = [
   { id: 'sat', name: 'SAT (Scholastic Aptitude Test)' },
   { id: 'city-guilds', name: 'City & Guilds' },
   { id: 'nvq-j', name: 'NVQ-J (National Vocational Qualification of Jamaica)' },
+];
+
+// Study Group types
+interface StudyGroup {
+  id: number;
+  name: string;
+  description: string;
+  subject: string;
+  examType: string;
+  meetingFrequency: string;
+  format: string;
+  members: Member[];
+  memberCount: number;
+  isPublic: boolean;
+  creator: Member;
+  created: string;
+  nextSession: {
+    date: string;
+    time: string;
+    topic: string;
+  } | null;
+  tags: string[];
+}
+
+interface Member {
+  id: number;
+  name: string;
+  avatar: string;
+  role: "admin" | "moderator" | "member";
+  school?: string;
+  joined: string;
+}
+
+// Sample study groups
+const studyGroups: StudyGroup[] = [
+  {
+    id: 1,
+    name: "CSEC Mathematics Study Circle",
+    description: "Weekly study sessions focusing on key CSEC Mathematics topics, problem-solving strategies, and exam preparation.",
+    subject: "Mathematics",
+    examType: "CSEC",
+    meetingFrequency: "Weekly",
+    format: "Online",
+    members: [
+      { id: 1, name: "Simone Edwards", avatar: "/images/avatars/avatar-1.jpg", role: "admin", school: "Kingston College", joined: "2025-03-15" },
+      { id: 2, name: "Xavier Douglas", avatar: "/images/avatars/avatar-2.jpg", role: "moderator", school: "Campion College", joined: "2025-03-16" },
+      { id: 3, name: "Gabrielle Antoine", avatar: "/images/avatars/avatar-3.jpg", role: "member", school: "Immaculate Conception", joined: "2025-03-20" },
+    ],
+    memberCount: 15,
+    isPublic: true,
+    creator: { id: 1, name: "Simone Edwards", avatar: "/images/avatars/avatar-1.jpg", role: "admin", school: "Kingston College", joined: "2025-03-15" },
+    created: "2025-03-15",
+    nextSession: {
+      date: "2025-05-25",
+      time: "4:00 PM - 5:30 PM",
+      topic: "Algebraic Fractions & Factorization"
+    },
+    tags: ["Mathematics", "Algebra", "Calculus", "Exam Prep"]
+  },
+  {
+    id: 2,
+    name: "CAPE Biology Unit 1 Group",
+    description: "Collaborative study sessions for CAPE Biology Unit 1. We focus on understanding concepts, analyzing past papers, and reviewing lab work.",
+    subject: "Biology",
+    examType: "CAPE",
+    meetingFrequency: "Bi-weekly",
+    format: "Hybrid",
+    members: [
+      { id: 5, name: "Nadine Clarke", avatar: "/images/avatars/avatar-5.jpg", role: "admin", school: "St. George's College", joined: "2025-02-10" },
+      { id: 6, name: "Andre Bartley", avatar: "/images/avatars/avatar-6.jpg", role: "moderator", school: "Wolmer's Boys", joined: "2025-02-15" },
+      { id: 7, name: "Marlon Roberts", avatar: "/images/avatars/avatar-7.jpg", role: "member", school: "Jamaica College", joined: "2025-02-20" },
+    ],
+    memberCount: 12,
+    isPublic: true,
+    creator: { id: 5, name: "Nadine Clarke", avatar: "/images/avatars/avatar-5.jpg", role: "admin", school: "St. George's College", joined: "2025-02-10" },
+    created: "2025-02-10",
+    nextSession: {
+      date: "2025-05-27",
+      time: "5:00 PM - 6:30 PM",
+      topic: "Cell Structure & Function Review"
+    },
+    tags: ["Biology", "Cellular Biology", "Lab Work", "SBA Help"]
+  },
+  {
+    id: 3,
+    name: "SAT Preparation Team",
+    description: "Intensive SAT prep group focusing on reading, writing, and math sections. We share resources, practice together, and provide feedback.",
+    subject: "SAT Prep",
+    examType: "SAT",
+    meetingFrequency: "Twice Weekly",
+    format: "Online",
+    members: [
+      { id: 8, name: "Tanya Williams", avatar: "/images/avatars/avatar-8.jpg", role: "admin", school: "American International School", joined: "2025-01-05" },
+      { id: 9, name: "Jerome Henderson", avatar: "/images/avatars/avatar-9.jpg", role: "moderator", school: "Hillel Academy", joined: "2025-01-10" },
+    ],
+    memberCount: 8,
+    isPublic: false,
+    creator: { id: 8, name: "Tanya Williams", avatar: "/images/avatars/avatar-8.jpg", role: "admin", school: "American International School", joined: "2025-01-05" },
+    created: "2025-01-05",
+    nextSession: {
+      date: "2025-05-22",
+      time: "6:00 PM - 8:00 PM",
+      topic: "Critical Reading & Analysis Practice"
+    },
+    tags: ["SAT", "Reading", "Math", "Writing", "College Prep"]
+  },
+  {
+    id: 4,
+    name: "CSEC Physics Challenge Group",
+    description: "Group dedicated to mastering CSEC Physics through problem solving, experimentation discussions, and concept clarification.",
+    subject: "Physics",
+    examType: "CSEC",
+    meetingFrequency: "Weekly",
+    format: "Hybrid",
+    members: [
+      { id: 10, name: "Marcus Bennett", avatar: "/images/avatars/avatar-10.jpg", role: "admin", school: "Ardenne High", joined: "2025-04-01" },
+      { id: 11, name: "Denise Forrest", avatar: "/images/avatars/avatar-11.jpg", role: "member", school: "St. Andrew High", joined: "2025-04-05" },
+    ],
+    memberCount: 10,
+    isPublic: true,
+    creator: { id: 10, name: "Marcus Bennett", avatar: "/images/avatars/avatar-10.jpg", role: "admin", school: "Ardenne High", joined: "2025-04-01" },
+    created: "2025-04-01",
+    nextSession: {
+      date: "2025-05-26",
+      time: "4:30 PM - 6:00 PM",
+      topic: "Forces & Motion Review"
+    },
+    tags: ["Physics", "Mechanics", "Electricity", "Lab Work"]
+  },
+  {
+    id: 5,
+    name: "English Literature Discussion Circle",
+    description: "Analysis and discussions on CAPE English Literature texts, themes, and writing techniques. Regular essay practice and feedback.",
+    subject: "English Literature",
+    examType: "CAPE",
+    meetingFrequency: "Weekly",
+    format: "In-Person",
+    members: [
+      { id: 12, name: "Olivia Simmons", avatar: "/images/avatars/avatar-12.jpg", role: "admin", school: "Wolmer's Girls", joined: "2025-03-01" },
+      { id: 13, name: "Jason Murray", avatar: "/images/avatars/avatar-13.jpg", role: "moderator", school: "Campion College", joined: "2025-03-05" },
+    ],
+    memberCount: 7,
+    isPublic: true,
+    creator: { id: 12, name: "Olivia Simmons", avatar: "/images/avatars/avatar-12.jpg", role: "admin", school: "Wolmer's Girls", joined: "2025-03-01" },
+    created: "2025-03-01",
+    nextSession: {
+      date: "2025-05-24",
+      time: "2:00 PM - 4:00 PM",
+      topic: "Shakespeare's Macbeth - Character Analysis"
+    },
+    tags: ["Literature", "Writing", "Literary Analysis", "Poetry"]
+  },
+];
+
+// Upcoming study sessions across all groups
+const upcomingSessions = [
+  {
+    id: 1,
+    groupId: 1,
+    groupName: "CSEC Mathematics Study Circle",
+    date: "2025-05-25",
+    time: "4:00 PM - 5:30 PM",
+    topic: "Algebraic Fractions & Factorization",
+    format: "Online",
+    link: "https://meet.example.com/math-circle",
+  },
+  {
+    id: 2,
+    groupId: 3,
+    groupName: "SAT Preparation Team",
+    date: "2025-05-22",
+    time: "6:00 PM - 8:00 PM",
+    topic: "Critical Reading & Analysis Practice",
+    format: "Online",
+    link: "https://meet.example.com/sat-prep",
+  },
+  {
+    id: 3,
+    groupId: 5,
+    groupName: "English Literature Discussion Circle",
+    date: "2025-05-24",
+    time: "2:00 PM - 4:00 PM",
+    topic: "Shakespeare's Macbeth - Character Analysis",
+    format: "In-Person",
+    location: "Kingston Public Library, Meeting Room 2",
+  },
+  {
+    id: 4,
+    groupId: 4,
+    groupName: "CSEC Physics Challenge Group",
+    date: "2025-05-26",
+    time: "4:30 PM - 6:00 PM",
+    topic: "Forces & Motion Review",
+    format: "Hybrid",
+    link: "https://meet.example.com/physics-group",
+    location: "St. Andrew Science Lab",
+  },
+  {
+    id: 5,
+    groupId: 2,
+    groupName: "CAPE Biology Unit 1 Group",
+    date: "2025-05-27",
+    time: "5:00 PM - 6:30 PM",
+    topic: "Cell Structure & Function Review",
+    format: "Hybrid",
+    link: "https://meet.example.com/bio-group",
+    location: "St. George's Biology Lab",
+  },
 ];
 
 // Define subjects by exam type
@@ -189,10 +407,11 @@ export default function ExamPrepHub() {
       
       {/* Main Tabs for different sections */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-8">
+        <TabsList className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-8">
           <TabsTrigger value="overview" className="text-sm">Overview</TabsTrigger>
           <TabsTrigger value="resources" className="text-sm">Learning Resources</TabsTrigger>
           <TabsTrigger value="practice" className="text-sm">Practice Tests</TabsTrigger>
+          <TabsTrigger value="study-groups" className="text-sm">Study Groups</TabsTrigger>
           <TabsTrigger value="tutors" className="text-sm">Find a Tutor</TabsTrigger>
           <TabsTrigger value="coursework" className="text-sm">Coursework Hub</TabsTrigger>
         </TabsList>
@@ -483,6 +702,254 @@ export default function ExamPrepHub() {
                 <Button variant="outline" className="w-full">Access Question Bank</Button>
               </CardFooter>
             </Card>
+          </div>
+        </TabsContent>
+        
+        {/* Study Groups Tab Content */}
+        <TabsContent value="study-groups" className="space-y-6">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg mb-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+              <div>
+                <h2 className="text-xl font-semibold mb-2">Collaborative Study Groups</h2>
+                <p className="text-gray-600">
+                  Join or create peer study groups to collaborate, share resources, and learn together with other students.
+                </p>
+              </div>
+              <Button 
+                className="mt-3 md:mt-0 bg-indigo-600 hover:bg-indigo-700 flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" /> Create Group
+              </Button>
+            </div>
+            
+            <div className="flex flex-col md:flex-row gap-4 mt-6">
+              <div className="flex-1 space-y-2">
+                <label className="text-sm font-medium">Search Groups</label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input placeholder="Search by subject, exam, or topic" className="pl-10" />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Subject</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Subjects" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-subjects">All Subjects</SelectItem>
+                      <SelectItem value="mathematics">Mathematics</SelectItem>
+                      <SelectItem value="biology">Biology</SelectItem>
+                      <SelectItem value="physics">Physics</SelectItem>
+                      <SelectItem value="english">English</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Exam Type</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Exams" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-exams">All Exams</SelectItem>
+                      <SelectItem value="csec">CSEC</SelectItem>
+                      <SelectItem value="cape">CAPE</SelectItem>
+                      <SelectItem value="sat">SAT</SelectItem>
+                      <SelectItem value="bgcse">BGCSE</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Format</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Any Format" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-formats">Any Format</SelectItem>
+                      <SelectItem value="online">Online</SelectItem>
+                      <SelectItem value="in-person">In-Person</SelectItem>
+                      <SelectItem value="hybrid">Hybrid</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Study Groups List */}
+          <div className="grid grid-cols-1 gap-4">
+            {studyGroups.map((group) => (
+              <Card key={group.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="text-lg font-semibold flex items-center">
+                            {group.name}
+                            {!group.isPublic && (
+                              <Badge variant="outline" className="ml-2 bg-blue-50 text-blue-600">
+                                Private
+                              </Badge>
+                            )}
+                          </h3>
+                          <div className="flex flex-wrap gap-2 mt-1 mb-2">
+                            <Badge variant="outline" className="bg-indigo-50 text-indigo-600">
+                              {group.examType}
+                            </Badge>
+                            <Badge variant="outline" className="bg-green-50 text-green-600">
+                              {group.subject}
+                            </Badge>
+                            <Badge variant="outline" className="bg-purple-50 text-purple-600">
+                              {group.format}
+                            </Badge>
+                          </div>
+                        </div>
+                        <div className="text-sm text-gray-500 flex items-center">
+                          <Users className="h-4 w-4 mr-1" /> 
+                          <span>{group.memberCount} members</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-gray-600 text-sm mb-4">{group.description}</p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm mb-4">
+                        <div className="flex items-center text-gray-600">
+                          <Calendar className="h-4 w-4 mr-2 text-indigo-500" />
+                          <span>Meets {group.meetingFrequency}</span>
+                        </div>
+                        <div className="flex items-center text-gray-600">
+                          <GraduationCap className="h-4 w-4 mr-2 text-green-500" />
+                          <span>Created by {group.creator.name}</span>
+                        </div>
+                        <div className="flex items-center text-gray-600">
+                          <Clock className="h-4 w-4 mr-2 text-blue-500" />
+                          <span>Since {new Date(group.created).toLocaleDateString()}</span>
+                        </div>
+                      </div>
+                      
+                      {group.nextSession && (
+                        <div className="bg-blue-50 p-3 rounded-md mb-4">
+                          <p className="text-sm font-medium text-blue-700 mb-1">Next Session</p>
+                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-700">
+                            <div className="flex items-center">
+                              <Calendar className="h-3 w-3 mr-1 text-blue-500" />
+                              <span>{new Date(group.nextSession.date).toLocaleDateString()}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <Clock className="h-3 w-3 mr-1 text-blue-500" />
+                              <span>{group.nextSession.time}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <BookOpen className="h-3 w-3 mr-1 text-blue-500" />
+                              <span>{group.nextSession.topic}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {group.tags.map((tag, index) => (
+                          <Badge key={index} variant="outline" className="text-xs bg-gray-50">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <div className="flex -space-x-2">
+                          {group.members.slice(0, 3).map((member) => (
+                            <Avatar key={member.id} className="border-2 border-white h-8 w-8">
+                              <AvatarImage src={member.avatar} alt={member.name} />
+                              <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                            </Avatar>
+                          ))}
+                          {group.memberCount > 3 && (
+                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gray-100 border-2 border-white text-xs font-medium">
+                              +{group.memberCount - 3}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm" className="flex gap-1 items-center">
+                            <MessageCircle className="h-4 w-4" /> Preview
+                          </Button>
+                          <Button size="sm" className="bg-indigo-600 flex gap-1 items-center">
+                            <UserPlus className="h-4 w-4" /> Join Group
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          {/* Upcoming Sessions Section */}
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Upcoming Study Sessions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {upcomingSessions.slice(0, 4).map((session) => (
+                <Card key={session.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-5">
+                    <div className="flex gap-4">
+                      <div className="w-20 flex flex-col items-center justify-center text-center bg-indigo-50 p-2 rounded-lg">
+                        <p className="text-lg font-bold text-indigo-800">
+                          {new Date(session.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </p>
+                        <p className="text-xs font-medium text-indigo-600">{session.time.split(' - ')[0]}</p>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold">{session.topic}</h3>
+                        <p className="text-sm text-indigo-600 mb-2">{session.groupName}</p>
+                        
+                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600 mb-3">
+                          <div className="flex items-center">
+                            {session.format === "Online" ? (
+                              <Video className="h-3 w-3 mr-1" />
+                            ) : session.format === "In-Person" ? (
+                              <MapPin className="h-3 w-3 mr-1" />
+                            ) : (
+                              <Globe className="h-3 w-3 mr-1" />
+                            )}
+                            <span>{session.format}</span>
+                          </div>
+                          {session.location && (
+                            <div className="flex items-center">
+                              <MapPin className="h-3 w-3 mr-1" />
+                              <span className="truncate max-w-36">{session.location}</span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          {session.link && (
+                            <Button size="sm" className="text-xs h-7 bg-indigo-600">
+                              Join Online
+                            </Button>
+                          )}
+                          <Button variant="outline" size="sm" className="text-xs h-7">
+                            Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="flex justify-center mt-4">
+              <Button variant="outline">View All Sessions</Button>
+            </div>
           </div>
         </TabsContent>
         

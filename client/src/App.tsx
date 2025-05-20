@@ -174,13 +174,7 @@ function AppContent() {
           </MainLayout>
         </Route>
         
-        <Route path="/app/study-groups">
-          <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <StudyGroups />
-            </ProtectedRoute>
-          </MainLayout>
-        </Route>
+
         
         <Route path="/app/university-search">
           <MainLayout>
