@@ -150,19 +150,19 @@ export default function StudentLogin() {
             <CardContent className="pt-8 px-8">
               <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-4">
-                  <TabsTrigger value="login">Login</TabsTrigger>
-                  <TabsTrigger value="register">Register</TabsTrigger>
+                  <TabsTrigger value="login" className="py-3">Login</TabsTrigger>
+                  <TabsTrigger value="register" className="py-3">Register</TabsTrigger>
                 </TabsList>
                 <TabsContent value="login" className="pt-2">
                   <Form {...loginForm}>
-                    <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
+                    <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-6 w-full">
                       <FormField
                         control={loginForm.control}
                         name="email"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="w-full">
                             <FormControl>
-                              <Input placeholder="Email" {...field} />
+                              <Input placeholder="Email" className="h-12" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -172,9 +172,9 @@ export default function StudentLogin() {
                         control={loginForm.control}
                         name="password"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="w-full">
                             <FormControl>
-                              <Input type="password" placeholder="Password" {...field} />
+                              <Input type="password" placeholder="Password" className="h-12" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
