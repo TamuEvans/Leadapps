@@ -23,6 +23,7 @@ import StudyLocation from "@/pages/StudyLocation";
 import ServicePage from "@/pages/ServicePage";
 import AppHome from "@/pages/AppHome";
 import FundingHub from "@/pages/FundingHub";
+import ExamPrepHub from "@/pages/ExamPrepHub";
 import UniversitySearchPage from "@/pages/UniversitySearchPage";
 import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";

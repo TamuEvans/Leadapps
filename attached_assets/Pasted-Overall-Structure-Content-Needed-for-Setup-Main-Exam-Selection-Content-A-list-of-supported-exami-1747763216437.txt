@@ -1,0 +1,164 @@
+Overall Structure: Content Needed for Setup
+
+Main Exam Selection:
+Content: A list of supported examination bodies/types.
+Example: "CSEC (Caribbean Secondary Education Certificate)", "CAPE (Caribbean Advanced Proficiency Examination)", "SAT (Scholastic Aptitude Test)", "City & Guilds", "NVQ-J", etc. (based on Leadapps' target audience).
+Subject Selection:
+Content: For each exam type, a comprehensive list of available subjects.
+Example for CSEC: Mathematics, English A, English B, Physics, Chemistry, Biology, Human and Social Biology, Principles of Accounts, Principles of Business, Information Technology, Social Studies, Caribbean History, Geography, Spanish, French, Visual Arts, Technical Drawing, Food Nutrition & Health, etc.
+Example for CAPE: Accounting Unit 1 & 2, Applied Mathematics Unit 1 & 2, Biology Unit 1 & 2, Caribbean Studies, Chemistry Unit 1 & 2, Communication Studies, Computer Science Unit 1 & 2, Economics Unit 1 & 2, Entrepreneurship Unit 1 & 2, Environmental Science Unit 1 & 2, Food & Nutrition Unit 1 & 2, Geography Unit 1 & 2, History Unit 1 & 2, Information Technology Unit 1 & 2, Integrated Mathematics, Law Unit 1 & 2, Literatures in English Unit 1 & 2, Management of Business Unit 1 & 2, Mobay Studies (if applicable), Physics Unit 1 & 2, Pure Mathematics Unit 1 & 2, Sociology Unit 1 & 2, Spanish Unit 1 & 2, Tourism Unit 1 & 2, etc.
+1. Question Bank
+
+Purpose-Driven Content:
+Vast numbers of questions for each topic and sub-topic within every subject and unit.
+Content for Functionality:
+Topic/Sub-topic Tagging:
+Content: A detailed, hierarchical list of syllabus topics for each subject. Each question must be tagged with its relevant topic/sub-topic.
+Example (CSEC Math): Algebra -> Algebraic Expressions -> Simplification; Algebra -> Equations -> Linear Equations; Geometry & Trigonometry -> Pythagoras' Theorem.
+Example (CAPE Chemistry Unit 1): Structure & Bonding -> Ionic Bonding; Structure & Bonding -> Covalent Bonding -> Shapes of Molecules (VSEPR).
+Question Types (Content for Each):
+Multiple Choice:
+Question Stem (clear, unambiguous)
+Correct Answer Option
+Plausible Distractors (typically 3-4)
+Brief Explanation/Worked Solution (critical for learning)
+Short Answer/Structured:
+Question (may have multiple parts: a, b, c...)
+Model Answer/Detailed Solution
+Marking Scheme/Key Points (how marks would be awarded)
+Example (CSEC Physics - Ohm's Law): "A resistor of 10Ω is connected to a 5V power supply. (a) State Ohm's Law. (b) Calculate the current flowing through the resistor. (c) If the voltage is doubled, what happens to the current, assuming temperature remains constant?" (Each part needs a model answer and mark allocation).
+Difficulty Levels (Optional, but Recommended):
+Content: Each question tagged as "Easy" (recall, basic application), "Medium" (multi-step application, interpretation), "Hard" (synthesis, complex problem-solving). Definitions for these levels would be needed per subject.
+Content Source Development Plan:
+Leadapps Content Team: Develop questions based on syllabus objectives, past paper styles (but not direct copies), and common areas of student difficulty.
+Verified Tutors: Develop a system for submission, review, and compensation. Clear guidelines on question quality, format, and syllabus mapping.
+Publicly Available, Non-Copyrighted Materials: Extreme caution needed. Focus on understanding question styles rather than direct copying. Best to create original questions inspired by these styles.
+2. Study Notes
+
+Purpose-Driven Content:
+Concise, well-structured notes for every syllabus topic and sub-topic. Think "digital textbook chapters" but more streamlined and focused.
+Content for Functionality:
+Hierarchical Navigation Content:
+Content: The same detailed syllabus topic/sub-topic list used for the Question Bank will form the navigation structure for the notes.
+Example (CAPE Biology Unit 2): Bioenergetics & Metabolism -> Photosynthesis -> Light-Dependent Reactions; Bioenergetics & Metabolism -> Respiration -> Glycolysis.
+Content Format Elements:
+Text: Clear explanations, definitions, principles.
+Headings & Subheadings: To break up text and guide the reader.
+Bullet Points/Numbered Lists: For summaries, steps, characteristics.
+Summaries: Key takeaways at the end of each sub-topic or topic.
+Embedded Images/Diagrams:
+Content: Custom-created or carefully sourced (royalty-free/licensed) diagrams, charts, graphs, scientific illustrations.
+Example (CSEC Geography): Diagrams of coastal landforms, weather map symbols.
+Example (CAPE Physics): Free body diagrams, circuit diagrams, ray diagrams.
+Simple Animations (where impactful):
+Content: Short animated GIFs or video clips explaining dynamic processes.
+Example (CSEC Biology): Animation of mitosis/meiosis, blood flow through the heart.
+Key Terms & Glossary:
+Content: A glossary of all key terms for the subject. Within notes, key terms should be highlighted and potentially hyperlinked to their glossary definition.
+Content Source Development Plan:
+Leadapps Content Team/Subject Matter Experts: Writers with strong subject knowledge and teaching experience to create notes that are accurate, engaging, and syllabus-specific. Focus on clarity and "bite-sized" information.
+3. Flashcards
+
+Purpose-Driven Content:
+Facilitate memorization of discrete pieces of information.
+Content for Functionality:
+Pre-made Decks:
+Content: Decks for each major topic/sub-topic, containing numerous individual flashcards.
+Example (CSEC POB - Functions of Management):
+Card 1 Front: "Planning"
+Card 1 Back: "Setting objectives and determining how to achieve them."
+Example (CAPE Chemistry - Organic Chemistry Nomenclature):
+Card 1 Front: "Structure of Propan-2-ol"
+Card 1 Back: "CH 
+3
+​
+ CH(OH)CH 
+3
+​
+ " (or image of the structure)
+Example (CSEC Mathematics - Formulas):
+Card 1 Front: "Formula for the area of a circle."
+Card 1 Back: "A=πr 
+2
+ "
+Types of Flashcard Content:
+Definitions (Term on front, definition on back)
+Formulas (Name of formula on front, formula on back)
+Concepts (Question about a concept on front, concise answer on back)
+Diagrams/Structures (Name on front, simple diagram on back, or vice versa)
+Steps in a Process (Process name/step number on front, description of step on back)
+Content Source Development Plan:
+Leadapps Content Team: Based on key information from the Study Notes, identify suitable content for flashcards.
+4. Test Builder
+
+Purpose-Driven Content:
+Relies entirely on the Question Bank. The "content" here is the system's ability to dynamically assemble tests.
+Content for Functionality:
+No new primary content is created here, but the configuration options require that the Question Bank content is appropriately tagged:
+Subject Tags
+Topic/Sub-topic Tags
+Question Type Tags (MCQ, Short Answer)
+Difficulty Level Tags (if implemented)
+Review & Analysis Content:
+Content: Post-test, students need to see their score, the correct answers, and the explanations/worked solutions from the Question Bank.
+5. Exam Mode
+
+Purpose-Driven Content:
+Full-length mock exams designed to precisely mirror actual CSEC/CAPE papers.
+Content for Functionality:
+Pre-defined Mock Exams:
+Content: Curated sets of questions from the Question Bank. These are not random assortments but carefully constructed exams.
+Example (CSEC Mathematics Paper 1): 60 MCQs, 90 minutes. The 60 questions must reflect the typical distribution of topics found in an actual CXC paper (e.g., X% Algebra, Y% Geometry, Z% Number Theory, etc.).
+Example (CSEC English A Paper 2): Section 1 (Summary), Section 2 (Comprehension), Section 3 (Story Writing/Descriptive Essay), Section 4 (Argumentative Essay). Questions must be of the appropriate style and difficulty for each section. Timings for each section should be suggested.
+Example (CAPE Physics Unit 1 Paper 02): Section A (3 compulsory structured questions covering specific modules), Section B (choice of 2 from 3 essay-style questions, each from a different module). Question types and mark allocations must mirror the real exam.
+Detailed Performance Report Content:
+Overall Score/Percentage
+Score per Question/Section
+Breakdown by Topic/Syllabus Objective (shows areas of strength/weakness)
+(Optional) Time spent per question/section.
+Access to review each question with the correct answer and explanation (from the Question Bank).
+6. Coursework Hub (Coursework Examples & Guidance)
+
+Purpose-Driven Content:
+Provide models, guidance, and tools for approaching coursework components like SBAs (School-Based Assessments) and IAs (Internal Assessments).
+Content for Functionality:
+Example Repository:
+Content: Anonymized, high-quality examples of completed coursework.
+Crucial: MUST be sourced ethically (with explicit consent from past students, ensuring anonymity) or created as exemplars by experienced Leadapps tutors/teachers.
+Disclaimer: Prominent warnings about plagiarism and ethical use MUST accompany these examples. They are for guidance on structure, depth, and style, NOT for copying.
+Examples:
+CSEC Biology SBA: A complete lab write-up (Aim, Apparatus, Method, Results, Discussion, Conclusion).
+CSEC English A SBA: Portfolio samples (e.g., reflective journal, oral presentation script, creative writing piece).
+CAPE Communication Studies IA: Full example including proposal, reflective component, and presentation materials.
+CAPE Literatures in English IA: Example of a critical essay on a prescribed text.
+CAPE Entrepreneurship IA: Example of a business plan.
+Annotations: Some examples could be annotated to highlight:
+Strengths (e.g., "Clear hypothesis," "Good use of data analysis," "Effective use of literary devices").
+Common Pitfalls to Avoid (e.g., "Lack of critical analysis here," "Methodology could be more detailed").
+Marking Scheme/Rubric Access:
+Content:
+Direct links to official CXC marking schemes/rubrics for SBAs/IAs for each subject (if publicly available and permissible to link).
+Summaries or simplified breakdowns of these marking schemes, explaining what examiners look for.
+Self-Grading Checklists/Tools:
+Content: Interactive checklists based on official rubrics.
+Example (CSEC Science SBA - Generic):
+"Is the Aim clearly stated? (Y/N)"
+"Is the list of Apparatus/Materials complete? (Y/N)"
+"Are the steps in the Method logical and reproducible? (Y/N)"
+"Are Results presented clearly (e.g., in tables/graphs)? (Y/N)"
+"Does the Discussion interpret the results and address the aim? (Y/N)"
+"Are limitations of the experiment mentioned? (Y/N)"
+Guidance Articles/Videos:
+Content: Original articles and short videos produced by Leadapps.
+Topics:
+Understanding SBA/IA Requirements for [Subject]
+Choosing a Good SBA/IA Topic
+Effective Research Strategies
+Writing a Strong Introduction/Problem Statement
+Data Collection Techniques
+Analyzing and Interpreting Data
+Writing a Discussion/Conclusion
+Proper Referencing and Citation (e.g., APA, MLA as appropriate)
+Avoiding Plagiarism
+Time Management for Coursework
+Preparing for Oral Presentations (for subjects with this component)
