@@ -142,12 +142,12 @@ export default function StudentLogin() {
   return (
     <LoginLayout>
       <div className="flex flex-col items-center justify-center min-h-screen py-8">
-        <div className="w-full max-w-2xl px-4">
+        <div style={{ width: "500px" }} className="px-4">
           <div className="flex justify-center mb-8">
             <img src={logoImage} alt="LeadApps Logo" className="h-16" />
           </div>
-          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl">
-            <CardContent className="pt-8 px-8">
+          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl w-full">
+            <CardContent className="pt-8 px-12">
               <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-4">
                   <TabsTrigger value="login" className="py-3">Login</TabsTrigger>
