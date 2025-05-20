@@ -58,21 +58,27 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         return "Applications";
       case "/app/personality-hub":
         return "My Personality Hub";
+      case "/app/exam-prep-hub":
+        return "Exam Prep Hub";
       case "/app/funding-hub":
         return "Funding Hub";
       case "/app/counselling":
         return "Counselling";
       case "/app/articles":
         return "Articles";
+      case "/app/study-groups":
+        return "Study Groups";
       default:
         if (location.startsWith("/app/profile")) return "Student Profile";
         if (location.startsWith("/app/search")) return "Search";
         if (location.startsWith("/app/wishlist")) return "Wishlist";
         if (location.startsWith("/app/applications")) return "Applications";
         if (location.startsWith("/app/personality-hub")) return "My Personality Hub";
+        if (location.startsWith("/app/exam-prep-hub")) return "Exam Prep Hub";
         if (location.startsWith("/app/funding-hub")) return "Funding Hub";
         if (location.startsWith("/app/counselling")) return "Counselling";
         if (location.startsWith("/app/articles")) return "Articles";
+        if (location.startsWith("/app/study-groups")) return "Study Groups";
         return "Not Found";
     }
   };
