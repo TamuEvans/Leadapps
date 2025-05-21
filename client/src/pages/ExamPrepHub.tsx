@@ -455,8 +455,22 @@ export default function ExamPrepHub() {
   const [showInviteDialog, setShowInviteDialog] = useState(false);
   const [showResourcesDialog, setShowResourcesDialog] = useState(false);
   const [showTasksDialog, setShowTasksDialog] = useState(false);
+  const [showCreateGroupDialog, setShowCreateGroupDialog] = useState(false);
+  const [createGroupStep, setCreateGroupStep] = useState(1);
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
   const [selectedFriends, setSelectedFriends] = useState<number[]>([]);
+  
+  // New group form state
+  const [newGroup, setNewGroup] = useState({
+    name: '',
+    description: '',
+    subject: '',
+    examType: '',
+    meetingFrequency: 'Weekly',
+    format: 'Online',
+    isPublic: true,
+    tags: [] as string[]
+  });
   
   return (
     <div className="container mx-auto px-4 py-8">
