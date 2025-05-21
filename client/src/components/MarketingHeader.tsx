@@ -183,6 +183,32 @@ const MarketingHeader = () => {
                   </div>
                 </div>
                 
+                {/* Programs submenu */}
+                <div className="mb-3">
+                  <button 
+                    className="flex items-center justify-between w-full p-3 text-left text-gray-700 hover:bg-gray-100 rounded-md font-medium"
+                    onClick={() => toggleMobileSubMenu('programs')}
+                  >
+                    <span>Programs</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileSubMenu === 'programs' ? 'transform rotate-180' : ''}`} />
+                  </button>
+                  
+                  <div className={`mt-1 ml-4 pl-2 border-l border-gray-200 space-y-1 ${mobileSubMenu === 'programs' ? 'block' : 'hidden'}`}>
+                    <Link to="/programs/undergraduate" className="block p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded" onClick={() => setMobileMenuOpen(false)}>
+                      Undergraduate
+                    </Link>
+                    <Link to="/programs/graduate" className="block p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded" onClick={() => setMobileMenuOpen(false)}>
+                      Graduate
+                    </Link>
+                    <Link to="/programs/professional" className="block p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded" onClick={() => setMobileMenuOpen(false)}>
+                      Professional
+                    </Link>
+                    <Link to="/programs/certificates" className="block p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded" onClick={() => setMobileMenuOpen(false)}>
+                      Certificates
+                    </Link>
+                  </div>
+                </div>
+                
                 {/* Other links */}
                 <Link to="/about-us" className="block p-3 text-gray-700 hover:bg-gray-100 rounded-md font-medium" onClick={() => setMobileMenuOpen(false)}>
                   About Us
@@ -192,6 +218,12 @@ const MarketingHeader = () => {
                 </Link>
                 <Link to="/fairs-events" className="block p-3 text-gray-700 hover:bg-gray-100 rounded-md font-medium" onClick={() => setMobileMenuOpen(false)}>
                   Events
+                </Link>
+                <Link to="/resources" className="block p-3 text-gray-700 hover:bg-gray-100 rounded-md font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  Resources
+                </Link>
+                <Link to="/contact" className="block p-3 text-gray-700 hover:bg-gray-100 rounded-md font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  Contact Us
                 </Link>
               </nav>
             </div>
