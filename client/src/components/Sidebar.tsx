@@ -189,14 +189,48 @@ const Sidebar = () => {
         <div className="fixed top-0 left-0 p-4 z-20">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="fixed top-4 left-4 bg-white z-40">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64 bg-blue-900 border-r-blue-900" style={{ borderRight: "1px solid #1e3a8a" }}>
+            <SheetContent side="left" className="p-0 w-72 bg-blue-900 border-r-blue-900" style={{ borderRight: "1px solid #1e3a8a" }}>
               <SidebarContent />
             </SheetContent>
           </Sheet>
+        </div>
+        
+        {/* Bottom Navigation for smallest breakpoints */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-1 flex justify-around z-30 md:hidden">
+          <Link to="/app">
+            <div className={`p-2 flex flex-col items-center ${isActive("/app") ? "text-blue-600" : "text-gray-600"}`}>
+              <Home size={20} />
+              <span className="text-xs mt-1">Home</span>
+            </div>
+          </Link>
+          <Link to="/app/search">
+            <div className={`p-2 flex flex-col items-center ${isActive("/app/search") ? "text-blue-600" : "text-gray-600"}`}>
+              <Search size={20} />
+              <span className="text-xs mt-1">Search</span>
+            </div>
+          </Link>
+          <Link to="/app/applications">
+            <div className={`p-2 flex flex-col items-center ${isActive("/app/applications") ? "text-blue-600" : "text-gray-600"}`}>
+              <FileText size={20} />
+              <span className="text-xs mt-1">Applications</span>
+            </div>
+          </Link>
+          <Link to="/app/personality-hub">
+            <div className={`p-2 flex flex-col items-center ${isActive("/app/personality-hub") ? "text-blue-600" : "text-gray-600"}`}>
+              <Brain size={20} />
+              <span className="text-xs mt-1">Hub</span>
+            </div>
+          </Link>
+          <Link to="/app/profile">
+            <div className={`p-2 flex flex-col items-center ${isActive("/app/profile") ? "text-blue-600" : "text-gray-600"}`}>
+              <User size={20} />
+              <span className="text-xs mt-1">Profile</span>
+            </div>
+          </Link>
         </div>
       </>
     );
