@@ -791,6 +791,20 @@ export default function ExamPrepHub() {
               </div>
               <Button 
                 className="mt-3 md:mt-0 bg-indigo-600 hover:bg-indigo-700 flex items-center gap-2"
+                onClick={() => {
+                  setShowCreateGroupDialog(true);
+                  setCreateGroupStep(1);
+                  setNewGroup({
+                    name: '',
+                    description: '',
+                    subject: '',
+                    examType: '',
+                    meetingFrequency: 'Weekly',
+                    format: 'Online',
+                    isPublic: true,
+                    tags: []
+                  });
+                }}
               >
                 <Plus className="h-4 w-4" /> Create Group
               </Button>
@@ -1511,6 +1525,278 @@ export default function ExamPrepHub() {
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setShowTasksDialog(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Create Study Group Dialog */}
+      <Dialog open={showCreateGroupDialog} onOpenChange={setShowCreateGroupDialog}>
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Create a New Study Group</DialogTitle>
+            <DialogDescription>
+              Set up your study group to collaborate and prepare for exams with other students.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {/* Step indicator */}
+          <div className="relative mb-6 mt-2">
+            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 transform -translate-y-1/2"></div>
+            <div className="relative flex justify-between">
+              <div className="flex flex-col items-center">
+                <div className={`z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 ${createGroupStep >= 1 ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-gray-300 text-gray-500'}`}>
+                  1
+                </div>
+                <span className="mt-2 text-xs font-medium">Details</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className={`z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 ${createGroupStep >= 2 ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-gray-300 text-gray-500'}`}>
+                  2
+                </div>
+                <span className="mt-2 text-xs font-medium">Settings</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className={`z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 ${createGroupStep >= 3 ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-gray-300 text-gray-500'}`}>
+                  3
+                </div>
+                <span className="mt-2 text-xs font-medium">Invitations</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Step 1: Group Details */}
+          {createGroupStep === 1 && (
+            <div className="space-y-4 py-2">
+              <div className="space-y-2">
+                <label htmlFor="group-name" className="text-sm font-medium">Group Name*</label>
+                <Input 
+                  id="group-name" 
+                  placeholder="Enter a descriptive name for your group" 
+                  value={newGroup.name}
+                  onChange={(e) => setNewGroup({...newGroup, name: e.target.value})}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="group-description" className="text-sm font-medium">Description*</label>
+                <textarea 
+                  id="group-description" 
+                  className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
+                  placeholder="Describe your group's focus, goals, and what members can expect"
+                  value={newGroup.description}
+                  onChange={(e) => setNewGroup({...newGroup, description: e.target.value})}
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Exam Type*</label>
+                  <Select 
+                    value={newGroup.examType}
+                    onValueChange={(value) => setNewGroup({...newGroup, examType: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select an exam" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {examTypes.map((exam) => (
+                        <SelectItem key={exam.id} value={exam.id}>{exam.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Subject*</label>
+                  <Input 
+                    placeholder="e.g. Biology, Mathematics, English" 
+                    value={newGroup.subject}
+                    onChange={(e) => setNewGroup({...newGroup, subject: e.target.value})}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {/* Step 2: Group Settings */}
+          {createGroupStep === 2 && (
+            <div className="space-y-4 py-2">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Meeting Frequency</label>
+                <Select 
+                  value={newGroup.meetingFrequency}
+                  onValueChange={(value) => setNewGroup({...newGroup, meetingFrequency: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="How often will you meet?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Daily">Daily</SelectItem>
+                    <SelectItem value="Weekly">Weekly</SelectItem>
+                    <SelectItem value="Bi-Weekly">Bi-Weekly</SelectItem>
+                    <SelectItem value="Monthly">Monthly</SelectItem>
+                    <SelectItem value="As Needed">As Needed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Meeting Format</label>
+                <Select 
+                  value={newGroup.format}
+                  onValueChange={(value) => setNewGroup({...newGroup, format: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="How will you meet?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Online">Online</SelectItem>
+                    <SelectItem value="In-Person">In-Person</SelectItem>
+                    <SelectItem value="Hybrid">Hybrid</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Group Tags (Optional)</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {newGroup.tags.map((tag, index) => (
+                    <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                      {tag}
+                      <X 
+                        className="h-3 w-3 cursor-pointer" 
+                        onClick={() => setNewGroup({
+                          ...newGroup, 
+                          tags: newGroup.tags.filter((_, i) => i !== index)
+                        })}
+                      />
+                    </Badge>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <Input 
+                    id="tag-input" 
+                    placeholder="Add a tag (e.g. SBA Help, Lab Work)" 
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                        e.preventDefault();
+                        setNewGroup({
+                          ...newGroup,
+                          tags: [...newGroup.tags, e.currentTarget.value.trim()]
+                        });
+                        e.currentTarget.value = '';
+                      }
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      const input = document.getElementById('tag-input') as HTMLInputElement;
+                      if (input.value.trim()) {
+                        setNewGroup({
+                          ...newGroup,
+                          tags: [...newGroup.tags, input.value.trim()]
+                        });
+                        input.value = '';
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-2 pt-2">
+                <Checkbox 
+                  id="public-group" 
+                  checked={newGroup.isPublic}
+                  onCheckedChange={(checked) => 
+                    setNewGroup({...newGroup, isPublic: checked as boolean})
+                  }
+                />
+                <label
+                  htmlFor="public-group"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Make this group public and discoverable in search
+                </label>
+              </div>
+            </div>
+          )}
+          
+          {/* Step 3: Invite Members */}
+          {createGroupStep === 3 && (
+            <div className="space-y-4 py-2">
+              <p className="text-sm text-gray-600">Invite friends to join your study group from the start. You can always invite more people later.</p>
+              
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input placeholder="Search friends by name or school" className="pl-10" />
+              </div>
+              
+              <div className="max-h-[300px] overflow-y-auto space-y-2 border rounded-md p-2">
+                {friendsList.map((friend) => (
+                  <div 
+                    key={friend.id} 
+                    className="flex items-center justify-between p-3 rounded-md hover:bg-gray-50"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src={friend.avatar} alt={friend.name} />
+                        <AvatarFallback>{friend.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium text-sm">{friend.name}</p>
+                        <p className="text-xs text-gray-500">{friend.school}</p>
+                      </div>
+                    </div>
+                    <Checkbox 
+                      checked={selectedFriends.includes(friend.id)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setSelectedFriends([...selectedFriends, friend.id]);
+                        } else {
+                          setSelectedFriends(selectedFriends.filter(id => id !== friend.id));
+                        }
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          <DialogFooter className="flex justify-between mt-6">
+            {createGroupStep > 1 ? (
+              <Button variant="outline" onClick={() => setCreateGroupStep(createGroupStep - 1)}>
+                Back
+              </Button>
+            ) : (
+              <Button variant="outline" onClick={() => setShowCreateGroupDialog(false)}>
+                Cancel
+              </Button>
+            )}
+            
+            {createGroupStep < 3 ? (
+              <Button 
+                className="bg-indigo-600"
+                onClick={() => setCreateGroupStep(createGroupStep + 1)}
+                disabled={createGroupStep === 1 && (!newGroup.name || !newGroup.description || !newGroup.examType || !newGroup.subject)}
+              >
+                Continue
+              </Button>
+            ) : (
+              <Button 
+                className="bg-indigo-600"
+                onClick={() => {
+                  // Handle study group creation here
+                  setShowCreateGroupDialog(false);
+                  // Reset form and show success message or redirect
+                }}
+              >
+                Create Group
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
