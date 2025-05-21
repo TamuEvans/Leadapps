@@ -421,10 +421,42 @@ const tutors = [
   },
 ];
 
+// Mock friends list for invitation feature
+const friendsList = [
+  { id: 101, name: "Tanesha Brown", email: "tanesha.b@email.com", avatar: "/images/avatars/avatar-11.jpg", school: "Campion College" },
+  { id: 102, name: "Marcus Powell", email: "marcus.p@email.com", avatar: "/images/avatars/avatar-12.jpg", school: "Wolmer's Boys School" },
+  { id: 103, name: "Simone James", email: "simone.j@email.com", avatar: "/images/avatars/avatar-13.jpg", school: "Immaculate Conception High" },
+  { id: 104, name: "Devon Richards", email: "devon.r@email.com", avatar: "/images/avatars/avatar-14.jpg", school: "Kingston College" },
+  { id: 105, name: "Kimberly Grant", email: "kimberly.g@email.com", avatar: "/images/avatars/avatar-15.jpg", school: "St. Andrew High School" },
+];
+
+// Mock shared resources for resource sharing feature
+const sharedResources = [
+  { id: 201, name: "CSEC Biology Past Papers (2020-2025)", type: "PDF", size: "4.2 MB", sharedBy: "Nadine Clarke", sharedOn: "2025-05-01" },
+  { id: 202, name: "Chemistry Lab Techniques Video", type: "Video", size: "145 MB", sharedBy: "Jason Miller", sharedOn: "2025-05-08" },
+  { id: 203, name: "CAPE Physics Formula Sheet", type: "PDF", size: "1.8 MB", sharedBy: "Andre Lopez", sharedOn: "2025-04-29" },
+  { id: 204, name: "SAT Reading Comprehension Strategies", type: "PDF", size: "3.5 MB", sharedBy: "Tanya Williams", sharedOn: "2025-05-12" },
+  { id: 205, name: "History Timeline Infographic", type: "Image", size: "2.1 MB", sharedBy: "Michelle Thompson", sharedOn: "2025-05-05" },
+];
+
+// Mock group tasks for task management feature
+const groupTasks = [
+  { id: 301, title: "Complete Biology Chapter 5 Review", assignedTo: ["Jason Miller", "Michelle Thompson"], dueDate: "2025-05-25", status: "In Progress" },
+  { id: 302, title: "Practice Lab Report Writing", assignedTo: ["Nadine Clarke", "Andre Lopez"], dueDate: "2025-05-28", status: "Not Started" },
+  { id: 303, title: "Create Study Guide for Ecosystems", assignedTo: ["All Members"], dueDate: "2025-06-05", status: "Not Started" },
+  { id: 304, title: "Review Mock Exam Questions", assignedTo: ["Michelle Thompson"], dueDate: "2025-05-22", status: "Completed" },
+  { id: 305, title: "Prepare Group Presentation", assignedTo: ["Jason Miller", "Michelle Thompson", "Andre Lopez"], dueDate: "2025-06-10", status: "Not Started" },
+];
+
 export default function ExamPrepHub() {
   const [selectedExamType, setSelectedExamType] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [tutorFilter, setTutorFilter] = useState('all');
+  const [showInviteDialog, setShowInviteDialog] = useState(false);
+  const [showResourcesDialog, setShowResourcesDialog] = useState(false);
+  const [showTasksDialog, setShowTasksDialog] = useState(false);
+  const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
+  const [selectedFriends, setSelectedFriends] = useState<number[]>([]);
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -906,9 +938,46 @@ export default function ExamPrepHub() {
                         </div>
                         
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm" className="flex gap-1 items-center">
-                            <MessageCircle className="h-4 w-4" /> Preview
-                          </Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="outline" size="sm" className="flex gap-1 items-center">
+                                <MessageCircle className="h-4 w-4" /> Group Actions
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem 
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => {
+                                  setActiveGroupId(group.id);
+                                  setShowResourcesDialog(true);
+                                }}
+                              >
+                                <Share2 className="h-4 w-4" /> Share Resources
+                              </DropdownMenuItem>
+                              <DropdownMenuItem 
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => {
+                                  setActiveGroupId(group.id);
+                                  setShowTasksDialog(true);
+                                }}
+                              >
+                                <ClipboardList className="h-4 w-4" /> View Tasks
+                              </DropdownMenuItem>
+                              <DropdownMenuItem 
+                                className="flex items-center gap-2 cursor-pointer"
+                                onClick={() => {
+                                  setActiveGroupId(group.id);
+                                  setShowInviteDialog(true);
+                                  setSelectedFriends([]);
+                                }}
+                              >
+                                <UserPlus className="h-4 w-4" /> Invite Friends
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                                <Settings className="h-4 w-4" /> Group Settings
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                           <Button size="sm" className="bg-indigo-600 flex gap-1 items-center">
                             <UserPlus className="h-4 w-4" /> Join Group
                           </Button>
@@ -1256,6 +1325,181 @@ export default function ExamPrepHub() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Friend Invitation Dialog */}
+      <Dialog open={showInviteDialog} onOpenChange={setShowInviteDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Invite Friends to Study Group</DialogTitle>
+            <DialogDescription>
+              Select friends to invite to your study group. They'll receive an invitation to join.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 my-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input placeholder="Search friends by name or school" className="pl-10" />
+            </div>
+            <div className="max-h-[300px] overflow-y-auto space-y-2">
+              {friendsList.map((friend) => (
+                <div 
+                  key={friend.id} 
+                  className="flex items-center justify-between p-3 rounded-md hover:bg-gray-50"
+                >
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={friend.avatar} alt={friend.name} />
+                      <AvatarFallback>{friend.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium text-sm">{friend.name}</p>
+                      <p className="text-xs text-gray-500">{friend.school}</p>
+                    </div>
+                  </div>
+                  <Checkbox 
+                    checked={selectedFriends.includes(friend.id)}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        setSelectedFriends([...selectedFriends, friend.id]);
+                      } else {
+                        setSelectedFriends(selectedFriends.filter(id => id !== friend.id));
+                      }
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <DialogFooter className="flex-col sm:flex-row sm:justify-between gap-2">
+            <div className="text-sm text-gray-500">
+              {selectedFriends.length} friends selected
+            </div>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button variant="outline" className="flex-1" onClick={() => setShowInviteDialog(false)}>Cancel</Button>
+              <Button className="flex-1 bg-indigo-600 gap-2">
+                <Send className="h-4 w-4" /> Send Invitations
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Resource Sharing Dialog */}
+      <Dialog open={showResourcesDialog} onOpenChange={setShowResourcesDialog}>
+        <DialogContent className="sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Shared Study Resources</DialogTitle>
+            <DialogDescription>
+              Access and share study materials within your group to help everyone prepare for exams.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 my-4">
+            <div className="flex justify-between items-center">
+              <div className="relative w-full max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input placeholder="Search resources" className="pl-10" />
+              </div>
+              <Button className="bg-indigo-600">
+                <PlusCircle className="h-4 w-4 mr-2" /> Upload Resource
+              </Button>
+            </div>
+            <div className="rounded-md border overflow-hidden">
+              <div className="grid grid-cols-12 bg-gray-50 p-3 border-b text-sm font-medium text-gray-600">
+                <div className="col-span-6">Name</div>
+                <div className="col-span-2">Type</div>
+                <div className="col-span-2">Size</div>
+                <div className="col-span-2">Shared By</div>
+              </div>
+              <div className="max-h-[300px] overflow-y-auto divide-y">
+                {sharedResources.map((resource) => (
+                  <div key={resource.id} className="grid grid-cols-12 p-3 items-center hover:bg-gray-50">
+                    <div className="col-span-6 flex items-center gap-2">
+                      {resource.type === 'PDF' && <FileTextIcon className="h-4 w-4 text-red-500" />}
+                      {resource.type === 'Video' && <Video className="h-4 w-4 text-blue-500" />}
+                      {resource.type === 'Image' && <FileTextIcon className="h-4 w-4 text-green-500" />}
+                      <span className="text-sm">{resource.name}</span>
+                    </div>
+                    <div className="col-span-2 text-sm">{resource.type}</div>
+                    <div className="col-span-2 text-sm">{resource.size}</div>
+                    <div className="col-span-2 text-sm">{resource.sharedBy}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowResourcesDialog(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Group Tasks Dialog */}
+      <Dialog open={showTasksDialog} onOpenChange={setShowTasksDialog}>
+        <DialogContent className="sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Study Group Tasks</DialogTitle>
+            <DialogDescription>
+              Track and manage study tasks for your group to keep everyone on the same page.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 my-4">
+            <div className="flex justify-between items-center">
+              <div className="relative w-full max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input placeholder="Search tasks" className="pl-10" />
+              </div>
+              <Button className="bg-indigo-600">
+                <PlusCircle className="h-4 w-4 mr-2" /> Add New Task
+              </Button>
+            </div>
+            <div className="rounded-md border overflow-hidden">
+              <div className="grid grid-cols-12 bg-gray-50 p-3 border-b text-sm font-medium text-gray-600">
+                <div className="col-span-5">Task</div>
+                <div className="col-span-3">Assigned To</div>
+                <div className="col-span-2">Due Date</div>
+                <div className="col-span-2">Status</div>
+              </div>
+              <div className="max-h-[300px] overflow-y-auto divide-y">
+                {groupTasks.map((task) => (
+                  <div key={task.id} className="grid grid-cols-12 p-3 items-center hover:bg-gray-50">
+                    <div className="col-span-5 flex items-center gap-2">
+                      {task.status === 'Completed' ? (
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                      ) : task.status === 'In Progress' ? (
+                        <Clock className="h-4 w-4 text-yellow-500" />
+                      ) : (
+                        <AlertCircle className="h-4 w-4 text-gray-400" />
+                      )}
+                      <span className="text-sm">{task.title}</span>
+                    </div>
+                    <div className="col-span-3 text-sm">
+                      {task.assignedTo.length > 2 
+                        ? `${task.assignedTo[0]} +${task.assignedTo.length - 1} more`
+                        : task.assignedTo.join(', ')}
+                    </div>
+                    <div className="col-span-2 text-sm">{task.dueDate}</div>
+                    <div className="col-span-2">
+                      <Badge 
+                        variant="outline" 
+                        className={`
+                          ${task.status === 'Completed' ? 'bg-green-50 text-green-600' : 
+                            task.status === 'In Progress' ? 'bg-yellow-50 text-yellow-600' : 
+                            'bg-gray-50 text-gray-600'}
+                        `}
+                      >
+                        {task.status}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowTasksDialog(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
