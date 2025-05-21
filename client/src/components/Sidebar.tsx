@@ -199,38 +199,79 @@ const Sidebar = () => {
           </Sheet>
         </div>
         
-        {/* Bottom Navigation for smallest breakpoints */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-1 flex justify-around z-30 md:hidden">
-          <Link to="/app">
-            <div className={`p-2 flex flex-col items-center ${isActive("/app") ? "text-blue-600" : "text-gray-600"}`}>
-              <Home size={20} />
-              <span className="text-xs mt-1">Home</span>
-            </div>
-          </Link>
-          <Link to="/app/search">
-            <div className={`p-2 flex flex-col items-center ${isActive("/app/search") ? "text-blue-600" : "text-gray-600"}`}>
-              <Search size={20} />
-              <span className="text-xs mt-1">Search</span>
-            </div>
-          </Link>
-          <Link to="/app/applications">
-            <div className={`p-2 flex flex-col items-center ${isActive("/app/applications") ? "text-blue-600" : "text-gray-600"}`}>
-              <FileText size={20} />
-              <span className="text-xs mt-1">Applications</span>
-            </div>
-          </Link>
-          <Link to="/app/personality-hub">
-            <div className={`p-2 flex flex-col items-center ${isActive("/app/personality-hub") ? "text-blue-600" : "text-gray-600"}`}>
-              <Brain size={20} />
-              <span className="text-xs mt-1">Hub</span>
-            </div>
-          </Link>
-          <Link to="/app/profile">
-            <div className={`p-2 flex flex-col items-center ${isActive("/app/profile") ? "text-blue-600" : "text-gray-600"}`}>
-              <User size={20} />
-              <span className="text-xs mt-1">Profile</span>
-            </div>
-          </Link>
+        {/* Bottom Navigation for smallest breakpoints - Two Rows */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 md:hidden">
+          {/* Row 1 */}
+          <div className="grid grid-cols-6 border-b border-gray-100">
+            <Link to="/app">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app") ? "text-blue-600" : "text-gray-600"}`}>
+                <Home size={18} />
+                <span className="text-xs mt-1">Home</span>
+              </div>
+            </Link>
+            <Link to="/app/search">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/search") ? "text-blue-600" : "text-gray-600"}`}>
+                <Search size={18} />
+                <span className="text-xs mt-1">Search</span>
+              </div>
+            </Link>
+            <Link to="/app/applications">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/applications") ? "text-blue-600" : "text-gray-600"}`}>
+                <FileText size={18} />
+                <span className="text-xs mt-1">Apply</span>
+              </div>
+            </Link>
+            <Link to="/app/university-search">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/university-search") ? "text-blue-600" : "text-gray-600"}`}>
+                <GraduationCap size={18} />
+                <span className="text-xs mt-1">Uni</span>
+              </div>
+            </Link>
+            <Link to="/app/wishlist">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/wishlist") ? "text-blue-600" : "text-gray-600"}`}>
+                <Heart size={18} />
+                <span className="text-xs mt-1">Wishlist</span>
+              </div>
+            </Link>
+            <button onClick={() => setOpen(true)} className="p-2 flex flex-col items-center text-gray-600">
+              <Menu size={18} />
+              <span className="text-xs mt-1">More</span>
+            </button>
+          </div>
+          
+          {/* Row 2 */}
+          <div className="grid grid-cols-5">
+            <Link to="/app/counselling">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/counselling") ? "text-blue-600" : "text-gray-600"}`}>
+                <MessageCircle size={18} />
+                <span className="text-xs mt-1">Counsel</span>
+              </div>
+            </Link>
+            <Link to="/app/articles">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/articles") ? "text-blue-600" : "text-gray-600"}`}>
+                <Newspaper size={18} />
+                <span className="text-xs mt-1">Articles</span>
+              </div>
+            </Link>
+            <Link to="/app/personality-hub">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/personality-hub") ? "text-blue-600" : "text-gray-600"}`}>
+                <Brain size={18} />
+                <span className="text-xs mt-1">Personal</span>
+              </div>
+            </Link>
+            <Link to="/app/exam-prep-hub">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/exam-prep-hub") ? "text-blue-600" : "text-gray-600"}`}>
+                <BookOpen size={18} />
+                <span className="text-xs mt-1">Exams</span>
+              </div>
+            </Link>
+            <Link to="/app/profile">
+              <div className={`p-2 flex flex-col items-center ${isActive("/app/profile") ? "text-blue-600" : "text-gray-600"}`}>
+                <User size={18} />
+                <span className="text-xs mt-1">Profile</span>
+              </div>
+            </Link>
+          </div>
         </div>
       </>
     );
