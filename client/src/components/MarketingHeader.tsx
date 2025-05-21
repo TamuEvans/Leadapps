@@ -133,24 +133,7 @@ const MarketingHeader = () => {
         </div>
       </div>
       
-      {/* Bottom Navigation for smallest screens */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-1 flex justify-around z-30 md:hidden">
-        {mobileNavLinks.map((link, index) => (
-          <Link key={index} to={link.path}>
-            <div className="p-2 flex flex-col items-center text-gray-600 hover:text-blue-600">
-              <link.icon className="w-5 h-5" />
-              <span className="text-xs mt-1">{link.label}</span>
-            </div>
-          </Link>
-        ))}
-        <button 
-          onClick={toggleMobileMenu} 
-          className="p-2 flex flex-col items-center text-gray-600 hover:text-blue-600"
-        >
-          <Menu className="w-5 h-5" />
-          <span className="text-xs mt-1">Menu</span>
-        </button>
-      </div>
+
       
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
