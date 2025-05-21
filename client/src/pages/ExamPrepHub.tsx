@@ -25,6 +25,18 @@ import {
   MessageSquare,
   ArrowUpRight,
   CalendarRange,
+  Share2,
+  Mail,
+  Lock,
+  Settings,
+  PlusCircle,
+  Check,
+  X,
+  AlertCircle,
+  Send,
+  LinkIcon,
+  FileText as FileTextIcon,
+  ClipboardList,
 } from 'lucide-react';
 import { 
   Card, 
