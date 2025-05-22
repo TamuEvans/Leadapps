@@ -37,7 +37,8 @@ import {
   Palette,
   Brain,
   DollarSign,
-  MessageCircle
+  MessageCircle,
+  File
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
@@ -341,6 +342,102 @@ export default function Marketing() {
                 <p className="text-center font-medium text-gray-800 text-sm mt-3">{service.title}</p>
               </div>
             ))}
+          </div>
+          
+          {/* Process Map */}
+          <div className="mt-16 max-w-5xl mx-auto">
+            <h3 className="text-xl font-bold text-center mb-6">Your Journey With Us</h3>
+            <div className="relative">
+              {/* Connecting Line */}
+              <div className="absolute left-1/2 top-12 bottom-12 w-1 -ml-0.5 bg-gradient-to-b from-purple-400 via-blue-500 to-green-400"></div>
+              
+              {/* Process Steps */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                {/* Step 1: Personality Hub */}
+                <div className="md:col-start-1 flex items-center justify-end">
+                  <div className="bg-purple-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <Brain className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-purple-700">Personality Hub</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Discover your strengths and ideal career path through our personality assessment tools.</p>
+                  </div>
+                </div>
+                <div className="hidden md:block"></div>
+                
+                {/* Step 2: Exam Prep Hub */}
+                <div className="hidden md:block"></div>
+                <div className="md:col-start-2 flex items-center justify-start">
+                  <div className="bg-blue-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <BookOpen className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-blue-700">Exam Prep Hub</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Prepare for your exams with our resources and join study groups with like-minded students.</p>
+                  </div>
+                </div>
+                
+                {/* Step 3: University Search */}
+                <div className="md:col-start-1 flex items-center justify-end">
+                  <div className="bg-indigo-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <Globe className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-indigo-700">University Search</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Find your perfect university match based on your personality and academic strengths.</p>
+                  </div>
+                </div>
+                <div className="hidden md:block"></div>
+                
+                {/* Step 4: Funding Hub */}
+                <div className="hidden md:block"></div>
+                <div className="md:col-start-2 flex items-center justify-start">
+                  <div className="bg-green-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <DollarSign className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-green-700">Funding Hub</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Explore scholarship opportunities and financial aid options to support your education journey.</p>
+                  </div>
+                </div>
+                
+                {/* Step 5: Application Process */}
+                <div className="md:col-start-1 flex items-center justify-end">
+                  <div className="bg-amber-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <FileDigit className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-amber-700">Application Process</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Submit your applications with guidance every step of the way from our expert counselors.</p>
+                  </div>
+                </div>
+                <div className="hidden md:block"></div>
+                
+                {/* Step 6: Student Success */}
+                <div className="hidden md:block"></div>
+                <div className="md:col-start-2 flex items-center justify-start">
+                  <div className="bg-rose-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center text-white mr-3">
+                        <GraduationCap className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-bold text-rose-700">Student Success</h4>
+                    </div>
+                    <p className="text-sm text-gray-700">Begin your educational journey with ongoing support from our community and resources.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
