@@ -46,6 +46,16 @@ export interface IStorage {
   getSessionByToken(token: string): Promise<any | undefined>;
   deleteSession(token: string): Promise<void>;
   
+  // Password reset operations
+  createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void>;
+  getPasswordReset(token: string): Promise<PasswordReset | undefined>;
+  markPasswordResetUsed(token: string): Promise<void>;
+  
+  // Email verification operations
+  createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void>;
+  getEmailVerification(token: string): Promise<EmailVerification | undefined>;
+  markEmailVerified(token: string): Promise<void>;
+  
   // Student profile operations
   getStudentProfile(id: number): Promise<StudentProfile | undefined>;
   getStudentProfileByUserId(userId: number): Promise<StudentProfile | undefined>;
@@ -122,6 +132,49 @@ export interface IStorage {
   // Profile Document operations
   getProfileDocuments(profileId: number): Promise<any[]>;
   createProfileDocument(document: any): Promise<any>;
+  
+  // Counselor operations
+  getCounselor(id: number): Promise<Counselor | undefined>;
+  getCounselorByUserId(userId: number): Promise<Counselor | undefined>;
+  getCounselors(filters?: { gender?: string; destinationMarkets?: string[]; specialties?: string[]; location?: string; }): Promise<Counselor[]>;
+  createCounselor(counselor: Partial<InsertCounselor>): Promise<Counselor>;
+  updateCounselor(id: number, counselor: Partial<InsertCounselor>): Promise<Counselor>;
+  
+  // Counseling session operations
+  getCounselingSession(id: number): Promise<CounselingSession | undefined>;
+  getCounselingSessionsByStudent(studentId: number): Promise<CounselingSession[]>;
+  getCounselingSessionsByCounselor(counselorId: number): Promise<CounselingSession[]>;
+  createCounselingSession(session: Partial<InsertCounselingSession>): Promise<CounselingSession>;
+  updateCounselingSession(id: number, session: Partial<InsertCounselingSession>): Promise<CounselingSession>;
+  
+  // Notification operations
+  getNotification(id: number): Promise<Notification | undefined>;
+  getNotificationsByUser(userId: number, limit?: number): Promise<Notification[]>;
+  createNotification(notification: Partial<InsertNotification>): Promise<Notification>;
+  markNotificationRead(id: number): Promise<void>;
+  markAllNotificationsRead(userId: number): Promise<void>;
+  
+  // Study group operations
+  getStudyGroup(id: number): Promise<StudyGroup | undefined>;
+  getStudyGroups(filters?: { examType?: string; subject?: string; }): Promise<StudyGroup[]>;
+  getStudyGroupsByUser(userId: number): Promise<StudyGroup[]>;
+  createStudyGroup(group: Partial<InsertStudyGroup>): Promise<StudyGroup>;
+  updateStudyGroup(id: number, group: Partial<InsertStudyGroup>): Promise<StudyGroup>;
+  joinStudyGroup(groupId: number, userId: number): Promise<void>;
+  leaveStudyGroup(groupId: number, userId: number): Promise<void>;
+  getStudyGroupMembers(groupId: number): Promise<StudyGroupMember[]>;
+  
+  // Exam resource operations
+  getExamResource(id: number): Promise<ExamResource | undefined>;
+  getExamResources(filters?: { examType?: string; subject?: string; resourceType?: string; difficulty?: string; }): Promise<ExamResource[]>;
+  createExamResource(resource: Partial<InsertExamResource>): Promise<ExamResource>;
+  updateExamResource(id: number, resource: Partial<InsertExamResource>): Promise<ExamResource>;
+  
+  // User progress operations
+  getUserProgress(userId: number, resourceId: number): Promise<UserProgress | undefined>;
+  getUserProgressByUser(userId: number): Promise<UserProgress[]>;
+  createUserProgress(progress: Partial<InsertUserProgress>): Promise<UserProgress>;
+  updateUserProgress(id: number, progress: Partial<InsertUserProgress>): Promise<UserProgress>;
 }
 
 export class MemStorage implements IStorage {
@@ -999,3 +1052,307 @@ export class DatabaseStorage implements IStorage {
 
 // Use DatabaseStorage instead of MemStorage
 export const storage = new DatabaseStorage();
+
+// Enhanced DatabaseStorage implementation with all new functionality
+export class EnhancedDatabaseStorage extends DatabaseStorage {
+  // Password reset operations
+  async createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void> {
+    await db.insert(passwordResets).values({
+      email,
+      token,
+      expiresAt,
+      used: false
+    });
+  }
+
+  async getPasswordReset(token: string): Promise<PasswordReset | undefined> {
+    const [reset] = await db.select().from(passwordResets).where(eq(passwordResets.token, token));
+    return reset;
+  }
+
+  async markPasswordResetUsed(token: string): Promise<void> {
+    await db.update(passwordResets)
+      .set({ used: true })
+      .where(eq(passwordResets.token, token));
+  }
+
+  // Email verification operations
+  async createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void> {
+    await db.insert(emailVerifications).values({
+      userId,
+      token,
+      expiresAt,
+      verified: false
+    });
+  }
+
+  async getEmailVerification(token: string): Promise<EmailVerification | undefined> {
+    const [verification] = await db.select().from(emailVerifications).where(eq(emailVerifications.token, token));
+    return verification;
+  }
+
+  async markEmailVerified(token: string): Promise<void> {
+    await db.update(emailVerifications)
+      .set({ verified: true })
+      .where(eq(emailVerifications.token, token));
+    
+    // Also mark user as verified
+    const verification = await this.getEmailVerification(token);
+    if (verification) {
+      await db.update(users)
+        .set({ isVerified: true })
+        .where(eq(users.id, verification.userId));
+    }
+  }
+
+  // Counselor operations
+  async getCounselor(id: number): Promise<Counselor | undefined> {
+    const [counselor] = await db.select().from(counselors).where(eq(counselors.id, id));
+    return counselor;
+  }
+
+  async getCounselorByUserId(userId: number): Promise<Counselor | undefined> {
+    const [counselor] = await db.select().from(counselors).where(eq(counselors.userId, userId));
+    return counselor;
+  }
+
+  async getCounselors(filters?: { gender?: string; destinationMarkets?: string[]; specialties?: string[]; location?: string; }): Promise<Counselor[]> {
+    let query = db.select().from(counselors).where(eq(counselors.isActive, true));
+    
+    if (filters?.gender) {
+      query = query.where(eq(counselors.gender, filters.gender));
+    }
+    if (filters?.location) {
+      query = query.where(ilike(counselors.location, `%${filters.location}%`));
+    }
+    
+    return await query;
+  }
+
+  async createCounselor(counselor: Partial<InsertCounselor>): Promise<Counselor> {
+    const [newCounselor] = await db.insert(counselors).values(counselor).returning();
+    return newCounselor;
+  }
+
+  async updateCounselor(id: number, counselor: Partial<InsertCounselor>): Promise<Counselor> {
+    const [updatedCounselor] = await db.update(counselors)
+      .set({ ...counselor, updatedAt: new Date() })
+      .where(eq(counselors.id, id))
+      .returning();
+    return updatedCounselor;
+  }
+
+  // Counseling session operations
+  async getCounselingSession(id: number): Promise<CounselingSession | undefined> {
+    const [session] = await db.select().from(counselingSessions).where(eq(counselingSessions.id, id));
+    return session;
+  }
+
+  async getCounselingSessionsByStudent(studentId: number): Promise<CounselingSession[]> {
+    return await db.select().from(counselingSessions)
+      .where(eq(counselingSessions.studentId, studentId))
+      .orderBy(desc(counselingSessions.scheduledAt));
+  }
+
+  async getCounselingSessionsByCounselor(counselorId: number): Promise<CounselingSession[]> {
+    return await db.select().from(counselingSessions)
+      .where(eq(counselingSessions.counselorId, counselorId))
+      .orderBy(desc(counselingSessions.scheduledAt));
+  }
+
+  async createCounselingSession(session: Partial<InsertCounselingSession>): Promise<CounselingSession> {
+    const [newSession] = await db.insert(counselingSessions).values(session).returning();
+    return newSession;
+  }
+
+  async updateCounselingSession(id: number, session: Partial<InsertCounselingSession>): Promise<CounselingSession> {
+    const [updatedSession] = await db.update(counselingSessions)
+      .set({ ...session, updatedAt: new Date() })
+      .where(eq(counselingSessions.id, id))
+      .returning();
+    return updatedSession;
+  }
+
+  // Notification operations
+  async getNotification(id: number): Promise<Notification | undefined> {
+    const [notification] = await db.select().from(notifications).where(eq(notifications.id, id));
+    return notification;
+  }
+
+  async getNotificationsByUser(userId: number, limit = 20): Promise<Notification[]> {
+    return await db.select().from(notifications)
+      .where(eq(notifications.userId, userId))
+      .orderBy(desc(notifications.createdAt))
+      .limit(limit);
+  }
+
+  async createNotification(notification: Partial<InsertNotification>): Promise<Notification> {
+    const [newNotification] = await db.insert(notifications).values(notification).returning();
+    return newNotification;
+  }
+
+  async markNotificationRead(id: number): Promise<void> {
+    await db.update(notifications)
+      .set({ isRead: true })
+      .where(eq(notifications.id, id));
+  }
+
+  async markAllNotificationsRead(userId: number): Promise<void> {
+    await db.update(notifications)
+      .set({ isRead: true })
+      .where(eq(notifications.userId, userId));
+  }
+
+  // Study group operations
+  async getStudyGroup(id: number): Promise<StudyGroup | undefined> {
+    const [group] = await db.select().from(studyGroups).where(eq(studyGroups.id, id));
+    return group;
+  }
+
+  async getStudyGroups(filters?: { examType?: string; subject?: string; }): Promise<StudyGroup[]> {
+    let query = db.select().from(studyGroups);
+    
+    if (filters?.examType) {
+      query = query.where(eq(studyGroups.examType, filters.examType));
+    }
+    if (filters?.subject) {
+      query = query.where(ilike(studyGroups.subject, `%${filters.subject}%`));
+    }
+    
+    return await query.orderBy(desc(studyGroups.createdAt));
+  }
+
+  async getStudyGroupsByUser(userId: number): Promise<StudyGroup[]> {
+    return await db.select({
+      id: studyGroups.id,
+      name: studyGroups.name,
+      description: studyGroups.description,
+      subject: studyGroups.subject,
+      examType: studyGroups.examType,
+      creatorId: studyGroups.creatorId,
+      maxMembers: studyGroups.maxMembers,
+      isPrivate: studyGroups.isPrivate,
+      inviteCode: studyGroups.inviteCode,
+      studySchedule: studyGroups.studySchedule,
+      resources: studyGroups.resources,
+      createdAt: studyGroups.createdAt,
+      updatedAt: studyGroups.updatedAt
+    })
+    .from(studyGroups)
+    .innerJoin(studyGroupMembers, eq(studyGroups.id, studyGroupMembers.groupId))
+    .where(eq(studyGroupMembers.userId, userId))
+    .orderBy(desc(studyGroups.updatedAt));
+  }
+
+  async createStudyGroup(group: Partial<InsertStudyGroup>): Promise<StudyGroup> {
+    const [newGroup] = await db.insert(studyGroups).values(group).returning();
+    
+    // Add creator as a member
+    if (group.creatorId) {
+      await db.insert(studyGroupMembers).values({
+        groupId: newGroup.id,
+        userId: group.creatorId,
+        role: 'creator'
+      });
+    }
+    
+    return newGroup;
+  }
+
+  async updateStudyGroup(id: number, group: Partial<InsertStudyGroup>): Promise<StudyGroup> {
+    const [updatedGroup] = await db.update(studyGroups)
+      .set({ ...group, updatedAt: new Date() })
+      .where(eq(studyGroups.id, id))
+      .returning();
+    return updatedGroup;
+  }
+
+  async joinStudyGroup(groupId: number, userId: number): Promise<void> {
+    await db.insert(studyGroupMembers).values({
+      groupId,
+      userId,
+      role: 'member'
+    });
+  }
+
+  async leaveStudyGroup(groupId: number, userId: number): Promise<void> {
+    await db.delete(studyGroupMembers)
+      .where(and(
+        eq(studyGroupMembers.groupId, groupId),
+        eq(studyGroupMembers.userId, userId)
+      ));
+  }
+
+  async getStudyGroupMembers(groupId: number): Promise<StudyGroupMember[]> {
+    return await db.select().from(studyGroupMembers)
+      .where(eq(studyGroupMembers.groupId, groupId))
+      .orderBy(studyGroupMembers.joinedAt);
+  }
+
+  // Exam resource operations
+  async getExamResource(id: number): Promise<ExamResource | undefined> {
+    const [resource] = await db.select().from(examResources).where(eq(examResources.id, id));
+    return resource;
+  }
+
+  async getExamResources(filters?: { examType?: string; subject?: string; resourceType?: string; difficulty?: string; }): Promise<ExamResource[]> {
+    let query = db.select().from(examResources);
+    
+    if (filters?.examType) {
+      query = query.where(eq(examResources.examType, filters.examType));
+    }
+    if (filters?.subject) {
+      query = query.where(ilike(examResources.subject, `%${filters.subject}%`));
+    }
+    if (filters?.resourceType) {
+      query = query.where(eq(examResources.resourceType, filters.resourceType));
+    }
+    if (filters?.difficulty) {
+      query = query.where(eq(examResources.difficulty, filters.difficulty));
+    }
+    
+    return await query.orderBy(examResources.title);
+  }
+
+  async createExamResource(resource: Partial<InsertExamResource>): Promise<ExamResource> {
+    const [newResource] = await db.insert(examResources).values(resource).returning();
+    return newResource;
+  }
+
+  async updateExamResource(id: number, resource: Partial<InsertExamResource>): Promise<ExamResource> {
+    const [updatedResource] = await db.update(examResources)
+      .set({ ...resource, updatedAt: new Date() })
+      .where(eq(examResources.id, id))
+      .returning();
+    return updatedResource;
+  }
+
+  // User progress operations
+  async getUserProgress(userId: number, resourceId: number): Promise<UserProgress | undefined> {
+    const [progress] = await db.select().from(userProgress)
+      .where(and(
+        eq(userProgress.userId, userId),
+        eq(userProgress.resourceId, resourceId)
+      ));
+    return progress;
+  }
+
+  async getUserProgressByUser(userId: number): Promise<UserProgress[]> {
+    return await db.select().from(userProgress)
+      .where(eq(userProgress.userId, userId))
+      .orderBy(desc(userProgress.lastAccessed));
+  }
+
+  async createUserProgress(progress: Partial<InsertUserProgress>): Promise<UserProgress> {
+    const [newProgress] = await db.insert(userProgress).values(progress).returning();
+    return newProgress;
+  }
+
+  async updateUserProgress(id: number, progress: Partial<InsertUserProgress>): Promise<UserProgress> {
+    const [updatedProgress] = await db.update(userProgress)
+      .set({ ...progress, lastAccessed: new Date() })
+      .where(eq(userProgress.id, id))
+      .returning();
+    return updatedProgress;
+  }
+}

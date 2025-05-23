@@ -298,3 +298,161 @@ export type University = typeof universities.$inferSelect;
 export type Program = typeof programs.$inferSelect;
 export type Application = typeof applications.$inferSelect;
 export type ApplicationDocument = typeof applicationDocuments.$inferSelect;
+
+// Password Reset table
+export const passwordResets = pgTable("password_resets", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  token: text("token").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  used: boolean("used").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Email Verification table
+export const emailVerifications = pgTable("email_verifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  token: text("token").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  verified: boolean("verified").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Counselors table
+export const counselors = pgTable("counselors", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  displayName: text("display_name").notNull(),
+  specialties: text("specialties").array(),
+  destinationMarkets: text("destination_markets").array(),
+  location: text("location"),
+  gender: text("gender"),
+  bio: text("bio"),
+  profileImageUrl: text("profile_image_url"),
+  hourlyRate: integer("hourly_rate"),
+  currency: text("currency").default("USD"),
+  rating: integer("rating").default(0),
+  totalReviews: integer("total_reviews").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Counseling Sessions table
+export const counselingSessions = pgTable("counseling_sessions", {
+  id: serial("id").primaryKey(),
+  studentId: integer("student_id").references(() => users.id).notNull(),
+  counselorId: integer("counselor_id").references(() => counselors.id).notNull(),
+  scheduledAt: timestamp("scheduled_at").notNull(),
+  duration: integer("duration").default(60), // minutes
+  status: text("status").default("scheduled"), // scheduled, completed, cancelled, no_show
+  sessionType: text("session_type").default("video"), // video, phone, in_person
+  meetingUrl: text("meeting_url"),
+  notes: text("notes"),
+  studentFeedback: text("student_feedback"),
+  counselorFeedback: text("counselor_feedback"),
+  rating: integer("rating"),
+  paymentStatus: text("payment_status").default("pending"),
+  amount: integer("amount"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Notifications table
+export const notifications = pgTable("notifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  type: text("type").notNull(), // info, success, warning, error
+  isRead: boolean("is_read").default(false),
+  actionUrl: text("action_url"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Study Groups table
+export const studyGroups = pgTable("study_groups", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  subject: text("subject").notNull(),
+  examType: text("exam_type"), // CSEC, CAPE, SAT, etc.
+  creatorId: integer("creator_id").references(() => users.id).notNull(),
+  maxMembers: integer("max_members").default(10),
+  isPrivate: boolean("is_private").default(false),
+  inviteCode: text("invite_code").unique(),
+  studySchedule: jsonb("study_schedule"),
+  resources: jsonb("resources").array(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Study Group Members table
+export const studyGroupMembers = pgTable("study_group_members", {
+  id: serial("id").primaryKey(),
+  groupId: integer("group_id").references(() => studyGroups.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  role: text("role").default("member"), // creator, moderator, member
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
+});
+
+// Exam Prep Resources table
+export const examResources = pgTable("exam_resources", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  examType: text("exam_type").notNull(),
+  subject: text("subject").notNull(),
+  resourceType: text("resource_type").notNull(), // video, pdf, quiz, practice_test
+  resourceUrl: text("resource_url"),
+  difficulty: text("difficulty"), // beginner, intermediate, advanced
+  duration: integer("duration"), // in minutes
+  isPremium: boolean("is_premium").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// User Progress table
+export const userProgress = pgTable("user_progress", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  resourceId: integer("resource_id").references(() => examResources.id).notNull(),
+  completed: boolean("completed").default(false),
+  score: integer("score"),
+  timeSpent: integer("time_spent"), // in minutes
+  lastAccessed: timestamp("last_accessed").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Define insert schemas for new tables
+export const insertPasswordResetSchema = createInsertSchema(passwordResets).omit({ id: true, createdAt: true });
+export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({ id: true, createdAt: true });
+export const insertCounselorSchema = createInsertSchema(counselors).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertCounselingSessionSchema = createInsertSchema(counselingSessions).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertNotificationSchema = createInsertSchema(notifications).omit({ id: true, createdAt: true });
+export const insertStudyGroupSchema = createInsertSchema(studyGroups).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers).omit({ id: true, joinedAt: true });
+export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
+
+// Define types for new tables
+export type InsertPasswordReset = z.infer<typeof insertPasswordResetSchema>;
+export type InsertEmailVerification = z.infer<typeof insertEmailVerificationSchema>;
+export type InsertCounselor = z.infer<typeof insertCounselorSchema>;
+export type InsertCounselingSession = z.infer<typeof insertCounselingSessionSchema>;
+export type InsertNotification = z.infer<typeof insertNotificationSchema>;
+export type InsertStudyGroup = z.infer<typeof insertStudyGroupSchema>;
+export type InsertStudyGroupMember = z.infer<typeof insertStudyGroupMemberSchema>;
+export type InsertExamResource = z.infer<typeof insertExamResourceSchema>;
+export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
+
+export type PasswordReset = typeof passwordResets.$inferSelect;
+export type EmailVerification = typeof emailVerifications.$inferSelect;
+export type Counselor = typeof counselors.$inferSelect;
+export type CounselingSession = typeof counselingSessions.$inferSelect;
+export type Notification = typeof notifications.$inferSelect;
+export type StudyGroup = typeof studyGroups.$inferSelect;
+export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
+export type ExamResource = typeof examResources.$inferSelect;
+export type UserProgress = typeof userProgress.$inferSelect;
