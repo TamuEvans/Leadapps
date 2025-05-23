@@ -1048,6 +1048,27 @@ export class DatabaseStorage implements IStorage {
       throw error;
     }
   }
+
+  // Add missing methods for exam resources, study groups, and counselors
+  async getCounselors(filters?: { gender?: string; destinationMarkets?: string[]; specialties?: string[]; location?: string; }): Promise<any[]> {
+    // Return empty array for now - this would query the database in production
+    return [];
+  }
+
+  async getStudyGroups(filters?: { examType?: string; subject?: string; }): Promise<any[]> {
+    // Return empty array for now - this would query the database in production
+    return [];
+  }
+
+  async getExamResources(filters?: { examType?: string; subject?: string; resourceType?: string; difficulty?: string; }): Promise<any[]> {
+    // Return empty array for now - this would query the database in production
+    return [];
+  }
+
+  async getUserProgressByUser(userId: number): Promise<any[]> {
+    // Return empty array for now - this would query the database in production
+    return [];
+  }
 }
 
 // Use DatabaseStorage instead of MemStorage
