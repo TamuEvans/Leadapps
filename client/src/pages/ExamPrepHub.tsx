@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import ExamResourceCard from "@/components/ExamResourceCard";
 import StudyGroupCard from "@/components/StudyGroupCard";
+import CounselorCard from "@/components/CounselorCard";
 
 export default function ExamPrepHub() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,6 +30,10 @@ export default function ExamPrepHub() {
 
   const { data: userProgress = [] } = useQuery({
     queryKey: ['/api/exam-resources/progress/my-progress'],
+  });
+
+  const { data: counselors = [] } = useQuery({
+    queryKey: ['/api/counselors'],
   });
 
   // Available exam types
@@ -153,34 +158,34 @@ export default function ExamPrepHub() {
         </Card>
       </div>
 
-      {/* Search and Filters */}
-      <Card>
+      {/* Filter Options at Top */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <Select value={selectedExam} onValueChange={setSelectedExam}>
+          <SelectTrigger className="w-full sm:w-48">
+            <SelectValue placeholder="Filter by Exam" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Exams</SelectItem>
+            {examTypes.map((exam) => (
+              <SelectItem key={exam.value} value={exam.value}>
+                {exam.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Prominent Search */}
+      <Card className="mb-8">
         <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search study materials, subjects, or topics..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-            </div>
-            <Select value={selectedExam} onValueChange={setSelectedExam}>
-              <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Select Exam" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Exams</SelectItem>
-                {examTypes.map((exam) => (
-                  <SelectItem key={exam.value} value={exam.value}>
-                    {exam.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Input
+              placeholder="Search study materials, tutors, subjects, or topics..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-12 h-12 text-lg"
+            />
           </div>
         </CardContent>
       </Card>
@@ -220,6 +225,104 @@ export default function ExamPrepHub() {
             </Button>
           </div>
         )}
+      </div>
+
+      {/* Featured Tutors Section */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Expert Tutors</h2>
+          <Badge variant="secondary">Available for booking</Badge>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Mock tutors for now until API is working */}
+          {[
+            {
+              id: 1,
+              displayName: "Sarah Johnson",
+              specialties: ["Mathematics", "Physics"],
+              destinationMarkets: ["UK", "Canada"],
+              profileImageUrl: null,
+              rating: 4.8,
+              costRangeMin: 50,
+              costRangeMax: 80,
+              yearsOfExperience: 8
+            },
+            {
+              id: 2,
+              displayName: "Marcus Williams",
+              specialties: ["English", "Literature"],
+              destinationMarkets: ["USA", "Australia"],
+              profileImageUrl: null,
+              rating: 4.9,
+              costRangeMin: 60,
+              costRangeMax: 90,
+              yearsOfExperience: 12
+            },
+            {
+              id: 3,
+              displayName: "Dr. Priya Sharma",
+              specialties: ["Chemistry", "Biology"],
+              destinationMarkets: ["UK", "USA"],
+              profileImageUrl: null,
+              rating: 4.7,
+              costRangeMin: 70,
+              costRangeMax: 100,
+              yearsOfExperience: 15
+            }
+          ].map((tutor) => (
+            <Card key={tutor.id} className="hover:shadow-md transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <Users className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{tutor.displayName}</h3>
+                    <div className="flex items-center">
+                      <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                      <span className="text-sm text-gray-600 ml-1">{tutor.rating}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-2 mb-4">
+                  <div>
+                    <p className="text-sm font-medium text-gray-700">Specialties:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {tutor.specialties.map((specialty, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">
+                          {specialty}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p className="text-sm font-medium text-gray-700">Markets:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {tutor.destinationMarkets.map((market, idx) => (
+                        <Badge key={idx} variant="outline" className="text-xs">
+                          {market}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-gray-600">
+                    ${tutor.costRangeMin}-${tutor.costRangeMax}/hour • {tutor.yearsOfExperience} years exp.
+                  </p>
+                </div>
+                
+                <Button className="w-full">Book Session</Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        <div className="text-center mt-6">
+          <Button variant="outline">View All Tutors</Button>
+        </div>
       </div>
 
       {/* Study Groups Section */}
