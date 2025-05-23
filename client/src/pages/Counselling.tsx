@@ -1,662 +1,369 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MessageCircle, Calendar, Video, User, MapPin, Briefcase, GraduationCap, Search, Filter, Star, DollarSign } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+import { Search, Filter, Calendar, MapPin, DollarSign, Star, Users } from 'lucide-react';
+import CounselorCard from '@/components/CounselorCard';
+import { useToast } from '@/hooks/use-toast';
 
-// Counsellor data
-const counsellors = [
-  {
-    id: 1,
-    name: "Dr. Shanice Thompson",
-    avatar: "",
-    title: "Senior Education Advisor",
-    specialties: ["US Applications", "Medical Schools", "Scholarship Guidance"],
-    destinations: ["US"],
-    gender: "Female",
-    experience: "12 years",
-    education: "Ph.D. in Educational Psychology, Harvard University",
-    location: "Kingston, Jamaica",
-    languages: ["English", "Spanish"],
-    costRange: "$100-150 per hour",
-    rating: 4.9,
-    reviewCount: 127,
-    bio: "Dr. Thompson specializes in guiding Caribbean students through competitive US medical school applications. Her expertise is primarily focused on US destinations, particularly for medical and healthcare programs. With over a decade of experience, she has helped hundreds of students secure scholarships and placements at top American institutions."
-  },
-  {
-    id: 2,
-    name: "Kwame Richardson, M.Ed.",
-    avatar: "",
-    title: "International Admissions Specialist",
-    specialties: ["Canadian Immigration", "Engineering Programs", "Graduate Applications"],
-    destinations: ["Canada"],
-    gender: "Male",
-    experience: "8 years",
-    education: "M.Ed. in Higher Education, University of Toronto",
-    location: "Port of Spain, Trinidad",
-    languages: ["English", "French"],
-    costRange: "$85-120 per hour",
-    rating: 4.7,
-    reviewCount: 92,
-    bio: "Kwame's expertise lies in navigating the Canadian education system and immigration processes. He focuses exclusively on Canadian destinations, providing strategic guidance for engineering and technical program applications with a special emphasis on research opportunities and post-graduation work permits in Canada."
-  },
-  {
-    id: 3,
-    name: "Rhianna Blackman",
-    avatar: "",
-    title: "Career Counsellor & Essay Coach",
-    specialties: ["Personal Statements", "Interview Preparation", "UK Universities"],
-    destinations: ["UK"],
-    gender: "Female",
-    experience: "6 years",
-    education: "M.A. in Creative Writing, University of Edinburgh",
-    location: "Bridgetown, Barbados",
-    languages: ["English", "French"],
-    costRange: "$70-100 per hour",
-    rating: 4.8,
-    reviewCount: 84,
-    bio: "Rhianna combines her writing expertise with in-depth knowledge of UK university admissions to help students craft compelling personal statements. Her focus is exclusively on UK destinations, particularly Russell Group universities. She provides comprehensive interview coaching for Oxbridge and other competitive UK program applications."
-  },
-  {
-    id: 4,
-    name: "Dr. Andre Campbell",
-    avatar: "",
-    title: "STEM Education Specialist",
-    specialties: ["Technology Programs", "Research Applications", "Scholarship Applications"],
-    destinations: ["US", "Canada", "UK"],
-    gender: "Male",
-    experience: "15 years",
-    education: "Ph.D. in Computer Science, MIT",
-    location: "Georgetown, Guyana",
-    languages: ["English", "Portuguese"],
-    costRange: "$110-170 per hour",
-    rating: 4.9,
-    reviewCount: 156,
-    bio: "With a background in computer science research, Dr. Campbell specializes in guiding students toward technology and engineering programs across multiple destinations. His expertise spans US, Canadian, and UK technology programs, with particular emphasis on helping students identify research opportunities and prepare competitive applications for STEM scholarships internationally."
-  },
-  {
-    id: 5,
-    name: "Gabriela Ramirez",
-    avatar: "",
-    title: "Arts & Humanities Advisor",
-    specialties: ["Visual Arts Programs", "Portfolio Development", "Creative Scholarships"],
-    destinations: ["US", "Caribbean"],
-    gender: "Female",
-    experience: "9 years",
-    education: "MFA in Fine Arts, Rhode Island School of Design",
-    location: "San Juan, Puerto Rico",
-    languages: ["English", "Spanish"],
-    costRange: "$90-120 per hour",
-    rating: 4.6,
-    reviewCount: 73,
-    bio: "Gabriela guides creative students through specialized arts program applications. Her expertise covers both Caribbean and US destinations for arts education. She provides portfolio development advice and helps students navigate audition processes for performing arts and fine arts programs at Caribbean institutions and top US conservatories."
-  },
-  {
-    id: 6,
-    name: "Dwayne Braithwaite",
-    avatar: "",
-    title: "Financial Aid Specialist",
-    specialties: ["Scholarship Applications", "Financial Planning", "Budget Guidance"],
-    destinations: ["US", "Canada", "UK", "Caribbean"],
-    gender: "Male",
-    experience: "11 years",
-    education: "MBA in Finance, London School of Economics",
-    location: "Nassau, Bahamas",
-    languages: ["English"],
-    costRange: "$95-140 per hour",
-    rating: 4.8,
-    reviewCount: 112,
-    bio: "Dwayne specializes in helping students navigate the financial aspects of international education. His expertise spans all major destinations (US, UK, Canada, and the Caribbean), providing tailored guidance on scholarship applications, student loans, and developing realistic financial plans for studying abroad in any of these regions."
-  },
-  {
-    id: 7,
-    name: "Dr. Asha Mathurin",
-    avatar: "",
-    title: "Medical & Health Sciences Advisor",
-    specialties: ["Pre-Med Programs", "Nursing Applications", "Healthcare Careers"],
-    destinations: ["US", "Caribbean"],
-    gender: "Female",
-    experience: "14 years",
-    education: "M.D., Johns Hopkins University",
-    location: "Kingston, Jamaica",
-    languages: ["English", "Hindi"],
-    costRange: "$120-180 per hour",
-    rating: 5.0,
-    reviewCount: 143,
-    bio: "Dr. Mathurin provides specialized guidance for students pursuing medical and health science careers across multiple destinations. Her advising covers programs in the Caribbean, US, and UK, with particular expertise in Caribbean and US medical schools. With experience as a medical school admissions committee member, she offers insider perspective on competitive healthcare program applications."
-  },
-  {
-    id: 8,
-    name: "Marcus Charles",
-    avatar: "",
-    title: "Graduate Studies Expert",
-    specialties: ["MBA Applications", "Law School Admissions", "Advanced Degrees"],
-    destinations: ["US", "Canada"],
-    gender: "Male",
-    experience: "10 years",
-    education: "J.D., Yale Law School",
-    location: "St. George's, Grenada",
-    languages: ["English"],
-    costRange: "$100-150 per hour",
-    rating: 4.7,
-    reviewCount: 91,
-    bio: "Marcus specializes in graduate-level applications, particularly for MBA and law programs. His expertise is primarily focused on US destinations, with additional knowledge of Canadian options. He provides comprehensive guidance on entrance exams, application strategies, and connecting educational choices with long-term career goals for students seeking advanced degrees in North America."
-  },
-  {
-    id: 9,
-    name: "Ayanna Dupont",
-    avatar: "",
-    title: "Student Transition Specialist",
-    specialties: ["First-Year Experience", "Cultural Adjustment", "Student Wellbeing"],
-    destinations: ["UK", "Canada"],
-    gender: "Female",
-    experience: "7 years",
-    education: "M.Sc. in Psychology, University of the West Indies",
-    location: "Castries, St. Lucia",
-    languages: ["English", "French", "Creole"],
-    costRange: "$80-110 per hour",
-    rating: 4.5,
-    reviewCount: 68,
-    bio: "Ayanna focuses on the emotional and psychological aspects of studying abroad. She provides guidance on cultural adjustment across multiple destinations, with special expertise in the transition to UK and Canadian universities. Her counseling helps students develop healthy coping strategies for the specific challenges of each destination's educational environment and cultural context."
-  },
-  {
-    id: 10,
-    name: "Terrell Baptiste",
-    avatar: "",
-    title: "Technology & Digital Media Specialist",
-    specialties: ["Computer Science", "Digital Arts", "Tech Scholarships"],
-    destinations: ["US", "Canada"],
-    gender: "Male",
-    experience: "8 years",
-    education: "M.Sc. in Computer Science, Stanford University",
-    location: "Port of Spain, Trinidad",
-    languages: ["English", "French"],
-    costRange: "$90-130 per hour",
-    rating: 4.8,
-    reviewCount: 95,
-    bio: "Terrell specializes in technology education pathways, including computer science, digital media, and emerging tech fields. His advising primarily covers US and Canadian destinations for tech education, with particular expertise in Silicon Valley connections. He helps students identify programs aligned with specific tech career goals and prepare competitive applications for North American tech hubs."
-  }
-];
+export default function Counselling() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDestination, setSelectedDestination] = useState('');
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [genderFilter, setGenderFilter] = useState('');
+  const [minRating, setMinRating] = useState(0);
+  const { toast } = useToast();
 
-// Helper function to get unique values from counsellor data
-const getUniqueValues = (data: any[], key: string): string[] => {
-  const valuesSet = new Set<string>();
-  data.forEach(item => {
-    if (Array.isArray(item[key])) {
-      item[key].forEach((value: string) => valuesSet.add(value));
-    }
+  // Fetch counselors
+  const { data: counselors = [], isLoading } = useQuery({
+    queryKey: ['/api/counselors'],
   });
-  return Array.from(valuesSet).sort();
-};
 
-const Counselling = () => {
-  const [selectedCounsellor, setSelectedCounsellor] = useState<number | null>(null);
-  const [filteredCounsellors, setFilteredCounsellors] = useState(counsellors);
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  // Filter states
-  const [filters, setFilters] = useState({
-    gender: [] as string[],
-    destinations: [] as string[],
-    specialties: [] as string[],
-    location: [] as string[],
-    costRange: '',
-  });
-  
-  // Selected search values
-  const [selectedGender, setSelectedGender] = useState<string>("all");
-  const [selectedDestination, setSelectedDestination] = useState<string>("all");
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("all");
-  const [selectedLocation, setSelectedLocation] = useState<string>("all");
-  const [selectedCostRange, setSelectedCostRange] = useState<string>("all");
-  
-  // Get unique values for filters
-  const uniqueDestinations = getUniqueValues(counsellors, 'destinations');
-  const uniqueSpecialties = getUniqueValues(counsellors, 'specialties');
-  const uniqueLocations = counsellors.map(c => c.location).filter((loc, index, self) => self.indexOf(loc) === index).sort();
-  
-  // Define cost ranges for filtering
-  const costRanges = [
-    { id: "budget", label: "Budget ($70-90/hr)", min: 70, max: 90 },
-    { id: "standard", label: "Standard ($90-120/hr)", min: 90, max: 120 },
-    { id: "premium", label: "Premium ($120+/hr)", min: 120, max: 999 }
+  const destinationMarkets = [
+    'United States', 'Canada', 'United Kingdom', 'Australia', 
+    'New Zealand', 'Germany', 'Netherlands', 'France'
   ];
-  
-  // Handle filter changes
-  useEffect(() => {
-    const newFilters = { ...filters };
-    
-    // Update gender filter
-    if (selectedGender && selectedGender !== 'all') {
-      newFilters.gender = [selectedGender];
-    } else {
-      newFilters.gender = [];
-    }
-    
-    // Update destinations filter
-    if (selectedDestination && selectedDestination !== 'all') {
-      newFilters.destinations = [selectedDestination];
-    } else {
-      newFilters.destinations = [];
-    }
-    
-    // Update specialties filter
-    if (selectedSpecialty && selectedSpecialty !== 'all') {
-      newFilters.specialties = [selectedSpecialty];
-    } else {
-      newFilters.specialties = [];
-    }
-    
-    // Update location filter
-    if (selectedLocation && selectedLocation !== 'all') {
-      newFilters.location = [selectedLocation];
-    } else {
-      newFilters.location = [];
-    }
-    
-    // Update cost range filter
-    if (selectedCostRange && selectedCostRange !== 'all') {
-      newFilters.costRange = selectedCostRange;
-    } else {
-      newFilters.costRange = '';
-    }
-    
-    setFilters(newFilters);
-  }, [selectedGender, selectedDestination, selectedSpecialty, selectedLocation, selectedCostRange]);
 
-  // Filter counsellors when filters or search change
-  useEffect(() => {
-    let result = counsellors;
-    
-    // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(c => 
-        c.name.toLowerCase().includes(query) || 
-        c.bio.toLowerCase().includes(query) || 
-        c.specialties.some((s: string) => s.toLowerCase().includes(query))
-      );
-    }
-    
-    // Filter by gender
-    if (filters.gender.length > 0) {
-      result = result.filter(c => filters.gender.includes(c.gender));
-    }
-    
-    // Filter by destinations
-    if (filters.destinations.length > 0) {
-      result = result.filter(c => c.destinations.some((d: string) => filters.destinations.includes(d)));
-    }
-    
-    // Filter by specialties
-    if (filters.specialties.length > 0) {
-      result = result.filter(c => c.specialties.some((s: string) => filters.specialties.includes(s)));
-    }
-    
-    // Filter by location
-    if (filters.location.length > 0) {
-      result = result.filter(c => filters.location.includes(c.location));
-    }
-    
-    // Helper function to extract numeric min cost from cost range string
-    const getMinCost = (costRange: string): number => {
-      if (!costRange) return 0;
-      // Extract the first number from strings like "$80-110 per hour"
-      const match = costRange.match(/\$(\d+)/);
-      return match ? parseInt(match[1], 10) : 0;
-    };
-    
-    // Filter by cost range
-    if (filters.costRange) {
-      const costRange = costRanges.find(cr => cr.id === filters.costRange);
-      if (costRange) {
-        result = result.filter(c => {
-          const minCost = getMinCost(c.costRange);
-          return minCost >= costRange.min && minCost <= costRange.max;
-        });
-      }
-    }
-    
-    setFilteredCounsellors(result);
-  }, [searchQuery, filters]);
-  
-  // Toggle filter function
-  const toggleFilter = (category: 'gender' | 'destinations' | 'specialties' | 'location', value: string) => {
-    setFilters(prev => {
-      const currentValues = [...prev[category]];
-      if (currentValues.includes(value)) {
-        return { ...prev, [category]: currentValues.filter(v => v !== value) };
-      } else {
-        return { ...prev, [category]: [...currentValues, value] };
-      }
+  const specialties = [
+    'Undergraduate Programs', 'Graduate Programs', 'Medical School',
+    'Engineering Programs', 'Business School', 'Law School',
+    'Scholarship Applications', 'Student Visa Guidance'
+  ];
+
+  const locations = [
+    'Trinidad and Tobago', 'Jamaica', 'Barbados', 'Guyana',
+    'St. Lucia', 'Grenada', 'Bahamas', 'Belize'
+  ];
+
+  const handleBookSession = (counselorId: number) => {
+    toast({
+      title: "Book Session",
+      description: "Redirecting to booking page...",
     });
+    // This would navigate to booking flow
   };
-  
-  // Clear all filters
-  const clearFilters = () => {
-    setSelectedGender("all");
-    setSelectedDestination("all");
-    setSelectedSpecialty("all");
-    setSelectedLocation("all");
-    setSelectedCostRange("all");
-    setSearchQuery('');
+
+  const handleViewProfile = (counselorId: number) => {
+    toast({
+      title: "View Profile",
+      description: "Opening counselor profile...",
+    });
+    // This would navigate to detailed counselor profile
   };
+
+  const filteredCounselors = counselors.filter((counselor: any) => {
+    const matchesSearch = counselor.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         counselor.bio?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesDestination = !selectedDestination || 
+                              counselor.destinationMarkets?.includes(selectedDestination);
+    
+    const matchesSpecialty = !selectedSpecialty || 
+                            counselor.specialties?.includes(selectedSpecialty);
+    
+    const matchesLocation = !selectedLocation || 
+                           counselor.location === selectedLocation;
+    
+    const matchesGender = !genderFilter || counselor.gender === genderFilter;
+    
+    const matchesRating = !minRating || (counselor.rating || 0) >= minRating;
+
+    return matchesSearch && matchesDestination && matchesSpecialty && 
+           matchesLocation && matchesGender && matchesRating;
+  });
 
   return (
-    <div className="space-y-8 pb-8">
-      <h1 className="text-2xl font-bold text-gray-800 text-center">Counselling Services</h1>
-      
-      <div className="space-y-8">
-        {/* Service Options */}
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Service Options</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-white shadow-sm">
-              <CardHeader className="pb-2 flex flex-col items-center">
-                <CardTitle className="text-md font-semibold flex flex-col items-center">
-                  <MessageCircle className="h-8 w-8 mb-2 text-primary" />
-                  Chat Consultation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 text-sm mb-4">
-                  Connect with an education counselor via text chat to get quick answers to your questions.
-                </p>
-                <Button className="w-full">Start Chat</Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white shadow-sm">
-              <CardHeader className="pb-2 flex flex-col items-center">
-                <CardTitle className="text-md font-semibold flex flex-col items-center">
-                  <Video className="h-8 w-8 mb-2 text-primary" />
-                  Video Consultation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 text-sm mb-4">
-                  Schedule a face-to-face video session with an education advisor for in-depth guidance.
-                </p>
-                <Button className="w-full">Book Session</Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white shadow-sm">
-              <CardHeader className="pb-2 flex flex-col items-center">
-                <CardTitle className="text-md font-semibold flex flex-col items-center">
-                  <Calendar className="h-8 w-8 mb-2 text-primary" />
-                  Application Review
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 text-sm mb-4">
-                  Get expert feedback on your application materials before submitting to institutions.
-                </p>
-                <Button className="w-full">Request Review</Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-        
-        {/* Upcoming Sessions */}
-        <Card className="bg-white shadow-sm">
-          <CardHeader className="flex flex-col items-center">
-            <CardTitle className="text-center">Upcoming Sessions</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center p-12 text-gray-500">
-            <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-            <h2 className="text-lg font-medium text-gray-700 mb-2">No Upcoming Sessions</h2>
-            <p className="max-w-md mx-auto">
-              You haven't scheduled any counselling sessions yet. Book a session to get personalized guidance for your educational journey.
-            </p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl font-bold text-gray-900">Study Counselling</h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Connect with expert Caribbean education counselors who specialize in helping students 
+          achieve their tertiary education goals across different destination markets.
+        </p>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Users className="h-8 w-8 text-blue-600" />
+              <div>
+                <p className="text-2xl font-bold">{counselors.length}</p>
+                <p className="text-sm text-gray-600">Expert Counselors</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
-        
-        {/* Choose Your Counsellor */}
-        <div>
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">Choose Your Counsellor</h2>
-            <p className="text-gray-600">
-              Select a counsellor who specializes in your areas of interest for personalized guidance on your educational journey.
-            </p>
-          </div>
-          
-          {/* Search and Filter Bar */}
-          <div className="mb-6 bg-white rounded-lg shadow-sm p-4 border border-gray-100">
-            <div className="flex flex-col md:flex-row gap-4 mb-4">
-              <div className="flex-grow">
-                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Search counsellors by name, specialty, or keywords..."
-                    className="pl-9"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-              </div>
-              
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="flex items-center gap-1"
-                  onClick={() => clearFilters()}
-                >
-                  <Filter className="h-4 w-4" />
-                  Clear Filters
-                </Button>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              {/* Gender Filter */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">Gender</h3>
-                <Select value={selectedGender} onValueChange={setSelectedGender}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Genders</SelectItem>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              {/* Destination Filter */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">Destination Markets</h3>
-                <Select value={selectedDestination} onValueChange={setSelectedDestination}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select destination" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Destinations</SelectItem>
-                    {uniqueDestinations.map((destination) => (
-                      <SelectItem key={destination} value={destination}>
-                        {destination}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              {/* Specialties Filter */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">Program Specialties</h3>
-                <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select specialty" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Specialties</SelectItem>
-                    {uniqueSpecialties.map((specialty) => (
-                      <SelectItem key={specialty} value={specialty}>
-                        {specialty}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              {/* Location Filter */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">Location</h3>
-                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select location" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Locations</SelectItem>
-                    {uniqueLocations.map((location) => (
-                      <SelectItem key={location} value={location}>
-                        {location}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              {/* Cost Range Filter */}
-              <div>
-                <h3 className="text-sm font-medium mb-2">Cost Range</h3>
-                <Select value={selectedCostRange} onValueChange={setSelectedCostRange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select price range" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Price Ranges</SelectItem>
-                    {costRanges.map((range) => (
-                      <SelectItem key={range.id} value={range.id}>
-                        {range.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            
-            {/* Results count */}
-            <div className="mt-4 text-sm text-gray-500">
-              Showing {filteredCounsellors.length} of {counsellors.length} counsellors
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCounsellors.map((counsellor) => (
-              <Card 
-                key={counsellor.id} 
-                className={`bg-white transition-all ${
-                  selectedCounsellor === counsellor.id 
-                    ? 'ring-2 ring-primary shadow-md' 
-                    : 'shadow-sm hover:shadow-md'
-                }`}
-                onClick={() => setSelectedCounsellor(
-                  selectedCounsellor === counsellor.id ? null : counsellor.id
-                )}
-              >
-                <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                  <Avatar className="h-16 w-16 border-2 border-gray-100">
-                    <AvatarFallback>{counsellor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    <AvatarImage src={counsellor.avatar} alt={counsellor.name} />
-                  </Avatar>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <CardTitle className="text-lg">{counsellor.name}</CardTitle>
-                      <Badge variant="outline" className="text-xs">
-                        <User className="h-2.5 w-2.5 mr-1" />
-                        {counsellor.gender}
-                      </Badge>
-                    </div>
-                    <CardDescription>{counsellor.title}</CardDescription>
-                    <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
-                      <MapPin className="h-3 w-3" />
-                      <span>{counsellor.location}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="pt-2">
-                  {/* Rating */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center">
-                      <div className="flex mr-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star 
-                            key={star} 
-                            className={`h-4 w-4 ${star <= Math.floor(counsellor.rating) 
-                              ? 'text-yellow-400 fill-yellow-400' 
-                              : star - 0.5 <= counsellor.rating 
-                                ? 'text-yellow-400 fill-yellow-400 opacity-60' 
-                                : 'text-gray-300'
-                            }`} 
-                          />
-                        ))}
-                      </div>
-                      <span className="text-sm font-medium">{counsellor.rating}</span>
-                      <span className="text-xs text-gray-500 ml-1">({counsellor.reviewCount})</span>
-                    </div>
-                    <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-medium text-gray-700">{counsellor.costRange}</span>
-                    </div>
-                  </div>
-                
-                  <div className="flex items-center gap-2 mb-2">
-                    <Briefcase className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">{counsellor.experience} experience</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <GraduationCap className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">{counsellor.education}</span>
-                  </div>
-                  
-                  <div className="mb-2">
-                    <h4 className="text-sm font-medium mb-1">Destinations:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {counsellor.destinations.map((destination: string, index: number) => (
-                        <Badge key={index} variant="outline" className="text-xs bg-blue-50">
-                          {destination}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
 
-                  <div className="mb-3">
-                    <h4 className="text-sm font-medium mb-1">Specialties:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {counsellor.specialties.map((specialty: string, index: number) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {specialty}
-                        </Badge>
-                      ))}
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <MapPin className="h-8 w-8 text-green-600" />
+              <div>
+                <p className="text-2xl font-bold">{destinationMarkets.length}</p>
+                <p className="text-sm text-gray-600">Destination Markets</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Star className="h-8 w-8 text-yellow-600" />
+              <div>
+                <p className="text-2xl font-bold">4.8</p>
+                <p className="text-sm text-gray-600">Average Rating</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Calendar className="h-8 w-8 text-purple-600" />
+              <div>
+                <p className="text-2xl font-bold">98%</p>
+                <p className="text-sm text-gray-600">Success Rate</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search and Filters */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Filter className="h-5 w-5" />
+            Find Your Perfect Counselor
+          </CardTitle>
+          <CardDescription>
+            Use filters to find counselors that match your specific needs and preferences
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search by name, specialization, or keywords..."
+              className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <Separator />
+
+          {/* Filter Controls */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Destination Market</label>
+              <Select value={selectedDestination} onValueChange={setSelectedDestination}>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Destinations" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Destinations</SelectItem>
+                  {destinationMarkets.map((destination) => (
+                    <SelectItem key={destination} value={destination}>
+                      {destination}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Program Specialty</label>
+              <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Specialties" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Specialties</SelectItem>
+                  {specialties.map((specialty) => (
+                    <SelectItem key={specialty} value={specialty}>
+                      {specialty}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Location</label>
+              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Locations" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Locations</SelectItem>
+                  {locations.map((location) => (
+                    <SelectItem key={location} value={location}>
+                      {location}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Gender</label>
+              <Select value={genderFilter} onValueChange={setGenderFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Any Gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Any Gender</SelectItem>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Rating Filter */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Minimum Rating</label>
+            <div className="flex gap-2">
+              {[0, 3, 4, 4.5].map((rating) => (
+                <Button
+                  key={rating}
+                  variant={minRating === rating ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setMinRating(rating)}
+                  className="flex items-center gap-1"
+                >
+                  <Star className="h-3 w-3" />
+                  {rating === 0 ? 'Any' : `${rating}+`}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Results */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">
+            Available Counselors
+          </h2>
+          <Badge variant="secondary" className="text-sm">
+            {filteredCounselors.length} counselor{filteredCounselors.length !== 1 ? 's' : ''} found
+          </Badge>
+        </div>
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="h-16 w-16 bg-gray-200 rounded-full"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 rounded w-32"></div>
+                      <div className="h-3 bg-gray-200 rounded w-24"></div>
                     </div>
                   </div>
-                  
-                  <p className="text-sm text-gray-600 mt-2">
-                    {counsellor.bio}
-                  </p>
+                  <div className="space-y-2">
+                    <div className="h-3 bg-gray-200 rounded"></div>
+                    <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                  </div>
                 </CardContent>
-                
-                <CardFooter className="pt-0">
-                  <Button className="w-full">
-                    Schedule with {counsellor.name.split(' ')[0]}
-                  </Button>
-                </CardFooter>
               </Card>
             ))}
           </div>
-        </div>
+        ) : filteredCounselors.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCounselors.map((counselor: any) => (
+              <CounselorCard
+                key={counselor.id}
+                counselor={counselor}
+                onBookSession={handleBookSession}
+                onViewProfile={handleViewProfile}
+              />
+            ))}
+          </div>
+        ) : (
+          <Card>
+            <CardContent className="p-12 text-center">
+              <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-medium text-gray-900 mb-2">No counselors found</h3>
+              <p className="text-gray-600 mb-6">
+                Try adjusting your filters or search criteria to find more counselors.
+              </p>
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedDestination('');
+                  setSelectedSpecialty('');
+                  setSelectedLocation('');
+                  setGenderFilter('');
+                  setMinRating(0);
+                }}
+              >
+                Clear All Filters
+              </Button>
+            </CardContent>
+          </Card>
+        )}
       </div>
+
+      {/* How It Works Section */}
+      <Card className="bg-gradient-to-r from-blue-50 to-purple-50">
+        <CardHeader>
+          <CardTitle>How Study Counselling Works</CardTitle>
+          <CardDescription>
+            Get personalized guidance for your tertiary education journey
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <Search className="h-6 w-6 text-blue-600" />
+              </div>
+              <h3 className="font-semibold">1. Find Your Counselor</h3>
+              <p className="text-sm text-gray-600">
+                Browse our network of expert counselors and find one that matches your destination and program preferences.
+              </p>
+            </div>
+
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                <Calendar className="h-6 w-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold">2. Book Your Session</h3>
+              <p className="text-sm text-gray-600">
+                Schedule a one-on-one consultation session at a time that works for you, either online or in-person.
+              </p>
+            </div>
+
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
+                <Star className="h-6 w-6 text-purple-600" />
+              </div>
+              <h3 className="font-semibold">3. Get Expert Guidance</h3>
+              <p className="text-sm text-gray-600">
+                Receive personalized advice on program selection, applications, scholarships, and visa processes.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
-};
-
-export default Counselling;
+}
