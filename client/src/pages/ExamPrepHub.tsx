@@ -1,173 +1,176 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { BookOpen, Users, Target, TrendingUp, Search, Filter, Plus } from 'lucide-react';
-import ExamResourceCard from '@/components/ExamResourceCard';
-import StudyGroupCard from '@/components/StudyGroupCard';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BookOpen, Users, Search, Target, TrendingUp, Plus, Clock, Star } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import ExamResourceCard from "@/components/ExamResourceCard";
+import StudyGroupCard from "@/components/StudyGroupCard";
 
 export default function ExamPrepHub() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedExam, setSelectedExam] = useState('');
-  const [selectedSubject, setSelectedSubject] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedExam, setSelectedExam] = useState("all");
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  // Fetch exam resources
-  const { data: examResources = [], isLoading: resourcesLoading } = useQuery({
-    queryKey: ['/api/exam-resources', { examType: selectedExam, subject: selectedSubject }],
+  // Fetch data
+  const { data: examResources = [] } = useQuery({
+    queryKey: ['/api/exam-resources'],
   });
 
-  // Fetch study groups
-  const { data: studyGroups = [], isLoading: groupsLoading } = useQuery({
-    queryKey: ['/api/study-groups', { examType: selectedExam, subject: selectedSubject }],
+  const { data: studyGroups = [] } = useQuery({
+    queryKey: ['/api/study-groups'],
   });
 
-  // Fetch user progress
   const { data: userProgress = [] } = useQuery({
     queryKey: ['/api/exam-resources/progress/my-progress'],
   });
 
+  // Available exam types
   const examTypes = [
-    { value: 'CSEC', label: 'CSEC' },
-    { value: 'CAPE', label: 'CAPE' },
-    { value: 'BGCSE', label: 'BGCSE' },
-    { value: 'SAT', label: 'SAT' },
-    { value: 'IELTS', label: 'IELTS' },
-    { value: 'TOEFL', label: 'TOEFL' }
+    { value: "CSEC", label: "CSEC" },
+    { value: "CAPE", label: "CAPE" },
+    { value: "BGCSE", label: "BGCSE" },
+    { value: "SAT", label: "SAT" }
   ];
 
-  const subjects = [
-    'Mathematics', 'English', 'Biology', 'Chemistry', 'Physics', 
-    'History', 'Geography', 'Literature', 'Economics', 'Computer Science'
-  ];
-
-  const handleResourceAccess = (resourceId: number) => {
-    toast({
-      title: "Resource Access",
-      description: "Opening exam resource...",
-    });
-    // This would navigate to the resource or open in a modal
-  };
-
-  const handleJoinGroup = (groupId: number) => {
-    toast({
-      title: "Study Group",
-      description: "Joining study group...",
-    });
-    // This would call the join API
-  };
-
+  // Filter resources and groups
   const filteredResources = examResources.filter((resource: any) => {
     const matchesSearch = resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          resource.subject.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesExam = !selectedExam || selectedExam === 'all' || resource.examType === selectedExam;
-    const matchesSubject = !selectedSubject || selectedSubject === 'all' || resource.subject === selectedSubject;
-    
-    return matchesSearch && matchesExam && matchesSubject;
+    const matchesExam = selectedExam === 'all' || resource.examType === selectedExam;
+    return matchesSearch && matchesExam;
   });
 
   const filteredGroups = studyGroups.filter((group: any) => {
     const matchesSearch = group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          group.subject.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesExam = !selectedExam || selectedExam === 'all' || group.examType === selectedExam;
-    const matchesSubject = !selectedSubject || selectedSubject === 'all' || group.subject === selectedSubject;
-    
-    return matchesSearch && matchesExam && matchesSubject;
+    const matchesExam = selectedExam === 'all' || group.examType === selectedExam;
+    return matchesSearch && matchesExam;
   });
 
+  // Calculate progress stats
+  const completedResources = userProgress.filter((p: any) => p.progress === 100).length;
+  const overallProgress = userProgress.length > 0 
+    ? Math.round(userProgress.reduce((acc: number, p: any) => acc + p.progress, 0) / userProgress.length)
+    : 0;
+
+  const handleStartStudying = async (resourceId: number) => {
+    try {
+      await apiRequest("POST", `/api/exam-resources/${resourceId}/start-studying`);
+      toast({
+        title: "Started studying!",
+        description: "Your progress will be tracked automatically.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/exam-resources/progress/my-progress'] });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to start studying. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleJoinGroup = async (groupId: number) => {
+    try {
+      await apiRequest("POST", `/api/study-groups/${groupId}/join`);
+      toast({
+        title: "Joined study group!",
+        description: "You can now collaborate with other students.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/study-groups'] });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to join study group. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Exam Prep Hub</h1>
-          <p className="text-gray-600 mt-1">
-            Master CSEC, CAPE, BGCSE, SAT and more with comprehensive resources
-          </p>
-        </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Create Study Group
-        </Button>
+      <div className="text-center">
+        <h1 className="text-3xl font-bold mb-2">Exam Prep Hub</h1>
+        <p className="text-gray-600">Master your exams with study materials, practice tests, and study groups</p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Progress Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-blue-50 border-blue-200">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <BookOpen className="h-8 w-8 text-blue-600" />
+            <div className="flex items-center">
+              <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
               <div>
-                <p className="text-2xl font-bold">{examResources.length}</p>
-                <p className="text-sm text-gray-600">Resources Available</p>
+                <p className="text-sm text-blue-700">Resources Completed</p>
+                <p className="text-2xl font-bold text-blue-900">{completedResources}</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
-        <Card>
+        
+        <Card className="bg-green-50 border-green-200">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Users className="h-8 w-8 text-green-600" />
+            <div className="flex items-center">
+              <Users className="h-8 w-8 text-green-600 mr-3" />
               <div>
-                <p className="text-2xl font-bold">{studyGroups.length}</p>
-                <p className="text-sm text-gray-600">Study Groups</p>
+                <p className="text-sm text-green-700">Study Groups</p>
+                <p className="text-2xl font-bold text-green-900">{studyGroups.length}</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
-        <Card>
+        
+        <Card className="bg-purple-50 border-purple-200">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Target className="h-8 w-8 text-purple-600" />
+            <div className="flex items-center">
+              <Target className="h-8 w-8 text-purple-600 mr-3" />
               <div>
-                <p className="text-2xl font-bold">{userProgress.length}</p>
-                <p className="text-sm text-gray-600">In Progress</p>
+                <p className="text-sm text-purple-700">Progress</p>
+                <p className="text-2xl font-bold text-purple-900">{overallProgress}%</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
-        <Card>
+        
+        <Card className="bg-orange-50 border-orange-200">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <TrendingUp className="h-8 w-8 text-orange-600" />
+            <div className="flex items-center">
+              <Star className="h-8 w-8 text-orange-600 mr-3" />
               <div>
-                <p className="text-2xl font-bold">
-                  {userProgress.reduce((acc: number, p: any) => acc + p.completionPercentage, 0) / (userProgress.length || 1)}%
-                </p>
-                <p className="text-sm text-gray-600">Avg. Progress</p>
+                <p className="text-sm text-orange-700">Resources Available</p>
+                <p className="text-2xl font-bold text-orange-900">{examResources.length}</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Filters */}
+      {/* Search and Filters */}
       <Card>
-        <CardContent className="p-4">
+        <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder="Search resources and study groups..."
-                  className="pl-10"
+                  placeholder="Search study materials, subjects, or topics..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
                 />
               </div>
             </div>
-            
             <Select value={selectedExam} onValueChange={setSelectedExam}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Select Exam Type" />
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="Select Exam" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Exams</SelectItem>
@@ -178,176 +181,128 @@ export default function ExamPrepHub() {
                 ))}
               </SelectContent>
             </Select>
-
-            <Select value={selectedSubject} onValueChange={setSelectedSubject}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Select Subject" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Subjects</SelectItem>
-                {subjects.map((subject) => (
-                  <SelectItem key={subject} value={subject}>
-                    {subject}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
         </CardContent>
       </Card>
 
-      {/* Main Content */}
-      <Tabs defaultValue="resources" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="resources">Exam Resources</TabsTrigger>
-          <TabsTrigger value="study-groups">Study Groups</TabsTrigger>
-          <TabsTrigger value="practice-tests">Practice Tests</TabsTrigger>
-          <TabsTrigger value="my-progress">My Progress</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="resources">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Exam Resources</h2>
-              <Badge variant="secondary">{filteredResources.length} resources</Badge>
-            </div>
-
-            {resourcesLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardContent className="p-4">
-                      <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                      <div className="h-3 bg-gray-200 rounded mb-4"></div>
-                      <div className="h-8 bg-gray-200 rounded"></div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredResources.map((resource: any) => (
-                  <ExamResourceCard
-                    key={resource.id}
-                    resource={resource}
-                    userProgress={userProgress.find((p: any) => p.resourceId === resource.id)}
-                    onAccess={handleResourceAccess}
-                  />
-                ))}
-              </div>
-            )}
-
-            {!resourcesLoading && filteredResources.length === 0 && (
-              <Card>
-                <CardContent className="p-8 text-center">
-                  <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No resources found</h3>
-                  <p className="text-gray-600">Try adjusting your filters or search terms.</p>
-                </CardContent>
-              </Card>
-            )}
+      {/* Study Materials Section */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Study Materials</h2>
+          <Badge variant="secondary">{filteredResources.length} available</Badge>
+        </div>
+        
+        {filteredResources.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredResources.slice(0, 6).map((resource: any) => (
+              <ExamResourceCard
+                key={resource.id}
+                resource={resource}
+                onStartStudying={() => handleStartStudying(resource.id)}
+                userProgress={userProgress.find((p: any) => p.resourceId === resource.id)}
+              />
+            ))}
           </div>
-        </TabsContent>
-
-        <TabsContent value="study-groups">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Study Groups</h2>
-              <Badge variant="secondary">{filteredGroups.length} groups</Badge>
-            </div>
-
-            {groupsLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardContent className="p-4">
-                      <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                      <div className="h-3 bg-gray-200 rounded mb-4"></div>
-                      <div className="h-8 bg-gray-200 rounded"></div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredGroups.map((group: any) => (
-                  <StudyGroupCard
-                    key={group.id}
-                    studyGroup={group}
-                    onJoin={handleJoinGroup}
-                  />
-                ))}
-              </div>
-            )}
-
-            {!groupsLoading && filteredGroups.length === 0 && (
-              <Card>
-                <CardContent className="p-8 text-center">
-                  <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No study groups found</h3>
-                  <p className="text-gray-600">Be the first to create a study group for this exam!</p>
-                  <Button className="mt-4">Create Study Group</Button>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="practice-tests">
+        ) : (
           <Card>
-            <CardHeader>
-              <CardTitle>Practice Tests</CardTitle>
-              <CardDescription>
-                Test your knowledge with our comprehensive practice exams
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8">
-                <Target className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Practice Tests Coming Soon</h3>
-                <p className="text-gray-600">We're preparing interactive practice tests for all exam types.</p>
-              </div>
+            <CardContent className="p-12 text-center">
+              <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">No study materials found</h3>
+              <p className="text-gray-600">Try adjusting your search or exam filter</p>
             </CardContent>
           </Card>
-        </TabsContent>
+        )}
+        
+        {filteredResources.length > 6 && (
+          <div className="text-center mt-6">
+            <Button variant="outline">
+              View All {filteredResources.length} Materials
+            </Button>
+          </div>
+        )}
+      </div>
 
-        <TabsContent value="my-progress">
+      {/* Study Groups Section */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Study Groups</h2>
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Create New Group
+          </Button>
+        </div>
+        
+        {filteredGroups.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredGroups.slice(0, 6).map((group: any) => (
+              <StudyGroupCard
+                key={group.id}
+                studyGroup={group}
+                onJoin={() => handleJoinGroup(group.id)}
+              />
+            ))}
+          </div>
+        ) : (
           <Card>
-            <CardHeader>
-              <CardTitle>My Progress</CardTitle>
-              <CardDescription>
-                Track your learning journey across all exam preparations
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {userProgress.length > 0 ? (
-                <div className="space-y-4">
-                  {userProgress.map((progress: any) => (
-                    <div key={progress.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <h4 className="font-medium">Resource #{progress.resourceId}</h4>
-                        <p className="text-sm text-gray-600">Status: {progress.status}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-medium">{progress.completionPercentage}%</p>
-                        {progress.score && (
-                          <p className="text-sm text-gray-600">Score: {progress.score}%</p>
-                        )}
+            <CardContent className="p-12 text-center">
+              <Users className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">No study groups found</h3>
+              <p className="text-gray-600">Be the first to create a study group for your exam!</p>
+              <Button className="mt-4">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Study Group
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+        
+        {filteredGroups.length > 6 && (
+          <div className="text-center mt-6">
+            <Button variant="outline">
+              View All Study Groups
+            </Button>
+          </div>
+        )}
+      </div>
+
+      {/* Quick Progress Overview */}
+      {userProgress.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <TrendingUp className="h-5 w-5 mr-2" />
+              Your Recent Study Activity
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {userProgress.slice(0, 3).map((progress: any) => {
+                const resource = examResources.find((r: any) => r.id === progress.resourceId);
+                return (
+                  <div key={progress.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div className="flex-1">
+                      <h4 className="font-medium">{resource?.title || 'Unknown Resource'}</h4>
+                      <p className="text-sm text-gray-600">{resource?.subject} • {resource?.examType}</p>
+                      <div className="mt-2">
+                        <Progress value={progress.progress} className="h-2" />
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <TrendingUp className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No progress yet</h3>
-                  <p className="text-gray-600">Start studying to track your progress here.</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                    <div className="ml-4 text-right">
+                      <p className="font-semibold text-lg">{progress.progress}%</p>
+                      <p className="text-sm text-gray-500">
+                        {progress.lastAccessed 
+                          ? new Date(progress.lastAccessed).toLocaleDateString()
+                          : 'Not started'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

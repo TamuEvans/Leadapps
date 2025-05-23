@@ -45,20 +45,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/program-recommendations', programRecommendationsRouter);
   
   // Register counselor routes
-  const counselorsRouter = require('./api/counselors').default;
-  app.use('/api/counselors', counselorsRouter);
+  app.use('/api/counselors', (await import('./api/counselors')).default);
   
   // Register study groups routes
-  const studyGroupsRouter = require('./api/studyGroups').default;
-  app.use('/api/study-groups', studyGroupsRouter);
+  app.use('/api/study-groups', (await import('./api/studyGroups')).default);
   
   // Register exam resources routes
-  const examResourcesRouter = require('./api/examResources').default;
-  app.use('/api/exam-resources', examResourcesRouter);
+  app.use('/api/exam-resources', (await import('./api/examResources')).default);
   
   // Register notifications routes
-  const notificationsRouter = require('./api/notifications').default;
-  app.use('/api/notifications', notificationsRouter);
+  app.use('/api/notifications', (await import('./api/notifications')).default);
   
   // API routes prefix
   const apiPrefix = "/api";
