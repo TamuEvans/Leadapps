@@ -174,7 +174,7 @@ export default function Counselling() {
                   <SelectValue placeholder="All Destinations" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Destinations</SelectItem>
+                  <SelectItem value="all">All Destinations</SelectItem>
                   {destinationMarkets.map((destination) => (
                     <SelectItem key={destination} value={destination}>
                       {destination}
@@ -191,7 +191,7 @@ export default function Counselling() {
                   <SelectValue placeholder="All Specialties" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Specialties</SelectItem>
+                  <SelectItem value="all">All Specialties</SelectItem>
                   {specialties.map((specialty) => (
                     <SelectItem key={specialty} value={specialty}>
                       {specialty}
@@ -208,7 +208,7 @@ export default function Counselling() {
                   <SelectValue placeholder="All Locations" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Locations</SelectItem>
+                  <SelectItem value="all">All Locations</SelectItem>
                   {locations.map((location) => (
                     <SelectItem key={location} value={location}>
                       {location}
@@ -225,7 +225,7 @@ export default function Counselling() {
                   <SelectValue placeholder="Any Gender" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Gender</SelectItem>
+                  <SelectItem value="any">Any Gender</SelectItem>
                   <SelectItem value="male">Male</SelectItem>
                   <SelectItem value="female">Female</SelectItem>
                 </SelectContent>
