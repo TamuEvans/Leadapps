@@ -44,6 +44,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register program recommendations routes
   app.use('/api/program-recommendations', programRecommendationsRouter);
   
+  // Register counselor routes
+  const counselorsRouter = require('./api/counselors').default;
+  app.use('/api/counselors', counselorsRouter);
+  
+  // Register study groups routes
+  const studyGroupsRouter = require('./api/studyGroups').default;
+  app.use('/api/study-groups', studyGroupsRouter);
+  
+  // Register exam resources routes
+  const examResourcesRouter = require('./api/examResources').default;
+  app.use('/api/exam-resources', examResourcesRouter);
+  
+  // Register notifications routes
+  const notificationsRouter = require('./api/notifications').default;
+  app.use('/api/notifications', notificationsRouter);
+  
   // API routes prefix
   const apiPrefix = "/api";
 
