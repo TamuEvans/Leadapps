@@ -62,15 +62,23 @@ export default function ExamPrepHub() {
     // This would call the join API
   };
 
-  const filteredResources = examResources.filter((resource: any) =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    resource.subject.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredResources = examResources.filter((resource: any) => {
+    const matchesSearch = resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         resource.subject.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesExam = !selectedExam || selectedExam === 'all' || resource.examType === selectedExam;
+    const matchesSubject = !selectedSubject || selectedSubject === 'all' || resource.subject === selectedSubject;
+    
+    return matchesSearch && matchesExam && matchesSubject;
+  });
 
-  const filteredGroups = studyGroups.filter((group: any) =>
-    group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    group.subject.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredGroups = studyGroups.filter((group: any) => {
+    const matchesSearch = group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         group.subject.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesExam = !selectedExam || selectedExam === 'all' || group.examType === selectedExam;
+    const matchesSubject = !selectedSubject || selectedSubject === 'all' || group.subject === selectedSubject;
+    
+    return matchesSearch && matchesExam && matchesSubject;
+  });
 
   return (
     <div className="space-y-6">
@@ -162,7 +170,7 @@ export default function ExamPrepHub() {
                 <SelectValue placeholder="Select Exam Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Exams</SelectItem>
+                <SelectItem value="all">All Exams</SelectItem>
                 {examTypes.map((exam) => (
                   <SelectItem key={exam.value} value={exam.value}>
                     {exam.label}
@@ -176,7 +184,7 @@ export default function ExamPrepHub() {
                 <SelectValue placeholder="Select Subject" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Subjects</SelectItem>
+                <SelectItem value="all">All Subjects</SelectItem>
                 {subjects.map((subject) => (
                   <SelectItem key={subject} value={subject}>
                     {subject}
