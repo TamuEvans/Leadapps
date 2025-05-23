@@ -213,4 +213,165 @@ router.get('/facebook/callback',
   }
 );
 
+// Forgot password - request password reset
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+    
+    // Check if user exists
+    const user = await storage.getUserByEmail(email);
+    if (!user) {
+      // Don't reveal if email exists for security
+      return res.json({ message: 'If an account with this email exists, we have sent password reset instructions.' });
+    }
+    
+    // Generate reset token
+    const resetToken = require('crypto').randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    
+    await storage.createPasswordReset(email, resetToken, expiresAt);
+    
+    // In a real app, you would send an email here
+    // For now, we'll just return success
+    console.log(`Password reset token for ${email}: ${resetToken}`);
+    
+    res.json({ 
+      message: 'If an account with this email exists, we have sent password reset instructions.',
+      // For development only - remove in production
+      resetToken: process.env.NODE_ENV === 'development' ? resetToken : undefined
+    });
+  } catch (error) {
+    console.error('Error requesting password reset:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Verify reset token
+router.post('/verify-reset-token', async (req, res) => {
+  try {
+    const { token } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ message: 'Token is required' });
+    }
+    
+    const reset = await storage.getPasswordReset(token);
+    
+    if (!reset || reset.used || new Date() > reset.expiresAt) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+    
+    res.json({ message: 'Token is valid' });
+  } catch (error) {
+    console.error('Error verifying reset token:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Reset password
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { token, password } = req.body;
+    
+    if (!token || !password) {
+      return res.status(400).json({ message: 'Token and password are required' });
+    }
+    
+    if (password.length < 8) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+    }
+    
+    const reset = await storage.getPasswordReset(token);
+    
+    if (!reset || reset.used || new Date() > reset.expiresAt) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
+    
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    // Update user password
+    const user = await storage.getUserByEmail(reset.email);
+    if (user) {
+      await storage.updateUser(user.id, { password: hashedPassword });
+    }
+    
+    // Mark reset token as used
+    await storage.markPasswordResetUsed(token);
+    
+    res.json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Email verification
+router.post('/verify-email', async (req, res) => {
+  try {
+    const { token } = req.body;
+    
+    if (!token) {
+      return res.status(400).json({ message: 'Token is required' });
+    }
+    
+    const verification = await storage.getEmailVerification(token);
+    
+    if (!verification || verification.verified || new Date() > verification.expiresAt) {
+      return res.status(400).json({ message: 'Invalid or expired verification token' });
+    }
+    
+    await storage.markEmailVerified(token);
+    
+    res.json({ message: 'Email verified successfully' });
+  } catch (error) {
+    console.error('Error verifying email:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Change password for authenticated users
+router.post('/change-password', requireAuth, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user?.id;
+    
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: 'Current password and new password are required' });
+    }
+    
+    if (newPassword.length < 8) {
+      return res.status(400).json({ message: 'New password must be at least 8 characters long' });
+    }
+    
+    const user = await storage.getUser(userId);
+    if (!user || !user.password) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Verify current password
+    const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+    if (!isValidPassword) {
+      return res.status(400).json({ message: 'Current password is incorrect' });
+    }
+    
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    
+    // Update password
+    await storage.updateUser(userId, { password: hashedPassword });
+    
+    res.json({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export default router;

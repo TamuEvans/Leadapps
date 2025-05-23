@@ -30,6 +30,9 @@ import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
+import Register from "@/pages/Register";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -59,6 +62,9 @@ function AppContent() {
         {/* Marketing website routes */}
         <Route path="/" component={Marketing} />
         <Route path="/student-login" component={StudentLogin} />
+        <Route path="/register" component={Register} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/reset-password/:token" component={ResetPassword} />
         <Route path="/about-us" component={AboutUs} />
         <Route path="/info-centre" component={InfoCentre} />
         <Route path="/fairs-events" component={FairsEvents} />
