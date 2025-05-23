@@ -355,14 +355,14 @@ export default function Marketing() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
                 {/* Step 1: Personality Hub */}
                 <div className="md:col-start-1 flex items-center justify-end">
-                  <div className="bg-purple-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-purple-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-purple-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <Brain className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-pulse group-hover:bg-purple-600 transition-colors">
+                        <Brain className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-purple-700">Personality Hub</h4>
+                      <h4 className="font-bold text-purple-700 group-hover:text-purple-800">Personality Hub</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Discover your strengths and ideal career path through our personality assessment tools.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Discover your strengths and ideal career path through our personality assessment tools.</p>
                   </div>
                 </div>
                 <div className="hidden md:block"></div>
@@ -370,27 +370,27 @@ export default function Marketing() {
                 {/* Step 2: Exam Prep Hub */}
                 <div className="hidden md:block"></div>
                 <div className="md:col-start-2 flex items-center justify-start">
-                  <div className="bg-blue-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-blue-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-blue-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <BookOpen className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-bounce group-hover:bg-blue-600 transition-colors">
+                        <BookOpen className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-blue-700">Exam Prep Hub</h4>
+                      <h4 className="font-bold text-blue-700 group-hover:text-blue-800">Exam Prep Hub</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Prepare for your exams with our resources and join study groups with like-minded students.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Prepare for your exams with our resources and join study groups with like-minded students.</p>
                   </div>
                 </div>
                 
                 {/* Step 3: University Search */}
                 <div className="md:col-start-1 flex items-center justify-end">
-                  <div className="bg-indigo-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-indigo-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-indigo-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <Globe className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-spin group-hover:bg-indigo-600 transition-colors">
+                        <Globe className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-indigo-700">University Search</h4>
+                      <h4 className="font-bold text-indigo-700 group-hover:text-indigo-800">University Search</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Find your perfect university match based on your personality and academic strengths.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Find your perfect university match based on your personality and academic strengths.</p>
                   </div>
                 </div>
                 <div className="hidden md:block"></div>
@@ -398,27 +398,27 @@ export default function Marketing() {
                 {/* Step 4: Funding Hub */}
                 <div className="hidden md:block"></div>
                 <div className="md:col-start-2 flex items-center justify-start">
-                  <div className="bg-green-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-green-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-green-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <DollarSign className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-pulse group-hover:bg-green-600 transition-colors">
+                        <DollarSign className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-green-700">Funding Hub</h4>
+                      <h4 className="font-bold text-green-700 group-hover:text-green-800">Funding Hub</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Explore scholarship opportunities and financial aid options to support your education journey.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Explore scholarship opportunities and financial aid options to support your education journey.</p>
                   </div>
                 </div>
                 
                 {/* Step 5: Application Process */}
                 <div className="md:col-start-1 flex items-center justify-end">
-                  <div className="bg-amber-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-amber-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-amber-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <FileDigit className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-bounce group-hover:bg-amber-600 transition-colors">
+                        <FileDigit className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-amber-700">Application Process</h4>
+                      <h4 className="font-bold text-amber-700 group-hover:text-amber-800">Application Process</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Submit your applications with guidance every step of the way from our expert counselors.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Submit your applications with guidance every step of the way from our expert counselors.</p>
                   </div>
                 </div>
                 <div className="hidden md:block"></div>
@@ -426,14 +426,14 @@ export default function Marketing() {
                 {/* Step 6: Student Success */}
                 <div className="hidden md:block"></div>
                 <div className="md:col-start-2 flex items-center justify-start">
-                  <div className="bg-rose-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-lg transition-shadow">
+                  <div className="bg-rose-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-rose-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center text-white mr-3">
-                        <GraduationCap className="h-5 w-5" />
+                      <div className="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-pulse group-hover:bg-rose-600 transition-colors">
+                        <GraduationCap className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
-                      <h4 className="font-bold text-rose-700">Student Success</h4>
+                      <h4 className="font-bold text-rose-700 group-hover:text-rose-800">Student Success</h4>
                     </div>
-                    <p className="text-sm text-gray-700">Begin your educational journey with ongoing support from our community and resources.</p>
+                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Begin your educational journey with ongoing support from our community and resources.</p>
                   </div>
                 </div>
               </div>
