@@ -676,7 +676,7 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <img src="/attached_assets/Lead logos (5).png" alt="LeadGen Logo" className="h-12 object-contain" />
+                  <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-12 object-contain" />
                   <p className="text-purple-100 mt-2">AI Marketing Platform</p>
                 </div>
                 <p className="text-purple-50 mb-6 leading-relaxed">
@@ -712,7 +712,7 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <img src="/attached_assets/Lead logos (2).png" alt="LeadApps Logo" className="h-12 object-contain" />
+                  <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-12 object-contain" />
                   <p className="text-blue-100 mt-2">Student Success Platform</p>
                 </div>
                 <p className="text-blue-50 mb-6 leading-relaxed">
@@ -748,7 +748,7 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-green-600 to-green-700 text-white">
               <CardContent className="p-8">
                 <div className="mb-6">
-                  <img src="/attached_assets/Lead logos (3).png" alt="LeadEnroll Logo" className="h-12 object-contain" />
+                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-12 object-contain" />
                   <p className="text-green-100 mt-2">AI Enrollment Platform</p>
                 </div>
                 <p className="text-green-50 mb-6 leading-relaxed">
