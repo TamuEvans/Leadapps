@@ -671,13 +671,13 @@ export default function Marketing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* LeadApps Card */}
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <GraduationCap className="h-6 w-6 text-white" />
+                  <div className="w-16 h-12 bg-white/20 rounded-xl flex items-center justify-center p-2">
+                    <img src="@assets/Lead logos (2).png" alt="LeadApps Logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold">LeadApps</h3>
@@ -717,8 +717,8 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <Target className="h-6 w-6 text-white" />
+                  <div className="w-16 h-12 bg-white/20 rounded-xl flex items-center justify-center p-2">
+                    <img src="@assets/Lead logos (5).png" alt="LeadGen Logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold">LeadGen</h3>
@@ -758,8 +758,8 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-green-600 to-green-700 text-white">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <GraduationCap className="h-6 w-6 text-white" />
+                  <div className="w-16 h-12 bg-white/20 rounded-xl flex items-center justify-center p-2">
+                    <img src="@assets/Lead logos (3).png" alt="LeadEnroll Logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold">LeadEnroll</h3>
@@ -795,46 +795,7 @@ export default function Marketing() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
             </Card>
 
-            {/* LeadAnalytics Card */}
-            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-orange-600 to-orange-700 text-white">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <BarChart3 className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold">LeadAnalytics</h3>
-                    <p className="text-orange-100">Data Intelligence Platform</p>
-                  </div>
-                </div>
-                <p className="text-orange-50 mb-6 leading-relaxed">
-                  Advanced analytics and reporting platform providing deep insights into student journeys and institutional performance
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-orange-50">Performance Analytics</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-orange-50">Predictive Insights</span>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-orange-50">Custom Reporting</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-orange-50">ROI Optimization</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            </Card>
+
           </div>
 
           {/* Integration Flow */}
