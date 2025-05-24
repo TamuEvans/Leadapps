@@ -56,6 +56,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register notifications routes
   app.use('/api/notifications', (await import('./api/notifications')).default);
   
+  // Register saved materials routes
+  app.use('/api/saved-materials', (await import('./api/savedMaterials')).default);
+  
   // API routes prefix
   const apiPrefix = "/api";
 

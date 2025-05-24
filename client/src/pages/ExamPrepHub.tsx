@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BookOpen, Users, Search, Target, TrendingUp, Plus, Clock, Star, CheckCircle, Play, FileText, Calendar, Upload, Download, Heart, Bookmark, Folder } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 import ExamResourceCard from "@/components/ExamResourceCard";
 import StudyGroupCard from "@/components/StudyGroupCard";
 import CounselorCard from "@/components/CounselorCard";
@@ -36,6 +36,35 @@ export default function ExamPrepHub() {
 
   const { data: counselors = [] } = useQuery({
     queryKey: ['/api/counselors'],
+  });
+
+  const { data: savedMaterials = [] } = useQuery({
+    queryKey: ['/api/saved-materials'],
+  });
+
+  // Mutations for saved materials
+  const toggleLikeMutation = useMutation({
+    mutationFn: (materialId: number) => 
+      apiRequest('PATCH', `/api/saved-materials/${materialId}/like`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/saved-materials'] });
+      toast({
+        title: "Success",
+        description: "Material updated successfully",
+      });
+    },
+  });
+
+  const toggleBookmarkMutation = useMutation({
+    mutationFn: (materialId: number) => 
+      apiRequest('PATCH', `/api/saved-materials/${materialId}/bookmark`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/saved-materials'] });
+      toast({
+        title: "Success", 
+        description: "Bookmark updated successfully",
+      });
+    },
   });
 
   // Available exam types
@@ -1078,86 +1107,64 @@ export default function ExamPrepHub() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Saved Study Notes */}
-                <Card className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <FileText className="h-5 w-5 text-blue-600" />
+                {/* Render actual saved materials from database */}
+                {Array.isArray(savedMaterials) && savedMaterials.map((material: any) => (
+                  <Card key={material.id} className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            material.category === 'notes' ? 'bg-blue-100' : 
+                            material.category === 'practice_test' ? 'bg-green-100' : 
+                            'bg-purple-100'
+                          }`}>
+                            {material.category === 'notes' ? (
+                              <FileText className={`h-5 w-5 ${
+                                material.category === 'notes' ? 'text-blue-600' : 
+                                material.category === 'practice_test' ? 'text-green-600' : 
+                                'text-purple-600'
+                              }`} />
+                            ) : material.category === 'practice_test' ? (
+                              <Target className="h-5 w-5 text-green-600" />
+                            ) : (
+                              <Users className="h-5 w-5 text-purple-600" />
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-sm">{material.title}</h4>
+                            <p className="text-xs text-gray-500">
+                              Saved {new Date(material.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-sm">CSEC Math Formula Sheet</h4>
-                          <p className="text-xs text-gray-500">Saved 2 days ago</p>
-                        </div>
+                        <button
+                          onClick={() => toggleLikeMutation.mutate(material.id)}
+                          disabled={toggleLikeMutation.isPending}
+                        >
+                          <Heart className={`h-4 w-4 ${
+                            material.isLiked ? 'text-red-500 fill-current' : 'text-gray-400'
+                          }`} />
+                        </button>
                       </div>
-                      <Heart className="h-4 w-4 text-red-500 fill-current" />
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <Download className="h-3 w-3 mr-1" />
-                        Download
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Bookmark className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Saved Practice Test */}
-                <Card className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                          <Target className="h-5 w-5 text-green-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-sm">Biology Practice Questions</h4>
-                          <p className="text-xs text-gray-500">Saved 1 week ago</p>
-                        </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" className="flex-1">
+                          <Download className="h-3 w-3 mr-1" />
+                          Download
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => toggleBookmarkMutation.mutate(material.id)}
+                          disabled={toggleBookmarkMutation.isPending}
+                        >
+                          <Bookmark className={`h-3 w-3 ${
+                            material.isBookmarked ? 'fill-current' : ''
+                          }`} />
+                        </Button>
                       </div>
-                      <Heart className="h-4 w-4 text-red-500 fill-current" />
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <Download className="h-3 w-3 mr-1" />
-                        Download
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Bookmark className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Saved Tutor Notes */}
-                <Card className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                          <Users className="h-5 w-5 text-purple-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-sm">Chemistry Session Notes</h4>
-                          <p className="text-xs text-gray-500">Saved 3 days ago</p>
-                        </div>
-                      </div>
-                      <Heart className="h-4 w-4 text-red-500 fill-current" />
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1">
-                        <Download className="h-3 w-3 mr-1" />
-                        Download
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Bookmark className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                ))}
 
                 {/* Upload New File Card */}
                 <Card className="border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors">
