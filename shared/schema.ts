@@ -425,6 +425,24 @@ export const userProgress = pgTable("user_progress", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Saved Materials table for file storage
+export const savedMaterials = pgTable("saved_materials", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  fileType: text("file_type").notNull(), // pdf, docx, image, video, etc.
+  fileUrl: text("file_url"),
+  fileSize: integer("file_size"), // in bytes
+  category: text("category"), // notes, practice_test, tutor_session, etc.
+  examType: text("exam_type"),
+  subject: text("subject"),
+  isLiked: boolean("is_liked").default(false),
+  isBookmarked: boolean("is_bookmarked").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Define insert schemas for new tables
 export const insertPasswordResetSchema = createInsertSchema(passwordResets).omit({ id: true, createdAt: true });
 export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({ id: true, createdAt: true });
@@ -435,6 +453,7 @@ export const insertStudyGroupSchema = createInsertSchema(studyGroups).omit({ id:
 export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers).omit({ id: true, joinedAt: true });
 export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
+export const insertSavedMaterialSchema = createInsertSchema(savedMaterials).omit({ id: true, createdAt: true, updatedAt: true });
 
 // Define types for new tables
 export type InsertPasswordReset = z.infer<typeof insertPasswordResetSchema>;
@@ -446,6 +465,7 @@ export type InsertStudyGroup = z.infer<typeof insertStudyGroupSchema>;
 export type InsertStudyGroupMember = z.infer<typeof insertStudyGroupMemberSchema>;
 export type InsertExamResource = z.infer<typeof insertExamResourceSchema>;
 export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
+export type InsertSavedMaterial = z.infer<typeof insertSavedMaterialSchema>;
 
 export type PasswordReset = typeof passwordResets.$inferSelect;
 export type EmailVerification = typeof emailVerifications.$inferSelect;
@@ -456,3 +476,4 @@ export type StudyGroup = typeof studyGroups.$inferSelect;
 export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
 export type ExamResource = typeof examResources.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
+export type SavedMaterial = typeof savedMaterials.$inferSelect;
