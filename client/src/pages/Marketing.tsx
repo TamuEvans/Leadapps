@@ -712,12 +712,13 @@ export default function Marketing() {
 
             {/* LeadApps Card */}
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-12 object-contain" />
-                  <p className="text-blue-100 mt-2">Student Success Platform</p>
+              <CardContent className="p-0">
+                <div className="bg-white p-6 mb-6">
+                  <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-16 w-48 object-contain mx-auto" />
                 </div>
-                <p className="text-blue-50 mb-6 leading-relaxed">
+                <div className="p-8 pt-0">
+                  <p className="text-blue-100 mb-4 text-center font-medium">Student Success Platform</p>
+                  <p className="text-blue-50 mb-6 leading-relaxed">
                   University search and application platform with AI support and guidance to help students find and apply to the right institutions
                 </p>
                 <div className="grid grid-cols-2 gap-4">
@@ -742,18 +743,20 @@ export default function Marketing() {
                     </div>
                   </div>
                 </div>
+                </div>
               </CardContent>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
             </Card>
 
             {/* LeadEnroll Card */}
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-green-600 to-green-700 text-white">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-12 object-contain" />
-                  <p className="text-green-100 mt-2">AI Enrollment Platform</p>
+              <CardContent className="p-0">
+                <div className="bg-white p-6 mb-6">
+                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-16 w-48 object-contain mx-auto" />
                 </div>
-                <p className="text-green-50 mb-6 leading-relaxed">
+                <div className="p-8 pt-0">
+                  <p className="text-green-100 mb-4 text-center font-medium">AI Enrollment Platform</p>
+                  <p className="text-green-50 mb-6 leading-relaxed">
                   AI-powered enrollment platform for universities to automate admissions, optimize student placement, and enhance institutional growth
                 </p>
                 <div className="grid grid-cols-2 gap-4">
@@ -777,6 +780,7 @@ export default function Marketing() {
                       <span className="text-sm text-green-50">Institutional Growth</span>
                     </div>
                   </div>
+                </div>
                 </div>
               </CardContent>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
