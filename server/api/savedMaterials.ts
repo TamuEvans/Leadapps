@@ -1,13 +1,16 @@
-import { Request, Response } from 'express';
+import express from 'express';
 import { db } from '../db';
 import { savedMaterials, type InsertSavedMaterial } from '@shared/schema';
 import { eq, and, desc } from 'drizzle-orm';
 import { z } from 'zod';
+import { requireAuth } from '../auth/authMiddleware';
+
+const router = express.Router();
 
 // Get user's saved materials
-export async function getUserSavedMaterials(req: Request, res: Response) {
+router.get('/', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
@@ -23,12 +26,12 @@ export async function getUserSavedMaterials(req: Request, res: Response) {
     console.error('Error fetching saved materials:', error);
     res.status(500).json({ message: 'Failed to fetch saved materials' });
   }
-}
+});
 
 // Save a new material
-export async function saveMaterial(req: Request, res: Response) {
+router.post('/', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
@@ -59,12 +62,12 @@ export async function saveMaterial(req: Request, res: Response) {
     console.error('Error saving material:', error);
     res.status(500).json({ message: 'Failed to save material' });
   }
-}
+});
 
 // Toggle like status
-export async function toggleLikeMaterial(req: Request, res: Response) {
+router.patch('/:id/like', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
@@ -99,12 +102,12 @@ export async function toggleLikeMaterial(req: Request, res: Response) {
     console.error('Error toggling like:', error);
     res.status(500).json({ message: 'Failed to update material' });
   }
-}
+});
 
 // Toggle bookmark status
-export async function toggleBookmarkMaterial(req: Request, res: Response) {
+router.patch('/:id/bookmark', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
@@ -139,12 +142,12 @@ export async function toggleBookmarkMaterial(req: Request, res: Response) {
     console.error('Error toggling bookmark:', error);
     res.status(500).json({ message: 'Failed to update material' });
   }
-}
+});
 
 // Delete a saved material
-export async function deleteSavedMaterial(req: Request, res: Response) {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     if (!userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
@@ -171,4 +174,6 @@ export async function deleteSavedMaterial(req: Request, res: Response) {
     console.error('Error deleting material:', error);
     res.status(500).json({ message: 'Failed to delete material' });
   }
-}
+});
+
+export default router;
