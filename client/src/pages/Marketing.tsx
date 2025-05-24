@@ -7,7 +7,11 @@ import { Input } from '@/components/ui/input';
 import { 
   Search, 
   Briefcase, 
-  Globe, 
+  Globe,
+  Target,
+  BarChart3,
+  ArrowRight,
+  ArrowDown, 
   School, 
   Award, 
   BookOpen, 
@@ -16,7 +20,6 @@ import {
   Code, 
   LineChart, 
   GraduationCap, 
-  BarChart3, 
   Stethoscope, 
   Scale, 
   BrainCircuit, 
@@ -652,6 +655,234 @@ export default function Marketing() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Complete Lead Ecosystem Section */}
+      <section className="w-full py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Complete Lead Ecosystem Integration</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              LeadApps seamlessly connects with the entire Lead platform ecosystem to provide comprehensive student lifecycle management and optimization.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* LeadApps Card */}
+            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                    <GraduationCap className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold">LeadApps</h3>
+                    <p className="text-blue-100">Student Success Platform</p>
+                  </div>
+                </div>
+                <p className="text-blue-50 mb-6 leading-relaxed">
+                  University search and application platform with AI support and guidance to help students find and apply to the right institutions
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-blue-50">AI-Powered University Matching</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-blue-50">Application Management</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-blue-50">Student Guidance & Support</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-blue-50">Document Processing</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+            </Card>
+
+            {/* LeadGen Card */}
+            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                    <Target className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold">LeadGen</h3>
+                    <p className="text-purple-100">AI Marketing Platform</p>
+                  </div>
+                </div>
+                <p className="text-purple-50 mb-6 leading-relaxed">
+                  AI lead generation and marketing platform that nurtures prospects through intelligent automation and personalized campaigns
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-purple-50">AI Lead Generation</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-purple-50">Automated Marketing Campaigns</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-purple-50">Prospect Nurturing</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-purple-50">Conversion Optimization</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+            </Card>
+
+            {/* LeadEnroll Card */}
+            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-green-600 to-green-700 text-white">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                    <GraduationCap className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold">LeadEnroll</h3>
+                    <p className="text-green-100">AI Enrollment Platform</p>
+                  </div>
+                </div>
+                <p className="text-green-50 mb-6 leading-relaxed">
+                  AI-powered enrollment platform for universities to automate admissions, optimize student placement, and enhance institutional growth
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-green-50">AI Admissions Automation</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-green-50">Smart Student Placement</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-green-50">Enrollment Optimization</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-green-50">Institutional Growth</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+            </Card>
+
+            {/* LeadAnalytics Card */}
+            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-orange-600 to-orange-700 text-white">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                    <BarChart3 className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold">LeadAnalytics</h3>
+                    <p className="text-orange-100">Data Intelligence Platform</p>
+                  </div>
+                </div>
+                <p className="text-orange-50 mb-6 leading-relaxed">
+                  Advanced analytics and reporting platform providing deep insights into student journeys and institutional performance
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-orange-50">Performance Analytics</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-orange-50">Predictive Insights</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-orange-50">Custom Reporting</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <span className="text-sm text-orange-50">ROI Optimization</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+            </Card>
+          </div>
+
+          {/* Integration Flow */}
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl font-bold mb-8">Seamless Integration Flow</h3>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-4xl mx-auto">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center">
+                  <Target className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-left">
+                  <h4 className="font-bold">Lead Generation</h4>
+                  <p className="text-gray-600 text-sm">Attract prospects</p>
+                </div>
+              </div>
+              
+              <div className="hidden md:block">
+                <ArrowRight className="h-6 w-6 text-gray-400" />
+              </div>
+              <div className="md:hidden">
+                <ArrowDown className="h-6 w-6 text-gray-400" />
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center">
+                  <GraduationCap className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-left">
+                  <h4 className="font-bold">Student Journey</h4>
+                  <p className="text-gray-600 text-sm">Guide applications</p>
+                </div>
+              </div>
+              
+              <div className="hidden md:block">
+                <ArrowRight className="h-6 w-6 text-gray-400" />
+              </div>
+              <div className="md:hidden">
+                <ArrowDown className="h-6 w-6 text-gray-400" />
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center">
+                  <Target className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-left">
+                  <h4 className="font-bold">Enrollment Success</h4>
+                  <p className="text-gray-600 text-sm">Track outcomes</p>
+                </div>
               </div>
             </div>
           </div>
