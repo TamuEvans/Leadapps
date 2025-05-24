@@ -674,33 +674,35 @@ export default function Marketing() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* LeadGen Card */}
             <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white">
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-12 object-contain" />
-                  <p className="text-purple-100 mt-2">AI Marketing Platform</p>
+              <CardContent className="p-0">
+                <div className="bg-white p-6 mb-6">
+                  <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-16 w-48 object-contain mx-auto" />
                 </div>
-                <p className="text-purple-50 mb-6 leading-relaxed">
+                <div className="p-8 pt-0">
+                  <p className="text-purple-100 mb-4 text-center font-medium">AI Marketing Platform</p>
+                  <p className="text-purple-50 mb-6 leading-relaxed">
                   AI lead generation and marketing platform that nurtures prospects through intelligent automation and personalized campaigns
                 </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-purple-50">AI Lead Generation</span>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                        <span className="text-sm text-purple-50">AI Lead Generation</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                        <span className="text-sm text-purple-50">Automated Marketing Campaigns</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-purple-50">Automated Marketing Campaigns</span>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-purple-50">Prospect Nurturing</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-purple-50">Conversion Optimization</span>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                        <span className="text-sm text-purple-50">Prospect Nurturing</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                        <span className="text-sm text-purple-50">Conversion Optimization</span>
+                      </div>
                     </div>
                   </div>
                 </div>
