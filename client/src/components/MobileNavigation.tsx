@@ -28,16 +28,34 @@ export default function MobileNavigation({ unreadNotifications = 0, unreadMessag
       description: "Personal information and settings"
     },
     {
+      href: "/app/university-search",
+      label: "University Search",
+      icon: <GraduationCap className="h-5 w-5" />,
+      description: "Find universities and programs"
+    },
+    {
       href: "/app/applications",
       label: "Applications",
       icon: <GraduationCap className="h-5 w-5" />,
       description: "University applications"
     },
     {
+      href: "/app/personality-hub",
+      label: "Personality Hub",
+      icon: <Users className="h-5 w-5" />,
+      description: "Career guidance and assessments"
+    },
+    {
       href: "/app/exam-prep-hub",
       label: "Exam Prep Hub",
       icon: <BookOpen className="h-5 w-5" />,
       description: "Study materials and resources"
+    },
+    {
+      href: "/app/funding-hub",
+      label: "Funding Hub",
+      icon: <BookOpen className="h-5 w-5" />,
+      description: "Scholarships and financial aid"
     },
     {
       href: "/app/counselling",

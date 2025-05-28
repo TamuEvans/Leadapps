@@ -7,6 +7,7 @@ import { UserMenu } from "@/components/UserMenu";
 import AIGuideButton from "@/components/AIGuideButton";
 import ContextualTips from "@/components/ContextualTips";
 import UserProgress from "@/components/UserProgress";
+import MobileNavigation from "@/components/MobileNavigation";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -98,6 +99,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
+                {/* Mobile Navigation - only show on mobile */}
+                <div className="md:hidden mr-3">
+                  <MobileNavigation />
+                </div>
+                
                 {isSubPage && (
                   <Link 
                     to="/app" 
