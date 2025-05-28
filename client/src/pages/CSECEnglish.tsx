@@ -12,6 +12,34 @@ export default function CSECEnglish() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
 
+  // Study Focus Areas
+  const studyFocusAreas = {
+    englishA: [
+      'Reading Comprehension',
+      'Grammar & Language Usage',
+      'Essay Writing',
+      'Summary Writing',
+      'Report Writing',
+      'Formal Letter Writing',
+      'Speech Writing',
+      'Caribbean Standard English',
+      'Language Registers & Styles',
+      'Critical Analysis Skills'
+    ],
+    englishB: [
+      'Literary Analysis',
+      'Poetry Analysis',
+      'Prose Analysis',
+      'Drama Analysis',
+      'Literary Devices',
+      'Caribbean Literature',
+      'Character Analysis',
+      'Theme Development',
+      'Writer\'s Craft',
+      'Comparative Literature'
+    ]
+  };
+
   // Study materials data
   const studyNotes = [
     {
@@ -25,21 +53,39 @@ export default function CSECEnglish() {
     },
     {
       id: 'ea-gram-1',
-      title: 'Parts of Speech and Grammar',
+      title: 'Caribbean Standard English Grammar',
       subject: 'English A',
       topic: 'Grammar',
       difficulty: 'Basic',
       duration: '45 mins',
-      description: 'Complete guide to Caribbean Standard English grammar rules'
+      description: 'Complete guide to Caribbean Standard English grammar rules and usage'
     },
     {
       id: 'ea-writ-1',
-      title: 'Essay Writing Structure',
+      title: 'Essay Writing Mastery',
       subject: 'English A',
       topic: 'Writing',
       difficulty: 'Intermediate',
       duration: '60 mins',
       description: 'Learn to write compelling essays with proper structure and flow'
+    },
+    {
+      id: 'ea-summ-1',
+      title: 'Summary Writing Techniques',
+      subject: 'English A',
+      topic: 'Summary',
+      difficulty: 'Intermediate',
+      duration: '40 mins',
+      description: 'Master the art of condensing information effectively'
+    },
+    {
+      id: 'ea-lett-1',
+      title: 'Formal Letter Writing',
+      subject: 'English A',
+      topic: 'Letter Writing',
+      difficulty: 'Intermediate',
+      duration: '35 mins',
+      description: 'Professional communication skills for various formal situations'
     },
     {
       id: 'eb-lit-1',
@@ -62,11 +108,14 @@ export default function CSECEnglish() {
   ];
 
   const flashcards = [
-    { id: 'fc-1', subject: 'English A', topic: 'Grammar', question: 'What is a noun?', difficulty: 'Basic' },
-    { id: 'fc-2', subject: 'English A', topic: 'Comprehension', question: 'Explicit vs Implicit information?', difficulty: 'Intermediate' },
-    { id: 'fc-3', subject: 'English B', topic: 'Literary Devices', question: 'What is a metaphor?', difficulty: 'Basic' },
-    { id: 'fc-4', subject: 'English B', topic: 'Poetry', question: 'What is enjambment?', difficulty: 'Advanced' },
-    { id: 'fc-5', subject: 'English A', topic: 'Writing', question: 'Three parts of an essay?', difficulty: 'Basic' }
+    { id: 'fc-gram-1', subject: 'English A', topic: 'Grammar', question: '🏷️ What is a noun?', difficulty: 'Basic', color: 'bg-blue-500' },
+    { id: 'fc-comp-1', subject: 'English A', topic: 'Comprehension', question: '🔍 Explicit vs Implicit Information?', difficulty: 'Basic', color: 'bg-green-500' },
+    { id: 'fc-lit-1', subject: 'English B', topic: 'Literary Devices', question: '🌟 What is a metaphor?', difficulty: 'Basic', color: 'bg-purple-500' },
+    { id: 'fc-poet-1', subject: 'English B', topic: 'Poetry', question: '🌊 What is enjambment?', difficulty: 'Advanced', color: 'bg-orange-500' },
+    { id: 'fc-writ-1', subject: 'English A', topic: 'Writing', question: '📝 Three parts of an essay?', difficulty: 'Basic', color: 'bg-pink-500' },
+    { id: 'fc-summ-1', subject: 'English A', topic: 'Summary', question: '📊 How many words in a CSEC summary?', difficulty: 'Basic', color: 'bg-indigo-500' },
+    { id: 'fc-char-1', subject: 'English B', topic: 'Character Analysis', question: '🎭 Direct vs Indirect characterization?', difficulty: 'Intermediate', color: 'bg-teal-500' },
+    { id: 'fc-carib-1', subject: 'English B', topic: 'Caribbean Literature', question: '🏝️ Name a major theme in Caribbean literature', difficulty: 'Intermediate', color: 'bg-yellow-500' }
   ];
 
   const practiceTests = [
@@ -278,6 +327,45 @@ export default function CSECEnglish() {
               </Card>
             </div>
 
+            {/* Study Focus Areas */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BookOpen className="h-5 w-5 mr-2 text-blue-600" />
+                    English A Focus Areas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-2">
+                    {studyFocusAreas.englishA.map((area, index) => (
+                      <div key={index} className="bg-blue-50 text-blue-800 px-3 py-2 rounded-lg text-sm text-center font-medium">
+                        {area}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <FileText className="h-5 w-5 mr-2 text-purple-600" />
+                    English B Focus Areas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-2">
+                    {studyFocusAreas.englishB.map((area, index) => (
+                      <div key={index} className="bg-purple-50 text-purple-800 px-3 py-2 rounded-lg text-sm text-center font-medium">
+                        {area}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             {/* Exam Structure Overview */}
             <Card>
               <CardHeader>
@@ -373,28 +461,65 @@ export default function CSECEnglish() {
           <TabsContent value="flashcards" className="space-y-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {flashcards.map((card) => (
-                <Card key={card.id} className="hover:shadow-md transition-shadow">
+                <Card key={card.id} className={`hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 ${card.color} border-opacity-20`}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
-                      <Badge className={getSubjectColor(card.subject)}>
+                      <Badge className={`${getSubjectColor(card.subject)} font-semibold`}>
                         {card.subject}
                       </Badge>
-                      <Badge className={getDifficultyColor(card.difficulty)}>
+                      <Badge className={`${getDifficultyColor(card.difficulty)} font-semibold`}>
                         {card.difficulty}
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <h4 className="font-medium mb-2">{card.question}</h4>
-                    <p className="text-sm text-gray-600 mb-3">Topic: {card.topic}</p>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <div className={`${card.color} bg-opacity-10 rounded-lg p-4 mb-3`}>
+                      <h4 className="font-bold text-lg mb-2 text-center">{card.question}</h4>
+                    </div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-600">Topic: {card.topic}</span>
+                      <div className="flex items-center text-xs text-gray-500">
+                        <Star className="h-3 w-3 mr-1 text-yellow-500" />
+                        Study Card
+                      </div>
+                    </div>
+                    <Button 
+                      className={`w-full ${card.color} hover:opacity-90 text-white font-semibold shadow-md`}
+                      size="sm"
+                    >
                       <Brain className="h-4 w-4 mr-2" />
-                      Practice
+                      Practice Now
                     </Button>
                   </CardContent>
                 </Card>
               ))}
             </div>
+            
+            {/* Flashcard Study Tips */}
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-dashed border-blue-200">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="bg-blue-500 p-2 rounded-full">
+                    <Brain className="h-5 w-5 text-white" />
+                  </div>
+                  <h3 className="font-bold text-lg">Flashcard Study Tips</h3>
+                </div>
+                <div className="grid md:grid-cols-3 gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>Review cards daily for best retention</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>Focus on difficult cards more often</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>Say answers out loud when practicing</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Practice Tests Tab */}
