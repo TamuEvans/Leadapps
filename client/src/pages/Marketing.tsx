@@ -218,21 +218,23 @@ export default function Marketing() {
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
-          <div className="flex flex-col items-center text-center justify-center h-full max-w-4xl mx-auto">
-            <div className="space-y-6 mb-6">
-              <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
-                study made simple.
-              </h1>
-              <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl mx-auto">
-                Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/app">
-                  <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md">
-                    Get Started
-                  </Button>
-                </Link>
-                <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+          <div className="flex flex-col justify-center h-full">
+            <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl">
+              <div className="space-y-6 mb-6">
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
+                  study made simple.
+                </h1>
+                <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
+                  Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to="/app">
+                    <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md">
+                      Get Started
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+                </div>
               </div>
             </div>
           </div>
