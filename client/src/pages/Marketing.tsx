@@ -688,13 +688,13 @@ export default function Marketing() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">AI Lead Generation</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Automated Marketing Campaigns</span>
@@ -702,13 +702,13 @@ export default function Marketing() {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Prospect Nurturing</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Conversion Optimization</span>
@@ -731,13 +731,13 @@ export default function Marketing() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-blue-600" />
                       </div>
                       <span className="text-sm text-gray-600">AI-Powered University Matching</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-blue-600" />
                       </div>
                       <span className="text-sm text-gray-600">Application Management</span>
@@ -745,13 +745,13 @@ export default function Marketing() {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-blue-600" />
                       </div>
                       <span className="text-sm text-gray-600">Student Guidance & Support</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-blue-600" />
                       </div>
                       <span className="text-sm text-gray-600">Document Processing</span>
@@ -776,13 +776,13 @@ export default function Marketing() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">AI Admissions Automation</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Smart Student Placement</span>
@@ -790,13 +790,13 @@ export default function Marketing() {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Enrollment Optimization</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-3 h-3 text-green-600" />
                       </div>
                       <span className="text-sm text-gray-600">Institutional Growth</span>
