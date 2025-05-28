@@ -673,117 +673,108 @@ export default function Marketing() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* LeadGen Card */}
-            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-700 text-white">
-              <CardContent className="p-0">
-                <div className="bg-white p-6 mb-6">
-                  <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-16 w-48 object-contain mx-auto" />
+            <Card className="relative overflow-hidden border-4 border-purple-500 shadow-lg bg-white">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-16 w-48 object-contain mx-auto mb-4" />
+                  <p className="text-purple-600 font-medium">AI Marketing Platform</p>
                 </div>
-                <div className="p-8 pt-0">
-                  <p className="text-purple-100 mb-4 text-center font-medium">AI Marketing Platform</p>
-                  <p className="text-purple-50 mb-6 leading-relaxed">
+                <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   AI lead generation and marketing platform that nurtures prospects through intelligent automation and personalized campaigns
                 </p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                        <span className="text-sm text-purple-50">AI Lead Generation</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                        <span className="text-sm text-purple-50">Automated Marketing Campaigns</span>
-                      </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">AI Lead Generation</span>
                     </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                        <span className="text-sm text-purple-50">Prospect Nurturing</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                        <span className="text-sm text-purple-50">Conversion Optimization</span>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Automated Marketing Campaigns</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Prospect Nurturing</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Conversion Optimization</span>
                     </div>
                   </div>
                 </div>
               </CardContent>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
             </Card>
 
             {/* LeadApps Card */}
-            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white">
-              <CardContent className="p-0">
-                <div className="bg-white p-6 mb-6">
-                  <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-16 w-48 object-contain mx-auto" />
+            <Card className="relative overflow-hidden border-4 border-blue-500 shadow-lg bg-white">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-16 w-48 object-contain mx-auto mb-4" />
+                  <p className="text-blue-600 font-medium">Student Success Platform</p>
                 </div>
-                <div className="p-8 pt-0">
-                  <p className="text-blue-100 mb-4 text-center font-medium">Student Success Platform</p>
-                  <p className="text-blue-50 mb-6 leading-relaxed">
+                <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   University search and application platform with AI support and guidance to help students find and apply to the right institutions
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-blue-50">AI-Powered University Matching</span>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">AI-Powered University Matching</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-blue-50">Application Management</span>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Application Management</span>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-blue-50">Student Guidance & Support</span>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Student Guidance & Support</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-blue-50">Document Processing</span>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Document Processing</span>
                     </div>
                   </div>
                 </div>
-                </div>
               </CardContent>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
             </Card>
 
             {/* LeadEnroll Card */}
-            <Card className="relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-green-600 to-green-700 text-white">
-              <CardContent className="p-0">
-                <div className="bg-white p-6 mb-6">
-                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-16 w-48 object-contain mx-auto" />
+            <Card className="relative overflow-hidden border-4 border-green-500 shadow-lg bg-white">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-16 w-48 object-contain mx-auto mb-4" />
+                  <p className="text-green-600 font-medium">AI Enrollment Platform</p>
                 </div>
-                <div className="p-8 pt-0">
-                  <p className="text-green-100 mb-4 text-center font-medium">AI Enrollment Platform</p>
-                  <p className="text-green-50 mb-6 leading-relaxed">
+                <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   AI-powered enrollment platform for universities to automate admissions, optimize student placement, and enhance institutional growth
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-green-50">AI Admissions Automation</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">AI Admissions Automation</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-green-50">Smart Student Placement</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Smart Student Placement</span>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-green-50">Enrollment Optimization</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Enrollment Optimization</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <span className="text-sm text-green-50">Institutional Growth</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Institutional Growth</span>
                     </div>
                   </div>
                 </div>
-                </div>
               </CardContent>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
             </Card>
 
 
