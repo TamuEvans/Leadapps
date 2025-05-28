@@ -25,6 +25,7 @@ import AppHome from "@/pages/AppHome";
 import FundingHub from "@/pages/FundingHub";
 import ExamPrepHub from "@/pages/ExamPrepHub";
 import CSECEnglish from "@/pages/CSECEnglish";
+import CSECSubjects from "@/pages/CSECSubjects";
 import StudyGroups from "@/pages/StudyGroups";
 import UniversitySearchPage from "@/pages/UniversitySearchPage";
 import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
@@ -177,6 +178,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute testMode={true}>
               <ExamPrepHub />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+
+        <Route path="/app/csec-subjects">
+          <MainLayout>
+            <ProtectedRoute testMode={true}>
+              <CSECSubjects />
             </ProtectedRoute>
           </MainLayout>
         </Route>

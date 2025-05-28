@@ -114,37 +114,7 @@ export default function ExamPrepHub() {
               </CardContent>
             </Card>
 
-            {/* Featured CSEC English Section */}
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white mb-6">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <BookOpen className="h-8 w-8" />
-                      <div>
-                        <h2 className="text-2xl font-bold">CSEC English A & B</h2>
-                        <p className="text-purple-100">Complete study materials based on official CXC syllabus</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-purple-100 mb-4">
-                      <span>✓ Study Notes</span>
-                      <span>✓ Flashcards</span>
-                      <span>✓ Practice Tests</span>
-                      <span>✓ Question Banks</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <Button 
-                      size="lg" 
-                      className="bg-white text-purple-600 hover:bg-purple-50"
-                      onClick={() => window.location.href = '/app/csec-english'}
-                    >
-                      Start Studying
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+
 
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -160,7 +130,11 @@ export default function ExamPrepHub() {
                   <p className="text-sm text-gray-600 mb-4">Choose from a variety of examination types including CSEC, CAPE, BGCSE, and SAT</p>
                   
                   <div className="grid grid-cols-2 gap-3 mb-4">
-                    <Button variant="outline" className="h-16 flex flex-col">
+                    <Button 
+                      variant="outline" 
+                      className="h-16 flex flex-col"
+                      onClick={() => window.location.href = '/app/csec-subjects'}
+                    >
                       <span className="font-semibold">CSEC</span>
                     </Button>
                     <Button variant="outline" className="h-16 flex flex-col">
@@ -267,6 +241,26 @@ export default function ExamPrepHub() {
                 <Card className="hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-purple-100 rounded-lg">
+                        <BookOpen className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <Badge variant="secondary">CSEC</Badge>
+                    </div>
+                    <h3 className="font-semibold mb-2">CSEC English A & B</h3>
+                    <p className="text-sm text-gray-600 mb-4">Complete syllabus-based study materials</p>
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => window.location.href = '/app/csec-english'}
+                    >
+                      Study English
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-3">
                       <div className="p-2 bg-blue-100 rounded-lg">
                         <BookOpen className="h-5 w-5 text-blue-600" />
                       </div>
@@ -345,8 +339,8 @@ export default function ExamPrepHub() {
                     <SelectValue placeholder="Choose a subject" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="english">CSEC English A & B</SelectItem>
                     <SelectItem value="mathematics">Mathematics</SelectItem>
-                    <SelectItem value="english">English</SelectItem>
                     <SelectItem value="biology">Biology</SelectItem>
                     <SelectItem value="physics">Physics</SelectItem>
                     <SelectItem value="chemistry">Chemistry</SelectItem>
