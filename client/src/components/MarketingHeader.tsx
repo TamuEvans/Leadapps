@@ -135,116 +135,161 @@ const MarketingHeader = () => {
       
 
       
-      {/* Mobile Navigation Menu */}
-      <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 z-[60] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className={`fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-[70] ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div className="flex flex-col h-full">
-            <div className="p-4 border-b">
-              <div className="flex items-center justify-between">
-                <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                  <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
-                </Link>
+      {/* Mobile Navigation Menu - Completely rebuilt for clarity */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="fixed inset-y-0 left-0 w-80 bg-white shadow-xl">
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 bg-blue-600 text-white">
+                <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
                 <button 
-                  className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none"
-                  onClick={toggleMobileMenu}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 hover:bg-blue-700 rounded-md"
                 >
                   <X size={20} />
                 </button>
               </div>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto">
-              <div className="p-4">
-                <nav className="space-y-1">
-                  {/* Study section */}
-                  <div className="mb-4">
+              
+              {/* Navigation Content */}
+              <div className="flex-1 overflow-y-auto p-4">
+                <div className="space-y-3">
+                  
+                  {/* Study Destinations */}
+                  <div className="border rounded-lg">
                     <button 
-                      className="w-full flex items-center justify-between p-4 text-left bg-gray-50 rounded-lg font-semibold text-gray-800"
                       onClick={() => toggleMobileSubMenu('study')}
+                      className="w-full flex items-center justify-between p-4 bg-blue-50 font-medium text-gray-800"
                     >
                       <span>Study Destinations</span>
-                      <ChevronDown className={`h-5 w-5 transition-transform ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {mobileSubMenu === 'study' && (
-                      <div className="mt-2 bg-white rounded-lg border p-2">
-                        <Link to="/study/caribbean" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                      <div className="border-t bg-white">
+                        <Link 
+                          to="/study/caribbean" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           Caribbean
                         </Link>
-                        <Link to="/study/us" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/study/us" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           United States
                         </Link>
-                        <Link to="/study/uk" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/study/uk" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           United Kingdom
                         </Link>
-                        <Link to="/study/canada" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/study/canada" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50"
+                        >
                           Canada
                         </Link>
                       </div>
                     )}
                   </div>
                   
-                  {/* Support Services section */}
-                  <div className="mb-4">
+                  {/* Support Services */}
+                  <div className="border rounded-lg">
                     <button 
-                      className="w-full flex items-center justify-between p-4 text-left bg-gray-50 rounded-lg font-semibold text-gray-800"
                       onClick={() => toggleMobileSubMenu('services')}
+                      className="w-full flex items-center justify-between p-4 bg-green-50 font-medium text-gray-800"
                     >
                       <span>Support Services</span>
-                      <ChevronDown className={`h-5 w-5 transition-transform ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {mobileSubMenu === 'services' && (
-                      <div className="mt-2 bg-white rounded-lg border p-2">
-                        <Link to="/services/counselling" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                      <div className="border-t bg-white">
+                        <Link 
+                          to="/services/counselling" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           Study Counselling
                         </Link>
-                        <Link to="/services/personality-hub" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/services/personality-hub" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           Personality Hub
                         </Link>
-                        <Link to="/services/exam-prep-hub" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/services/exam-prep-hub" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                        >
                           Exam Prep Hub
                         </Link>
-                        <Link to="/services/funding-hub" className="block p-3 text-gray-700 hover:bg-blue-50 rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                        <Link 
+                          to="/services/funding-hub" 
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block p-3 text-gray-700 hover:bg-gray-50"
+                        >
                           Funding Hub
                         </Link>
                       </div>
                     )}
                   </div>
                   
-                  {/* Direct links */}
-                  <div className="space-y-2">
-                    <Link to="/about-us" className="block p-4 bg-gray-50 rounded-lg font-semibold text-gray-800 hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>
-                      About Us
-                    </Link>
-                    <Link to="/info-centre" className="block p-4 bg-gray-50 rounded-lg font-semibold text-gray-800 hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>
-                      Articles
-                    </Link>
-                    <Link to="/fairs-events" className="block p-4 bg-gray-50 rounded-lg font-semibold text-gray-800 hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>
-                      Events
-                    </Link>
-                  </div>
-                </nav>
+                  {/* Direct Links */}
+                  <Link 
+                    to="/about-us" 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block p-4 bg-yellow-50 border rounded-lg font-medium text-gray-800 hover:bg-yellow-100"
+                  >
+                    About Us
+                  </Link>
+                  
+                  <Link 
+                    to="/info-centre" 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block p-4 bg-purple-50 border rounded-lg font-medium text-gray-800 hover:bg-purple-100"
+                  >
+                    Articles
+                  </Link>
+                  
+                  <Link 
+                    to="/fairs-events" 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block p-4 bg-orange-50 border rounded-lg font-medium text-gray-800 hover:bg-orange-100"
+                  >
+                    Events
+                  </Link>
+                  
+                </div>
               </div>
-            </div>
-            
-            <div className="p-4 border-t">
-              <div className="grid grid-cols-2 gap-2">
-                <Link to="/student-login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full text-blue-600 border-blue-600 hover:bg-blue-50">
-                    Student Login
-                  </Button>
-                </Link>
-                <Link to="/app" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-                    Get Started
-                  </Button>
-                </Link>
+              
+              {/* Footer Buttons */}
+              <div className="p-4 border-t bg-gray-50">
+                <div className="space-y-2">
+                  <Link to="/student-login" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full text-blue-600 border-blue-600 hover:bg-blue-50">
+                      Student Login
+                    </Button>
+                  </Link>
+                  <Link to="/app" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+                      Get Started
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
