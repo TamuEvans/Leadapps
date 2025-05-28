@@ -746,7 +746,7 @@ export default function Marketing() {
             <Card className="relative overflow-hidden border-4 border-green-500 shadow-lg bg-white">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-18 w-48 object-contain mx-auto mb-4" />
+                  <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-20 w-52 object-contain mx-auto mb-4" />
                   <p className="text-green-600 font-medium">AI Enrollment Platform</p>
                 </div>
                 <p className="text-gray-700 mb-6 leading-relaxed text-center">
