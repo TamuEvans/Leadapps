@@ -688,21 +688,29 @@ export default function Marketing() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-purple-500" />
+                      <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">AI Lead Generation</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-purple-500" />
+                      <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">Automated Marketing Campaigns</span>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-purple-500" />
+                      <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">Prospect Nurturing</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-purple-500" />
+                      <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">Conversion Optimization</span>
                     </div>
                   </div>
@@ -723,11 +731,15 @@ export default function Marketing() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-blue-500" />
+                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">AI-Powered University Matching</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-blue-500" />
+                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
                       <span className="text-sm text-gray-600">Application Management</span>
                     </div>
                   </div>
