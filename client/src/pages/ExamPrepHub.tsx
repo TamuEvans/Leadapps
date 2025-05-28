@@ -114,6 +114,38 @@ export default function ExamPrepHub() {
               </CardContent>
             </Card>
 
+            {/* Featured CSEC English Section */}
+            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white mb-6">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <BookOpen className="h-8 w-8" />
+                      <div>
+                        <h2 className="text-2xl font-bold">CSEC English A & B</h2>
+                        <p className="text-purple-100">Complete study materials based on official CXC syllabus</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-purple-100 mb-4">
+                      <span>✓ Study Notes</span>
+                      <span>✓ Flashcards</span>
+                      <span>✓ Practice Tests</span>
+                      <span>✓ Question Banks</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <Button 
+                      size="lg" 
+                      className="bg-white text-purple-600 hover:bg-purple-50"
+                      onClick={() => window.location.href = '/app/csec-english'}
+                    >
+                      Start Studying
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Select Your Exam */}
