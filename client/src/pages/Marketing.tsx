@@ -28,6 +28,7 @@ import {
   Microscope,
   Leaf,
   Building2,
+  Check,
   Camera,
   LayoutPanelTop,
   Plane,
