@@ -210,7 +210,7 @@ const MarketingHeader = () => {
             
             {/* Footer Buttons */}
             <div className="p-4 border-t bg-gray-50">
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <Link to="/student-login" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full text-blue-600 border-blue-600 hover:bg-blue-50">
                     Student Login
