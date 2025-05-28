@@ -135,13 +135,13 @@ const MarketingHeader = () => {
       
 
       
-      {/* Mobile Navigation Menu - Completely rebuilt for clarity */}
+      {/* Mobile Navigation Menu - Fixed visibility issues */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="fixed inset-y-0 left-0 w-full max-w-sm bg-white shadow-xl">
+        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-[9999]">
+          <div className="fixed top-0 left-0 w-full max-w-sm h-full bg-white shadow-xl overflow-hidden">
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 bg-blue-600 text-white">
+              <div className="flex items-center justify-between p-4 bg-blue-600 text-white flex-shrink-0">
                 <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
@@ -152,17 +152,17 @@ const MarketingHeader = () => {
               </div>
               
               {/* Navigation Content */}
-              <div className="flex-1 overflow-y-auto p-4">
-                <div className="space-y-3">
+              <div className="flex-1 overflow-y-scroll bg-white">
+                <div className="p-6 space-y-4 min-h-full">
                   
                   {/* Study Destinations */}
                   <div className="border rounded-lg">
                     <button 
                       onClick={() => toggleMobileSubMenu('study')}
-                      className="w-full flex items-center justify-between p-4 bg-blue-50 font-medium text-gray-800"
+                      className="w-full flex items-center justify-between p-6 bg-blue-50 font-semibold text-lg text-gray-800"
                     >
                       <span>Study Destinations</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-5 w-5 transition-transform ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {mobileSubMenu === 'study' && (
@@ -170,28 +170,28 @@ const MarketingHeader = () => {
                         <Link 
                           to="/study/caribbean" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           Caribbean
                         </Link>
                         <Link 
                           to="/study/us" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           United States
                         </Link>
                         <Link 
                           to="/study/uk" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           United Kingdom
                         </Link>
                         <Link 
                           to="/study/canada" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50"
                         >
                           Canada
                         </Link>
@@ -203,10 +203,10 @@ const MarketingHeader = () => {
                   <div className="border rounded-lg">
                     <button 
                       onClick={() => toggleMobileSubMenu('services')}
-                      className="w-full flex items-center justify-between p-4 bg-green-50 font-medium text-gray-800"
+                      className="w-full flex items-center justify-between p-6 bg-green-50 font-semibold text-lg text-gray-800"
                     >
                       <span>Support Services</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-5 w-5 transition-transform ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {mobileSubMenu === 'services' && (
@@ -214,28 +214,28 @@ const MarketingHeader = () => {
                         <Link 
                           to="/services/counselling" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           Study Counselling
                         </Link>
                         <Link 
                           to="/services/personality-hub" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           Personality Hub
                         </Link>
                         <Link 
                           to="/services/exam-prep-hub" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50 border-b"
                         >
                           Exam Prep Hub
                         </Link>
                         <Link 
                           to="/services/funding-hub" 
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50"
+                          className="block p-5 text-base text-gray-700 hover:bg-gray-50"
                         >
                           Funding Hub
                         </Link>
@@ -247,7 +247,7 @@ const MarketingHeader = () => {
                   <Link 
                     to="/about-us" 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block p-4 bg-yellow-50 border rounded-lg font-medium text-gray-800 hover:bg-yellow-100"
+                    className="block p-6 bg-yellow-50 border rounded-lg font-semibold text-lg text-gray-800 hover:bg-yellow-100"
                   >
                     About Us
                   </Link>
@@ -255,7 +255,7 @@ const MarketingHeader = () => {
                   <Link 
                     to="/info-centre" 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block p-4 bg-purple-50 border rounded-lg font-medium text-gray-800 hover:bg-purple-100"
+                    className="block p-6 bg-purple-50 border rounded-lg font-semibold text-lg text-gray-800 hover:bg-purple-100"
                   >
                     Articles
                   </Link>
@@ -263,7 +263,7 @@ const MarketingHeader = () => {
                   <Link 
                     to="/fairs-events" 
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block p-4 bg-orange-50 border rounded-lg font-medium text-gray-800 hover:bg-orange-100"
+                    className="block p-6 bg-orange-50 border rounded-lg font-semibold text-lg text-gray-800 hover:bg-orange-100"
                   >
                     Events
                   </Link>
