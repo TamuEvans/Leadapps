@@ -135,159 +135,97 @@ const MarketingHeader = () => {
       
 
       
-      {/* Mobile Navigation Menu - Fixed visibility issues */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-[9999]">
-          <div className="fixed top-0 left-0 w-80 h-full bg-white shadow-xl overflow-hidden">
-            <div className="flex flex-col h-full">
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 bg-blue-600 text-white flex-shrink-0">
-                <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
+      {/* Mobile Navigation Menu - Simplified Structure */}
+      <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`fixed inset-y-0 left-0 w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="flex flex-col h-full">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 bg-blue-600 text-white">
+              <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 hover:bg-blue-700 rounded-md"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            {/* Navigation Items */}
+            <div className="flex-1 overflow-y-auto bg-white p-4">
+              
+              {/* Study Destinations */}
+              <div className="mb-3">
                 <button 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 hover:bg-blue-700 rounded-md"
+                  onClick={() => toggleMobileSubMenu('study')}
+                  className="w-full flex items-center justify-between p-3 bg-blue-50 rounded-lg font-medium text-gray-800"
                 >
-                  <X size={20} />
+                  Study Destinations
+                  <ChevronDown className={`h-4 w-4 ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
                 </button>
+                
+                {mobileSubMenu === 'study' && (
+                  <div className="mt-2 ml-4 space-y-1">
+                    <Link to="/study/caribbean" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Caribbean</Link>
+                    <Link to="/study/us" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">United States</Link>
+                    <Link to="/study/uk" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">United Kingdom</Link>
+                    <Link to="/study/canada" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Canada</Link>
+                  </div>
+                )}
               </div>
               
-              {/* Navigation Content */}
-              <div className="flex-1 overflow-y-auto bg-white">
-                <div className="p-4">
-                  
-                  {/* Study Destinations */}
-                  <div className="mb-4 border rounded-lg shadow-sm">
-                    <button 
-                      onClick={() => toggleMobileSubMenu('study')}
-                      className="w-full flex items-center justify-between p-4 bg-blue-50 font-medium text-gray-800 hover:bg-blue-100"
-                    >
-                      <span>Study Destinations</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'study' ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    {mobileSubMenu === 'study' && (
-                      <div className="border-t bg-white">
-                        <Link 
-                          to="/study/caribbean" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          Caribbean
-                        </Link>
-                        <Link 
-                          to="/study/us" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          United States
-                        </Link>
-                        <Link 
-                          to="/study/uk" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          United Kingdom
-                        </Link>
-                        <Link 
-                          to="/study/canada" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50"
-                        >
-                          Canada
-                        </Link>
-                      </div>
-                    )}
+              {/* Support Services */}
+              <div className="mb-3">
+                <button 
+                  onClick={() => toggleMobileSubMenu('services')}
+                  className="w-full flex items-center justify-between p-3 bg-green-50 rounded-lg font-medium text-gray-800"
+                >
+                  Support Services
+                  <ChevronDown className={`h-4 w-4 ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {mobileSubMenu === 'services' && (
+                  <div className="mt-2 ml-4 space-y-1">
+                    <Link to="/services/counselling" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Study Counselling</Link>
+                    <Link to="/services/personality-hub" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Personality Hub</Link>
+                    <Link to="/services/exam-prep-hub" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Exam Prep Hub</Link>
+                    <Link to="/services/funding-hub" onClick={() => setMobileMenuOpen(false)} className="block p-2 text-gray-600 hover:bg-gray-100 rounded">Funding Hub</Link>
                   </div>
-                  
-                  {/* Support Services */}
-                  <div className="mb-4 border rounded-lg shadow-sm">
-                    <button 
-                      onClick={() => toggleMobileSubMenu('services')}
-                      className="w-full flex items-center justify-between p-4 bg-green-50 font-medium text-gray-800 hover:bg-green-100"
-                    >
-                      <span>Support Services</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu === 'services' ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    {mobileSubMenu === 'services' && (
-                      <div className="border-t bg-white">
-                        <Link 
-                          to="/services/counselling" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          Study Counselling
-                        </Link>
-                        <Link 
-                          to="/services/personality-hub" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          Personality Hub
-                        </Link>
-                        <Link 
-                          to="/services/exam-prep-hub" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50 border-b"
-                        >
-                          Exam Prep Hub
-                        </Link>
-                        <Link 
-                          to="/services/funding-hub" 
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block p-3 text-gray-700 hover:bg-gray-50"
-                        >
-                          Funding Hub
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Direct Links */}
-                  <Link 
-                    to="/about-us" 
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block mb-3 p-4 bg-yellow-50 border rounded-lg font-medium text-gray-800 hover:bg-yellow-100"
-                  >
-                    About Us
-                  </Link>
-                  
-                  <Link 
-                    to="/info-centre" 
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block mb-3 p-4 bg-purple-50 border rounded-lg font-medium text-gray-800 hover:bg-purple-100"
-                  >
-                    Articles
-                  </Link>
-                  
-                  <Link 
-                    to="/fairs-events" 
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block mb-3 p-4 bg-orange-50 border rounded-lg font-medium text-gray-800 hover:bg-orange-100"
-                  >
-                    Events
-                  </Link>
-                  
-                  {/* Footer Buttons */}
-                  <div className="mt-6 pt-4 border-t space-y-3">
-                    <Link to="/student-login" onClick={() => setMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full text-blue-600 border-blue-600 hover:bg-blue-50">
-                        Student Login
-                      </Button>
-                    </Link>
-                    <Link to="/app" onClick={() => setMobileMenuOpen(false)}>
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-                        Get Started
-                      </Button>
-                    </Link>
-                  </div>
-                  
-                </div>
+                )}
+              </div>
+              
+              {/* Direct Links */}
+              <Link to="/about-us" onClick={() => setMobileMenuOpen(false)} className="block p-3 mb-2 bg-yellow-50 rounded-lg font-medium text-gray-800 hover:bg-yellow-100">
+                About Us
+              </Link>
+              
+              <Link to="/info-centre" onClick={() => setMobileMenuOpen(false)} className="block p-3 mb-2 bg-purple-50 rounded-lg font-medium text-gray-800 hover:bg-purple-100">
+                Articles
+              </Link>
+              
+              <Link to="/fairs-events" onClick={() => setMobileMenuOpen(false)} className="block p-3 mb-4 bg-orange-50 rounded-lg font-medium text-gray-800 hover:bg-orange-100">
+                Events
+              </Link>
+              
+            </div>
+            
+            {/* Footer Buttons */}
+            <div className="p-4 border-t bg-gray-50">
+              <div className="space-y-2">
+                <Link to="/student-login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full text-blue-600 border-blue-600 hover:bg-blue-50">
+                    Student Login
+                  </Button>
+                </Link>
+                <Link to="/app" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
