@@ -499,10 +499,13 @@ export default function ExamPrepHub() {
                       <SelectValue placeholder="Subject" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="english">CSEC English A & B</SelectItem>
                       <SelectItem value="mathematics">Mathematics</SelectItem>
-                      <SelectItem value="english">English</SelectItem>
                       <SelectItem value="biology">Biology</SelectItem>
                       <SelectItem value="physics">Physics</SelectItem>
+                      <SelectItem value="chemistry">Chemistry</SelectItem>
+                      <SelectItem value="spanish">Spanish</SelectItem>
+                      <SelectItem value="french">French</SelectItem>
                     </SelectContent>
                   </Select>
                   
