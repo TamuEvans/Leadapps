@@ -103,14 +103,11 @@ export default function MobileNavigation({ unreadNotifications = 0, unreadMessag
           <div className="flex flex-col h-full">
             {/* Header */}
             <div className="p-6 border-b">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center">
                 <div>
                   <h2 className="text-lg font-semibold">Navigation</h2>
                   <p className="text-sm text-gray-600">Quick access to all features</p>
                 </div>
-                <Button variant="ghost" size="sm" onClick={closeSheet}>
-                  <X className="h-5 w-5" />
-                </Button>
               </div>
             </div>
 
