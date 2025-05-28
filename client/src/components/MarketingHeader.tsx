@@ -137,7 +137,7 @@ const MarketingHeader = () => {
       
       {/* Mobile Navigation Menu - Simplified Structure */}
       <div className={`md:hidden fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className={`fixed inset-y-0 left-0 w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className={`fixed top-0 left-0 w-80 h-screen bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex flex-col h-full">
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-blue-600 text-white">
