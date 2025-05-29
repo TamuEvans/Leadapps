@@ -12,6 +12,10 @@ import { authMiddleware, requireAuth } from './auth/authMiddleware';
 import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
 import programRecommendationsRouter from './api/programRecommendations';
+import multer from "multer";
+import * as XLSX from "xlsx";
+import csv from "csv-parser";
+import fs from "fs";
 
 // Extended Application type with additional fields from related tables
 interface ExtendedApplication extends Application {
@@ -58,6 +62,231 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register saved materials routes
   app.use('/api/saved-materials', (await import('./api/savedMaterials')).default);
+  
+  // Configure multer for file uploads
+  const upload = multer({
+    dest: 'uploads/',
+    fileFilter: (req, file, cb) => {
+      const allowedTypes = [
+        'text/csv',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ];
+      if (allowedTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only CSV and Excel files are allowed'));
+      }
+    },
+    limits: {
+      fileSize: 10 * 1024 * 1024 // 10MB limit
+    }
+  });
+
+  // Helper function to parse spreadsheet data
+  const parseSpreadsheet = async (filePath: string, fileType: string): Promise<any[]> => {
+    if (fileType === 'csv') {
+      const results: any[] = [];
+      return new Promise((resolve, reject) => {
+        fs.createReadStream(filePath)
+          .pipe(csv())
+          .on('data', (data) => results.push(data))
+          .on('end', () => {
+            fs.unlinkSync(filePath); // Clean up temp file
+            resolve(results);
+          })
+          .on('error', reject);
+      });
+    } else {
+      // Excel file
+      const workbook = XLSX.readFile(filePath);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = XLSX.utils.sheet_to_json(worksheet);
+      fs.unlinkSync(filePath); // Clean up temp file
+      return data;
+    }
+  };
+
+  // Upload Universities spreadsheet
+  app.post('/api/upload/universities', requireAuth, upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
+      const data = await parseSpreadsheet(req.file.path, fileType);
+
+      // Validate and process university data
+      const processedData = [];
+      const errors = [];
+
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        try {
+          const university = {
+            name: row.name || row.Name,
+            country: row.country || row.Country,
+            city: row.city || row.City,
+            logoUrl: row.logo_url || row.LogoUrl || row['Logo URL'],
+            websiteUrl: row.website_url || row.WebsiteUrl || row['Website URL'],
+            description: row.description || row.Description,
+            acceptsDirectApplications: row.accepts_direct_applications === 'TRUE' || row.accepts_direct_applications === true,
+            applicationFee: row.application_fee ? parseInt(row.application_fee) : null,
+            apiEndpoint: row.api_endpoint || row.ApiEndpoint || row['API Endpoint'],
+            apiKey: row.api_key || row.ApiKey || row['API Key']
+          };
+
+          if (!university.name || !university.country || !university.city) {
+            errors.push(`Row ${i + 1}: Missing required fields (name, country, city)`);
+            continue;
+          }
+
+          processedData.push(university);
+        } catch (error) {
+          errors.push(`Row ${i + 1}: ${error.message}`);
+        }
+      }
+
+      if (errors.length > 0) {
+        return res.status(400).json({ errors, processedCount: processedData.length });
+      }
+
+      // Insert universities into database
+      const insertedUniversities = await storage.bulkCreateUniversities(processedData);
+      
+      res.json({
+        message: `Successfully imported ${insertedUniversities.length} universities`,
+        imported: insertedUniversities.length,
+        total: data.length
+      });
+    } catch (error) {
+      console.error('University upload error:', error);
+      res.status(500).json({ error: 'Failed to process university data' });
+    }
+  });
+
+  // Upload Programs spreadsheet
+  app.post('/api/upload/programs', requireAuth, upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
+      const data = await parseSpreadsheet(req.file.path, fileType);
+
+      const processedData = [];
+      const errors = [];
+
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        try {
+          const program = {
+            universityName: row.university_name || row.UniversityName || row['University Name'],
+            name: row.name || row.Name || row.program_name || row.ProgramName || row['Program Name'],
+            degree: row.degree || row.Degree,
+            level: row.level || row.Level,
+            discipline: row.discipline || row.Discipline,
+            duration: row.duration || row.Duration,
+            tuitionFee: row.tuition_fee ? parseInt(row.tuition_fee) : null,
+            currency: row.currency || row.Currency || 'USD',
+            applicationDeadline: row.application_deadline || row.ApplicationDeadline || row['Application Deadline'],
+            description: row.description || row.Description,
+            requirements: row.requirements || row.Requirements
+          };
+
+          if (!program.universityName || !program.name || !program.degree || !program.level || !program.discipline) {
+            errors.push(`Row ${i + 1}: Missing required fields (university_name, name, degree, level, discipline)`);
+            continue;
+          }
+
+          processedData.push(program);
+        } catch (error) {
+          errors.push(`Row ${i + 1}: ${error.message}`);
+        }
+      }
+
+      if (errors.length > 0) {
+        return res.status(400).json({ errors, processedCount: processedData.length });
+      }
+
+      const insertedPrograms = await storage.bulkCreatePrograms(processedData);
+      
+      res.json({
+        message: `Successfully imported ${insertedPrograms.length} programs`,
+        imported: insertedPrograms.length,
+        total: data.length
+      });
+    } catch (error) {
+      console.error('Program upload error:', error);
+      res.status(500).json({ error: 'Failed to process program data' });
+    }
+  });
+
+  // Upload Applications spreadsheet
+  app.post('/api/upload/applications', requireAuth, upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
+      const data = await parseSpreadsheet(req.file.path, fileType);
+
+      const processedData = [];
+      const errors = [];
+
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        try {
+          const application = {
+            studentEmail: row.student_email || row.StudentEmail || row['Student Email'],
+            universityName: row.university_name || row.UniversityName || row['University Name'],
+            programName: row.program_name || row.ProgramName || row['Program Name'],
+            status: row.status || row.Status || 'draft',
+            submissionDate: row.submission_date || row.SubmissionDate || row['Submission Date'],
+            intakePeriod: row.intake_period || row.IntakePeriod || row['Intake Period'],
+            intakeYear: row.intake_year ? parseInt(row.intake_year) : null,
+            externalReferenceId: row.external_reference_id || row.ExternalReferenceId || row['External Reference ID'],
+            feedback: row.feedback || row.Feedback,
+            internalNotes: row.internal_notes || row.InternalNotes || row['Internal Notes']
+          };
+
+          if (!application.studentEmail || !application.universityName || !application.programName) {
+            errors.push(`Row ${i + 1}: Missing required fields (student_email, university_name, program_name)`);
+            continue;
+          }
+
+          const validStatuses = ['draft', 'submitted', 'pending_review', 'under_review', 'additional_documents_required', 'accepted', 'rejected', 'waitlisted', 'deferred', 'withdrawn'];
+          if (!validStatuses.includes(application.status)) {
+            errors.push(`Row ${i + 1}: Invalid status '${application.status}'. Must be one of: ${validStatuses.join(', ')}`);
+            continue;
+          }
+
+          processedData.push(application);
+        } catch (error) {
+          errors.push(`Row ${i + 1}: ${error.message}`);
+        }
+      }
+
+      if (errors.length > 0) {
+        return res.status(400).json({ errors, processedCount: processedData.length });
+      }
+
+      const insertedApplications = await storage.bulkCreateApplications(processedData);
+      
+      res.json({
+        message: `Successfully imported ${insertedApplications.length} applications`,
+        imported: insertedApplications.length,
+        total: data.length
+      });
+    } catch (error) {
+      console.error('Application upload error:', error);
+      res.status(500).json({ error: 'Failed to process application data' });
+    }
+  });
   
   // API routes prefix
   const apiPrefix = "/api";

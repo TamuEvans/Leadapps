@@ -98,6 +98,7 @@ export interface IStorage {
   createUniversity(university: Partial<InsertUniversity>): Promise<University>;
   updateUniversity(id: number, university: Partial<InsertUniversity>): Promise<University>;
   deleteUniversity(id: number): Promise<void>;
+  bulkCreateUniversities(universities: any[]): Promise<University[]>;
   
   // Program operations
   getProgram(id: number): Promise<Program | undefined>;
@@ -114,6 +115,7 @@ export interface IStorage {
   createProgram(program: Partial<InsertProgram>): Promise<Program>;
   updateProgram(id: number, program: Partial<InsertProgram>): Promise<Program>;
   deleteProgram(id: number): Promise<void>;
+  bulkCreatePrograms(programs: any[]): Promise<Program[]>;
   
   // Application operations
   getApplication(id: number): Promise<Application | undefined>;
