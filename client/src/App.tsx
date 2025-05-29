@@ -32,6 +32,7 @@ import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
+import DataUpload from "@/pages/DataUpload";
 import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
@@ -220,6 +221,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute testMode={true}>
               <ProgramProfilePage />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        <Route path="/app/data-upload">
+          <MainLayout>
+            <ProtectedRoute testMode={true}>
+              <DataUpload />
             </ProtectedRoute>
           </MainLayout>
         </Route>
