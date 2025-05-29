@@ -123,6 +123,7 @@ export interface IStorage {
   createApplication(application: Partial<InsertApplication>): Promise<Application>;
   updateApplication(id: number, application: Partial<InsertApplication>): Promise<Application>;
   deleteApplication(id: number): Promise<void>;
+  bulkCreateApplications(applications: any[]): Promise<Application[]>;
   
   // Application Document operations
   getApplicationDocument(id: number): Promise<ApplicationDocument | undefined>;
@@ -858,6 +859,14 @@ export class DatabaseStorage implements IStorage {
     await db.delete(universities).where(eq(universities.id, id));
   }
 
+  async bulkCreateUniversities(universitiesData: any[]): Promise<University[]> {
+    const insertedUniversities = await db
+      .insert(universities)
+      .values(universitiesData)
+      .returning();
+    return insertedUniversities;
+  }
+
   // Program operations
   async getProgram(id: number): Promise<Program | undefined> {
     const [program] = await db.select().from(programs).where(eq(programs.id, id));
@@ -961,6 +970,37 @@ export class DatabaseStorage implements IStorage {
     await db.delete(programs).where(eq(programs.id, id));
   }
 
+  async bulkCreatePrograms(programsData: any[]): Promise<Program[]> {
+    // First, we need to resolve university names to IDs
+    const processedPrograms = [];
+    for (const programData of programsData) {
+      const { universityName, ...program } = programData;
+      
+      // Find university by name
+      const [university] = await db
+        .select()
+        .from(universities)
+        .where(eq(universities.name, universityName));
+      
+      if (university) {
+        processedPrograms.push({
+          ...program,
+          universityId: university.id
+        });
+      }
+    }
+
+    if (processedPrograms.length === 0) {
+      return [];
+    }
+
+    const insertedPrograms = await db
+      .insert(programs)
+      .values(processedPrograms)
+      .returning();
+    return insertedPrograms;
+  }
+
   // Application operations
   async getApplication(id: number): Promise<Application | undefined> {
     const [application] = await db.select().from(applications).where(eq(applications.id, id));
@@ -990,6 +1030,58 @@ export class DatabaseStorage implements IStorage {
 
   async deleteApplication(id: number): Promise<void> {
     await db.delete(applications).where(eq(applications.id, id));
+  }
+
+  async bulkCreateApplications(applicationsData: any[]): Promise<Application[]> {
+    const processedApplications = [];
+    
+    for (const appData of applicationsData) {
+      const { studentEmail, universityName, programName, ...application } = appData;
+      
+      // Find student by email
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, studentEmail));
+      
+      if (!user) continue;
+      
+      // Find student profile
+      const [profile] = await db
+        .select()
+        .from(studentProfiles)
+        .where(eq(studentProfiles.userId, user.id));
+      
+      if (!profile) continue;
+      
+      // Find program by university and program name
+      const [program] = await db
+        .select({ programId: programs.id })
+        .from(programs)
+        .innerJoin(universities, eq(programs.universityId, universities.id))
+        .where(and(
+          eq(universities.name, universityName),
+          eq(programs.name, programName)
+        ));
+      
+      if (program) {
+        processedApplications.push({
+          ...application,
+          studentId: profile.id,
+          programId: program.programId
+        });
+      }
+    }
+
+    if (processedApplications.length === 0) {
+      return [];
+    }
+
+    const insertedApplications = await db
+      .insert(applications)
+      .values(processedApplications)
+      .returning();
+    return insertedApplications;
   }
 
   // Application Document operations

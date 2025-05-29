@@ -145,7 +145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           processedData.push(university);
         } catch (error) {
-          errors.push(`Row ${i + 1}: ${error.message}`);
+          errors.push(`Row ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
       }
 
