@@ -113,31 +113,35 @@ export function AppHome() {
     <div className="container mx-auto py-6 px-4 max-w-6xl">
       <div className="flex flex-col space-y-6">
         {/* Welcome Banner */}
-        <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg p-6">
-          <h1 className="text-2xl font-bold mb-2">
-            {user && user.firstName 
-              ? `Welcome ${user.firstName} to your Leadapps`
-              : 'Welcome to your Leadapps'}
-          </h1>
-          <p className="opacity-90 mb-4">
-            Your journey to international education starts here. Complete your profile to get personalized recommendations.
-          </p>
-          <div className="flex space-x-4">
-            <Button variant="secondary" asChild>
-              <Link to="/app/profile">Complete Profile</Link>
-            </Button>
-            <Button variant="outline" className="bg-transparent hover:bg-white/10 text-white border-white" asChild>
-              <Link to="/app/search">Explore Programs</Link>
-            </Button>
+        <section className="bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+          <div className="relative z-10">
+            <h1 className="text-3xl font-bold mb-3 flex items-center gap-2">
+              🎉 {user && user.firstName 
+                ? `Welcome ${user.firstName} to your Leadapps`
+                : 'Welcome to your Leadapps'}
+            </h1>
+            <p className="opacity-95 mb-6 text-lg leading-relaxed">
+              Your journey to international education starts here. Complete your profile to get personalized recommendations.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button className="bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-sm rounded-2xl h-12 px-6" asChild>
+                <Link to="/app/profile">✨ Complete Profile</Link>
+              </Button>
+              <Button className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white rounded-2xl h-12 px-6 shadow-lg" asChild>
+                <Link to="/app/search">🔍 Explore Programs</Link>
+              </Button>
+            </div>
           </div>
         </section>
         
         {/* AI Program Recommendations */}
         <section>
-          <div className="flex items-center mb-4">
-            <h2 className="text-xl font-semibold">AI-Powered Program Recommendations</h2>
-            <div className="ml-2 flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
-              <Sparkles className="h-3 w-3 mr-1" />
+          <div className="flex items-center mb-6">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">AI-Powered Program Recommendations</h2>
+            <div className="ml-3 flex items-center bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700 px-3 py-2 rounded-2xl text-sm font-medium shadow-sm">
+              <Sparkles className="h-4 w-4 mr-1" />
               AI Powered
             </div>
           </div>
@@ -146,35 +150,47 @@ export function AppHome() {
 
         {/* Quick Links Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {quickLinks.map((link, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow duration-200">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center">
-                    <div className="mr-2 bg-primary/10 p-2 rounded-full">
-                      {link.icon}
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-6">Quick Actions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quickLinks.map((link, index) => {
+              const gradients = [
+                'from-purple-500 to-pink-500',
+                'from-blue-500 to-cyan-500', 
+                'from-green-500 to-emerald-500',
+                'from-orange-500 to-red-500',
+                'from-indigo-500 to-purple-500',
+                'from-teal-500 to-blue-500'
+              ];
+              const gradient = gradients[index % gradients.length];
+              
+              return (
+                <Card key={index} className="hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/80 backdrop-blur-sm overflow-hidden">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center">
+                      <div className={`mr-3 bg-gradient-to-r ${gradient} p-3 rounded-2xl text-white shadow-lg`}>
+                        {link.icon}
+                      </div>
+                      <CardTitle className="text-lg font-bold text-gray-800">{link.title}</CardTitle>
                     </div>
-                    <CardTitle className="text-lg">{link.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="pb-2">
-                  <CardDescription>{link.description}</CardDescription>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full" asChild>
-                    <Link to={link.link}>{link.cta}</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent className="pb-4">
+                    <CardDescription className="text-gray-600 leading-relaxed">{link.description}</CardDescription>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`} asChild>
+                      <Link to={link.link}>{link.cta}</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
         </section>
 
         {/* Featured Programs */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">Featured Programs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-6">Featured Programs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredPrograms.map((program, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-md transition-shadow duration-200">
                 <div className="h-40 bg-gray-200">
