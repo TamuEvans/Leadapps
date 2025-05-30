@@ -153,55 +153,73 @@ export default function CSECSubjects() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-cyan-100 p-6">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link to="/app/exam-prep-hub">
-            <Button variant="outline" size="sm">
+            <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Exam Hub
             </Button>
           </Link>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">CSEC Subjects</h1>
-            <p className="text-gray-600 mt-2">Choose your CSEC subject to access study materials and practice tests</p>
+          <div className="text-center flex-1">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-3">
+              📚 CSEC Subjects
+            </h1>
+            <p className="text-gray-600 text-lg">Choose your CSEC subject to access study materials and practice tests</p>
           </div>
         </div>
 
         {/* Subjects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {csecSubjects.map((subject) => {
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {csecSubjects.map((subject, index) => {
             const IconComponent = subject.icon;
+            const gradients = [
+              'from-blue-50 to-cyan-50 border-blue-200',
+              'from-green-50 to-emerald-50 border-green-200', 
+              'from-purple-50 to-pink-50 border-purple-200',
+              'from-orange-50 to-red-50 border-orange-200',
+              'from-yellow-50 to-orange-50 border-yellow-200',
+              'from-pink-50 to-rose-50 border-pink-200',
+              'from-indigo-50 to-blue-50 border-indigo-200',
+              'from-teal-50 to-cyan-50 border-teal-200',
+              'from-violet-50 to-purple-50 border-violet-200',
+              'from-emerald-50 to-green-50 border-emerald-200'
+            ];
+            const iconColors = [
+              'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-yellow-500',
+              'bg-pink-500', 'bg-indigo-500', 'bg-teal-500', 'bg-violet-500', 'bg-emerald-500'
+            ];
             return (
-              <Card key={subject.id} className="hover:shadow-lg transition-shadow duration-200">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-blue-100 p-2 rounded-lg">
-                        <IconComponent className="h-6 w-6 text-blue-600" />
-                      </div>
-                      <CardTitle className="text-lg">{subject.name}</CardTitle>
+              <Card key={subject.id} className={`bg-gradient-to-br ${gradients[index % gradients.length]} border-2 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300`}>
+                <CardHeader className="pb-4 text-center">
+                  <div className="flex flex-col items-center gap-4 mb-3">
+                    <div className={`${iconColors[index % iconColors.length]} p-4 rounded-full shadow-lg`}>
+                      <IconComponent className="h-8 w-8 text-white" />
                     </div>
-                    <Badge className={getDifficultyColor(subject.difficulty)}>
-                      {subject.difficulty}
-                    </Badge>
+                    <div>
+                      <CardTitle className="text-xl font-bold text-gray-800">{subject.name}</CardTitle>
+                      <Badge className={`${getDifficultyColor(subject.difficulty)} mt-2 px-3 py-1 rounded-full font-medium`}>
+                        {subject.difficulty}
+                      </Badge>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-600">{subject.description}</p>
+                  <p className="text-gray-600 leading-relaxed">{subject.description}</p>
                 </CardHeader>
                 
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                   {/* Topics */}
                   <div>
-                    <h4 className="font-medium text-sm mb-2">Key Topics:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {subject.topics.slice(0, 4).map((topic, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
+                    <h4 className="font-bold text-sm mb-3 text-gray-700">Key Topics:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {subject.topics.slice(0, 4).map((topic, topicIndex) => (
+                        <Badge key={topicIndex} className="bg-white/60 text-gray-700 border border-gray-300 hover:bg-white/80 transition-colors px-3 py-1 rounded-full text-xs font-medium">
                           {topic}
                         </Badge>
                       ))}
                       {subject.topics.length > 4 && (
-                        <Badge variant="outline" className="text-xs">
+                        <Badge className="bg-gray-200 text-gray-600 border border-gray-300 px-3 py-1 rounded-full text-xs font-medium">
                           +{subject.topics.length - 4} more
                         </Badge>
                       )}
@@ -209,14 +227,20 @@ export default function CSECSubjects() {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex items-center justify-between text-sm text-gray-600">
-                    <span>{subject.studyMaterials} study materials</span>
-                    <span>{subject.practiceTests} practice tests</span>
+                  <div className="flex items-center justify-between bg-white/50 rounded-2xl p-4 backdrop-blur-sm">
+                    <div className="text-center">
+                      <div className="font-bold text-lg text-gray-800">{subject.studyMaterials}</div>
+                      <div className="text-xs text-gray-600">Study Materials</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-lg text-gray-800">{subject.practiceTests}</div>
+                      <div className="text-xs text-gray-600">Practice Tests</div>
+                    </div>
                   </div>
 
                   {/* Action Button */}
                   <Button 
-                    className="w-full" 
+                    className={`w-full ${iconColors[index % iconColors.length]} hover:opacity-90 text-white rounded-2xl h-12 font-medium shadow-lg transform hover:scale-105 transition-all duration-200`}
                     onClick={() => window.location.href = subject.link}
                   >
                     Study {subject.name}
