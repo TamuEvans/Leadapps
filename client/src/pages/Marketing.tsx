@@ -207,7 +207,8 @@ export default function Marketing() {
           <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
           <video 
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ objectPosition: 'center center' }}
             autoPlay 
             muted 
             playsInline
