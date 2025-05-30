@@ -924,44 +924,51 @@ export default function ExamPrepHub() {
             </div>
 
             {/* Tutors List */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Dr. Simone Edwards */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-blue-600">DSE</span>
+              <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl font-bold text-white">DSE</span>
                     </div>
                     
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold">Dr. Simone Edwards</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge>CSEC Mathematics</Badge>
-                            <Badge variant="secondary">CAPE Pure Mathematics</Badge>
+                          <h3 className="text-xl font-bold text-gray-800">Dr. Simone Edwards</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Badge className="bg-blue-500 text-white px-3 py-1 rounded-full font-medium">🔢 CSEC Mathematics</Badge>
+                            <Badge className="bg-cyan-500 text-white px-3 py-1 rounded-full font-medium">📐 CAPE Pure Mathematics</Badge>
                           </div>
                         </div>
                         
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="font-semibold">4.9</span>
-                            <span className="text-sm text-gray-500">(127)</span>
+                        <div className="text-right bg-white/60 rounded-2xl p-4 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                            <span className="font-bold text-lg">4.9</span>
+                            <span className="text-sm text-gray-600">(127)</span>
                           </div>
-                          <div className="text-sm text-gray-600">Hourly Rate: $30-45</div>
+                          <div className="text-sm font-medium text-gray-700">$30-45/hour</div>
                         </div>
                       </div>
                       
-                      <p className="text-sm text-gray-600 mb-3">Mathematics lecturer with 15+ years of experience. Specializes in preparing students for CSEC and CAPE mathematics examinations with a proven track record of excellent results.</p>
+                      <p className="text-gray-700 mb-4 leading-relaxed">Mathematics lecturer with 15+ years of experience. Specializes in preparing students for CSEC and CAPE mathematics examinations with a proven track record of excellent results.</p>
                       
-                      <div className="flex items-center gap-4 text-sm mb-3">
-                        <span><strong>Availability:</strong> Evenings & Weekends</span>
+                      <div className="bg-white/50 rounded-2xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <span className="font-bold">Availability:</span>
+                          <span>Evenings & Weekends</span>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View Profile</Button>
-                        <Button size="sm">Book Session</Button>
+                      <div className="flex gap-3">
+                        <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                          View Profile
+                        </Button>
+                        <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
+                          Book Session
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -969,43 +976,50 @@ export default function ExamPrepHub() {
               </Card>
 
               {/* Mr. Xavier Douglas */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-green-600">MXD</span>
+              <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl font-bold text-white">MXD</span>
                     </div>
                     
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold">Mr. Xavier Douglas</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge>CSEC Physics</Badge>
-                            <Badge variant="secondary">CSEC Chemistry</Badge>
-                            <Badge variant="secondary">CAPE Physics</Badge>
+                          <h3 className="text-xl font-bold text-gray-800">Mr. Xavier Douglas</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Badge className="bg-green-500 text-white px-3 py-1 rounded-full font-medium">⚛️ CSEC Physics</Badge>
+                            <Badge className="bg-emerald-500 text-white px-3 py-1 rounded-full font-medium">🧪 CSEC Chemistry</Badge>
+                            <Badge className="bg-teal-500 text-white px-3 py-1 rounded-full font-medium">📐 CAPE Physics</Badge>
                           </div>
                         </div>
                         
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="font-semibold">4.7</span>
-                            <span className="text-sm text-gray-500">(89)</span>
+                        <div className="text-right bg-white/60 rounded-2xl p-4 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                            <span className="font-bold text-lg">4.7</span>
+                            <span className="text-sm text-gray-600">(89)</span>
                           </div>
-                          <div className="text-sm text-gray-600">Hourly Rate: $30-40</div>
+                          <div className="text-sm font-medium text-gray-700">$30-40/hour</div>
                         </div>
                       </div>
                       
-                      <p className="text-sm text-gray-600 mb-3">Experienced physics and chemistry teacher with an MSc in Applied Physics. Known for breaking down complex concepts using relatable examples that Caribbean students connect with.</p>
+                      <p className="text-gray-700 mb-4 leading-relaxed">Experienced physics and chemistry teacher with an MSc in Applied Physics. Known for breaking down complex concepts using relatable examples that Caribbean students connect with.</p>
                       
-                      <div className="flex items-center gap-4 text-sm mb-3">
-                        <span><strong>Availability:</strong> Weekdays & Saturdays</span>
+                      <div className="bg-white/50 rounded-2xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <span className="font-bold">Availability:</span>
+                          <span>Weekdays & Saturdays</span>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View Profile</Button>
-                        <Button size="sm">Book Session</Button>
+                      <div className="flex gap-3">
+                        <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                          View Profile
+                        </Button>
+                        <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
+                          Book Session
+                        </Button>
                       </div>
                     </div>
                   </div>
