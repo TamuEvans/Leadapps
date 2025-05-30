@@ -101,23 +101,23 @@ export function AppHome() {
     <div className="container mx-auto py-6 px-4 max-w-6xl">
       <div className="flex flex-col space-y-6">
         {/* Welcome Banner */}
-        <section className="bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-20 blur-2xl"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+        <section className="bg-gradient-to-br from-slate-800 via-blue-900 to-indigo-800 text-white rounded-2xl p-8 relative overflow-hidden shadow-lg">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-blue-400/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-indigo-400/10 rounded-full blur-lg"></div>
           <div className="relative z-10">
             <h1 className="text-3xl font-bold mb-3 flex items-center gap-2">
-              🎉 {user && user.firstName 
+              {user && user.firstName 
                 ? `Welcome ${user.firstName} to your Leadapps`
                 : 'Welcome to your Leadapps'}
             </h1>
-            <p className="opacity-95 mb-6 text-lg leading-relaxed">
+            <p className="opacity-90 mb-6 text-lg leading-relaxed">
               Your journey to international education starts here. Complete your profile to get personalized recommendations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-sm rounded-2xl h-12 px-6" asChild>
-                <Link to="/app/profile">✨ Complete Profile</Link>
+              <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm rounded-xl h-12 px-6" asChild>
+                <Link to="/app/profile">Complete Profile</Link>
               </Button>
-              <Button className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white rounded-2xl h-12 px-6 shadow-lg" asChild>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 px-6 shadow-md" asChild>
                 <Link to="/app/search">🔍 Explore Programs</Link>
               </Button>
             </div>
@@ -127,8 +127,8 @@ export function AppHome() {
         {/* AI Program Recommendations */}
         <section>
           <div className="flex items-center mb-6">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">AI-Powered Program Recommendations</h2>
-            <div className="ml-3 flex items-center bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700 px-3 py-2 rounded-2xl text-sm font-medium shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-800">AI-Powered Program Recommendations</h2>
+            <div className="ml-3 flex items-center bg-blue-50 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium">
               <Sparkles className="h-4 w-4 mr-1" />
               AI Powered
             </div>
@@ -138,24 +138,24 @@ export function AppHome() {
 
         {/* Quick Links Section */}
         <section>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-6">Quick Actions</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quickLinks.map((link, index) => {
-              const gradients = [
-                'from-purple-500 to-pink-500',
-                'from-blue-500 to-cyan-500', 
-                'from-green-500 to-emerald-500',
-                'from-orange-500 to-red-500',
-                'from-indigo-500 to-purple-500',
-                'from-teal-500 to-blue-500'
+              const colors = [
+                { bg: 'bg-slate-100', icon: 'bg-slate-600', button: 'bg-slate-600 hover:bg-slate-700' },
+                { bg: 'bg-blue-50', icon: 'bg-blue-600', button: 'bg-blue-600 hover:bg-blue-700' }, 
+                { bg: 'bg-green-50', icon: 'bg-green-600', button: 'bg-green-600 hover:bg-green-700' },
+                { bg: 'bg-orange-50', icon: 'bg-orange-600', button: 'bg-orange-600 hover:bg-orange-700' },
+                { bg: 'bg-purple-50', icon: 'bg-purple-600', button: 'bg-purple-600 hover:bg-purple-700' },
+                { bg: 'bg-teal-50', icon: 'bg-teal-600', button: 'bg-teal-600 hover:bg-teal-700' }
               ];
-              const gradient = gradients[index % gradients.length];
+              const color = colors[index % colors.length];
               
               return (
-                <Card key={index} className="hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/80 backdrop-blur-sm overflow-hidden flex flex-col h-full">
+                <Card key={index} className="hover:shadow-lg hover:scale-[1.02] transition-all duration-300 rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
                   <CardHeader className="pb-4">
                     <div className="flex items-center">
-                      <div className={`mr-3 bg-gradient-to-r ${gradient} p-3 rounded-2xl text-white shadow-lg`}>
+                      <div className={`mr-3 ${color.icon} p-3 rounded-lg text-white`}>
                         {link.icon}
                       </div>
                       <CardTitle className="text-lg font-bold text-gray-800">{link.title}</CardTitle>
@@ -165,7 +165,7 @@ export function AppHome() {
                     <CardDescription className="text-gray-600 leading-relaxed">{link.description}</CardDescription>
                   </CardContent>
                   <CardFooter className="mt-auto">
-                    <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`} asChild>
+                    <Button className={`w-full ${color.button} rounded-lg h-11 font-medium text-white`} asChild>
                       <Link to={link.link}>{link.cta}</Link>
                     </Button>
                   </CardFooter>
@@ -177,24 +177,24 @@ export function AppHome() {
 
         {/* Featured Programs */}
         <section>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-6">Featured Programs</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Featured Programs</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredPrograms.map((program, index) => {
-              const programGradients = [
-                'from-purple-400 to-pink-400',
-                'from-blue-400 to-cyan-400',
-                'from-green-400 to-emerald-400'
+              const colors = [
+                { bg: 'bg-slate-100', button: 'bg-slate-600 hover:bg-slate-700' },
+                { bg: 'bg-blue-100', button: 'bg-blue-600 hover:bg-blue-700' },
+                { bg: 'bg-green-100', button: 'bg-green-600 hover:bg-green-700' }
               ];
-              const gradient = programGradients[index % programGradients.length];
+              const color = colors[index % colors.length];
               
               return (
-                <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
-                  <div className="h-40 relative overflow-hidden">
-                    <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${gradient}`}>
-                      <School className="h-12 w-12 text-white/80" />
+                <Card key={index} className="overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 rounded-xl border border-gray-200">
+                  <div className="h-32 relative overflow-hidden">
+                    <div className={`w-full h-full flex items-center justify-center ${color.bg}`}>
+                      <School className="h-10 w-10 text-gray-600" />
                     </div>
-                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-full p-2">
-                      <GraduationCap className="h-4 w-4 text-white" />
+                    <div className="absolute top-3 right-3 bg-white/90 rounded-full p-2 shadow-sm">
+                      <GraduationCap className="h-4 w-4 text-gray-600" />
                     </div>
                   </div>
                   <CardHeader className="pb-3">
@@ -202,7 +202,7 @@ export function AppHome() {
                     <CardDescription className="text-gray-600 font-medium">{program.university}</CardDescription>
                   </CardHeader>
                   <CardFooter>
-                    <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`} asChild>
+                    <Button className={`w-full ${color.button} rounded-lg h-11 font-medium text-white`} asChild>
                       <Link to={`/app/search?q=${program.program}`}>View Program</Link>
                     </Button>
                   </CardFooter>
@@ -214,8 +214,8 @@ export function AppHome() {
 
         {/* Application Deadlines */}
         <section>
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent mb-6">Upcoming Deadlines</h2>
-          <Card className="rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Upcoming Deadlines</h2>
+          <Card className="rounded-xl border border-gray-200 shadow-sm">
             <CardContent className="p-0">
               <div className="divide-y divide-gray-100">
                 <div className="p-6 flex justify-between items-center">
@@ -274,19 +274,17 @@ export function AppHome() {
         </section>
 
         {/* Support Hubs Section */}
-        <section className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-8 rounded-3xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-2xl"></div>
+        <section className="bg-gray-50 p-8 rounded-xl">
           <div className="relative z-10">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">Support Hubs</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Support Hubs</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Personality Hub */}
-              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-400 to-pink-400 h-2"></div>
+              <Card className="bg-white rounded-xl border border-gray-200 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+                <div className="bg-purple-100 h-1"></div>
                 <CardHeader className="pb-4">
                   <div className="flex items-center">
-                    <div className="mr-3 bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-2xl text-white shadow-lg">
-                      <Brain className="h-6 w-6" />
+                    <div className="mr-3 bg-purple-600 p-3 rounded-lg text-white">
+                      <Brain className="h-5 w-5" />
                     </div>
                     <CardTitle className="text-lg font-bold text-gray-800">Personality Hub</CardTitle>
                   </div>
@@ -296,7 +294,7 @@ export function AppHome() {
                     Discover your strengths, interests, and ideal career paths with our personality assessment tools.
                   </p>
                   <div className="flex items-center text-xs mb-2">
-                    <span className="flex items-center bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-2 py-1 rounded-full font-medium">
+                    <span className="flex items-center bg-purple-50 text-purple-700 px-2 py-1 rounded-full font-medium">
                       <Sparkles className="h-3 w-3 mr-1" />
                       Personality Assessment
                     </span>
