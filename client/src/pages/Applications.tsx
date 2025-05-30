@@ -393,13 +393,21 @@ const Applications = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">My Applications</h1>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-300 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">📚 My Applications</h1>
+          <p className="text-xl text-white/90">Track your university application progress and manage submissions</p>
+        </div>
+      </div>
       
       {successMessage && (
-        <Alert className="bg-green-50 border-green-200">
-          <Check className="h-4 w-4 text-green-600" />
-          <AlertTitle className="text-green-800">Success!</AlertTitle>
+        <Alert className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 rounded-2xl shadow-lg">
+          <Check className="h-5 w-5 text-green-600" />
+          <AlertTitle className="text-green-800 font-bold">Success!</AlertTitle>
           <AlertDescription className="text-green-700">
             {successMessage}
           </AlertDescription>
@@ -407,9 +415,9 @@ const Applications = () => {
       )}
       
       {deleteMessage && (
-        <Alert className="bg-blue-50 border-blue-200">
-          <Check className="h-4 w-4 text-blue-600" />
-          <AlertTitle className="text-blue-800">Success!</AlertTitle>
+        <Alert className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200 rounded-2xl shadow-lg">
+          <Check className="h-5 w-5 text-blue-600" />
+          <AlertTitle className="text-blue-800 font-bold">Success!</AlertTitle>
           <AlertDescription className="text-blue-700">
             {deleteMessage}
           </AlertDescription>
@@ -421,23 +429,28 @@ const Applications = () => {
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : applications.length === 0 ? (
-        <Card className="bg-white shadow-sm">
-          <CardContent className="p-12 text-center text-gray-500">
-            <FileText className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-            <h2 className="text-lg font-medium text-gray-700 mb-2">No Applications Yet</h2>
-            <p className="max-w-md mx-auto">
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-gray-50 to-blue-50 shadow-xl">
+          <CardContent className="p-12 text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <FileText className="h-8 w-8 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">No Applications Yet</h2>
+            <p className="max-w-md mx-auto text-gray-600 leading-relaxed mb-6">
               You haven't submitted any applications yet. Complete your profile and search for programmes to begin your application process.
             </p>
+            <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-2xl px-8 py-3 shadow-lg">
+              Search Programs
+            </Button>
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {applications.map((application) => (
-            <Card key={application.id} className="overflow-hidden">
-              <CardHeader className="pb-2">
+            <Card key={application.id} className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+              <CardHeader className="p-6 pb-4">
                 <div className="flex justify-between items-start">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-md overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center shadow-lg">
                       {application.universityLogo ? (
                         <img 
                           src={application.universityLogo} 
@@ -445,12 +458,12 @@ const Applications = () => {
                           className="w-full h-full object-contain"
                         />
                       ) : (
-                        <FileText className="h-6 w-6 text-gray-400" />
+                        <FileText className="h-8 w-8 text-gray-500" />
                       )}
                     </div>
                     <div>
-                      <CardTitle className="text-lg font-semibold">{application.programName}</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="text-xl font-bold text-gray-800 mb-1">{application.programName}</CardTitle>
+                      <CardDescription className="text-gray-600 font-medium">
                         {application.universityName}, {application.universityLocation}
                       </CardDescription>
                     </div>
