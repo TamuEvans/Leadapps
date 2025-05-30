@@ -47,7 +47,7 @@ import {
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
-import backgroundVideo from '@assets/Video_Ready_Students_Walking.mp4';
+import backgroundVideo from '@assets/Video_Replicated_Logo_Centered.mp4';
 
 // University logos
 import uccLogo from '../assets/logos/ucc.jpg';
