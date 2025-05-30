@@ -76,39 +76,41 @@ export default function ExamPrepHub() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 p-6">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Exam Preparation Hub</h1>
-            <p className="text-gray-600 mt-2">Comprehensive resources to help you excel in your exams</p>
-          </div>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent mb-4">
+            Exam Preparation Hub 🚀
+          </h1>
+          <p className="text-gray-700 text-lg max-w-2xl mx-auto">
+            Your ultimate destination for exam success with interactive resources, practice tests, and study groups
+          </p>
         </div>
 
         {/* Tabbed Interface */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="learning">Learning Resources</TabsTrigger>
-            <TabsTrigger value="practice">Practice Tests</TabsTrigger>
-            <TabsTrigger value="groups">Study Groups</TabsTrigger>
-            <TabsTrigger value="tutor">Find a Tutor</TabsTrigger>
-            <TabsTrigger value="coursework">Coursework Hub</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+          <TabsList className="grid w-full grid-cols-6 bg-white/80 backdrop-blur-sm border-0 shadow-lg rounded-2xl p-2 h-16">
+            <TabsTrigger value="overview" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">📊 Overview</TabsTrigger>
+            <TabsTrigger value="learning" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">📚 Learning</TabsTrigger>
+            <TabsTrigger value="practice" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">📝 Practice</TabsTrigger>
+            <TabsTrigger value="groups" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">👥 Groups</TabsTrigger>
+            <TabsTrigger value="tutor" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">🎓 Tutor</TabsTrigger>
+            <TabsTrigger value="coursework" className="rounded-xl font-medium text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-500 data-[state=active]:to-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">📁 Coursework</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
             {/* Search Bar on Overview */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl rounded-3xl overflow-hidden">
+              <CardContent className="p-8">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-purple-400 h-6 w-6" />
                   <Input
-                    placeholder="Search study materials, practice tests, tutors, or topics..."
+                    placeholder="🔍 Search study materials, practice tests, tutors, or topics..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 h-12 text-lg"
+                    className="pl-16 h-16 text-lg border-0 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl focus:ring-4 focus:ring-purple-200 font-medium"
                   />
                 </div>
               </CardContent>
@@ -117,114 +119,120 @@ export default function ExamPrepHub() {
 
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Select Your Exam */}
-              <Card>
+              <Card className="bg-gradient-to-br from-purple-500 to-pink-500 border-0 shadow-2xl rounded-3xl text-white transform hover:scale-105 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <span className="text-3xl">🎯</span>
                     Select Your Exam
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">Choose from a variety of examination types including CSEC, CAPE, BGCSE, and SAT</p>
+                  <p className="text-purple-100 mb-6">Choose from a variety of examination types including CSEC, CAPE, BGCSE, and SAT</p>
                   
-                  <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
                     <Button 
                       variant="outline" 
-                      className="h-16 flex flex-col"
+                      className="h-20 flex flex-col bg-white/20 border-white/30 text-white hover:bg-white/30 rounded-2xl backdrop-blur-sm"
                       onClick={() => window.location.href = '/app/csec-subjects'}
                     >
+                      <span className="text-2xl mb-1">📚</span>
                       <span className="font-semibold">CSEC</span>
                     </Button>
-                    <Button variant="outline" className="h-16 flex flex-col">
+                    <Button variant="outline" className="h-20 flex flex-col bg-white/20 border-white/30 text-white hover:bg-white/30 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl mb-1">🎓</span>
                       <span className="font-semibold">CAPE</span>
                     </Button>
-                    <Button variant="outline" className="h-16 flex flex-col">
+                    <Button variant="outline" className="h-20 flex flex-col bg-white/20 border-white/30 text-white hover:bg-white/30 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl mb-1">📖</span>
                       <span className="font-semibold">BGCSE</span>
                     </Button>
-                    <Button variant="outline" className="h-16 flex flex-col">
+                    <Button variant="outline" className="h-20 flex flex-col bg-white/20 border-white/30 text-white hover:bg-white/30 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl mb-1">🚀</span>
                       <span className="font-semibold">SAT</span>
                     </Button>
                   </div>
                   
-                  <Button variant="link" className="w-full text-blue-600">
-                    View all exam types
+                  <Button variant="link" className="w-full text-white hover:text-purple-200">
+                    View all exam types →
                   </Button>
                 </CardContent>
               </Card>
 
               {/* Quick Start Guide */}
-              <Card>
+              <Card className="bg-gradient-to-br from-green-400 to-teal-500 border-0 shadow-2xl rounded-3xl text-white transform hover:scale-105 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Play className="h-5 w-5 text-blue-600" />
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <span className="text-3xl">🚀</span>
                     Quick Start Guide
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span className="text-sm">Select your exam type and subject</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl">1️⃣</span>
+                      <span className="text-sm font-medium">Select your exam type and subject</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span className="text-sm">Review study notes or start with flashcards</span>
+                    <div className="flex items-center gap-4 p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl">2️⃣</span>
+                      <span className="text-sm font-medium">Review study notes or start with flashcards</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span className="text-sm">Take practice tests to assess your knowledge</span>
+                    <div className="flex items-center gap-4 p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl">3️⃣</span>
+                      <span className="text-sm font-medium">Take practice tests to assess your knowledge</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span className="text-sm">Connect with a tutor for personalized help</span>
+                    <div className="flex items-center gap-4 p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <span className="text-2xl">4️⃣</span>
+                      <span className="text-sm font-medium">Connect with a tutor for personalized help</span>
                     </div>
                   </div>
                   
-                  <Button className="w-full mt-4">
-                    Start Learning Now
+                  <Button className="w-full mt-6 bg-white text-green-600 hover:bg-green-50 rounded-2xl h-12 font-semibold">
+                    Start Learning Now ✨
                   </Button>
                 </CardContent>
               </Card>
 
               {/* Your Exam Prep Stats */}
-              <Card>
+              <Card className="bg-gradient-to-br from-orange-400 to-pink-500 border-0 shadow-2xl rounded-3xl text-white transform hover:scale-105 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-purple-600" />
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <span className="text-3xl">📊</span>
                     Your Exam Prep Stats
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Recently Practiced</span>
-                        <span className="font-semibold">65% Accuracy</span>
+                  <div className="space-y-5">
+                    <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="font-medium">Recently Practiced</span>
+                        <span className="font-bold text-yellow-200">65% Accuracy</span>
                       </div>
-                      <div className="text-sm text-gray-600">CSEC Mathematics</div>
-                      <Progress value={65} className="mt-2" />
+                      <div className="text-sm text-orange-100 mb-2">CSEC Mathematics</div>
+                      <div className="w-full bg-white/30 rounded-full h-2">
+                        <div className="bg-yellow-300 h-2 rounded-full" style={{width: '65%'}}></div>
+                      </div>
                     </div>
                     
-                    <div>
+                    <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
                       <div className="flex justify-between text-sm mb-1">
-                        <span>Upcoming Practice Tests</span>
-                        <span className="font-semibold">Scheduled</span>
+                        <span className="font-medium">Upcoming Practice Tests</span>
+                        <span className="font-bold text-green-200">Scheduled</span>
                       </div>
-                      <div className="text-sm text-gray-600">CSEC English A</div>
+                      <div className="text-sm text-orange-100">CSEC English A</div>
                     </div>
                     
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Study Time This Week</span>
-                        <span className="font-semibold">3.5 hours</span>
+                    <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <div className="flex justify-between text-sm">
+                        <span className="font-medium">Study Time This Week</span>
+                        <span className="font-bold text-blue-200">3.5 hours</span>
                       </div>
                     </div>
                   </div>
                   
-                  <Button variant="link" className="w-full text-blue-600 mt-4">
-                    View Report
+                  <Button variant="link" className="w-full text-white hover:text-orange-200 mt-6 font-medium">
+                    View Full Report →
                   </Button>
                 </CardContent>
               </Card>
@@ -232,16 +240,20 @@ export default function ExamPrepHub() {
 
             {/* Featured Resources */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Featured Resources</h2>
-                <Button variant="link" className="text-blue-600">View All</Button>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  ✨ Featured Resources
+                </h2>
+                <Button variant="link" className="text-purple-600 hover:text-purple-800 font-medium">
+                  View All →
+                </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-gradient-to-br from-blue-400 to-purple-500 border-0 shadow-xl rounded-3xl text-white hover:scale-105 transform transition-all duration-300">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-purple-100 rounded-lg">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
                         <BookOpen className="h-5 w-5 text-purple-600" />
                       </div>
                       <Badge variant="secondary">CSEC</Badge>
