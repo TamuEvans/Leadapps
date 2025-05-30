@@ -174,7 +174,7 @@ export default function Marketing() {
       name: 'Katrina',
       country: 'Jamaica',
       text: 'Leadapps connected me with my dream university in the UK. The counselors guided me through every step!',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
+      image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
     },
     {
       name: 'Jonathan',
@@ -186,7 +186,7 @@ export default function Marketing() {
       name: 'Aaliyah',
       country: 'Barbados',
       text: 'From visa guidance to scholarship applications, Leadapps was with me at every stage. Truly grateful!',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
+      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
     },
   ];
 
