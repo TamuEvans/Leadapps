@@ -50,33 +50,21 @@ export function AppHome() {
       cta: "Start Quiz"
     },
     { 
-      title: "Book Counselling", 
-      description: "Schedule a session with our education experts", 
+      title: "Get Expert Guidance", 
+      description: "Book a session with our education counselors", 
       icon: <Headphones className="h-5 w-5" />,
       link: "/app/counselling",
-      cta: "Book Now"
-    }
+      cta: "Book Session"
+    },
   ];
 
   // Featured programs
   const featuredPrograms = [
-    {
-      university: "University of Toronto",
-      program: "Computer Science",
-      image: "/images/programs/toronto-cs.jpg"
-    },
-    {
-      university: "London School of Economics",
-      program: "Economics & Finance",
-      image: "/images/programs/lse-econ.jpg"
-    },
-    {
-      university: "University of Melbourne",
-      program: "Business Administration",
-      image: "/images/programs/melbourne-business.jpg"
-    }
+    { program: 'Computer Science', university: 'University of Toronto' },
+    { program: 'Business Administration', university: 'University of the West Indies' },
+    { program: 'Medicine', university: 'St. George\'s University' },
   ];
-  
+
   // Suggested articles
   const suggestedArticles = [
     {
@@ -357,12 +345,12 @@ export function AppHome() {
               </CardHeader>
               <CardContent className="pb-4">
                 <p className="text-gray-600 text-sm mb-3">
-                  Find scholarships, financial aid opportunities, and funding resources tailored to your academic profile.
+                  Find scholarships, grants, and financial aid opportunities to fund your international education dreams.
                 </p>
                 <div className="flex items-center text-xs text-gray-500 mb-2">
                   <span className="flex items-center text-green-600 font-medium">
                     <Sparkles className="h-3 w-3 mr-1" />
-                    Scholarship Matches
+                    Scholarships & Grants
                   </span>
                 </div>
               </CardContent>
@@ -375,7 +363,7 @@ export function AppHome() {
           </div>
         </section>
 
-        {/* Suggested Articles */}}
+        {/* Suggested Articles */}
         <section>
           <h2 className="text-xl font-semibold mb-4">Suggested Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -416,8 +404,6 @@ export function AppHome() {
               <BookOpen className="h-4 w-4 mr-2" />
               View All Articles
             </Button>
-          </div>
-        </section>
           </div>
         </section>
       </div>
