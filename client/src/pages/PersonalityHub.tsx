@@ -168,32 +168,32 @@ const PersonalityHub = () => {
       
       {/* Personality & Career Counsellors Section */}
       <div>
-        <h2 className="text-xl font-semibold mb-4 flex items-center">
-          <MessageCircle className="mr-2 h-5 w-5 text-purple-600" />
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6 flex items-center">
+          <MessageCircle className="mr-3 h-6 w-6 text-purple-600" />
           Personality & Career Counsellors
         </h2>
         
-        <Card className="bg-white shadow-sm border-purple-100 mb-6">
-          <CardContent className="pt-6">
-            <p className="text-gray-700 mb-4">
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-xl mb-8">
+          <CardContent className="p-8">
+            <p className="text-gray-700 mb-6 text-lg leading-relaxed">
               Connect with professional counsellors for personalized guidance on personality development and career planning. Choose the type of guidance that best suits your needs.
             </p>
             
             <div className="mb-6">
-              <h3 className="text-base font-medium mb-3">Select Your Guidance Preference:</h3>
-              <RadioGroup value={guidanceType} onValueChange={setGuidanceType} className="flex flex-col space-y-2">
-                <div className="flex items-center space-x-3">
-                  <RadioGroupItem value="one-on-one" id="one-on-one" />
-                  <Label htmlFor="one-on-one" className="cursor-pointer">
-                    <div className="font-medium">1-on-1 Guidance</div>
-                    <p className="text-sm text-gray-500">Personal sessions focused on your specific needs and questions</p>
+              <h3 className="text-lg font-bold text-gray-800 mb-4">Select Your Guidance Preference:</h3>
+              <RadioGroup value={guidanceType} onValueChange={setGuidanceType} className="flex flex-col space-y-4">
+                <div className="flex items-start space-x-4 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm">
+                  <RadioGroupItem value="one-on-one" id="one-on-one" className="mt-1" />
+                  <Label htmlFor="one-on-one" className="cursor-pointer flex-1">
+                    <div className="font-bold text-gray-800 mb-1">1-on-1 Guidance</div>
+                    <p className="text-sm text-gray-600 leading-relaxed">Personal sessions focused on your specific needs and questions</p>
                   </Label>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <RadioGroupItem value="in-depth" id="in-depth" />
-                  <Label htmlFor="in-depth" className="cursor-pointer">
-                    <div className="font-medium">In-Depth Exploration</div>
-                    <p className="text-sm text-gray-500">Comprehensive analysis of your personality and career options over multiple sessions</p>
+                <div className="flex items-start space-x-4 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm">
+                  <RadioGroupItem value="in-depth" id="in-depth" className="mt-1" />
+                  <Label htmlFor="in-depth" className="cursor-pointer flex-1">
+                    <div className="font-bold text-gray-800 mb-1">In-Depth Exploration</div>
+                    <p className="text-sm text-gray-600 leading-relaxed">Comprehensive analysis of your personality and career options over multiple sessions</p>
                   </Label>
                 </div>
               </RadioGroup>
@@ -201,79 +201,87 @@ const PersonalityHub = () => {
           </CardContent>
         </Card>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {counsellors.map((counsellor) => (
             <Card 
               key={counsellor.id} 
-              className={`bg-white transition-all ${
+              className={`rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer ${
                 selectedCounsellor === counsellor.id 
-                  ? 'ring-2 ring-purple-500 shadow-md' 
-                  : 'shadow-sm hover:shadow-md'
+                  ? 'ring-2 ring-purple-500 shadow-2xl scale-105' 
+                  : ''
               }`}
               onClick={() => setSelectedCounsellor(
                 selectedCounsellor === counsellor.id ? null : counsellor.id
               )}
             >
-              <CardHeader className="pb-2">
+              <CardHeader className="p-6 pb-4">
                 <div className="flex items-center gap-4">
-                  <Avatar className="h-14 w-14 border-2 border-gray-100">
-                    <AvatarFallback className="bg-purple-100 text-purple-800">{counsellor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                  <Avatar className="h-16 w-16 border-3 border-purple-200 shadow-lg">
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold text-lg">{counsellor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     {counsellor.avatar && <AvatarImage src={counsellor.avatar} alt={counsellor.name} />}
                   </Avatar>
                   <div>
-                    <CardTitle className="text-lg">{counsellor.name}</CardTitle>
-                    <CardDescription>{counsellor.title}</CardDescription>
+                    <CardTitle className="text-xl font-bold text-gray-800">{counsellor.name}</CardTitle>
+                    <CardDescription className="text-purple-600 font-medium">{counsellor.title}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               
-              <CardContent className="pb-3">
-                <div className="flex items-center gap-1 text-sm text-amber-600 mb-2">
+              <CardContent className="px-6 pb-4">
+                <div className="flex items-center gap-2 text-sm text-amber-600 mb-4">
                   <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
-                  <span className="font-medium">{counsellor.rating}</span>
+                  <span className="font-bold">{counsellor.rating}</span>
                   <span className="text-gray-500 text-xs">({counsellor.reviewCount} reviews)</span>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-2">
-                  <MapPin className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">{counsellor.location}</span>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-2">
-                  <Briefcase className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">{counsellor.experience} experience</span>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <DollarSign className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">{counsellor.costRange}</span>
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <MapPin className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <span className="text-sm text-gray-700">{counsellor.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Briefcase className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <span className="text-sm text-gray-700">{counsellor.experience} experience</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <DollarSign className="h-4 w-4 text-green-600" />
+                    </div>
+                    <span className="text-sm text-gray-700">{counsellor.costRange}</span>
+                  </div>
                 </div>
                 
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium mb-1">Specialties:</h4>
-                  <div className="flex flex-wrap gap-1">
+                  <h4 className="text-sm font-bold text-gray-800 mb-2">Specialties:</h4>
+                  <div className="flex flex-wrap gap-2">
                     {counsellor.specialties.map((specialty, index) => (
-                      <Badge key={index} variant="outline" className="text-xs bg-purple-50 text-purple-700">
+                      <Badge key={index} className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 border-0 text-xs px-2 py-1 rounded-full">
                         {specialty}
                       </Badge>
                     ))}
                   </div>
                 </div>
                 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-3">
+                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
                   {counsellor.bio}
                 </p>
               </CardContent>
               
-              <CardFooter className="flex gap-2 pt-0">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <Calendar className="h-4 w-4 mr-1" /> View Schedule
+              <CardFooter className="flex gap-3 p-6 pt-0">
+                <Button variant="outline" size="sm" className="flex-1 rounded-xl border-2 border-purple-200 hover:border-purple-400">
+                  <Calendar className="h-4 w-4 mr-2" /> View Schedule
                 </Button>
                 <Button 
                   size="sm" 
-                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl shadow-lg"
                 >
-                  <MessageCircle className="h-4 w-4 mr-1" /> Connect
+                  <MessageCircle className="h-4 w-4 mr-2" /> Connect
                 </Button>
               </CardFooter>
             </Card>
