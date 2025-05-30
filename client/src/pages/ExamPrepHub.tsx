@@ -615,84 +615,86 @@ export default function ExamPrepHub() {
           </TabsContent>
 
           {/* Study Groups Tab */}
-          <TabsContent value="groups" className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold mb-2">Collaborative Study Groups</h2>
-              <p className="text-gray-600 mb-6">Join group study groups to collaborate, share resources, and learn together with other students.</p>
+          <TabsContent value="groups" className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                👥 Collaborative Study Groups
+              </h2>
+              <p className="text-gray-600 text-lg">Join study groups to collaborate, share resources, and learn together with other students</p>
             </div>
 
             {/* Header with Create Button */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 h-5 w-5" />
                   <Input
-                    placeholder="Search by subject or exam"
-                    className="pl-10 w-full sm:w-64"
+                    placeholder="🔍 Search by subject or exam"
+                    className="pl-12 w-full sm:w-80 h-12 rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm"
                   />
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <Select>
-                    <SelectTrigger className="w-32">
-                      <SelectValue placeholder="Subject" />
+                    <SelectTrigger className="w-40 h-12 rounded-2xl border-2 border-pink-200 bg-white/80 backdrop-blur-sm">
+                      <SelectValue placeholder="📚 Subject" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="english">CSEC English A & B</SelectItem>
-                      <SelectItem value="mathematics">Mathematics</SelectItem>
-                      <SelectItem value="biology">Biology</SelectItem>
-                      <SelectItem value="physics">Physics</SelectItem>
-                      <SelectItem value="chemistry">Chemistry</SelectItem>
-                      <SelectItem value="spanish">Spanish</SelectItem>
-                      <SelectItem value="french">French</SelectItem>
+                    <SelectContent className="rounded-2xl border-0 shadow-xl">
+                      <SelectItem value="english">📖 CSEC English A & B</SelectItem>
+                      <SelectItem value="mathematics">🔢 Mathematics</SelectItem>
+                      <SelectItem value="biology">🧬 Biology</SelectItem>
+                      <SelectItem value="physics">⚛️ Physics</SelectItem>
+                      <SelectItem value="chemistry">🧪 Chemistry</SelectItem>
+                      <SelectItem value="spanish">🇪🇸 Spanish</SelectItem>
+                      <SelectItem value="french">🇫🇷 French</SelectItem>
                     </SelectContent>
                   </Select>
                   
                   <Select>
-                    <SelectTrigger className="w-32">
-                      <SelectValue placeholder="Exam Type" />
+                    <SelectTrigger className="w-40 h-12 rounded-2xl border-2 border-blue-200 bg-white/80 backdrop-blur-sm">
+                      <SelectValue placeholder="🎯 Exam Type" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="CSEC">CSEC</SelectItem>
-                      <SelectItem value="CAPE">CAPE</SelectItem>
-                      <SelectItem value="SAT">SAT</SelectItem>
-                      <SelectItem value="BGCSE">BGCSE</SelectItem>
+                    <SelectContent className="rounded-2xl border-0 shadow-xl">
+                      <SelectItem value="CSEC">📚 CSEC</SelectItem>
+                      <SelectItem value="CAPE">🎓 CAPE</SelectItem>
+                      <SelectItem value="SAT">🚀 SAT</SelectItem>
+                      <SelectItem value="BGCSE">📖 BGCSE</SelectItem>
                     </SelectContent>
                   </Select>
                   
                   <Select>
-                    <SelectTrigger className="w-32">
-                      <SelectValue placeholder="Format" />
+                    <SelectTrigger className="w-40 h-12 rounded-2xl border-2 border-green-200 bg-white/80 backdrop-blur-sm">
+                      <SelectValue placeholder="💻 Format" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="online">Online</SelectItem>
-                      <SelectItem value="in-person">In Person</SelectItem>
+                    <SelectContent className="rounded-2xl border-0 shadow-xl">
+                      <SelectItem value="online">💻 Online</SelectItem>
+                      <SelectItem value="in-person">🏫 In Person</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
               
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Create Group
+              <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl h-12 px-6 font-medium shadow-lg">
+                <Plus className="h-5 w-5 mr-2" />
+                Create Group ✨
               </Button>
             </div>
 
             {/* Study Groups List */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               {/* CSEC Mathematics Study Circle */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
+              <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start justify-between mb-6">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge>CSEC</Badge>
-                        <Badge variant="secondary">Mathematics</Badge>
-                        <Badge variant="outline">Online</Badge>
-                        <span className="text-sm text-gray-500">15 members</span>
+                      <div className="flex items-center gap-3 mb-3">
+                        <Badge className="bg-blue-500 text-white px-3 py-1 rounded-full">📚 CSEC</Badge>
+                        <Badge className="bg-green-500 text-white px-3 py-1 rounded-full">🔢 Mathematics</Badge>
+                        <Badge className="bg-purple-500 text-white px-3 py-1 rounded-full">💻 Online</Badge>
+                        <span className="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full">15 members</span>
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">CSEC Mathematics Study Circle</h3>
-                      <p className="text-sm text-gray-600 mb-3">Weekly study sessions focusing on key CSEC Mathematics topics, problem solving strategies, and exam preparation.</p>
+                      <h3 className="text-xl font-bold mb-3 text-gray-800">CSEC Mathematics Study Circle</h3>
+                      <p className="text-gray-600 mb-4 leading-relaxed">Weekly study sessions focusing on key CSEC Mathematics topics, problem solving strategies, and exam preparation.</p>
                       
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                         <div className="flex items-center gap-1">
@@ -876,26 +878,28 @@ export default function ExamPrepHub() {
           </TabsContent>
 
           {/* Find a Tutor Tab */}
-          <TabsContent value="tutor" className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold mb-2">One-on-One Tutoring</h2>
-              <p className="text-gray-600 mb-6">Connect with experienced tutors specializing in various subjects for personalized assistance. Our tutors have proven track records of helping students excel in their exams.</p>
+          <TabsContent value="tutor" className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                🎓 One-on-One Tutoring
+              </h2>
+              <p className="text-gray-600 text-lg">Connect with experienced tutors specializing in various subjects for personalized assistance</p>
             </div>
 
             {/* Search and Filter Section */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-indigo-400 h-5 w-5" />
                   <Input
-                    placeholder="Search by subject or exam"
-                    className="pl-10 w-full sm:w-64"
+                    placeholder="🔍 Search tutors by subject"
+                    className="pl-12 w-full sm:w-80 h-12 rounded-2xl border-2 border-indigo-200 bg-white/80 backdrop-blur-sm"
                   />
                 </div>
                 
                 <Select>
-                  <SelectTrigger className="w-full sm:w-32">
-                    <SelectValue placeholder="Filter By" />
+                  <SelectTrigger className="w-full sm:w-40 h-12 rounded-2xl border-2 border-blue-200 bg-white/80 backdrop-blur-sm">
+                    <SelectValue placeholder="⭐ Filter By" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Tutors</SelectItem>
@@ -1143,57 +1147,63 @@ export default function ExamPrepHub() {
           </TabsContent>
 
           {/* Coursework Hub Tab */}
-          <TabsContent value="coursework" className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold mb-2">Coursework Hub</h2>
-              <p className="text-gray-600 mb-6">Access guidance and examples for School-Based Assessments (SBAs) and Internal Assessments (IAs). Get help with structured approaches to your coursework requirements.</p>
+          <TabsContent value="coursework" className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4">
+                📚 Coursework Hub
+              </h2>
+              <p className="text-gray-600 text-lg">Access guidance and examples for School-Based Assessments (SBAs) and Internal Assessments (IAs)</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Example Repository */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Folder className="h-5 w-5 text-orange-600" />
+              <Card className="bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-xl">
+                    <div className="p-3 bg-orange-500 rounded-full">
+                      <Folder className="h-6 w-6 text-white" />
+                    </div>
                     Example Repository
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Browse high-quality examples of completed coursework for reference and guidance.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center leading-relaxed">Browse high-quality examples of completed coursework for reference and guidance</p>
                   
-                  <div className="space-y-3">
-                    <div className="p-3 bg-blue-50 rounded-lg">
-                      <h4 className="font-semibold text-sm mb-1">CSEC Biology SBA Examples</h4>
-                      <p className="text-xs text-gray-600">Complete lab with detailed observations</p>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl border border-blue-200">
+                      <h4 className="font-bold text-sm mb-2 text-blue-800">🧬 CSEC Biology SBA Examples</h4>
+                      <p className="text-xs text-blue-600">Complete lab with detailed observations</p>
                     </div>
                     
-                    <div className="p-3 bg-green-50 rounded-lg">
-                      <h4 className="font-semibold text-sm mb-1">CAPE Communication Studies IA</h4>
-                      <p className="text-xs text-gray-600">Sample portfolios with feedback</p>
+                    <div className="p-4 bg-gradient-to-r from-green-100 to-green-50 rounded-2xl border border-green-200">
+                      <h4 className="font-bold text-sm mb-2 text-green-800">📝 CAPE Communication Studies IA</h4>
+                      <p className="text-xs text-green-600">Sample portfolios with feedback</p>
                     </div>
                   </div>
                   
-                  <Button variant="outline" className="w-full">
-                    View Repository
+                  <Button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-2xl h-12 font-medium">
+                    View Repository 📁
                   </Button>
                 </CardContent>
               </Card>
 
               {/* Guidance Articles */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-green-600" />
+              <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-xl">
+                    <div className="p-3 bg-green-500 rounded-full">
+                      <FileText className="h-6 w-6 text-white" />
+                    </div>
                     Guidance Articles
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Read expert articles on how to approach and excel in different types of coursework.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center leading-relaxed">Read expert articles on how to approach and excel in different types of coursework</p>
                   
-                  <div className="space-y-3">
-                    <div className="p-3 bg-green-50 rounded-lg">
-                      <h4 className="font-semibold text-sm mb-1">Choosing a Good SBA/IA Topic</h4>
-                      <p className="text-xs text-gray-600">Tips for selecting manageable topics</p>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gradient-to-r from-green-100 to-emerald-50 rounded-2xl border border-green-200">
+                      <h4 className="font-bold text-sm mb-2 text-green-800">💡 Choosing a Good SBA/IA Topic</h4>
+                      <p className="text-xs text-green-600">Tips for selecting manageable topics</p>
                     </div>
                     
                     <div className="p-3 bg-purple-50 rounded-lg">
