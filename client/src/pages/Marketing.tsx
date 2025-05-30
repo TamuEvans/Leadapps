@@ -172,21 +172,21 @@ export default function Marketing() {
   const testimonials = [
     {
       name: 'Katrina',
-      country: 'Philippines',
+      country: 'Jamaica',
       text: 'Leadapps connected me with my dream university in the UK. The counselors guided me through every step!',
-      image: 'https://source.unsplash.com/random/100x100/?woman,portrait',
+      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
     },
     {
       name: 'Jonathan',
-      country: 'Nigeria', 
+      country: 'Trinidad & Tobago', 
       text: 'The platform made applying to multiple universities so simple. I saved countless hours and got into my top choice!',
-      image: 'https://source.unsplash.com/random/100x100/?man,portrait',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
     },
     {
-      name: 'Praneeth',
-      country: 'India',
+      name: 'Aaliyah',
+      country: 'Barbados',
       text: 'From visa guidance to scholarship applications, Leadapps was with me at every stage. Truly grateful!',
-      image: 'https://source.unsplash.com/random/100x100/?indian,man',
+      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80',
     },
   ];
 
