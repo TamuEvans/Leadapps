@@ -191,68 +191,94 @@ export function AppHome() {
         <section>
           <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-6">Featured Programs</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredPrograms.map((program, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-md transition-shadow duration-200">
-                <div className="h-40 bg-gray-200">
-                  {/* Replace with actual image later */}
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-blue-100 to-indigo-100">
-                    <School className="h-10 w-10 text-gray-400" />
+            {featuredPrograms.map((program, index) => {
+              const programGradients = [
+                'from-purple-400 to-pink-400',
+                'from-blue-400 to-cyan-400',
+                'from-green-400 to-emerald-400'
+              ];
+              const gradient = programGradients[index % programGradients.length];
+              
+              return (
+                <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
+                  <div className="h-40 relative overflow-hidden">
+                    <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${gradient}`}>
+                      <School className="h-12 w-12 text-white/80" />
+                    </div>
+                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-full p-2">
+                      <GraduationCap className="h-4 w-4 text-white" />
+                    </div>
                   </div>
-                </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-md">{program.program}</CardTitle>
-                  <CardDescription>{program.university}</CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full" asChild>
-                    <Link to={`/app/search?q=${program.program}`}>View Program</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg font-bold text-gray-800">{program.program}</CardTitle>
+                    <CardDescription className="text-gray-600 font-medium">{program.university}</CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`} asChild>
+                      <Link to={`/app/search?q=${program.program}`}>View Program</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
         </section>
 
         {/* Application Deadlines */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">Upcoming Deadlines</h2>
-          <Card>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent mb-6">Upcoming Deadlines</h2>
+          <Card className="rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl">
             <CardContent className="p-0">
-              <div className="divide-y">
-                <div className="p-4 flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Fall 2025 Applications</h3>
-                    <p className="text-sm text-gray-500">Most universities in US & Canada</p>
+              <div className="divide-y divide-gray-100">
+                <div className="p-6 flex justify-between items-center">
+                  <div className="flex items-center">
+                    <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-3 rounded-2xl mr-4">
+                      <Clock className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800">Fall 2025 Applications</h3>
+                      <p className="text-sm text-gray-600">Most universities in US & Canada</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-medium text-amber-600">30 days left</span>
+                    <span className="text-sm font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">30 days left</span>
                     <p className="text-xs text-gray-500">December 15, 2025</p>
                   </div>
                 </div>
-                <div className="p-4 flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">UK Universities (Undergraduate)</h3>
-                    <p className="text-sm text-gray-500">UCAS Application Deadline</p>
+                <div className="p-6 flex justify-between items-center">
+                  <div className="flex items-center">
+                    <div className="bg-gradient-to-r from-blue-400 to-purple-500 p-3 rounded-2xl mr-4">
+                      <CalendarDays className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800">UK Universities (Undergraduate)</h3>
+                      <p className="text-sm text-gray-600">UCAS Application Deadline</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-medium text-amber-600">60 days left</span>
+                    <span className="text-sm font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">60 days left</span>
                     <p className="text-xs text-gray-500">January 15, 2025</p>
                   </div>
                 </div>
-                <div className="p-4 flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">Spring 2025 Applications</h3>
-                    <p className="text-sm text-gray-500">Australian Universities</p>
+                <div className="p-6 flex justify-between items-center">
+                  <div className="flex items-center">
+                    <div className="bg-gradient-to-r from-green-400 to-emerald-500 p-3 rounded-2xl mr-4">
+                      <ExternalLink className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800">Spring 2025 Applications</h3>
+                      <p className="text-sm text-gray-600">Australian Universities</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-medium text-emerald-600">90 days left</span>
+                    <span className="text-sm font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">90 days left</span>
                     <p className="text-xs text-gray-500">February 15, 2025</p>
                   </div>
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="justify-end">
-              <Button variant="ghost" size="sm" asChild>
+            <CardFooter className="justify-end p-6">
+              <Button className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white rounded-2xl px-6" asChild>
                 <Link to="/app/applications">View All Deadlines</Link>
               </Button>
             </CardFooter>
@@ -260,11 +286,14 @@ export function AppHome() {
         </section>
 
         {/* Support Hubs Section */}
-        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Support Hubs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Personality Hub */}
-            <Card className="bg-white border-t-4 border-purple-500 hover:shadow-md transition-shadow duration-200">
+        <section className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-8 rounded-3xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="relative z-10">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">Support Hubs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Personality Hub */}
+              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
               <CardHeader className="pb-2">
                 <div className="flex items-center">
                   <div className="mr-3 bg-purple-100 p-3 rounded-full">
@@ -346,6 +375,7 @@ export function AppHome() {
                 </Button>
               </CardFooter>
             </Card>
+            </div>
           </div>
         </section>
 
@@ -390,6 +420,9 @@ export function AppHome() {
               <BookOpen className="h-4 w-4 mr-2" />
               View All Articles
             </Button>
+          </div>
+        </section>
+            </div>
           </div>
         </section>
       </div>
