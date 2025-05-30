@@ -384,8 +384,7 @@ export function AppHome() {
               const gradient = articleGradients[index % articleGradients.length];
               
               return (
-                <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
-                  <div className={`bg-gradient-to-r ${gradient} h-2`}></div>
+                <Card key={index} className="overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 rounded-xl border border-gray-200 bg-white">
                   <CardHeader className="pb-3">
                     <div className="flex justify-between items-start mb-2">
                       <CardTitle className="text-lg font-bold text-gray-800 line-clamp-2">{article.title}</CardTitle>
