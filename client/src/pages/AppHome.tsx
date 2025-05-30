@@ -152,7 +152,7 @@ export function AppHome() {
               const gradient = gradients[index % gradients.length];
               
               return (
-                <Card key={index} className="hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/80 backdrop-blur-sm overflow-hidden">
+                <Card key={index} className="hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/80 backdrop-blur-sm overflow-hidden flex flex-col h-full">
                   <CardHeader className="pb-4">
                     <div className="flex items-center">
                       <div className={`mr-3 bg-gradient-to-r ${gradient} p-3 rounded-2xl text-white shadow-lg`}>
@@ -161,10 +161,10 @@ export function AppHome() {
                       <CardTitle className="text-lg font-bold text-gray-800">{link.title}</CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent className="pb-4">
+                  <CardContent className="pb-4 flex-1">
                     <CardDescription className="text-gray-600 leading-relaxed">{link.description}</CardDescription>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="mt-auto">
                     <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`} asChild>
                       <Link to={link.link}>{link.cta}</Link>
                     </Button>
@@ -274,133 +274,151 @@ export function AppHome() {
         </section>
 
         {/* Support Hubs Section */}
-        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Support Hubs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Personality Hub */}
-            <Card className="bg-white border-t-4 border-purple-500 hover:shadow-md transition-shadow duration-200">
-              <CardHeader className="pb-2">
-                <div className="flex items-center">
-                  <div className="mr-3 bg-purple-100 p-3 rounded-full">
-                    <Brain className="h-6 w-6 text-purple-600" />
+        <section className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-8 rounded-3xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="relative z-10">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">Support Hubs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Personality Hub */}
+              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
+                <div className="bg-gradient-to-r from-purple-400 to-pink-400 h-2"></div>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center">
+                    <div className="mr-3 bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-2xl text-white shadow-lg">
+                      <Brain className="h-6 w-6" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-800">Personality Hub</CardTitle>
                   </div>
-                  <CardTitle className="text-lg">Personality Hub</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="pb-4">
-                <p className="text-gray-600 text-sm mb-3">
-                  Discover your strengths, interests, and ideal career paths with our personality assessment tools.
-                </p>
-                <div className="flex items-center text-xs text-gray-500 mb-2">
-                  <span className="flex items-center text-purple-600 font-medium">
-                    <Sparkles className="h-3 w-3 mr-1" />
-                    Personality Assessment
-                  </span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" size="sm" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50" asChild>
-                  <Link to="/app/personality-hub">Explore Hub</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                </CardHeader>
+                <CardContent className="pb-4">
+                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">
+                    Discover your strengths, interests, and ideal career paths with our personality assessment tools.
+                  </p>
+                  <div className="flex items-center text-xs mb-2">
+                    <span className="flex items-center bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-2 py-1 rounded-full font-medium">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Personality Assessment
+                    </span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl h-11 font-medium shadow-lg" asChild>
+                    <Link to="/app/personality-hub">Explore Hub</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
 
-            {/* Exam Prep Hub */}
-            <Card className="bg-white border-t-4 border-blue-500 hover:shadow-md transition-shadow duration-200">
-              <CardHeader className="pb-2">
-                <div className="flex items-center">
-                  <div className="mr-3 bg-blue-100 p-3 rounded-full">
-                    <BookOpen className="h-6 w-6 text-blue-600" />
+              {/* Exam Prep Hub */}
+              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
+                <div className="bg-gradient-to-r from-blue-400 to-cyan-400 h-2"></div>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center">
+                    <div className="mr-3 bg-gradient-to-r from-blue-500 to-cyan-500 p-3 rounded-2xl text-white shadow-lg">
+                      <BookOpen className="h-6 w-6" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-800">Exam Prep Hub</CardTitle>
                   </div>
-                  <CardTitle className="text-lg">Exam Prep Hub</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="pb-4">
-                <p className="text-gray-600 text-sm mb-3">
-                  Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.
-                </p>
-                <div className="flex items-center text-xs text-gray-500 mb-2">
-                  <span className="flex items-center text-blue-600 font-medium">
-                    <Sparkles className="h-3 w-3 mr-1" />
-                    Practice Tests & Guides
-                  </span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" size="sm" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50" asChild>
-                  <Link to="/app/exam-prep-hub">Explore Hub</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                </CardHeader>
+                <CardContent className="pb-4">
+                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">
+                    Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.
+                  </p>
+                  <div className="flex items-center text-xs mb-2">
+                    <span className="flex items-center bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Practice Tests & Guides
+                    </span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-2xl h-11 font-medium shadow-lg" asChild>
+                    <Link to="/app/exam-prep-hub">Explore Hub</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
 
-            {/* Funding Hub */}
-            <Card className="bg-white border-t-4 border-green-500 hover:shadow-md transition-shadow duration-200">
-              <CardHeader className="pb-2">
-                <div className="flex items-center">
-                  <div className="mr-3 bg-green-100 p-3 rounded-full">
-                    <DollarSign className="h-6 w-6 text-green-600" />
+              {/* Funding Hub */}
+              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
+                <div className="bg-gradient-to-r from-green-400 to-emerald-400 h-2"></div>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center">
+                    <div className="mr-3 bg-gradient-to-r from-green-500 to-emerald-500 p-3 rounded-2xl text-white shadow-lg">
+                      <DollarSign className="h-6 w-6" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-800">Funding Hub</CardTitle>
                   </div>
-                  <CardTitle className="text-lg">Funding Hub</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="pb-4">
-                <p className="text-gray-600 text-sm mb-3">
-                  Find scholarships, grants, and financial aid opportunities to fund your international education dreams.
-                </p>
-                <div className="flex items-center text-xs text-gray-500 mb-2">
-                  <span className="flex items-center text-green-600 font-medium">
-                    <Sparkles className="h-3 w-3 mr-1" />
-                    Scholarships & Grants
-                  </span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" size="sm" className="w-full border-green-200 text-green-700 hover:bg-green-50" asChild>
-                  <Link to="/app/funding-hub">Explore Hub</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                </CardHeader>
+                <CardContent className="pb-4">
+                  <p className="text-gray-600 text-sm mb-3 leading-relaxed">
+                    Find scholarships, grants, and financial aid opportunities to fund your international education dreams.
+                  </p>
+                  <div className="flex items-center text-xs mb-2">
+                    <span className="flex items-center bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-2 py-1 rounded-full font-medium">
+                      <Sparkles className="h-3 w-3 mr-1" />
+                      Scholarships & Grants
+                    </span>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl h-11 font-medium shadow-lg" asChild>
+                    <Link to="/app/funding-hub">Explore Hub</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
           </div>
         </section>
 
         {/* Suggested Articles */}
         <section>
-          <h2 className="text-xl font-semibold mb-4">Suggested Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {suggestedArticles.map((article, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-md transition-shadow duration-200">
-                <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{article.title}</CardTitle>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
-                      {article.category}
-                    </span>
-                  </div>
-                </CardHeader>
-                <CardContent className="pb-2">
-                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">{article.summary}</p>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <CalendarDays className="h-3 w-3 mr-1" />
-                    <span>{article.date}</span>
-                    <span className="mx-2">•</span>
-                    <Clock className="h-3 w-3 mr-1" />
-                    <span>{article.readTime}</span>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" size="sm" className="w-full">
-                    <div className="flex items-center justify-center">
-                      <BookOpenText className="h-4 w-4 mr-2" />
-                      Read Article
-                      <ExternalLink className="h-3 w-3 ml-1" />
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-green-600 bg-clip-text text-transparent mb-6">Suggested Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {suggestedArticles.map((article, index) => {
+              const articleGradients = [
+                'from-teal-400 to-blue-400',
+                'from-green-400 to-teal-400',
+                'from-blue-400 to-indigo-400',
+                'from-purple-400 to-blue-400'
+              ];
+              const gradient = articleGradients[index % articleGradients.length];
+              
+              return (
+                <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
+                  <div className={`bg-gradient-to-r ${gradient} h-2`}></div>
+                  <CardHeader className="pb-3">
+                    <div className="flex justify-between items-start mb-2">
+                      <CardTitle className="text-lg font-bold text-gray-800 line-clamp-2">{article.title}</CardTitle>
+                      <span className={`text-xs px-3 py-1 rounded-full bg-gradient-to-r ${gradient} text-white font-medium whitespace-nowrap ml-2`}>
+                        {article.category}
+                      </span>
                     </div>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent className="pb-4">
+                    <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">{article.summary}</p>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <CalendarDays className="h-3 w-3 mr-1" />
+                      <span>{article.date}</span>
+                      <span className="mx-2">•</span>
+                      <Clock className="h-3 w-3 mr-1" />
+                      <span>{article.readTime}</span>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className={`w-full bg-gradient-to-r ${gradient} hover:shadow-lg rounded-2xl h-11 font-medium text-white`}>
+                      <div className="flex items-center justify-center">
+                        <BookOpenText className="h-4 w-4 mr-2" />
+                        Read Article
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </div>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
-          <div className="text-center mt-4">
-            <Button variant="ghost" className="flex items-center">
+          <div className="text-center mt-6">
+            <Button className="bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-600 hover:to-green-600 text-white rounded-2xl px-8 h-12 font-medium shadow-lg">
               <BookOpen className="h-4 w-4 mr-2" />
               View All Articles
             </Button>
