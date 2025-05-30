@@ -184,38 +184,40 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50 relative overflow-hidden">
+      <section className="w-full py-16 md:py-32 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full">
-          <div className="absolute right-[-10%] top-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-80"></div>
-          <div className="absolute right-[20%] top-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-red-400 to-red-600 opacity-70"></div>
-          <div className="absolute right-[10%] top-[40%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-blue-400 to-blue-600 opacity-70"></div>
-          <div className="absolute right-[30%] top-[30%] w-[30%] h-[30%] rounded-full bg-gradient-to-br from-green-400 to-green-600 opacity-70"></div>
+          <div className="absolute right-[-10%] top-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-yellow-300 to-orange-500 opacity-20 blur-3xl"></div>
+          <div className="absolute right-[20%] top-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-pink-400 to-red-600 opacity-20 blur-3xl"></div>
+          <div className="absolute right-[10%] top-[40%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-blue-400 to-purple-600 opacity-20 blur-3xl"></div>
+          <div className="absolute right-[30%] top-[30%] w-[30%] h-[30%] rounded-full bg-gradient-to-br from-green-400 to-cyan-600 opacity-20 blur-3xl"></div>
         </div>
 
         <div className="container px-4 md:px-6 relative z-10">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 items-center">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl text-gray-800">
-                  study made simple.
+          <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:gap-16 items-center">
+            <div className="flex flex-col justify-center space-y-8">
+              <div className="space-y-6">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl xl:text-7xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  🎓 study made simple.
                 </h1>
-                <p className="max-w-[600px] text-gray-600 md:text-xl">
+                <p className="max-w-[600px] text-gray-700 md:text-xl leading-relaxed">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button className="px-8 bg-gradient-primary">
-                  Get Started
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button className="px-10 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl text-lg font-medium shadow-xl transform hover:scale-105 transition-all duration-300">
+                  Get Started ✨
                 </Button>
-                <Button variant="outline">Learn More</Button>
+                <Button className="px-10 py-4 bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl text-lg font-medium backdrop-blur-sm">
+                  Learn More
+                </Button>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow-lg">
+            <div className="flex flex-col space-y-6 bg-white/80 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border border-white/50">
               <Tabs defaultValue="login" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="login">Login</TabsTrigger>
-                  <TabsTrigger value="register">Register</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 bg-gray-100 rounded-2xl p-1">
+                  <TabsTrigger value="login" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">Login</TabsTrigger>
+                  <TabsTrigger value="register" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">Register</TabsTrigger>
                 </TabsList>
                 <TabsContent value="login" className="pt-4">
                   <Form {...loginForm}>
@@ -226,7 +228,7 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Email" {...field} />
+                              <Input placeholder="📧 Email" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -238,7 +240,7 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="password" placeholder="Password" {...field} />
+                              <Input type="password" placeholder="🔒 Password" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -249,7 +251,7 @@ export default function Home() {
                           <span className="text-sm text-blue-600 hover:underline cursor-pointer">Forgot password?</span>
                         </Link>
                       </div>
-                      <Button type="submit" className="w-full bg-gradient-primary" disabled={isLoginLoading}>
+                      <Button type="submit" className="w-full h-12 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl font-medium shadow-lg" disabled={isLoginLoading}>
                         {isLoginLoading ? 'Logging in...' : 'Login'}
                       </Button>
                       <div className="relative">
@@ -274,7 +276,7 @@ export default function Home() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="First Name" {...field} />
+                                <Input placeholder="👤 First Name" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -286,7 +288,7 @@ export default function Home() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Last Name" {...field} />
+                                <Input placeholder="👤 Last Name" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -299,7 +301,7 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Email" {...field} />
+                              <Input placeholder="📧 Email" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -311,7 +313,7 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="password" placeholder="Password" {...field} />
+                              <Input type="password" placeholder="🔒 Password" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -323,13 +325,13 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="password" placeholder="Confirm Password" {...field} />
+                              <Input type="password" placeholder="🔒 Confirm Password" {...field} className="h-12 rounded-2xl border-2 border-gray-200 bg-white/80 backdrop-blur-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-primary" disabled={isRegisterLoading}>
+                      <Button type="submit" className="w-full h-12 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-2xl font-medium shadow-lg" disabled={isRegisterLoading}>
                         {isRegisterLoading ? 'Creating Account...' : 'Create Account'}
                       </Button>
                       <div className="relative">
