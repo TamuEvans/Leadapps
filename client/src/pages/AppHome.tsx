@@ -190,9 +190,28 @@ export function AppHome() {
               return (
                 <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
                   <div className="h-40 relative overflow-hidden">
-                    <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${gradient}`}>
-                      <School className="h-12 w-12 text-white/80" />
-                    </div>
+                    {program.university === 'University of Toronto' && (
+                      <img 
+                        src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        alt="University of Toronto campus"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    {program.university === 'University of the West Indies' && (
+                      <img 
+                        src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        alt="University of the West Indies campus"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    {program.university === 'St. George\'s University' && (
+                      <img 
+                        src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        alt="St. Georges University campus"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/20"></div>
                     <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-full p-2">
                       <GraduationCap className="h-4 w-4 text-white" />
                     </div>
