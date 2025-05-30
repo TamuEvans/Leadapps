@@ -366,108 +366,116 @@ export default function ExamPrepHub() {
                 </Select>
               </div>
               
-              <Button>
-                <Search className="h-4 w-4 mr-2" />
-                Find Resources
+              <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white rounded-2xl h-14 px-8 font-medium shadow-lg">
+                <Search className="h-5 w-5 mr-2" />
+                Find Resources 🔍
               </Button>
             </div>
 
             {/* Resource Types Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Study Notes */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-blue-600" />
+              <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-lg">
+                    <div className="p-3 bg-blue-500 rounded-full">
+                      <FileText className="h-5 w-5 text-white" />
+                    </div>
                     Study Notes
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Comprehensive, syllabus-specific notes organized by topic to enhance your understanding.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center text-sm leading-relaxed">Comprehensive, syllabus-specific notes organized by topic to enhance your understanding</p>
                   
-                  <div className="space-y-2 text-sm">
-                    <div>• Key concepts and definitions</div>
-                    <div>• Illustrated diagrams and examples</div>
-                    <div>• Topic summaries and quick reviews</div>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center gap-2 text-blue-700">📝 Key concepts and definitions</div>
+                    <div className="flex items-center gap-2 text-blue-700">📊 Illustrated diagrams and examples</div>
+                    <div className="flex items-center gap-2 text-blue-700">⚡ Topic summaries and quick reviews</div>
                   </div>
                   
-                  <Button variant="outline" className="w-full">
-                    Browse Study Notes
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-2xl h-12 font-medium">
+                    Browse Study Notes 📚
                   </Button>
                 </CardContent>
               </Card>
 
               {/* Flashcards */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="h-5 w-5 text-green-600" />
+              <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-lg">
+                    <div className="p-3 bg-green-500 rounded-full">
+                      <Target className="h-5 w-5 text-white" />
+                    </div>
                     Flashcards
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Digital flashcards to help you memorize key information and test your knowledge.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center text-sm leading-relaxed">Digital flashcards to help you memorize key information and test your knowledge</p>
                   
-                  <div className="space-y-2 text-sm">
-                    <div>• Pre-made decks by subject and topic</div>
-                    <div>• Interactive learning with instant feedback</div>
-                    <div>• Track your progress and mastery</div>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center gap-2 text-green-700">🃏 Pre-made decks by subject and topic</div>
+                    <div className="flex items-center gap-2 text-green-700">⚡ Interactive learning with instant feedback</div>
+                    <div className="flex items-center gap-2 text-green-700">📈 Track your progress and mastery</div>
                   </div>
                   
-                  <Button variant="outline" className="w-full">
-                    Explore Flashcards
+                  <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl h-12 font-medium">
+                    Explore Flashcards 🃏
                   </Button>
                 </CardContent>
               </Card>
 
               {/* Question Bank */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-purple-600" />
+              <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-lg">
+                    <div className="p-3 bg-purple-500 rounded-full">
+                      <BookOpen className="h-5 w-5 text-white" />
+                    </div>
                     Question Bank
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Thousands of questions with detailed solutions to help you practice and learn.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center text-sm leading-relaxed">Thousands of questions with detailed solutions to help you practice and learn</p>
                   
-                  <div className="space-y-2 text-sm">
-                    <div>• Multiple choice and short answer formats</div>
-                    <div>• Questions organized by difficulty level</div>
-                    <div>• Detailed explanations and worked solutions</div>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center gap-2 text-purple-700">📝 Multiple choice and short answer formats</div>
+                    <div className="flex items-center gap-2 text-purple-700">📊 Questions organized by difficulty level</div>
+                    <div className="flex items-center gap-2 text-purple-700">💡 Detailed explanations and worked solutions</div>
                   </div>
                   
-                  <Button variant="outline" className="w-full">
-                    Access Question Bank
+                  <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl h-12 font-medium">
+                    Access Question Bank 📚
                   </Button>
                 </CardContent>
               </Card>
 
               {/* My Stuff */}
-              <Card className="border-2 border-dashed border-orange-300 bg-orange-50">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Folder className="h-5 w-5 text-orange-600" />
+              <Card className="bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-orange-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                <CardHeader className="text-center pb-2">
+                  <CardTitle className="flex items-center justify-center gap-3 text-lg">
+                    <div className="p-3 bg-orange-500 rounded-full">
+                      <Folder className="h-5 w-5 text-white" />
+                    </div>
                     My Stuff
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">Upload and organize your personal study materials in custom folders.</p>
+                <CardContent className="space-y-6 pt-4">
+                  <p className="text-gray-600 text-center text-sm leading-relaxed">Upload and organize your personal study materials in custom folders</p>
                   
-                  <div className="space-y-2 text-sm">
-                    <div>• Upload your own flashcards & notes</div>
-                    <div>• Create custom study questions</div>
-                    <div>• Organize in personal folders</div>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center gap-2 text-orange-700">📁 Upload your own flashcards & notes</div>
+                    <div className="flex items-center gap-2 text-orange-700">❓ Create custom study questions</div>
+                    <div className="flex items-center gap-2 text-orange-700">📂 Organize in personal folders</div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <Button variant="outline" className="w-full">
+                  <div className="space-y-3">
+                    <Button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white rounded-2xl h-12 font-medium">
                       <Upload className="h-4 w-4 mr-2" />
-                      Upload Materials
+                      Upload Materials 📤
                     </Button>
-                    <Button variant="outline" className="w-full">
+                    <Button className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl h-12 font-medium">
                       <Plus className="h-4 w-4 mr-2" />
-                      Create New Folder
+                      Create New Folder ➕
                     </Button>
                   </div>
                 </CardContent>
