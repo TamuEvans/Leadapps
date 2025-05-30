@@ -350,8 +350,8 @@ export default function Counselling() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
                 <Search className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-semibold">1. Find Your Counselor</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="text-lg font-bold text-gray-800">1. Find Your Counselor</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Browse our network of expert counselors and find one that matches your destination and program preferences.
               </p>
             </div>
