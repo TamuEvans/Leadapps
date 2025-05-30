@@ -280,31 +280,37 @@ const StudentProfile = () => {
   const isEnglishFirstLanguage = form.watch("isEnglishFirstLanguage");
   
   return (
-    <div>
+    <div className="max-w-6xl mx-auto">
       {/* Profile Header */}
-      <div className="mb-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
-          <div className="flex flex-col space-y-2">
-            <div className="flex items-center space-x-4">
-              <ProfilePicture 
-                initialImage={profile?.profilePicture}
-                onImageChange={(file) => {
-                  // Handle profile picture upload
-                  console.log("Profile picture changed:", file);
-                }}
-              />
-              <div>
-                <div className="text-sm text-gray-600">
-                  Student ID: <span className="text-gray-900">STU12345</span>
-                </div>
-                <div className="text-sm text-gray-600">
-                  Email: <span className="text-gray-900">{profile?.email || "student@example.com"}</span>
+      <div className="mb-8">
+        <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-300 to-cyan-400 rounded-full opacity-20 blur-xl"></div>
+          <div className="relative z-10">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center space-x-6">
+                  <ProfilePicture 
+                    initialImage={profile?.profilePicture}
+                    onImageChange={(file) => {
+                      console.log("Profile picture changed:", file);
+                    }}
+                  />
+                  <div>
+                    <h1 className="text-2xl font-bold mb-2">👋 Your Student Profile</h1>
+                    <div className="text-sm text-white/90 mb-1">
+                      Student ID: <span className="font-medium text-white">STU12345</span>
+                    </div>
+                    <div className="text-sm text-white/90">
+                      Email: <span className="font-medium text-white">{profile?.email || "student@example.com"}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div className="mt-6 md:mt-0">
+                <ProfileProgress completionPercentage={profileCompletionPercentage} />
+              </div>
             </div>
-          </div>
-          <div className="mt-4 md:mt-0">
-            <ProfileProgress completionPercentage={profileCompletionPercentage} />
           </div>
         </div>
       </div>
@@ -313,7 +319,7 @@ const StudentProfile = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {/* Personal Information Section */}
-          <FormSection title="Personal Information">
+          <FormSection title="👤 Personal Information">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
               <FormField
                 control={form.control}
@@ -1131,13 +1137,12 @@ const StudentProfile = () => {
           
           {/* Schools Attended */}
           <FormSection 
-            title="Schools Attended" 
+            title="🎓 Schools Attended" 
             actions={
               <Button
                 type="button"
-                variant="outline"
                 size="sm"
-                className="border-primary text-primary hover:bg-primary hover:text-white"
+                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-4 py-2"
                 onClick={addSchool}
               >
                 <Plus className="h-4 w-4 mr-1.5" /> Add School
@@ -1163,13 +1168,12 @@ const StudentProfile = () => {
           
           {/* Standardized Tests & Qualifications */}
           <FormSection 
-            title="Standardized Tests & Qualifications" 
+            title="📊 Standardized Tests & Qualifications" 
             actions={
               <Button
                 type="button"
-                variant="outline"
                 size="sm"
-                className="border-primary text-primary hover:bg-primary hover:text-white"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-4 py-2"
                 onClick={addTest}
               >
                 <Plus className="h-4 w-4 mr-1.5" /> Add Test/Qualification
@@ -1263,13 +1267,12 @@ const StudentProfile = () => {
           
           {/* Work Experience (Optional) */}
           <FormSection 
-            title="Work Experience (Optional)" 
+            title="💼 Work Experience (Optional)" 
             actions={
               <Button
                 type="button"
-                variant="outline"
                 size="sm"
-                className="border-primary text-primary hover:bg-primary hover:text-white"
+                className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-4 py-2"
                 onClick={addWorkExperience}
               >
                 <Plus className="h-4 w-4 mr-1.5" /> Add Experience

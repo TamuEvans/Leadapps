@@ -18,15 +18,15 @@ const FormSection: React.FC<FormSectionProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn("mb-6 shadow-sm overflow-hidden", className)}>
-      <CardHeader className="px-5 py-4 border-b border-gray-200 bg-white flex justify-between items-start">
+    <Card className={cn("mb-8 rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl overflow-hidden", className)}>
+      <CardHeader className="px-6 py-5 bg-gradient-to-r from-gray-50 to-blue-50 flex justify-between items-start">
         <div>
-          <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
-          {description && <p className="text-sm text-gray-500 mt-1">{description}</p>}
+          <CardTitle className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{title}</CardTitle>
+          {description && <p className="text-sm text-gray-600 mt-2 leading-relaxed">{description}</p>}
         </div>
         {actions && <div>{actions}</div>}
       </CardHeader>
-      <CardContent className="p-5 bg-white">
+      <CardContent className="p-6 bg-white/50 backdrop-blur-sm">
         {children}
       </CardContent>
     </Card>
