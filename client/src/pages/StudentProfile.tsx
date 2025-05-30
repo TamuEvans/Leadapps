@@ -622,7 +622,7 @@ const StudentProfile = () => {
           </FormSection>
           
           {/* Address Details Section */}
-          <FormSection title="Address Details">
+          <FormSection title="📍 Address Details">
             <AddressForm 
               type="current" 
               formPrefix=""
@@ -771,7 +771,7 @@ const StudentProfile = () => {
           </FormSection>
           
           {/* Academic Goals & Preferences */}
-          <FormSection title="Academic Goals & Preferences">
+          <FormSection title="🎯 Academic Goals & Preferences">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
               <div className="md:col-span-3">
                 <FormField
@@ -1297,7 +1297,7 @@ const StudentProfile = () => {
           </FormSection>
 
           {/* Documents Upload Section */}
-          <FormSection title="Important Documents" description="Upload important documents for your applications. Documents can be uploaded at a later date if not currently available.">
+          <FormSection title="📄 Important Documents" description="Upload important documents for your applications. Documents can be uploaded at a later date if not currently available.">
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Passport Document */}
@@ -1657,27 +1657,26 @@ const StudentProfile = () => {
           </FormSection>
           
           {/* Sticky Footer with Form Buttons */}
-          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 z-10 flex justify-between">
+          <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-white via-blue-50 to-purple-50 border-t border-gray-200 px-6 py-4 z-10 flex justify-between shadow-lg backdrop-blur-sm">
             <Button
               type="button"
               onClick={() => navigate("/app")}
-              variant="outline"
+              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6 py-3"
             >
               <ChevronLeft className="h-4 w-4 mr-2" /> Back to Home
             </Button>
-            <div className="flex space-x-3">
+            <div className="flex space-x-4">
               <Button
                 type="button"
                 onClick={saveProfile}
-                className="bg-primary hover:bg-primary/90"
+                className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6 py-3"
               >
                 <Save className="h-4 w-4 mr-2" /> Save Profile
               </Button>
               <Button
                 type="button"
                 onClick={() => navigate("/app/search")}
-                variant="outline"
-                className="bg-blue-600 text-white hover:bg-blue-700"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6 py-3"
               >
                 Search for Programmes <ChevronRight className="h-4 w-4 ml-2" />
               </Button>
