@@ -286,14 +286,11 @@ export function AppHome() {
         </section>
 
         {/* Support Hubs Section */}
-        <section className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-8 rounded-3xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-2xl"></div>
-          <div className="relative z-10">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">Support Hubs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Personality Hub */}
-              <Card className="bg-white/80 backdrop-blur-sm rounded-3xl border-0 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
+        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
+          <h2 className="text-xl font-semibold mb-4">Support Hubs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Personality Hub */}
+            <Card className="bg-white border-t-4 border-purple-500 hover:shadow-md transition-shadow duration-200">
               <CardHeader className="pb-2">
                 <div className="flex items-center">
                   <div className="mr-3 bg-purple-100 p-3 rounded-full">
@@ -375,11 +372,10 @@ export function AppHome() {
                 </Button>
               </CardFooter>
             </Card>
-            </div>
           </div>
         </section>
 
-        {/* Suggested Articles */}
+        {/* Suggested Articles */}}
         <section>
           <h2 className="text-xl font-semibold mb-4">Suggested Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -422,7 +418,6 @@ export function AppHome() {
             </Button>
           </div>
         </section>
-            </div>
           </div>
         </section>
       </div>
