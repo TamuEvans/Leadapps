@@ -355,7 +355,7 @@ export default function ExamPrepHub() {
             </div>
 
             {/* Resource Types Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Study Notes */}
               <Card>
                 <CardHeader>
@@ -424,6 +424,101 @@ export default function ExamPrepHub() {
                   </Button>
                 </CardContent>
               </Card>
+
+              {/* My Stuff */}
+              <Card className="border-2 border-dashed border-orange-300 bg-orange-50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Folder className="h-5 w-5 text-orange-600" />
+                    My Stuff
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-gray-600">Upload and organize your personal study materials in custom folders.</p>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div>• Upload your own flashcards & notes</div>
+                    <div>• Create custom study questions</div>
+                    <div>• Organize in personal folders</div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Button variant="outline" className="w-full">
+                      <Upload className="h-4 w-4 mr-2" />
+                      Upload Materials
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create New Folder
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* My Materials Section */}
+            <div className="mt-8">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold">My Materials</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload Files
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Folder
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Sample Personal Folders */}
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <Folder className="h-8 w-8 text-blue-600" />
+                      <div>
+                        <h4 className="font-semibold">Mathematics Notes</h4>
+                        <p className="text-sm text-gray-600">5 files • Created today</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <Folder className="h-8 w-8 text-green-600" />
+                      <div>
+                        <h4 className="font-semibold">English Flashcards</h4>
+                        <p className="text-sm text-gray-600">12 files • Last week</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <Folder className="h-8 w-8 text-purple-600" />
+                      <div>
+                        <h4 className="font-semibold">Practice Questions</h4>
+                        <p className="text-sm text-gray-600">8 files • 3 days ago</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Upload Zone */}
+                <Card className="border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors cursor-pointer">
+                  <CardContent className="p-4 text-center">
+                    <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-gray-600">Drop files here</p>
+                    <p className="text-xs text-gray-500">or click to browse</p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </TabsContent>
 
