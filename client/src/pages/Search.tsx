@@ -394,76 +394,84 @@ const Search = () => {
   };
   
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">Search Programmes & Institutions</h1>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header Section */}
+      <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-300 to-cyan-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10">
+          <h1 className="text-3xl font-bold mb-2">🔍 Search Programmes & Institutions</h1>
+          <p className="text-white/90 text-lg">Discover your perfect educational path from thousands of programmes worldwide</p>
+        </div>
+      </div>
       
       {/* Search Bar & Primary Filters */}
-      <Card className="bg-white shadow-sm">
-        <CardContent className="p-5 space-y-4">
-          <div className="space-y-4">
+      <Card className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl overflow-hidden">
+        <CardContent className="p-8 space-y-6">
+          <div className="space-y-6">
             <div>
-              <label htmlFor="searchQuery" className="block text-sm font-medium text-gray-700 mb-1">
-                What do you want to study? (e.g., Business, Engineering, CAPE subject)
+              <label htmlFor="searchQuery" className="block text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                🎓 What do you want to study?
               </label>
               <div className="relative">
                 <Input
                   id="searchQuery"
                   placeholder="Enter keywords, programme name, or subject..."
-                  className="pl-10"
+                  className="pl-12 h-12 rounded-2xl border-2 border-gray-200 focus:border-purple-400 bg-white/70 backdrop-blur-sm text-lg"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-purple-500" />
               </div>
             </div>
             
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-6">
               <div className="flex-grow">
-                <label htmlFor="locationQuery" className="block text-sm font-medium text-gray-700 mb-1">
-                  Location (Country, City, or Institution Name)
+                <label htmlFor="locationQuery" className="block text-lg font-semibold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent mb-3">
+                  📍 Where do you want to study?
                 </label>
                 <div className="relative">
                   <Input
                     id="locationQuery"
                     placeholder="Enter location or institution..."
-                    className="pl-10"
+                    className="pl-12 h-12 rounded-2xl border-2 border-gray-200 focus:border-teal-400 bg-white/70 backdrop-blur-sm text-lg"
                     value={locationQuery}
                     onChange={(e) => setLocationQuery(e.target.value)}
                   />
-                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-teal-500" />
                 </div>
               </div>
               
-              <div className="md:mt-6">
+              <div className="md:mt-8">
                 <Button 
                   onClick={handleSearch} 
-                  className="w-full md:w-auto"
+                  className="w-full md:w-auto h-12 px-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-2xl text-lg font-semibold"
                 >
-                  <SearchIcon className="h-4 w-4 mr-2" /> Search
+                  <SearchIcon className="h-5 w-5 mr-2" /> Search Now
                 </Button>
               </div>
             </div>
           </div>
           
-          <Separator className="my-4" />
+          <Separator className="my-6 bg-gradient-to-r from-transparent via-purple-300 to-transparent" />
           
           {/* Advanced Filters Section */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="flex items-center">
-              <Filter className="h-4 w-4 mr-2 text-gray-500" />
-              <span className="text-sm font-medium text-gray-700">Filters:</span>
+              <Filter className="h-5 w-5 mr-3 text-purple-500" />
+              <span className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Advanced Filters</span>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               <div>
-                <label htmlFor="programLevel" className="block text-xs font-medium text-gray-500 mb-1">
+                <label htmlFor="programLevel" className="block text-sm font-medium text-gray-700 mb-2">
                   Programme Level
                 </label>
                 <Select
                   value={programLevel}
                   onValueChange={setProgramLevel}
                 >
-                  <SelectTrigger id="programLevel" className="w-full">
+                  <SelectTrigger id="programLevel" className="w-full h-11 rounded-xl border-2 border-gray-200 focus:border-blue-400 bg-white/70">
                     <SelectValue placeholder="All Levels" />
                   </SelectTrigger>
                   <SelectContent>
@@ -477,14 +485,14 @@ const Search = () => {
               </div>
               
               <div>
-                <label htmlFor="studyArea" className="block text-xs font-medium text-gray-500 mb-1">
+                <label htmlFor="studyArea" className="block text-sm font-medium text-gray-700 mb-2">
                   Study Area
                 </label>
                 <Select
                   value={studyArea}
                   onValueChange={setStudyArea}
                 >
-                  <SelectTrigger id="studyArea" className="w-full">
+                  <SelectTrigger id="studyArea" className="w-full h-11 rounded-xl border-2 border-gray-200 focus:border-green-400 bg-white/70">
                     <SelectValue placeholder="All Areas" />
                   </SelectTrigger>
                   <SelectContent>
@@ -498,14 +506,14 @@ const Search = () => {
               </div>
               
               <div>
-                <label htmlFor="institutionType" className="block text-xs font-medium text-gray-500 mb-1">
+                <label htmlFor="institutionType" className="block text-sm font-medium text-gray-700 mb-2">
                   Institution Type
                 </label>
                 <Select
                   value={institutionType}
                   onValueChange={setInstitutionType}
                 >
-                  <SelectTrigger id="institutionType" className="w-full">
+                  <SelectTrigger id="institutionType" className="w-full h-11 rounded-xl border-2 border-gray-200 focus:border-orange-400 bg-white/70">
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>
                   <SelectContent>
@@ -519,14 +527,14 @@ const Search = () => {
               </div>
               
               <div>
-                <label htmlFor="country" className="block text-xs font-medium text-gray-500 mb-1">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
                   Country
                 </label>
                 <Select
                   value={country}
                   onValueChange={setCountry}
                 >
-                  <SelectTrigger id="country" className="w-full">
+                  <SelectTrigger id="country" className="w-full h-11 rounded-xl border-2 border-gray-200 focus:border-pink-400 bg-white/70">
                     <SelectValue placeholder="All Countries" />
                   </SelectTrigger>
                   <SelectContent>
@@ -663,23 +671,23 @@ const Search = () => {
           </div>
           
           {/* Results List */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             {filteredResults.length > 0 ? (
               filteredResults.map(program => (
-                <Card key={program.id} className="overflow-hidden">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row items-start gap-4">
-                      <div className="flex-shrink-0 bg-white rounded-md p-3 border border-gray-100 shadow-sm hidden md:block">
+                <Card key={program.id} className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl overflow-hidden hover:shadow-2xl transform hover:scale-102 transition-all duration-300">
+                  <CardContent className="p-8">
+                    <div className="flex flex-col md:flex-row items-start gap-6">
+                      <div className="flex-shrink-0 bg-gradient-to-br from-white to-gray-50 rounded-2xl p-4 shadow-lg hidden md:block">
                         <img src={program.logo} alt={program.institution} className="w-24 h-20 object-contain" />
                       </div>
                       
                       <div className="flex-grow">
                         <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900">{program.programName}</h3>
-                          <p className="text-primary font-medium">{program.institution}</p>
-                          <p className="text-sm text-gray-600 flex items-center mt-1">
-                            <MapPin className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                          <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{program.programName}</h3>
+                          <p className="text-lg font-semibold text-purple-600 mt-1">{program.institution}</p>
+                          <p className="text-sm text-gray-600 flex items-center mt-2">
+                            <MapPin className="h-4 w-4 mr-2 text-teal-500" />
                             {program.location}
                           </p>
                         </div>
@@ -688,49 +696,48 @@ const Search = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => toggleFavorite(program.id)}
-                          className={favorites.includes(program.id) ? "text-red-500" : "text-gray-400 hover:text-red-500"}
+                          className={`rounded-full p-3 transition-all duration-200 ${favorites.includes(program.id) ? "text-red-500 bg-red-50" : "text-gray-400 hover:text-red-500 hover:bg-red-50"}`}
                         >
                           <Heart className="h-5 w-5" fill={favorites.includes(program.id) ? "currentColor" : "none"} />
                         </Button>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 mt-3">
-                        <div className="flex items-center text-sm text-gray-600">
-                          <GraduationCap className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                          <span>Level: {program.level}</span>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div className="flex items-center text-sm bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-3">
+                          <GraduationCap className="h-4 w-4 mr-2 text-blue-500" />
+                          <span className="font-medium text-gray-700">Level: {program.level}</span>
                         </div>
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Clock className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                          <span>Duration: {program.duration}</span>
+                        <div className="flex items-center text-sm bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3">
+                          <Clock className="h-4 w-4 mr-2 text-green-500" />
+                          <span className="font-medium text-gray-700">Duration: {program.duration}</span>
                         </div>
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Building className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                          <span>Mode: {program.mode}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">
-                        <div className="flex items-center">
-                          <DollarSign className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                          <span>Tuition: {program.tuition}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <FormInput className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
-                          <span>Application Fee: {program.applicationFee}</span>
+                        <div className="flex items-center text-sm bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-3">
+                          <Building className="h-4 w-4 mr-2 text-orange-500" />
+                          <span className="font-medium text-gray-700">Mode: {program.mode}</span>
                         </div>
                       </div>
                       
-                      <p className="text-gray-600 text-sm mt-3 line-clamp-2">{program.description}</p>
+                      <div className="flex flex-col md:flex-row gap-4 text-sm mt-4">
+                        <div className="flex items-center bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-3">
+                          <DollarSign className="h-4 w-4 mr-2 text-purple-500" />
+                          <span className="font-medium text-gray-700">Tuition: {program.tuition}</span>
+                        </div>
+                        <div className="flex items-center bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-3">
+                          <FormInput className="h-4 w-4 mr-2 text-indigo-500" />
+                          <span className="font-medium text-gray-700">Application Fee: {program.applicationFee}</span>
+                        </div>
+                      </div>
                       
-                      <div className="mt-4 flex flex-wrap justify-end gap-2">
-                        <Button variant="outline" asChild>
+                      <p className="text-gray-600 text-sm mt-4 leading-relaxed line-clamp-2">{program.description}</p>
+                      
+                      <div className="mt-6 flex flex-wrap justify-end gap-3">
+                        <Button asChild className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6">
                           <Link to={`/app/programs/${program.id}`}>
                             View Details
                           </Link>
                         </Button>
                         <Button 
-                          variant="default" 
-                          className="bg-primary hover:bg-primary/90"
+                          className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6"
                           onClick={() => handleApplyNow(program)}
                         >
                           Apply Now
@@ -742,10 +749,10 @@ const Search = () => {
               </Card>
             ))
             ) : (
-              <div className="p-8 text-center bg-gray-50 rounded-lg border border-gray-100">
-                <SearchIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-                <h3 className="text-lg font-medium text-gray-700 mb-1">No programmes found</h3>
-                <p className="text-gray-500 max-w-md mx-auto">
+              <div className="p-12 text-center bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl border-0 shadow-xl">
+                <SearchIcon className="h-16 w-16 mx-auto mb-4 text-purple-400" />
+                <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">No programmes found</h3>
+                <p className="text-gray-600 max-w-md mx-auto text-lg">
                   Try adjusting your search criteria or filters to find more programmes.
                 </p>
               </div>
