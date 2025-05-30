@@ -254,75 +254,74 @@ export default function ExamPrepHub() {
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
-                        <BookOpen className="h-5 w-5 text-purple-600" />
+                        <span className="text-2xl">📚</span>
                       </div>
-                      <Badge variant="secondary">CSEC</Badge>
+                      <Badge className="bg-yellow-400 text-black font-medium">CSEC</Badge>
                     </div>
-                    <h3 className="font-semibold mb-2">CSEC English A & B</h3>
-                    <p className="text-sm text-gray-600 mb-4">Complete syllabus-based study materials</p>
+                    <h3 className="font-semibold mb-2 text-lg">CSEC English A & B</h3>
+                    <p className="text-sm text-blue-100 mb-4">Complete syllabus-based study materials</p>
                     <Button 
-                      variant="outline" 
-                      className="w-full"
+                      className="w-full bg-white text-blue-600 hover:bg-blue-50 rounded-2xl font-medium"
                       onClick={() => window.location.href = '/app/csec-english'}
                     >
-                      Study English
+                      Study English ✨
                     </Button>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-gradient-to-br from-green-400 to-blue-500 border-0 shadow-xl rounded-3xl text-white hover:scale-105 transform transition-all duration-300">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <BookOpen className="h-5 w-5 text-blue-600" />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
+                        <span className="text-2xl">🔢</span>
                       </div>
-                      <Badge variant="secondary">CSEC</Badge>
+                      <Badge className="bg-yellow-400 text-black font-medium">CSEC</Badge>
                     </div>
-                    <h3 className="font-semibold mb-2">CSEC Mathematics Practice</h3>
-                    <p className="text-sm text-gray-600 mb-4">Complete fast with worked solutions</p>
-                    <Button variant="outline" className="w-full">Start Practice</Button>
+                    <h3 className="font-semibold mb-2 text-lg">CSEC Mathematics Practice</h3>
+                    <p className="text-sm text-green-100 mb-4">Complete fast with worked solutions</p>
+                    <Button className="w-full bg-white text-green-600 hover:bg-green-50 rounded-2xl font-medium">Start Practice 🎯</Button>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-gradient-to-br from-pink-400 to-orange-500 border-0 shadow-xl rounded-3xl text-white hover:scale-105 transform transition-all duration-300">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-green-100 rounded-lg">
-                        <FileText className="h-5 w-5 text-green-600" />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
+                        <span className="text-2xl">🧬</span>
                       </div>
-                      <Badge variant="secondary">CAPE</Badge>
+                      <Badge className="bg-green-400 text-black font-medium">CAPE</Badge>
                     </div>
-                    <h3 className="font-semibold mb-2">CAPE Biology Study Notes</h3>
-                    <p className="text-sm text-gray-600 mb-4">Unit 1 complete revision</p>
-                    <Button variant="outline" className="w-full">View Notes</Button>
+                    <h3 className="font-semibold mb-2 text-lg">CAPE Biology Study Notes</h3>
+                    <p className="text-sm text-pink-100 mb-4">Unit 1 complete revision</p>
+                    <Button className="w-full bg-white text-pink-600 hover:bg-pink-50 rounded-2xl font-medium">View Notes 📄</Button>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-gradient-to-br from-yellow-400 to-red-500 border-0 shadow-xl rounded-3xl text-white hover:scale-105 transform transition-all duration-300">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-orange-100 rounded-lg">
-                        <Target className="h-5 w-5 text-orange-600" />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
+                        <span className="text-2xl">🎯</span>
                       </div>
-                      <Badge variant="secondary">SAT</Badge>
+                      <Badge className="bg-blue-400 text-white font-medium">SAT</Badge>
                     </div>
-                    <h3 className="font-semibold mb-2">SAT Reading & Writing</h3>
-                    <p className="text-sm text-gray-600 mb-4">Strategy guide with practice</p>
-                    <Button variant="outline" className="w-full">View Guide</Button>
+                    <h3 className="font-semibold mb-2 text-lg">SAT Reading & Writing</h3>
+                    <p className="text-sm text-yellow-100 mb-4">Strategy guide with practice</p>
+                    <Button className="w-full bg-white text-yellow-600 hover:bg-yellow-50 rounded-2xl font-medium">View Guide 📖</Button>
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-gradient-to-br from-indigo-400 to-purple-600 border-0 shadow-xl rounded-3xl text-white hover:scale-105 transform transition-all duration-300">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-purple-100 rounded-lg">
-                        <Star className="h-5 w-5 text-purple-600" />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-white/30 rounded-2xl backdrop-blur-sm">
+                        <span className="text-2xl">🔬</span>
                       </div>
-                      <Badge variant="secondary">BGCSE</Badge>
+                      <Badge className="bg-pink-400 text-white font-medium">BGCSE</Badge>
                     </div>
-                    <h3 className="font-semibold mb-2">BGCSE Science Flashcards</h3>
-                    <p className="text-sm text-gray-600 mb-4">Digital flashcards to help memorize essential science concepts</p>
-                    <Button variant="outline" className="w-full">Study Cards</Button>
+                    <h3 className="font-semibold mb-2 text-lg">BGCSE Science Flashcards</h3>
+                    <p className="text-sm text-indigo-100 mb-4">Digital flashcards to help memorize essential science concepts</p>
+                    <Button className="w-full bg-white text-indigo-600 hover:bg-indigo-50 rounded-2xl font-medium">Study Cards 💡</Button>
                   </CardContent>
                 </Card>
               </div>
@@ -330,25 +329,32 @@ export default function ExamPrepHub() {
           </TabsContent>
 
           {/* Learning Resources Tab */}
-          <TabsContent value="learning" className="space-y-6">
+          <TabsContent value="learning" className="space-y-8">
             {/* Header */}
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-4">
+                📚 Learning Resources
+              </h2>
+              <p className="text-gray-600 text-lg">Choose your exam and subject to access study materials</p>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
                 <Select value={selectedExam} onValueChange={setSelectedExam}>
-                  <SelectTrigger className="w-full sm:w-80">
-                    <SelectValue placeholder="CAPE (Caribbean Advanced Proficiency Examination)" />
+                  <SelectTrigger className="w-full sm:w-80 h-14 rounded-2xl border-2 border-purple-200 bg-white/80 backdrop-blur-sm">
+                    <SelectValue placeholder="🎯 CAPE (Caribbean Advanced Proficiency Examination)" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="CAPE">CAPE (Caribbean Advanced Proficiency Examination)</SelectItem>
-                    <SelectItem value="CSEC">CSEC (Caribbean Secondary Education Certificate)</SelectItem>
-                    <SelectItem value="BGCSE">BGCSE (Bahamas General Certificate of Secondary Education)</SelectItem>
-                    <SelectItem value="SAT">SAT (Scholastic Assessment Test)</SelectItem>
+                  <SelectContent className="rounded-2xl border-0 shadow-xl">
+                    <SelectItem value="CAPE">🎯 CAPE (Caribbean Advanced Proficiency Examination)</SelectItem>
+                    <SelectItem value="CSEC">📚 CSEC (Caribbean Secondary Education Certificate)</SelectItem>
+                    <SelectItem value="BGCSE">📖 BGCSE (Bahamas General Certificate of Secondary Education)</SelectItem>
+                    <SelectItem value="SAT">🚀 SAT (Scholastic Assessment Test)</SelectItem>
                   </SelectContent>
                 </Select>
                 
                 <Select>
-                  <SelectTrigger className="w-full sm:w-48">
-                    <SelectValue placeholder="Choose a subject" />
+                  <SelectTrigger className="w-full sm:w-48 h-14 rounded-2xl border-2 border-blue-200 bg-white/80 backdrop-blur-sm">
+                    <SelectValue placeholder="🎨 Choose a subject" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="english">CSEC English A & B</SelectItem>
