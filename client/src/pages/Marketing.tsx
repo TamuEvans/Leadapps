@@ -690,8 +690,8 @@ export default function Marketing() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* LeadGen Card */}
-            <Card className="relative overflow-hidden border-4 border-purple-500 shadow-lg bg-white">
-              <CardContent className="p-8">
+            <Card className="relative overflow-hidden border-4 border-purple-500 shadow-lg bg-white flex flex-col">
+              <CardContent className="p-8 flex-1 flex flex-col">
                 <div className="text-center mb-6">
                   <img src="/assets/leadgen-logo.png" alt="LeadGen Logo" className="h-16 w-48 object-contain mx-auto mb-4" />
                   <p className="text-purple-600 font-medium">AI Marketing Platform</p>
@@ -699,7 +699,7 @@ export default function Marketing() {
                 <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   AI lead generation and marketing platform that nurtures prospects through intelligent automation and personalized campaigns
                 </p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 flex-1">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -744,8 +744,8 @@ export default function Marketing() {
             </Card>
 
             {/* LeadApps Card */}
-            <Card className="relative overflow-hidden border-4 border-blue-500 shadow-lg bg-white">
-              <CardContent className="p-8">
+            <Card className="relative overflow-hidden border-4 border-blue-500 shadow-lg bg-white flex flex-col">
+              <CardContent className="p-8 flex-1 flex flex-col">
                 <div className="text-center mb-6">
                   <img src="/assets/leadapps-logo.png" alt="LeadApps Logo" className="h-16 w-48 object-contain mx-auto mb-4" />
                   <p className="text-blue-600 font-medium">Student Success Platform</p>
@@ -753,7 +753,7 @@ export default function Marketing() {
                 <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   University search and application platform with AI support and guidance to help students find and apply to the right institutions
                 </p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 flex-1">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -787,8 +787,8 @@ export default function Marketing() {
             </Card>
 
             {/* LeadEnroll Card */}
-            <Card className="relative overflow-hidden border-4 border-green-500 shadow-lg bg-white">
-              <CardContent className="p-8">
+            <Card className="relative overflow-hidden border-4 border-green-500 shadow-lg bg-white flex flex-col">
+              <CardContent className="p-8 flex-1 flex flex-col">
                 <div className="text-center mb-6">
                   <div className="h-16 flex items-center justify-center mb-4">
                     <img src="/assets/leadenroll-logo.png" alt="LeadEnroll Logo" className="h-24 w-60 object-contain" />
@@ -798,7 +798,7 @@ export default function Marketing() {
                 <p className="text-gray-700 mb-6 leading-relaxed text-center">
                   AI-powered enrollment platform for universities to automate admissions, optimize student placement, and enhance institutional growth
                 </p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 flex-1">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
