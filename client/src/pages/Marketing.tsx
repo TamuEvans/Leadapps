@@ -636,9 +636,9 @@ export default function Marketing() {
                 date: "April 15, 2025"
               },
               { 
-                title: "From Jamaica to Oxford: A Student's Journey", 
-                image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80", 
-                description: "Michelle shares her experience moving from Kingston to Oxford University, including challenges faced and advice for fellow Caribbean students.",
+                title: "From Jamaica to Canada: A Student's Journey", 
+                image: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80", 
+                description: "Michelle shares her experience moving from Kingston to the University of Toronto, including challenges faced and advice for fellow Caribbean students.",
                 readTime: "8 min read",
                 date: "April 10, 2025"
               },
