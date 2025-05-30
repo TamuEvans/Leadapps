@@ -523,46 +523,66 @@ export default function CSECEnglish() {
           </TabsContent>
 
           {/* Practice Tests Tab */}
-          <TabsContent value="tests" className="space-y-4">
-            <div className="grid gap-4">
-              {practiceTests.map((test) => (
-                <Card key={test.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold text-lg">{test.title}</h3>
-                          <Badge className={getSubjectColor(test.subject)}>
-                            {test.subject}
-                          </Badge>
-                          <Badge className={getDifficultyColor(test.difficulty)}>
-                            {test.difficulty}
-                          </Badge>
+          <TabsContent value="tests" className="space-y-6">
+            <div className="grid gap-6">
+              {practiceTests.map((test, index) => {
+                const gradients = [
+                  'from-blue-50 to-cyan-50 border-blue-200',
+                  'from-green-50 to-emerald-50 border-green-200',
+                  'from-purple-50 to-pink-50 border-purple-200'
+                ];
+                const buttonColors = [
+                  'from-blue-500 to-cyan-500',
+                  'from-green-500 to-emerald-500',
+                  'from-purple-500 to-pink-500'
+                ];
+                return (
+                  <Card key={test.id} className={`bg-gradient-to-br ${gradients[index % gradients.length]} border-2 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300`}>
+                    <CardContent className="p-8">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex flex-col gap-3 mb-4">
+                            <h3 className="font-bold text-xl text-gray-800">{test.title}</h3>
+                            <div className="flex items-center gap-3">
+                              <Badge className="bg-blue-500 text-white px-3 py-1 rounded-full font-medium">
+                                {test.subject}
+                              </Badge>
+                              <Badge className="bg-orange-500 text-white px-3 py-1 rounded-full font-medium">
+                                {test.difficulty}
+                              </Badge>
+                            </div>
+                          </div>
+                          <p className="text-gray-700 mb-4 leading-relaxed">{test.description}</p>
+                          <div className="flex items-center gap-6 bg-white/50 rounded-2xl p-4 backdrop-blur-sm">
+                            <div className="flex items-center gap-2 text-gray-700">
+                              <Clock className="h-5 w-5 text-blue-500" />
+                              <span className="font-medium">{test.duration} mins</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-700">
+                              <FileText className="h-5 w-5 text-green-500" />
+                              <span className="font-medium">{test.questions} questions</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-700">
+                              <Target className="h-5 w-5 text-purple-500" />
+                              <span className="font-medium">{test.paper}</span>
+                            </div>
+                          </div>
                         </div>
-                        <p className="text-gray-600 mb-3">{test.description}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <span className="flex items-center">
-                            <Clock className="h-4 w-4 mr-1" />
-                            {test.duration} mins
-                          </span>
-                          <span>{test.questions} questions</span>
-                          <span>{test.paper}</span>
+                        <div className="flex flex-col gap-3 ml-6">
+                          <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                            <FileText className="h-4 w-4 mr-2" />
+                            Preview
+                          </Button>
+                          <Button className={`bg-gradient-to-r ${buttonColors[index % buttonColors.length]} hover:opacity-90 text-white rounded-2xl px-6 py-3 font-medium shadow-lg`}>
+                            <Play className="h-4 w-4 mr-2" />
+                            Start Test
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                          <FileText className="h-4 w-4 mr-2" />
-                          Preview
-                        </Button>
-                        <Button size="sm">
-                          <Play className="h-4 w-4 mr-2" />
-                          Start Test
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </TabsContent>
         </Tabs>
