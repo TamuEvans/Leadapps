@@ -79,61 +79,73 @@ export default function Counselling() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900">Study Counselling</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Connect with expert Caribbean education counselors who specialize in helping students 
-          achieve their tertiary education goals across different destination markets.
-        </p>
+      <div className="bg-gradient-to-br from-green-500 via-teal-500 to-cyan-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center space-y-4">
+          <h1 className="text-4xl font-bold mb-2">🎯 Study Counselling</h1>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            Connect with expert Caribbean education counselors who specialize in helping students 
+            achieve their tertiary education goals across different destination markets.
+          </p>
+        </div>
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Users className="h-8 w-8 text-blue-600" />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-xl overflow-hidden">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl">
+                <Users className="h-8 w-8 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{counselors.length}</p>
-                <p className="text-sm text-gray-600">Expert Counselors</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">{counselors.length}</p>
+                <p className="text-sm font-medium text-gray-600">Expert Counselors</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <MapPin className="h-8 w-8 text-green-600" />
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-green-50 to-emerald-50 shadow-xl overflow-hidden">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl">
+                <MapPin className="h-8 w-8 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{destinationMarkets.length}</p>
-                <p className="text-sm text-gray-600">Destination Markets</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{destinationMarkets.length}</p>
+                <p className="text-sm font-medium text-gray-600">Destination Markets</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Star className="h-8 w-8 text-yellow-600" />
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-yellow-50 to-orange-50 shadow-xl overflow-hidden">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl">
+                <Star className="h-8 w-8 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">4.8</p>
-                <p className="text-sm text-gray-600">Average Rating</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">4.8</p>
+                <p className="text-sm font-medium text-gray-600">Average Rating</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Calendar className="h-8 w-8 text-purple-600" />
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-purple-50 to-pink-50 shadow-xl overflow-hidden">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl">
+                <Calendar className="h-8 w-8 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">98%</p>
-                <p className="text-sm text-gray-600">Success Rate</p>
+                <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">98%</p>
+                <p className="text-sm font-medium text-gray-600">Success Rate</p>
               </div>
             </div>
           </CardContent>
@@ -141,36 +153,36 @@ export default function Counselling() {
       </div>
 
       {/* Search and Filters */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Filter className="h-5 w-5" />
+      <Card className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-gray-50 to-blue-50 p-8">
+          <CardTitle className="flex items-center gap-3 text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Filter className="h-6 w-6 text-purple-500" />
             Find Your Perfect Counselor
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-lg text-gray-600 mt-2">
             Use filters to find counselors that match your specific needs and preferences
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="p-8 space-y-8">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-500 h-5 w-5" />
             <Input
               placeholder="Search by name, specialization, or keywords..."
-              className="pl-10"
+              className="pl-12 h-14 rounded-2xl border-2 border-gray-200 focus:border-purple-400 bg-white/70 backdrop-blur-sm text-lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <Separator />
+          <Separator className="bg-gradient-to-r from-transparent via-purple-300 to-transparent" />
 
           {/* Filter Controls */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Destination Market</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-gray-700">Destination Market</label>
               <Select value={selectedDestination} onValueChange={setSelectedDestination}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl border-2 border-gray-200 focus:border-blue-400 bg-white/70">
                   <SelectValue placeholder="All Destinations" />
                 </SelectTrigger>
                 <SelectContent>
@@ -184,10 +196,10 @@ export default function Counselling() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Program Specialty</label>
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-gray-700">Program Specialty</label>
               <Select value={selectedSpecialty} onValueChange={setSelectedSpecialty}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl border-2 border-gray-200 focus:border-green-400 bg-white/70">
                   <SelectValue placeholder="All Specialties" />
                 </SelectTrigger>
                 <SelectContent>
@@ -201,10 +213,10 @@ export default function Counselling() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Location</label>
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-gray-700">Location</label>
               <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl border-2 border-gray-200 focus:border-orange-400 bg-white/70">
                   <SelectValue placeholder="All Locations" />
                 </SelectTrigger>
                 <SelectContent>
@@ -218,10 +230,10 @@ export default function Counselling() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Gender</label>
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-gray-700">Gender</label>
               <Select value={genderFilter} onValueChange={setGenderFilter}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl border-2 border-gray-200 focus:border-pink-400 bg-white/70">
                   <SelectValue placeholder="Any Gender" />
                 </SelectTrigger>
                 <SelectContent>
@@ -297,15 +309,15 @@ export default function Counselling() {
             ))}
           </div>
         ) : (
-          <Card>
-            <CardContent className="p-12 text-center">
-              <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-gray-900 mb-2">No counselors found</h3>
-              <p className="text-gray-600 mb-6">
+          <Card className="rounded-3xl border-0 bg-gradient-to-br from-blue-50 to-purple-50 shadow-xl">
+            <CardContent className="p-16 text-center">
+              <Users className="h-20 w-20 text-purple-400 mx-auto mb-6" />
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">No counselors found</h3>
+              <p className="text-gray-600 mb-8 text-lg max-w-md mx-auto">
                 Try adjusting your filters or search criteria to find more counselors.
               </p>
               <Button 
-                variant="outline" 
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-8 py-3"
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedDestination('');
@@ -323,18 +335,20 @@ export default function Counselling() {
       </div>
 
       {/* How It Works Section */}
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50">
-        <CardHeader>
-          <CardTitle>How Study Counselling Works</CardTitle>
-          <CardDescription>
+      <Card className="rounded-3xl border-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 shadow-xl overflow-hidden">
+        <CardHeader className="p-8 text-center">
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            ✨ How Study Counselling Works
+          </CardTitle>
+          <CardDescription className="text-lg text-gray-600">
             Get personalized guidance for your tertiary education journey
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                <Search className="h-6 w-6 text-blue-600" />
+        <CardContent className="p-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                <Search className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-semibold">1. Find Your Counselor</h3>
               <p className="text-sm text-gray-600">
@@ -342,22 +356,22 @@ export default function Counselling() {
               </p>
             </div>
 
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <Calendar className="h-6 w-6 text-green-600" />
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                <Calendar className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-semibold">2. Book Your Session</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="text-lg font-bold text-gray-800">2. Book Your Session</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Schedule a one-on-one consultation session at a time that works for you, either online or in-person.
               </p>
             </div>
 
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                <Star className="h-6 w-6 text-purple-600" />
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                <Star className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-semibold">3. Get Expert Guidance</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="text-lg font-bold text-gray-800">3. Get Expert Guidance</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Receive personalized advice on program selection, applications, scholarships, and visa processes.
               </p>
             </div>
