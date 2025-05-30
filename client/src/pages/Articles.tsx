@@ -26,23 +26,31 @@ const Articles = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">Educational Resources</h1>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">📚 Educational Resources</h1>
+          <p className="text-xl text-white/90">Stay informed with the latest insights and tips for your academic journey</p>
+        </div>
+      </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {articles.map((article, index) => (
-          <Card key={index} className="bg-white shadow-sm">
-            <CardHeader className="pb-2">
-              <div className="text-xs text-primary font-medium mb-1">{article.category}</div>
-              <CardTitle className="text-lg font-semibold">{article.title}</CardTitle>
-              <CardDescription className="text-gray-500 text-xs">{article.date}</CardDescription>
+          <Card key={index} className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
+            <CardHeader className="p-6 pb-4">
+              <div className="text-sm bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full w-fit font-medium mb-3">{article.category}</div>
+              <CardTitle className="text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent leading-tight">{article.title}</CardTitle>
+              <CardDescription className="text-gray-500 text-sm mt-2">{article.date}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">{article.description}</p>
+            <CardContent className="px-6 pb-4">
+              <p className="text-gray-600 leading-relaxed">{article.description}</p>
             </CardContent>
-            <CardFooter>
-              <Button variant="ghost" className="text-primary p-0 hover:bg-transparent hover:text-primary/80">
-                Read More <ArrowRight className="ml-1 h-4 w-4" />
+            <CardFooter className="px-6 pb-6">
+              <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 rounded-full px-6">
+                Read More <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardFooter>
           </Card>

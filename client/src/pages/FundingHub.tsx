@@ -190,37 +190,43 @@ const FundingHub = () => {
   });
 
   return (
-    <div className="container mx-auto py-6 max-w-7xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Funding Hub</h1>
-        <p className="text-gray-600">Discover scholarships and loan options to fund your education journey</p>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-green-500 via-emerald-500 to-teal-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">💰 Funding Hub</h1>
+          <p className="text-xl text-white/90">Discover scholarships and loan options to fund your education journey</p>
+        </div>
       </div>
       
       {/* Search and Filter Bar */}
-      <div className="mb-6 flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <Input
-            placeholder="Search scholarships and loans..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full"
-          />
-        </div>
-        <div className="w-full md:w-[280px]">
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between"
-              >
-                {selectedCountries.length > 0
-                  ? `${selectedCountries.length} location${selectedCountries.length > 1 ? "s" : ""} selected`
-                  : "Filter by location"}
-                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
+      <Card className="rounded-3xl border-0 bg-gradient-to-br from-white to-blue-50 shadow-xl p-6">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <Input
+              placeholder="Search scholarships and loans..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-12 rounded-2xl border-2 border-blue-200 focus:border-blue-400 text-lg"
+            />
+          </div>
+          <div className="w-full md:w-[280px]">
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-full h-12 justify-between rounded-2xl border-2 border-green-200 hover:border-green-400 bg-gradient-to-r from-green-50 to-emerald-50"
+                >
+                  {selectedCountries.length > 0
+                    ? `${selectedCountries.length} location${selectedCountries.length > 1 ? "s" : ""} selected`
+                    : "Filter by location"}
+                  <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
             <PopoverContent className="w-[280px] p-0">
               <Command>
                 <CommandInput placeholder="Search location..." />

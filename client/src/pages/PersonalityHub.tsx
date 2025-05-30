@@ -60,79 +60,108 @@ const PersonalityHub = () => {
   ];
   
   return (
-    <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-800">My Personality Hub</h1>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-blue-300 to-purple-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">🧠 Personality Hub</h1>
+          <p className="text-xl text-white/90">Discover your unique strengths and find your perfect career path</p>
+        </div>
+      </div>
       
-      <Card className="bg-white shadow-sm border-primary/20">
-        <CardHeader className="pb-3">
+      {/* Main Assessment Card */}
+      <Card className="rounded-3xl border-0 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 shadow-xl overflow-hidden">
+        <CardHeader className="p-8 pb-6">
           <div className="flex justify-between items-start">
             <div>
-              <CardTitle className="flex items-center text-lg">
-                <Brain className="mr-2 h-5 w-5 text-primary" />
+              <CardTitle className="flex items-center text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                <Brain className="mr-3 h-7 w-7 text-purple-600" />
                 Personality & Career Navigator
               </CardTitle>
-              <CardDescription>Comprehensive assessment of your preferences, interests, and work styles</CardDescription>
+              <CardDescription className="text-lg text-gray-600">Comprehensive assessment of your preferences, interests, and work styles</CardDescription>
             </div>
-            <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Recommended</Badge>
+            <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">✨ Recommended</Badge>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-md">
-              <Lightbulb className="h-6 w-6 text-amber-500 mb-2" />
-              <span className="text-sm text-center font-medium">Learning Style</span>
+        <CardContent className="p-8 pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
+                <Lightbulb className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-center font-bold text-gray-800">Learning Style</span>
             </div>
-            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-md">
-              <Target className="h-6 w-6 text-purple-500 mb-2" />
-              <span className="text-sm text-center font-medium">Interest Areas</span>
+            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
+                <Target className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-center font-bold text-gray-800">Interest Areas</span>
             </div>
-            <div className="flex flex-col items-center p-3 bg-gray-50 rounded-md">
-              <Briefcase className="h-6 w-6 text-blue-500 mb-2" />
-              <span className="text-sm text-center font-medium">Career Matches</span>
+            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
+                <Briefcase className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-center font-bold text-gray-800">Career Matches</span>
             </div>
           </div>
           
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-700 mb-6 text-lg leading-relaxed text-center">
             Take our comprehensive assessment to discover your unique personality profile, learning style, and get personalized recommendations for educational programs and career paths that match your strengths and preferences.
           </p>
           
-          <Button 
-            className="w-full"
-            onClick={() => navigate("/app/personality-assessment")}
-          >
-            Take Assessment
-          </Button>
+          <div className="text-center">
+            <Button 
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              onClick={() => navigate("/app/personality-assessment")}
+            >
+              🚀 Take Assessment
+            </Button>
+          </div>
         </CardContent>
       </Card>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-white shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center text-lg">
-              <GraduationCap className="mr-2 h-5 w-5 text-primary" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <CardHeader className="p-6">
+            <CardTitle className="flex items-center text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              <GraduationCap className="mr-3 h-6 w-6 text-blue-600" />
               Learning Style Assessment
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-gray-600 mb-4">
+          <CardContent className="p-6 pt-0">
+            <p className="text-gray-600 mb-6 leading-relaxed">
               Discover your preferred learning style and get personalized study strategies to maximize your educational success.
             </p>
-            <Button variant="outline" disabled>Coming Soon</Button>
+            <Button 
+              variant="outline" 
+              disabled 
+              className="w-full rounded-full border-2 border-blue-200 text-blue-400"
+            >
+              Coming Soon
+            </Button>
           </CardContent>
         </Card>
         
-        <Card className="bg-white shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center text-lg">
-              <Briefcase className="mr-2 h-5 w-5 text-primary" />
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-green-50 to-emerald-50 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <CardHeader className="p-6">
+            <CardTitle className="flex items-center text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              <Briefcase className="mr-3 h-6 w-6 text-green-600" />
               Career Interest Inventory
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-gray-600 mb-4">
+          <CardContent className="p-6 pt-0">
+            <p className="text-gray-600 mb-6 leading-relaxed">
               Explore potential career paths that align with your interests, skills, and personality traits.
             </p>
-            <Button variant="outline" disabled>Coming Soon</Button>
+            <Button 
+              variant="outline" 
+              disabled 
+              className="w-full rounded-full border-2 border-green-200 text-green-400"
+            >
+              Coming Soon
+            </Button>
           </CardContent>
         </Card>
       </div>
