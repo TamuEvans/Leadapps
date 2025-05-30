@@ -227,7 +227,7 @@ const FundingHub = () => {
                   <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-            <PopoverContent className="w-[280px] p-0">
+              <PopoverContent className="w-[280px] p-0">
               <Command>
                 <CommandInput placeholder="Search location..." />
                 <CommandList>
@@ -270,10 +270,11 @@ const FundingHub = () => {
                   )}
                 </CommandList>
               </Command>
-            </PopoverContent>
-          </Popover>
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
-      </div>
+      </Card>
       
       {/* Tabs for Scholarships and Loans */}
       <Tabs defaultValue="scholarships" value={activeTab} onValueChange={setActiveTab} className="w-full">
