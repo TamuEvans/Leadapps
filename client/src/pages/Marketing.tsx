@@ -42,7 +42,8 @@ import {
   Brain,
   DollarSign,
   MessageCircle,
-  File
+  File,
+  Clock
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
@@ -627,17 +628,42 @@ export default function Marketing() {
           <h2 className="text-2xl font-bold text-center mb-8">Information Centre</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Application Process", image: "https://source.unsplash.com/random/300x200/?application", description: "Step-by-step guide to applying to universities abroad" },
-              { title: "Visa Requirements", image: "https://source.unsplash.com/random/300x200/?visa", description: "Country-specific visa information for international students" },
-              { title: "Scholarship Guide", image: "https://source.unsplash.com/random/300x200/?scholarship", description: "Comprehensive list of scholarships available for international students" }
+              { 
+                title: "UK University Application Guide 2025", 
+                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80", 
+                description: "A comprehensive step-by-step guide to applying to UK universities, including UCAS applications, personal statements, and entry requirements.",
+                readTime: "12 min read",
+                date: "April 15, 2025"
+              },
+              { 
+                title: "From Jamaica to Oxford: A Student's Journey", 
+                image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80", 
+                description: "Michelle shares her experience moving from Kingston to Oxford University, including challenges faced and advice for fellow Caribbean students.",
+                readTime: "8 min read",
+                date: "April 10, 2025"
+              },
+              { 
+                title: "Top Scholarships for International Students 2025", 
+                image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80", 
+                description: "A comprehensive list of scholarships available to international students, including eligibility criteria and application deadlines.",
+                readTime: "14 min read",
+                date: "April 05, 2025"
+              }
             ].map((item, index) => (
-              <Card key={index}>
-                <img src={item.image} alt={item.title} className="w-full h-40 object-cover rounded-t-lg" />
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-lg">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                  <Button variant="link" className="p-0 h-auto mt-2">
-                    Read More
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                </div>
+                <CardContent className="p-6">
+                  <div className="flex items-center text-sm text-gray-500 mb-2">
+                    <Clock className="h-4 w-4 mr-1" />
+                    <span className="mr-4">{item.readTime}</span>
+                    <span>{item.date}</span>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 line-clamp-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
+                  <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800">
+                    Read More <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
                 </CardContent>
               </Card>
