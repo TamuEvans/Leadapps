@@ -113,7 +113,19 @@ export default function Marketing() {
       videoElement.muted = true;
       videoElement.playsInline = true;
       
-      // Play once then pause
+      // Stop video after 8 seconds
+      const stopAfter8Seconds = () => {
+        setTimeout(() => {
+          if (videoElement && !videoElement.paused) {
+            videoElement.pause();
+          }
+        }, 8000); // 8 seconds
+      };
+      
+      // Start the timer when video begins playing
+      videoElement.addEventListener('play', stopAfter8Seconds);
+      
+      // Also handle if video ends naturally before 8 seconds
       const handleVideoEnd = () => {
         videoElement.pause();
       };
@@ -121,6 +133,7 @@ export default function Marketing() {
       videoElement.addEventListener('ended', handleVideoEnd);
       
       return () => {
+        videoElement.removeEventListener('play', stopAfter8Seconds);
         videoElement.removeEventListener('ended', handleVideoEnd);
       };
     }
