@@ -677,7 +677,7 @@ export default function Marketing() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <img src="https://source.unsplash.com/random/600x400/?campus" alt="Beautiful campus" className="rounded-lg shadow-lg w-full" />
+              <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Beautiful university campus" className="rounded-lg shadow-lg w-full" />
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-4">We Solve Your Problems!</h2>
