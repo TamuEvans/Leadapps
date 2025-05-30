@@ -918,8 +918,8 @@ export default function ExamPrepHub() {
                 </Select>
               </div>
               
-              <Button variant="outline">
-                Apply Filters
+              <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-2xl h-12 px-6 font-medium shadow-lg">
+                Apply Filters ✨
               </Button>
             </div>
 
@@ -1027,43 +1027,50 @@ export default function ExamPrepHub() {
               </Card>
 
               {/* Ms. Gabrielle Antoine */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-purple-600">MGA</span>
+              <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl font-bold text-white">MGA</span>
                     </div>
                     
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold">Ms. Gabrielle Antoine</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge>CSEC English A</Badge>
-                            <Badge variant="secondary">CSEC English B</Badge>
-                            <Badge variant="secondary">CAPE Communication Studies</Badge>
+                          <h3 className="text-xl font-bold text-gray-800">Ms. Gabrielle Antoine</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Badge className="bg-purple-500 text-white px-3 py-1 rounded-full font-medium">📖 CSEC English A</Badge>
+                            <Badge className="bg-pink-500 text-white px-3 py-1 rounded-full font-medium">📚 CSEC English B</Badge>
+                            <Badge className="bg-violet-500 text-white px-3 py-1 rounded-full font-medium">💬 CAPE Communication</Badge>
                           </div>
                         </div>
                         
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="font-semibold">4.8</span>
-                            <span className="text-sm text-gray-500">(142)</span>
+                        <div className="text-right bg-white/60 rounded-2xl p-4 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                            <span className="font-bold text-lg">4.8</span>
+                            <span className="text-sm text-gray-600">(142)</span>
                           </div>
-                          <div className="text-sm text-gray-600">Hourly Rate: $25-35</div>
+                          <div className="text-sm font-medium text-gray-700">$25-35/hour</div>
                         </div>
                       </div>
                       
-                      <p className="text-sm text-gray-600 mb-3">Published author and language specialist with a passion for literature and communication. Uses creative methods to improve students' writing skills and analytical abilities.</p>
+                      <p className="text-gray-700 mb-4 leading-relaxed">Published author and language specialist with a passion for literature and communication. Uses creative methods to improve students' writing skills and analytical abilities.</p>
                       
-                      <div className="flex items-center gap-4 text-sm mb-3">
-                        <span><strong>Availability:</strong> Flexible Hours</span>
+                      <div className="bg-white/50 rounded-2xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <span className="font-bold">Availability:</span>
+                          <span>Flexible Hours</span>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View Profile</Button>
-                        <Button size="sm">Book Session</Button>
+                      <div className="flex gap-3">
+                        <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                          View Profile
+                        </Button>
+                        <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
+                          Book Session
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -1071,42 +1078,49 @@ export default function ExamPrepHub() {
               </Card>
 
               {/* Mr. Rohan Blackwood */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-orange-600">MRB</span>
+              <Card className="bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl font-bold text-white">MRB</span>
                     </div>
                     
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold">Mr. Rohan Blackwood</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge>CSEC Information Technology</Badge>
-                            <Badge variant="secondary">CAPE Computer Science</Badge>
+                          <h3 className="text-xl font-bold text-gray-800">Mr. Rohan Blackwood</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Badge className="bg-orange-500 text-white px-3 py-1 rounded-full font-medium">💻 CSEC Information Technology</Badge>
+                            <Badge className="bg-red-500 text-white px-3 py-1 rounded-full font-medium">🖥️ CAPE Computer Science</Badge>
                           </div>
                         </div>
                         
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="font-semibold">4.6</span>
-                            <span className="text-sm text-gray-500">(76)</span>
+                        <div className="text-right bg-white/60 rounded-2xl p-4 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                            <span className="font-bold text-lg">4.6</span>
+                            <span className="text-sm text-gray-600">(76)</span>
                           </div>
-                          <div className="text-sm text-gray-600">Hourly Rate: $30-50</div>
+                          <div className="text-sm font-medium text-gray-700">$30-50/hour</div>
                         </div>
                       </div>
                       
-                      <p className="text-sm text-gray-600 mb-3">Software engineer and IT educator with expertise in programming and systems development. Helps students master both theoretical concepts and practical applications of IT.</p>
+                      <p className="text-gray-700 mb-4 leading-relaxed">Software engineer and IT educator with expertise in programming and systems development. Helps students master both theoretical concepts and practical applications of IT.</p>
                       
-                      <div className="flex items-center gap-4 text-sm mb-3">
-                        <span><strong>Availability:</strong> Afternoons & Weekends</span>
+                      <div className="bg-white/50 rounded-2xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <span className="font-bold">Availability:</span>
+                          <span>Afternoons & Weekends</span>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View Profile</Button>
-                        <Button size="sm">Book Session</Button>
+                      <div className="flex gap-3">
+                        <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                          View Profile
+                        </Button>
+                        <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
+                          Book Session
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -1114,43 +1128,50 @@ export default function ExamPrepHub() {
               </Card>
 
               {/* Dr. Marion Roberts */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-blue-600">DMR</span>
+              <Card className="bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-xl font-bold text-white">DMR</span>
                     </div>
                     
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold">Dr. Marion Roberts</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge>SAT Math</Badge>
-                            <Badge variant="secondary">SAT Reading</Badge>
-                            <Badge variant="secondary">SAT Writing</Badge>
+                          <h3 className="text-xl font-bold text-gray-800">Dr. Marion Roberts</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Badge className="bg-indigo-500 text-white px-3 py-1 rounded-full font-medium">🔢 SAT Math</Badge>
+                            <Badge className="bg-blue-500 text-white px-3 py-1 rounded-full font-medium">📖 SAT Reading</Badge>
+                            <Badge className="bg-cyan-500 text-white px-3 py-1 rounded-full font-medium">✍️ SAT Writing</Badge>
                           </div>
                         </div>
                         
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 mb-1">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="font-semibold">4.9</span>
-                            <span className="text-sm text-gray-500">(156)</span>
+                        <div className="text-right bg-white/60 rounded-2xl p-4 backdrop-blur-sm">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                            <span className="font-bold text-lg">4.9</span>
+                            <span className="text-sm text-gray-600">(156)</span>
                           </div>
-                          <div className="text-sm text-gray-600">Hourly Rate: $40-60</div>
+                          <div className="text-sm font-medium text-gray-700">$40-60/hour</div>
                         </div>
                       </div>
                       
-                      <p className="text-sm text-gray-600 mb-3">SAT prep specialist with a PhD in Education. Has helped hundreds of Caribbean students achieve top scores for US university applications.</p>
+                      <p className="text-gray-700 mb-4 leading-relaxed">SAT prep specialist with a PhD in Education. Has helped hundreds of Caribbean students achieve top scores for US university applications.</p>
                       
-                      <div className="flex items-center gap-4 text-sm mb-3">
-                        <span><strong>Availability:</strong> Evenings & Weekends</span>
+                      <div className="bg-white/50 rounded-2xl p-4 mb-4 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <span className="font-bold">Availability:</span>
+                          <span>Evenings & Weekends</span>
+                        </div>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View Profile</Button>
-                        <Button size="sm">Book Session</Button>
+                      <div className="flex gap-3">
+                        <Button className="bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl px-6 py-3 font-medium">
+                          View Profile
+                        </Button>
+                        <Button className="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white rounded-2xl px-6 py-3 font-medium shadow-lg">
+                          Book Session
+                        </Button>
                       </div>
                     </div>
                   </div>
