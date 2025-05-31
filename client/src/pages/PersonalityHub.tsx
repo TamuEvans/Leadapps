@@ -87,19 +87,19 @@ const PersonalityHub = () => {
         </CardHeader>
         <CardContent className="p-8 pt-0">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+            <div className="flex flex-col items-center p-6 bg-white rounded-3xl shadow-lg transform hover:scale-105 transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
                 <Lightbulb className="h-6 w-6 text-white" />
               </div>
               <span className="text-center font-bold text-gray-800">Learning Style</span>
             </div>
-            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+            <div className="flex flex-col items-center p-6 bg-white rounded-3xl shadow-lg transform hover:scale-105 transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
                 <Target className="h-6 w-6 text-white" />
               </div>
               <span className="text-center font-bold text-gray-800">Interest Areas</span>
             </div>
-            <div className="flex flex-col items-center p-6 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-3xl transform hover:scale-105 transition-all duration-300">
+            <div className="flex flex-col items-center p-6 bg-white rounded-3xl shadow-lg transform hover:scale-105 transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
                 <Briefcase className="h-6 w-6 text-white" />
               </div>
