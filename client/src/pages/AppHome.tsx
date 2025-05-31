@@ -10,6 +10,8 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import ProgramRecommendations from '@/components/ProgramRecommendations';
 import conestogaImg from '@assets/Conestoga.jpg';
+import uwiImg from '@assets/UWI.webp';
+import sguImg from '@assets/SGU-campus-web-845-x-500.jpg';
 
 export function AppHome() {
   const { user } = useAuth();
@@ -200,14 +202,14 @@ export function AppHome() {
                     )}
                     {program.university === 'University of the West Indies' && (
                       <img 
-                        src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        src={uwiImg} 
                         alt="University of the West Indies campus"
                         className="w-full h-full object-cover"
                       />
                     )}
                     {program.university === 'St. George\'s University' && (
                       <img 
-                        src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        src={sguImg} 
                         alt="St. Georges University campus"
                         className="w-full h-full object-cover"
                       />
