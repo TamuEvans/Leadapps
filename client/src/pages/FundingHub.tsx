@@ -278,70 +278,84 @@ const FundingHub = () => {
       
       {/* Tabs for Scholarships and Loans */}
       <Tabs defaultValue="scholarships" value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="scholarships">Scholarships</TabsTrigger>
-          <TabsTrigger value="loans">Loans</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-gray-100 to-gray-50 rounded-2xl p-2 shadow-lg">
+          <TabsTrigger value="scholarships" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-lg">🎓 Scholarships</TabsTrigger>
+          <TabsTrigger value="loans" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg">💰 Loans</TabsTrigger>
         </TabsList>
         
         {/* Scholarships Tab Content */}
         <TabsContent value="scholarships" className="space-y-4">
           {filteredScholarships.length === 0 ? (
-            <div className="text-center py-10">
-              <GraduationCap className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-semibold text-gray-900">No scholarships found</h3>
-              <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
-            </div>
+            <Card className="rounded-3xl border-0 bg-gradient-to-br from-gray-50 to-green-50 shadow-xl">
+              <CardContent className="text-center py-16">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <GraduationCap className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">No scholarships found</h3>
+                <p className="text-gray-600 leading-relaxed">Try adjusting your search or filter to find what you're looking for.</p>
+              </CardContent>
+            </Card>
           ) : (
             filteredScholarships.map(scholarship => (
-              <Card key={scholarship.id} className={`overflow-hidden transition-all duration-200 ${scholarship.featured ? 'border-primary/50 bg-primary/5' : ''}`}>
-                <CardHeader className="pb-2">
+              <Card key={scholarship.id} className={`rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden ${scholarship.featured ? 'ring-2 ring-green-200 bg-gradient-to-br from-green-50 to-emerald-50' : ''}`}>
+                <CardHeader className="pb-4 p-6">
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="text-xl">{scholarship.name}</CardTitle>
-                      <CardDescription className="text-sm">{scholarship.provider}</CardDescription>
+                      <CardTitle className="text-xl font-bold text-gray-800 mb-2">{scholarship.name}</CardTitle>
+                      <CardDescription className="text-gray-600 font-medium">{scholarship.provider}</CardDescription>
                     </div>
                     {scholarship.featured && (
-                      <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
-                        Featured
+                      <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0 rounded-full px-3 py-1 shadow-lg">
+                        ⭐ Featured
                       </Badge>
                     )}
                   </div>
                 </CardHeader>
-                <CardContent className="pb-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 mt-2">
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">{scholarship.amount}</span>
+                <CardContent className="pb-4 px-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mt-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-400 rounded-xl flex items-center justify-center">
+                        <DollarSign className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">{scholarship.amount}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <School className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">{scholarship.coverage}</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
+                        <School className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">{scholarship.coverage}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">Deadline: {scholarship.deadline}</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-400 rounded-xl flex items-center justify-center">
+                        <Calendar className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Deadline: {scholarship.deadline}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Map className="h-4 w-4 text-gray-500" />
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-400 rounded-xl flex items-center justify-center">
+                        <Map className="h-4 w-4 text-white" />
+                      </div>
                       <div className="flex flex-wrap gap-1">
                         {scholarship.locations.map(location => (
-                          <Badge key={location} variant="secondary" className="text-xs">
+                          <Badge key={location} className="text-xs bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-0 rounded-lg">
                             {location}
                           </Badge>
                         ))}
                       </div>
                     </div>
                   </div>
-                  <div className="mt-3">
-                    <div className="flex items-start gap-2">
-                      <User className="h-4 w-4 text-gray-500 mt-1" />
-                      <span className="text-sm">{scholarship.eligibility}</span>
+                  <div className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-blue-400 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <User className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700 leading-relaxed">{scholarship.eligibility}</span>
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="justify-end pt-2">
-                  <Button variant="outline">Learn More</Button>
-                  <Button className="ml-2">Apply Now</Button>
+                <CardFooter className="justify-end pt-2 px-6 pb-6 gap-3">
+                  <Button variant="outline" className="rounded-2xl border-2 border-gray-300 hover:border-green-500 hover:bg-green-50 font-medium">Learn More</Button>
+                  <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl font-medium shadow-lg">Apply Now</Button>
                 </CardFooter>
               </Card>
             ))
@@ -351,50 +365,66 @@ const FundingHub = () => {
         {/* Loans Tab Content */}
         <TabsContent value="loans" className="space-y-4">
           {filteredLoans.length === 0 ? (
-            <div className="text-center py-10">
-              <DollarSign className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-semibold text-gray-900">No loans found</h3>
-              <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
-            </div>
+            <Card className="rounded-3xl border-0 bg-gradient-to-br from-gray-50 to-blue-50 shadow-xl">
+              <CardContent className="text-center py-16">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <DollarSign className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">No loans found</h3>
+                <p className="text-gray-600 leading-relaxed">Try adjusting your search or filter to find what you're looking for.</p>
+              </CardContent>
+            </Card>
           ) : (
             filteredLoans.map(loan => (
-              <Card key={loan.id} className={`overflow-hidden transition-all duration-200 ${loan.featured ? 'border-primary/50 bg-primary/5' : ''}`}>
-                <CardHeader className="pb-2">
+              <Card key={loan.id} className={`rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden ${loan.featured ? 'ring-2 ring-blue-200 bg-gradient-to-br from-blue-50 to-purple-50' : ''}`}>
+                <CardHeader className="pb-4 p-6">
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="text-xl">{loan.name}</CardTitle>
-                      <CardDescription className="text-sm">{loan.provider}</CardDescription>
+                      <CardTitle className="text-xl font-bold text-gray-800 mb-2">{loan.name}</CardTitle>
+                      <CardDescription className="text-gray-600 font-medium">{loan.provider}</CardDescription>
                     </div>
                     {loan.featured && (
-                      <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
-                        Featured
+                      <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-full px-3 py-1 shadow-lg">
+                        ⭐ Featured
                       </Badge>
                     )}
                   </div>
                 </CardHeader>
-                <CardContent className="pb-2">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 mt-2">
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm">{loan.amount}</span>
+                <CardContent className="pb-4 px-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4 mt-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
+                        <DollarSign className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">{loan.amount}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">Interest: {loan.interest}</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-400 rounded-xl flex items-center justify-center">
+                        <Calendar className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Interest: {loan.interest}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">Term: {loan.repaymentPeriod}</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-400 rounded-xl flex items-center justify-center">
+                        <Calendar className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Term: {loan.repaymentPeriod}</span>
                     </div>
                   </div>
-                  <div className="mt-3">
-                    <div className="flex items-start gap-2">
-                      <User className="h-4 w-4 text-gray-500 mt-1" />
-                      <span className="text-sm">{loan.eligibility}</span>
+                  <div className="mt-6 p-4 bg-gradient-to-r from-gray-50 to-purple-50 rounded-2xl">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-blue-400 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <User className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700 leading-relaxed">{loan.eligibility}</span>
                     </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <Map className="h-4 w-4 text-gray-500" />
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-400 rounded-xl flex items-center justify-center">
+                        <Map className="h-4 w-4 text-white" />
+                      </div>
                       <div className="flex flex-wrap gap-1">
                         {loan.locations.map(location => (
-                          <Badge key={location} variant="secondary" className="text-xs">
+                          <Badge key={location} className="text-xs bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border-0 rounded-lg">
                             {location}
                           </Badge>
                         ))}
@@ -402,9 +432,9 @@ const FundingHub = () => {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="justify-end pt-2">
-                  <Button variant="outline">Learn More</Button>
-                  <Button className="ml-2">Apply Now</Button>
+                <CardFooter className="justify-end pt-2 px-6 pb-6 gap-3">
+                  <Button variant="outline" className="rounded-2xl border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 font-medium">Learn More</Button>
+                  <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-2xl font-medium shadow-lg">Apply Now</Button>
                 </CardFooter>
               </Card>
             ))
