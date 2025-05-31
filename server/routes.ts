@@ -26,6 +26,18 @@ interface ExtendedApplication extends Application {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Import security modules
+  const { monitoring, healthCheckHandler } = await import("./monitoring");
+  const { getClientIpAddress, getUserAgent } = await import("./security");
+  const { logAuditEvent, AuditActions } = await import("./auditLog");
+  
+  // Add monitoring middleware
+  app.use(monitoring.performanceMiddleware());
+  app.use(monitoring.securityMiddleware());
+  
+  // Health check endpoint
+  app.get('/api/health', healthCheckHandler);
+  
   // Serve static files from the public directory
   app.use(express.static(path.join(process.cwd(), 'public')));
   
