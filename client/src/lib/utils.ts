@@ -238,6 +238,8 @@ export const EDUCATION_LEVELS = [
 
 // Study Levels
 export const STUDY_LEVELS = [
+  { value: "csec", label: "CSEC" },
+  { value: "cape", label: "CAPE" },
   { value: "certificate", label: "Certificate" },
   { value: "diploma", label: "Diploma" },
   { value: "associates", label: "Associate's Degree" },
