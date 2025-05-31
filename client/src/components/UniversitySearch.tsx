@@ -106,13 +106,21 @@ export function UniversitySearch() {
   ];
   
   return (
-    <div className="container mx-auto my-8 px-4">
-      <h1 className="text-3xl font-bold mb-8">Find Your University</h1>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-300 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-2">🏫 Find Your University</h1>
+          <p className="text-xl text-white/90">Discover top universities and institutions worldwide</p>
+        </div>
+      </div>
       
       {/* Search and filters */}
-      <form onSubmit={handleSearch} className="mb-8 grid gap-4 md:grid-cols-3">
+      <form onSubmit={handleSearch} className="bg-gradient-to-r from-white to-gray-50 p-6 rounded-3xl shadow-xl border-0 grid gap-4 md:grid-cols-3">
         <div>
-          <label htmlFor="name-filter" className="block text-sm font-medium mb-1">
+          <label htmlFor="name-filter" className="block text-sm font-bold text-gray-700 mb-2">
             University Name
           </label>
           <Input
@@ -120,15 +128,16 @@ export function UniversitySearch() {
             placeholder="Search by name..."
             value={nameFilter}
             onChange={(e) => setNameFilter(e.target.value)}
+            className="rounded-2xl border-gray-200 h-12 shadow-sm"
           />
         </div>
         
         <div>
-          <label htmlFor="country-filter" className="block text-sm font-medium mb-1">
+          <label htmlFor="country-filter" className="block text-sm font-bold text-gray-700 mb-2">
             Country
           </label>
           <Select value={countryFilter} onValueChange={setCountryFilter}>
-            <SelectTrigger>
+            <SelectTrigger className="rounded-2xl border-gray-200 h-12 shadow-sm">
               <SelectValue placeholder="Select a country" />
             </SelectTrigger>
             <SelectContent>
@@ -142,8 +151,8 @@ export function UniversitySearch() {
         </div>
         
         <div className="flex items-end">
-          <Button type="submit" className="w-full">
-            Search
+          <Button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl h-12 shadow-lg font-medium">
+            Search Universities
           </Button>
         </div>
       </form>
@@ -185,43 +194,44 @@ export function UniversitySearch() {
             <>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {data?.data.map((university) => (
-                  <Card key={university.id} className="overflow-hidden flex flex-col">
-                    <div className="h-48 bg-gray-200 flex items-center justify-center p-4">
+                  <Card key={university.id} className="overflow-hidden flex flex-col rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+                    <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4 relative overflow-hidden">
                       {university.logoUrl ? (
                         <img
                           src={university.logoUrl}
                           alt={`${university.name} logo`}
-                          className="max-h-40 max-w-full object-contain"
+                          className="max-h-40 max-w-full object-contain z-10 relative"
                         />
                       ) : (
-                        <div className="text-gray-400 text-lg font-medium">No logo available</div>
+                        <div className="text-gray-500 text-lg font-medium bg-white/80 px-4 py-2 rounded-2xl shadow-lg">No logo available</div>
                       )}
+                      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full opacity-20 blur-xl"></div>
                     </div>
-                    <CardHeader>
+                    <CardHeader className="p-6">
                       <div className="flex justify-between items-start">
                         <div>
                           <Link href={`/app/universities/${university.id}`}>
-                            <CardTitle className="text-xl hover:text-blue-600 hover:underline cursor-pointer">
+                            <CardTitle className="text-xl font-bold text-gray-800 hover:text-blue-600 hover:underline cursor-pointer mb-2">
                               {university.name}
                             </CardTitle>
                           </Link>
-                          <CardDescription>
+                          <CardDescription className="text-gray-600 font-medium">
                             {university.city}, {university.country}
                           </CardDescription>
                         </div>
-                        <Badge>{university.country}</Badge>
+                        <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-full px-3 py-1">{university.country}</Badge>
                       </div>
                     </CardHeader>
                     <CardContent className="flex-grow">
                       <p className="text-gray-600 line-clamp-3">{university.description}</p>
                     </CardContent>
-                    <CardFooter className="flex gap-2">
-                      <Button asChild variant="outline" className="flex-1">
+                    <CardFooter className="flex gap-3 p-6">
+                      <Button asChild variant="outline" className="flex-1 rounded-2xl border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 font-medium">
                         <Link to={`/app/universities/${university.id}?tab=programs`}>
                           Explore Programmes
                         </Link>
                       </Button>
-                      <Button asChild className="flex-1">
+                      <Button asChild className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-2xl font-medium shadow-lg">
                         <Link to={`/app/universities/${university.id}`}>
                           View Profile
                         </Link>

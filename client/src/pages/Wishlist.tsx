@@ -169,40 +169,53 @@ const Wishlist = () => {
   };
   
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto space-y-8">
       {copySuccess && (
-        <div className="fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 z-50 animate-in fade-in duration-300">
+        <div className="fixed bottom-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-2xl shadow-lg flex items-center gap-2 z-50 animate-in fade-in duration-300">
           {copySuccess}
         </div>
       )}
       
-      <div className="flex flex-wrap justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">My Wishlist</h1>
-        <Link href="/app/search">
-          <Button variant="outline" className="text-sm">
-            Explore More Programmes
-          </Button>
-        </Link>
+      {/* Header */}
+      <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-400 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-300 to-blue-400 rounded-full opacity-20 blur-xl"></div>
+        <div className="relative z-10 flex flex-wrap justify-between items-center">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">❤️ My Wishlist</h1>
+            <p className="text-xl text-white/90">Your saved programmes and dream destinations</p>
+          </div>
+          <Link href="/app/search">
+            <Button className="bg-white/20 hover:bg-white/30 text-white border-white/30 rounded-2xl px-6 py-3 backdrop-blur-sm font-medium">
+              Explore More Programmes
+            </Button>
+          </Link>
+        </div>
       </div>
       
       {favorites.length === 0 ? (
-        <Card className="bg-white shadow-sm">
-          <CardContent className="p-12 text-center text-gray-500">
-            <Heart className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-            <h2 className="text-lg font-medium text-gray-700 mb-2">Your Wishlist is Empty</h2>
-            <p className="max-w-md mx-auto">
+        <Card className="rounded-3xl border-0 bg-gradient-to-br from-gray-50 to-pink-50 shadow-xl">
+          <CardContent className="p-12 text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <Heart className="h-8 w-8 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Your Wishlist is Empty</h2>
+            <p className="max-w-md mx-auto text-gray-600 leading-relaxed mb-6">
               Save programmes and institutions you're interested in to your wishlist for easy access later.
               Use the search feature to discover programmes and add them to your wishlist.
             </p>
+            <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white rounded-2xl px-8 py-3 shadow-lg">
+              <Link href="/app/search">Discover Programmes</Link>
+            </Button>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 gap-6">
           {favoriteProgrammes.map(program => (
-            <Card key={program.id} className="overflow-hidden">
+            <Card key={program.id} className="rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row items-start gap-4">
-                  <div className="flex-shrink-0 bg-white rounded-md p-3 border border-gray-100 shadow-sm hidden md:block">
+                  <div className="flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-3 shadow-lg hidden md:block">
                     <img src={program.logo} alt={program.institution} className="w-24 h-20 object-contain" />
                   </div>
                   
