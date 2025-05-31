@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ProgramRecommendations from '@/components/ProgramRecommendations';
+import conestogaImg from '@assets/Conestoga.jpg';
 
 export function AppHome() {
   const { user } = useAuth();
@@ -192,7 +193,7 @@ export function AppHome() {
                   <div className="h-40 relative overflow-hidden">
                     {program.university === 'Conestoga College' && (
                       <img 
-                        src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        src={conestogaImg} 
                         alt="Conestoga College campus"
                         className="w-full h-full object-cover"
                       />
