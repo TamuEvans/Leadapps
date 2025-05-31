@@ -60,7 +60,7 @@ export function AppHome() {
 
   // Featured programs
   const featuredPrograms = [
-    { program: 'Computer Science', university: 'University of Toronto' },
+    { program: 'Computer Science', university: 'Conestoga College' },
     { program: 'Business Administration', university: 'University of the West Indies' },
     { program: 'Medicine', university: 'St. George\'s University' },
   ];
@@ -190,10 +190,10 @@ export function AppHome() {
               return (
                 <Card key={index} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/90 backdrop-blur-sm">
                   <div className="h-40 relative overflow-hidden">
-                    {program.university === 'University of Toronto' && (
+                    {program.university === 'Conestoga College' && (
                       <img 
-                        src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                        alt="University of Toronto campus"
+                        src="/attached_assets/Conestoga.jpg" 
+                        alt="Conestoga College campus"
                         className="w-full h-full object-cover"
                       />
                     )}
