@@ -192,7 +192,7 @@ export function AppHome() {
                   <div className="h-40 relative overflow-hidden">
                     {program.university === 'Conestoga College' && (
                       <img 
-                        src="/attached_assets/Conestoga.jpg" 
+                        src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
                         alt="Conestoga College campus"
                         className="w-full h-full object-cover"
                       />
@@ -216,7 +216,7 @@ export function AppHome() {
                       <GraduationCap className="h-4 w-4 text-white" />
                     </div>
                   </div>
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-3 text-center">
                     <CardTitle className="text-lg font-bold text-gray-800">{program.program}</CardTitle>
                     <CardDescription className="text-gray-600 font-medium">{program.university}</CardDescription>
                   </CardHeader>
