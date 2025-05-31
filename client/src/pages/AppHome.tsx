@@ -144,7 +144,15 @@ export function AppHome() {
           <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quickLinks.map((link, index) => {
-              const gradient = 'from-blue-500 to-purple-500';
+              const gradients = [
+                'from-purple-500 to-pink-500',
+                'from-blue-500 to-cyan-500', 
+                'from-green-500 to-emerald-500',
+                'from-orange-500 to-red-500',
+                'from-indigo-500 to-purple-500',
+                'from-teal-500 to-blue-500'
+              ];
+              const gradient = gradients[index % gradients.length];
               
               return (
                 <Card key={index} className="hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-3xl border-0 bg-white/80 backdrop-blur-sm overflow-hidden flex flex-col h-full">
