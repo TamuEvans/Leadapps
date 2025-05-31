@@ -443,6 +443,48 @@ export const savedMaterials = pgTable("saved_materials", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Security Tables
+
+// Audit log table for security monitoring
+export const auditLogs = pgTable("audit_logs", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  action: text("action").notNull(),
+  resource: text("resource").notNull(),
+  resourceId: text("resource_id"),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Rate limiting tracking
+export const rateLimitTracker = pgTable("rate_limit_tracker", {
+  id: serial("id").primaryKey(),
+  identifier: text("identifier").notNull(), // IP or user ID
+  endpoint: text("endpoint").notNull(),
+  requestCount: integer("request_count").default(1),
+  windowStart: timestamp("window_start").defaultNow().notNull(),
+  isBlocked: boolean("is_blocked").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Security incidents tracking
+export const securityIncidents = pgTable("security_incidents", {
+  id: serial("id").primaryKey(),
+  type: text("type").notNull(), // failed_login, suspicious_activity, etc.
+  severity: text("severity").notNull(), // low, medium, high, critical
+  userId: integer("user_id").references(() => users.id),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  description: text("description"),
+  metadata: jsonb("metadata"),
+  resolved: boolean("resolved").default(false),
+  resolvedAt: timestamp("resolved_at"),
+  resolvedBy: integer("resolved_by").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Define insert schemas for new tables
 export const insertPasswordResetSchema = createInsertSchema(passwordResets).omit({ id: true, createdAt: true });
 export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({ id: true, createdAt: true });
@@ -454,6 +496,9 @@ export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers
 export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
 export const insertSavedMaterialSchema = createInsertSchema(savedMaterials).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
+export const insertRateLimitTrackerSchema = createInsertSchema(rateLimitTracker).omit({ id: true, createdAt: true });
+export const insertSecurityIncidentSchema = createInsertSchema(securityIncidents).omit({ id: true, createdAt: true });
 
 // Define types for new tables
 export type InsertPasswordReset = z.infer<typeof insertPasswordResetSchema>;
@@ -477,3 +522,10 @@ export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
 export type ExamResource = typeof examResources.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
 export type SavedMaterial = typeof savedMaterials.$inferSelect;
+export type AuditLog = typeof auditLogs.$inferSelect;
+export type RateLimitTracker = typeof rateLimitTracker.$inferSelect;
+export type SecurityIncident = typeof securityIncidents.$inferSelect;
+
+export type InsertAuditLog = z.infer<typeof insertAuditLogSchema>;
+export type InsertRateLimitTracker = z.infer<typeof insertRateLimitTrackerSchema>;
+export type InsertSecurityIncident = z.infer<typeof insertSecurityIncidentSchema>;
