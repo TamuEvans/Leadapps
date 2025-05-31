@@ -297,7 +297,7 @@ const FundingHub = () => {
             </Card>
           ) : (
             filteredScholarships.map(scholarship => (
-              <Card key={scholarship.id} className={`rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden ${scholarship.featured ? 'ring-2 ring-green-200 bg-gradient-to-br from-green-50 to-emerald-50' : ''}`}>
+              <Card key={scholarship.id} className="rounded-3xl border-0 bg-white shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden">
                 <CardHeader className="pb-4 p-6">
                   <div className="flex justify-between items-start">
                     <div>
@@ -376,7 +376,7 @@ const FundingHub = () => {
             </Card>
           ) : (
             filteredLoans.map(loan => (
-              <Card key={loan.id} className={`rounded-3xl border-0 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden ${loan.featured ? 'ring-2 ring-blue-200 bg-gradient-to-br from-blue-50 to-purple-50' : ''}`}>
+              <Card key={loan.id} className="rounded-3xl border-0 bg-white shadow-xl hover:shadow-2xl transform hover:scale-[1.01] transition-all duration-300 overflow-hidden">
                 <CardHeader className="pb-4 p-6">
                   <div className="flex justify-between items-start">
                     <div>
