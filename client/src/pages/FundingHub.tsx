@@ -278,9 +278,9 @@ const FundingHub = () => {
       
       {/* Tabs for Scholarships and Loans */}
       <Tabs defaultValue="scholarships" value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-gray-100 to-gray-50 rounded-2xl p-2 shadow-lg">
-          <TabsTrigger value="scholarships" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-lg">🎓 Scholarships</TabsTrigger>
-          <TabsTrigger value="loans" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg">💰 Loans</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 mb-8 bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
+          <TabsTrigger value="scholarships" className="rounded-xl font-medium text-gray-600 bg-white hover:bg-gray-50 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-200">🎓 Scholarships</TabsTrigger>
+          <TabsTrigger value="loans" className="rounded-xl font-medium text-gray-600 bg-white hover:bg-gray-50 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-200">💰 Loans</TabsTrigger>
         </TabsList>
         
         {/* Scholarships Tab Content */}
