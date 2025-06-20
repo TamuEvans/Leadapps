@@ -1,4 +1,5 @@
 import { Route, Switch } from "wouter";
+import { Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
@@ -28,11 +29,16 @@ import CSECEnglish from "@/pages/CSECEnglish";
 import CSECSubjects from "@/pages/CSECSubjects";
 import StudyGroups from "@/pages/StudyGroups";
 import UniversitySearchPage from "@/pages/UniversitySearchPage";
+import { lazy } from "react";
 import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import DataUpload from "@/pages/DataUpload";
+
+// Lazy loaded admin components
+const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
 import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
@@ -232,6 +238,10 @@ function AppContent() {
             </ProtectedRoute>
           </MainLayout>
         </Route>
+        
+        {/* Admin Routes */}
+        <Route path="/admin-login" component={AdminLogin} />
+        <Route path="/admin" component={AdminDashboard} />
         
         {/* Fallback route for any unmatched routes */}
         <Route path="/:rest*" component={NotFound} />
