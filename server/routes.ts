@@ -1054,6 +1054,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return percentage;
   }
 
+  // Import and register admin routes
+  try {
+    const { registerAdminRoutes } = await import("./adminRoutes");
+    registerAdminRoutes(app);
+  } catch (error) {
+    console.log("Admin routes not available - continuing without admin functionality");
+  }
+
   const httpServer = createServer(app);
   return httpServer;
 }
