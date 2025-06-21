@@ -100,7 +100,7 @@ export default function AdminDashboard() {
       if (searchTerm) params.append('search', searchTerm);
       
       const response = await apiRequest('GET', `/api/admin/applications?${params}`);
-      return response;
+      return Array.isArray(response) ? response : [];
     }
   });
 
@@ -208,7 +208,8 @@ export default function AdminDashboard() {
     );
   };
 
-  const filteredApplications = applications.filter((app: Application) => {
+  const applicationsArray = Array.isArray(applications) ? applications : [];
+  const filteredApplications = applicationsArray.filter((app: Application) => {
     const matchesSearch = searchTerm === '' || 
       app.student.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       app.student.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
