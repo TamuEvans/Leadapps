@@ -1,5 +1,5 @@
 import { Route, Switch } from "wouter";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
@@ -64,6 +64,11 @@ function App() {
 function AppContent() {
   const { currentAchievement, dismissAchievement } = useAchievements();
   const pathname = usePathname();
+  
+  // Scroll to top whenever the pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   
   return (
     <>
