@@ -8,6 +8,11 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
+// Trust proxy for production deployment
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 // Security middleware
 app.use(helmet({
   contentSecurityPolicy: {
@@ -56,7 +61,7 @@ const authLimiter = rateLimit({
 const speedLimiter = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 50, // allow 50 requests per 15 minutes, then...
-  delayMs: 500, // begin adding 500ms of delay per request above 50
+  delayMs: () => 500, // begin adding 500ms of delay per request above 50
   maxDelayMs: 20000, // maximum delay of 20 seconds
 });
 
