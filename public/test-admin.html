@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Admin Functions</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        input, button, select { padding: 8px 12px; margin: 5px; }
+        button { background: #3b82f6; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        .status { margin-top: 10px; padding: 10px; border-radius: 4px; }
+        .success { background: #d1fae5; color: #059669; }
+        .error { background: #fee2e2; color: #dc2626; }
+        .info { background: #dbeafe; color: #1d4ed8; }
+        pre { background: #f3f4f6; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard Test Suite</h1>
+
+    <div class="test-section">
+        <h3>1. Admin Login Test</h3>
+        <input type="email" id="email" placeholder="Email (any works)" value="admin@test.com">
+        <input type="password" id="password" placeholder="Password (any works)" value="test123">
+        <button onclick="testLogin()">Test Login</button>
+        <div id="loginStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>2. Dashboard Stats Test</h3>
+        <button onclick="testDashboardStats()">Get Dashboard Stats</button>
+        <div id="statsStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>3. Applications List Test</h3>
+        <button onclick="testApplicationsList()">Get Applications</button>
+        <div id="appsStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>4. Application Review Test</h3>
+        <input type="number" id="appId" placeholder="Application ID" value="1">
+        <select id="newStatus">
+            <option value="under_review">Under Review</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+        </select>
+        <button onclick="testStatusUpdate()">Update Status</button>
+        <div id="statusUpdateResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>5. Document Review Test</h3>
+        <input type="number" id="docId" placeholder="Document ID" value="1">
+        <select id="docStatus">
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+        </select>
+        <input type="text" id="rejectionReason" placeholder="Rejection reason (if rejected)">
+        <button onclick="testDocumentReview()">Review Document</button>
+        <div id="docReviewResult"></div>
+    </div>
+
+    <script>
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                return { success: response.ok, data, status: response.status };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function displayResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            if (result.success) {
+                element.className = 'status success';
+                element.innerHTML = `✓ Success: <pre>${JSON.stringify(result.data, null, 2)}</pre>`;
+            } else {
+                element.className = 'status error';
+                element.innerHTML = `✗ Error (${result.status || 'Network'}): ${result.error || JSON.stringify(result.data)}`;
+            }
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = await makeRequest('/api/admin/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email, password})
+            });
+            
+            displayResult('loginStatus', result);
+            if (result.success && result.data.token) {
+                localStorage.setItem('adminToken', result.data.token);
+            }
+        }
+
+        async function testDashboardStats() {
+            const result = await makeRequest('/api/admin/dashboard-stats');
+            displayResult('statsStatus', result);
+        }
+
+        async function testApplicationsList() {
+            const result = await makeRequest('/api/admin/applications');
+            displayResult('appsStatus', result);
+        }
+
+        async function testStatusUpdate() {
+            const appId = document.getElementById('appId').value;
+            const status = document.getElementById('newStatus').value;
+            
+            const result = await makeRequest(`/api/admin/applications/${appId}/status`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status, notes: 'Test status update'})
+            });
+            
+            displayResult('statusUpdateResult', result);
+        }
+
+        async function testDocumentReview() {
+            const docId = document.getElementById('docId').value;
+            const status = document.getElementById('docStatus').value;
+            const rejectionReason = document.getElementById('rejectionReason').value;
+            
+            const result = await makeRequest(`/api/admin/documents/${docId}/review`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status, rejectionReason})
+            });
+            
+            displayResult('docReviewResult', result);
+        }
+
+        // Auto-run basic tests
+        window.onload = function() {
+            document.getElementById('statsStatus').className = 'status info';
+            document.getElementById('statsStatus').innerHTML = 'Ready to test admin functions. All APIs use mock data for demonstration.';
+        };
+    </script>
+</body>
+</html>
