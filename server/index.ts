@@ -8,10 +8,9 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
-// Trust proxy for production deployment
-if (process.env.NODE_ENV === 'production') {
-  app.set('trust proxy', 1);
-}
+// Trust proxy for both development and production
+// This is needed for rate limiting to work correctly in Replit
+app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet({
