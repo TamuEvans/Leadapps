@@ -1,0 +1,27 @@
+# Development files
+node_modules/
+.git/
+.gitignore
+*.log
+.env*
+
+# Build artifacts during development
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp
+build-*.js
+deploy.sh
+esbuild.config.js
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

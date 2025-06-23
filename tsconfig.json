@@ -11,9 +11,9 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "outDir": "./dist",
+
 
     /* Linting */
     "strict": true,
@@ -27,6 +27,6 @@
       "@shared/*": ["./shared/*"]
     }
   },
-  "include": ["client/src", "shared", "server"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["client/src", "shared"],
+
 }

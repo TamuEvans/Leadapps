@@ -68,7 +68,7 @@ const helpTips: HelpTip[] = [
   {
     id: 'documents-upload',
     title: 'Upload Your Documents',
-    description: 'Having your documents ready in advance makes the application process much faster when you're ready to apply.',
+    description: 'Having your documents ready in advance makes the application process much faster when you are ready to apply.',
     type: 'info',
     location: '/app/profile',
     element: 'documents-section',
