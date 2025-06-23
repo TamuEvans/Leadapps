@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login - Direct Access</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; margin: 0; }
+        .container { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+        button:hover { background: #5a6fd8; }
+        .status { margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .loading { background: #cce5ff; color: #004085; }
+        .links { margin-top: 30px; text-align: center; }
+        .links a { display: inline-block; margin: 10px; padding: 10px 20px; background: #f8f9fa; color: #495057; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Admin Login</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Customer Experience Dashboard Access</p>
+        
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email Address" value="admin@leadapps.com" required>
+            <input type="password" id="password" placeholder="Password" value="admin123" required>
+            <button type="submit" id="loginBtn">Login to Dashboard</button>
+        </form>
+        
+        <div id="status"></div>
+        
+        <div class="links">
+            <a href="/test-admin.html">API Test Suite</a>
+            <a href="/">Main Website</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const statusDiv = document.getElementById('status');
+        const loginBtn = document.getElementById('loginBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            loginBtn.textContent = 'Logging in...';
+            loginBtn.disabled = true;
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = 'Authenticating...';
+            
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = 'Login successful! Redirecting to dashboard...';
+                    
+                    // Store admin auth
+                    localStorage.setItem('adminAuth', 'true');
+                    localStorage.setItem('adminToken', data.token || 'demo-token');
+                    
+                    // Redirect to admin dashboard
+                    setTimeout(() => {
+                        window.location.href = '/admin';
+                    }, 1500);
+                    
+                } else {
+                    throw new Error(data.message || 'Login failed');
+                }
+                
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = `Login failed: ${error.message}`;
+                
+                loginBtn.textContent = 'Login to Dashboard';
+                loginBtn.disabled = false;
+            }
+        });
+        
+        // Check if already logged in
+        if (localStorage.getItem('adminAuth')) {
+            statusDiv.className = 'status success';
+            statusDiv.innerHTML = 'Already logged in. <a href="/admin" style="color: #155724;">Go to Dashboard</a>';
+        }
+    </script>
+</body>
+</html>
