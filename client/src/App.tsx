@@ -68,14 +68,14 @@ function AppContent() {
     <>
       <Switch>
         {/* Static marketing pages */}
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={Marketing} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         
         {/* Auth pages */}
-        <Route path="/student-login" component={Login} />
+        <Route path="/student-login" component={StudentLogin} />
         <Route path="/register" component={Register} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/reset-password" component={ResetPassword} />
