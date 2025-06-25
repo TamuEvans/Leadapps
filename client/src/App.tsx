@@ -28,13 +28,22 @@ import ExamPrepHub from "@/pages/ExamPrepHub";
 import CSECEnglish from "@/pages/CSECEnglish";
 import CSECSubjects from "@/pages/CSECSubjects";
 import StudyGroups from "@/pages/StudyGroups";
-import UniversitySearchPage from "@/pages/UniversitySearchPage";
-import { lazy } from "react";
-import UniversityDetailsPage from "@/pages/UniversityDetailsPage";
+import CSHub from "@/pages/CSHub";
+import StudyMaterials from "@/pages/StudyMaterials";
+import PracticeTests from "@/pages/PracticeTests";
+import ProgressTracking from "@/pages/ProgressTracking";
+import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import UniversityProfilePage from "@/pages/UniversityProfilePage";
 import ProgramProfilePage from "@/pages/ProgramProfilePage";
-import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
-import DataUpload from "@/pages/DataUpload";
+import { ThemeProvider } from "@/components/theme-provider";
+import { useLocation } from "wouter";
+
+// Direct imports for Home and other pages
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 
 // Direct imports for admin components to avoid Suspense issues
 import AdminLogin from "@/pages/AdminLogin";
@@ -42,49 +51,34 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
+import Login from "@/pages/Login";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
 import AchievementProvider, { useAchievements } from "@/contexts/AchievementContext";
 import AchievementCelebration from "@/components/AchievementCelebration";
 import InteractiveTour from "@/components/InteractiveTour";
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AchievementProvider>
-        <TooltipProvider>
-          <AppContent />
-        </TooltipProvider>
-      </AchievementProvider>
-    </QueryClientProvider>
-  );
-}
+import { AuthProvider } from "@/hooks/useAuth";
 
 function AppContent() {
+  const [pathname] = useLocation();
   const { currentAchievement, dismissAchievement } = useAchievements();
-  const pathname = usePathname();
-  
-  // Scroll to top whenever the pathname changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  
+
   return (
     <>
       <Switch>
-        {/* Marketing website routes */}
-        <Route path="/" component={Marketing} />
-        <Route path="/student-login" component={StudentLogin} />
+        {/* Static marketing pages */}
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
+        
+        {/* Auth pages */}
+        <Route path="/student-login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password/:token" component={ResetPassword} />
-        <Route path="/about-us" component={AboutUs} />
-        <Route path="/info-centre" component={InfoCentre} />
-        <Route path="/fairs-events" component={FairsEvents} />
-        
-        {/* Study routes */}
-        <Route path="/study/:location" component={StudyLocation} />
+        <Route path="/reset-password" component={ResetPassword} />
         
         {/* Services routes */}
         <Route path="/services/:service" component={ServicePage} />
@@ -92,7 +86,7 @@ function AppContent() {
         {/* App routes */}
         <Route path="/app">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <AppHome />
             </ProtectedRoute>
           </MainLayout>
@@ -100,7 +94,7 @@ function AppContent() {
         
         <Route path="/app/profile">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <StudentProfile />
             </ProtectedRoute>
           </MainLayout>
@@ -108,7 +102,7 @@ function AppContent() {
         
         <Route path="/app/search">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <Search />
             </ProtectedRoute>
           </MainLayout>
@@ -116,7 +110,7 @@ function AppContent() {
         
         <Route path="/app/wishlist">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <Wishlist />
             </ProtectedRoute>
           </MainLayout>
@@ -124,7 +118,7 @@ function AppContent() {
         
         <Route path="/app/applications">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <Applications />
             </ProtectedRoute>
           </MainLayout>
@@ -132,7 +126,7 @@ function AppContent() {
         
         <Route path="/app/application/:id">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <ApplicationDetailsPage />
             </ProtectedRoute>
           </MainLayout>
@@ -140,7 +134,7 @@ function AppContent() {
         
         <Route path="/app/personality-hub">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <PersonalityHub />
             </ProtectedRoute>
           </MainLayout>
@@ -148,7 +142,7 @@ function AppContent() {
         
         <Route path="/app/personality-assessment">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <PersonalityAssessment />
             </ProtectedRoute>
           </MainLayout>
@@ -156,7 +150,7 @@ function AppContent() {
         
         <Route path="/app/personality-results/:id">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <PersonalityResults />
             </ProtectedRoute>
           </MainLayout>
@@ -164,7 +158,7 @@ function AppContent() {
         
         <Route path="/app/counselling">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <Counselling />
             </ProtectedRoute>
           </MainLayout>
@@ -172,7 +166,7 @@ function AppContent() {
         
         <Route path="/app/articles">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <Articles />
             </ProtectedRoute>
           </MainLayout>
@@ -180,71 +174,74 @@ function AppContent() {
         
         <Route path="/app/funding-hub">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
+            <ProtectedRoute>
               <FundingHub />
             </ProtectedRoute>
           </MainLayout>
         </Route>
-
-        <Route path="/app/exam-prep-hub">
+        
+        <Route path="/app/cs-hub">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <ExamPrepHub />
-            </ProtectedRoute>
-          </MainLayout>
-        </Route>
-
-        <Route path="/app/csec-subjects">
-          <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <CSECSubjects />
-            </ProtectedRoute>
-          </MainLayout>
-        </Route>
-
-        <Route path="/app/csec-english">
-          <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <CSECEnglish />
+            <ProtectedRoute>
+              <CSHub />
             </ProtectedRoute>
           </MainLayout>
         </Route>
         
-
-        
-        <Route path="/app/university-search">
+        <Route path="/app/cs-hub/study/:subject">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <UniversitySearchPage />
+            <ProtectedRoute>
+              <StudyMaterials />
             </ProtectedRoute>
           </MainLayout>
         </Route>
         
-        <Route path="/app/universities/:id">
+        <Route path="/app/cs-hub/practice/:subject">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <UniversityProfilePage />
+            <ProtectedRoute>
+              <PracticeTests />
             </ProtectedRoute>
           </MainLayout>
         </Route>
         
-        <Route path="/app/programs/:id">
+        <Route path="/app/cs-hub/groups">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <ProgramProfilePage />
+            <ProtectedRoute>
+              <StudyGroups />
             </ProtectedRoute>
           </MainLayout>
         </Route>
         
-        <Route path="/app/data-upload">
+        <Route path="/app/cs-hub/progress">
           <MainLayout>
-            <ProtectedRoute testMode={true}>
-              <DataUpload />
+            <ProtectedRoute>
+              <ProgressTracking />
             </ProtectedRoute>
           </MainLayout>
         </Route>
         
-        {/* Admin Routes */}
+        <Route path="/app/fairs-events">
+          <MainLayout>
+            <ProtectedRoute>
+              <FairsEvents />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        {/* University and program details */}
+        <Route path="/university/:id">
+          <ProtectedRoute>
+            <UniversityProfilePage />
+          </ProtectedRoute>
+        </Route>
+        
+        <Route path="/program/:id">
+          <ProtectedRoute>
+            <ProgramProfilePage />
+          </ProtectedRoute>
+        </Route>
+        
+        {/* Admin routes */}
         <Route path="/admin-login">
           <AdminLogin />
         </Route>
@@ -275,4 +272,16 @@ function AppContent() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <AuthProvider>
+          <AchievementProvider>
+            <AppContent />
+          </AchievementProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+}

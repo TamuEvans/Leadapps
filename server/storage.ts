@@ -25,10 +25,12 @@ import {
   type InsertUniversity,
   type InsertProgram,
   type InsertApplication,
-  type InsertApplicationDocument
+  type InsertApplicationDocument,
+  sessions as sessionsTable,
+  type Session
 } from "@shared/schema";
 import { db } from './db';
-import { eq, and, desc, isNotNull, sql, like, ilike } from 'drizzle-orm';
+import { eq, and, desc, isNotNull, sql, like, ilike, lt } from 'drizzle-orm';
 
 // Interface for storage methods
 export interface IStorage {
@@ -1162,6 +1164,65 @@ export class DatabaseStorage implements IStorage {
   async getUserProgressByUser(userId: number): Promise<any[]> {
     // Return empty array for now - this would query the database in production
     return [];
+  }
+
+  // Session operations
+  async createSession(userId: number, token: string, expiresAt: Date): Promise<Session> {
+    const [session] = await db
+      .insert(sessionsTable)
+      .values({ userId, token, expiresAt })
+      .returning();
+    return session;
+  }
+
+  async getSessionByToken(token: string): Promise<Session | null> {
+    const [session] = await db
+      .select()
+      .from(sessionsTable)
+      .where(eq(sessionsTable.token, token));
+    return session || null;
+  }
+
+  async deleteSession(token: string): Promise<void> {
+    await db.delete(sessionsTable).where(eq(sessionsTable.token, token));
+  }
+
+  async getExpiredSessions(now: Date): Promise<Session[]> {
+    return await db
+      .select()
+      .from(sessionsTable)
+      .where(lt(sessionsTable.expiresAt, now));
+  }
+
+  // Admin statistics
+  async getApplicationsCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(applications);
+    return result[0]?.count || 0;
+  }
+
+  async getPendingApplicationsCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(applications)
+      .where(eq(applications.status, 'submitted'));
+    return result[0]?.count || 0;
+  }
+
+  async getUsersCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(users);
+    return result[0]?.count || 0;
+  }
+
+  async getRecentApplications(limit: number): Promise<Application[]> {
+    return await db
+      .select()
+      .from(applications)
+      .orderBy(desc(applications.createdAt))
+      .limit(limit);
   }
 }
 

@@ -3,8 +3,10 @@ import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { storage } from './storage';
 
-// JWT secret key - in production this should be from environment variables
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-here';
+import { getJWTSecret } from './middleware/sessionSecret';
+
+// JWT secret key - dynamically generated if not provided
+const JWT_SECRET = getJWTSecret();
 
 export interface AuthToken {
   token: string;

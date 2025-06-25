@@ -107,6 +107,10 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
+  // Schedule session cleanup
+  const { scheduleSessionCleanup } = await import('./auth/sessionCleanup');
+  scheduleSessionCleanup();
+
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes

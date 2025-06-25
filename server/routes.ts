@@ -30,6 +30,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { monitoring, healthCheckHandler } = await import("./monitoring");
   const { getClientIpAddress, getUserAgent } = await import("./security");
   const { logAuditEvent, AuditActions } = await import("./auditLog");
+  const { authService } = await import("./auth");
 
   // Add monitoring middleware
   app.use(monitoring.performanceMiddleware());
@@ -51,8 +52,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Add auth middleware to all routes
   app.use(authMiddleware);
 
+  // API routes prefix
+  const apiPrefix = "/api";
+  
+  // Authentication endpoints
+  app.post('/api/logout', async (req, res) => {
+    try {
+      const token = req.cookies?.auth_token;
+      
+      if (token) {
+        await authService.logout(token);
+        res.clearCookie('auth_token');
+      }
+      
+      res.json({ message: 'Logged out successfully' });
+    } catch (error) {
+      console.error('Logout error:', error);
+      res.status(500).json({ message: 'Logout failed' });
+    }
+  });
+  
+  app.get('/api/auth/me', async (req, res) => {
+    try {
+      const token = req.cookies?.auth_token;
+      
+      if (!token) {
+        return res.status(401).json({ message: 'Not authenticated' });
+      }
+      
+      const user = await authService.verifyToken(token);
+      
+      if (!user) {
+        res.clearCookie('auth_token');
+        return res.status(401).json({ message: 'Invalid token' });
+      }
+      
+      res.json({ user });
+    } catch (error) {
+      console.error('Auth verification error:', error);
+      res.clearCookie('auth_token');
+      res.status(401).json({ message: 'Authentication failed' });
+    }
+  });
+
   // Register authentication routes
   app.use('/api/auth', authRoutes);
+  
+  // Password reset routes
+  const { requestPasswordReset, resetPassword, verifyEmail } = await import('./auth/passwordReset');
+  app.post('/api/auth/forgot-password', requestPasswordReset);
+  app.post('/api/auth/reset-password', resetPassword);
+  app.post('/api/auth/verify-email', verifyEmail);
+
+  // Admin authentication routes
+  const { adminLogin, adminLogout, requireAdmin } = await import('./auth/adminAuth');
+  app.post('/api/admin/login', adminLogin);
+  app.post('/api/admin/logout', requireAdmin, adminLogout);
+  
+  // Admin dashboard API routes
+  app.get('/api/admin/stats', requireAdmin, async (req, res) => {
+    try {
+      // Get basic statistics
+      const stats = {
+        totalApplications: await storage.getApplicationsCount(),
+        pendingApplications: await storage.getPendingApplicationsCount(),
+        totalUsers: await storage.getUsersCount(),
+        recentApplications: await storage.getRecentApplications(5)
+      };
+      res.json(stats);
+    } catch (error) {
+      console.error('Error fetching admin stats:', error);
+      res.status(500).json({ message: 'Failed to fetch statistics' });
+    }
+  });
 
   // Register personality assessment routes
   app.use('/api/personality-assessment', personalityAssessmentRouter);
@@ -300,45 +372,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // API routes prefix
-  const apiPrefix = "/api";
-
-  // User registration
+  // Production user registration with proper validation
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
-      const userData = insertUserSchema.parse(req.body);
-      const user = await storage.createUser(userData);
-      res.status(201).json({ id: user.id, username: user.username, email: user.email });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ message: "Invalid user data", errors: error.errors });
-      } else {
-        console.error("Error creating user:", error);
-        res.status(500).json({ message: "Failed to create user" });
+      const { email, password, firstName, lastName } = req.body;
+      
+      // Validate input
+      if (!email || !password || !firstName || !lastName) {
+        return res.status(400).json({ message: "All fields are required" });
       }
+      
+      // Use AuthService for secure registration
+      const { user, needsVerification } = await authService.register(email, password, firstName, lastName);
+      
+      res.status(201).json({ 
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          isVerified: user.isVerified
+        },
+        needsVerification,
+        message: needsVerification ? 'Registration successful. Please check your email to verify your account.' : 'Registration successful.'
+      });
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(400).json({ message: error.message || "Registration failed" });
     }
   });
 
-  // Login route (mock for demo purposes)
+  // Production login route with JWT authentication
   app.post(`${apiPrefix}/login`, async (req, res) => {
     try {
-      const { username, password } = req.body;
-      const user = await storage.getUserByUsername(username);
-
-      if (!user || user.password !== password) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      // In a real app, you'd use a proper auth system with tokens
-      // Using a basic approach for demo
-      res.status(200).json({ 
-        id: user.id, 
-        username: user.username, 
-        email: user.email 
+      const { email, password, rememberMe } = req.body;
+      
+      // Use the AuthService for secure login
+      const { user, token } = await authService.login(email, password, rememberMe);
+      
+      // Set secure HTTP-only cookie
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict' as const,
+        maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 // 30 days or 1 day
+      };
+      
+      res.cookie('auth_token', token, cookieOptions);
+      
+      res.json({ 
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          isVerified: user.isVerified
+        },
+        message: 'Login successful'
       });
     } catch (error) {
       console.error("Error logging in:", error);
-      res.status(500).json({ message: "Login failed" });
+      res.status(401).json({ message: error.message || "Invalid credentials" });
     }
   });
 
