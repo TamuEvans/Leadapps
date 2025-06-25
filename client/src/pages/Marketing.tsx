@@ -469,7 +469,7 @@ export default function Marketing() {
       {/* Popular Programs Section */}
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Popular Programs</h2>
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {popularPrograms.map((program, index) => {
               const Icon = program.icon;
@@ -524,7 +524,7 @@ export default function Marketing() {
       <section className="w-full py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Support Services</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Support Services</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               Our comprehensive support services are designed to help you navigate every step of your educational journey.
             </p>
@@ -536,7 +536,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <MessageCircle className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Study Counselling</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Study Counselling</h3>
               <p className="text-gray-600 text-sm mb-4">Connect with expert counselors who specialize in guiding students through the application process.</p>
               <Button variant="outline" className="mt-auto text-blue-600 border-blue-200 hover:bg-blue-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -548,7 +548,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
                 <Brain className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Personality Hub</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Personality Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Discover your strengths, interests, and ideal career paths with our personality assessment tools.</p>
               <Button variant="outline" className="mt-auto text-purple-600 border-purple-200 hover:bg-purple-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -560,7 +560,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                 <BookOpen className="h-8 w-8 text-indigo-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Exam Prep Hub</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Exam Prep Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.</p>
               <Button variant="outline" className="mt-auto text-indigo-600 border-indigo-200 hover:bg-indigo-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -572,7 +572,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <DollarSign className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Funding Hub</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Funding Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Find scholarships, financial aid opportunities, and funding resources tailored to your academic profile.</p>
               <Button variant="outline" className="mt-auto text-green-600 border-green-200 hover:bg-green-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -585,11 +585,11 @@ export default function Marketing() {
       {/* Search & Apply Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Search & Apply</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Search & Apply</h2>
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-col md:flex-row gap-2">
-              <Input placeholder="Search programs, universities, or destinations" className="flex-grow" />
-              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600">
+              <Input placeholder="Search programs, universities, or destinations" className="flex-grow bg-white border-gray-300" />
+              <Button>
                 <Search className="mr-2 h-4 w-4" /> Search
               </Button>
             </div>
