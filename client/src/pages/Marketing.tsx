@@ -603,7 +603,7 @@ export default function Marketing() {
           <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">What they say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <Card key={index}>
+              <Card key={index} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
@@ -650,7 +650,7 @@ export default function Marketing() {
                 date: "April 05, 2025"
               }
             ].map((item, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow bg-white border border-gray-200">
                 <div className="h-48 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                 </div>
@@ -926,15 +926,15 @@ export default function Marketing() {
       {/* FAQ Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Questions?</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Questions?</h2>
           <div className="max-w-3xl mx-auto space-y-4">
             {faqItems.map((item, index) => (
-              <Card key={index} className="overflow-hidden border border-gray-100">
+              <Card key={index} className="overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <div 
                   className="p-4 cursor-pointer hover:bg-gray-50 flex justify-between items-center"
                   onClick={() => toggleFaq(index)}
                 >
-                  <h3 className="font-medium flex items-center gap-2">
+                  <h3 className="font-medium flex items-center gap-2 text-gray-900">
                     <span className="text-blue-600">{index + 1}.</span> {item.question}
                   </h3>
                   <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-all duration-200">
