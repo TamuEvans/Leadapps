@@ -141,7 +141,7 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="flex flex-col items-center justify-center min-h-screen py-8">
+      <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-white">
         <div style={{ width: "500px" }} className="px-4">
           <div className="flex justify-center mb-8">
             <img src={logoImage} alt="LeadApps Logo" className="h-16" />

@@ -7,8 +7,8 @@ interface LoginLayoutProps {
 
 const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-grow flex justify-center items-center">
+    <div className="flex flex-col min-h-screen bg-white">
+      <main className="flex-grow flex justify-center items-center bg-white">
         {children}
       </main>
       <Toaster />
