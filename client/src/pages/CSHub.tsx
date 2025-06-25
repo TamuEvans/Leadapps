@@ -8,7 +8,7 @@ export default function CSHub() {
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">CSEC Study Hub</h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-gray-600">
           Comprehensive study resources for Caribbean Secondary Education Certificate
         </p>
       </div>

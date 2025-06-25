@@ -245,11 +245,11 @@ export default function Marketing() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/app">
-                    <Button className="px-6 py-3 text-sm md:text-base font-medium border border-white/20 shadow-md">
+                    <Button className="px-6 py-3 text-sm md:text-base font-medium shadow-md">
                       Get Started
                     </Button>
                   </Link>
-                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 text-gray-800">Learn More</Button>
                 </div>
               </div>
             </div>

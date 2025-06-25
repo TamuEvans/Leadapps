@@ -29,6 +29,7 @@ import CSECEnglish from "@/pages/CSECEnglish";
 import CSECSubjects from "@/pages/CSECSubjects";
 import StudyGroups from "@/pages/StudyGroups";
 import CSHub from "@/pages/CSHub";
+import UniversitySearchPage from "@/pages/UniversitySearchPage";
 import StudyMaterials from "@/pages/StudyMaterials";
 import PracticeTests from "@/pages/PracticeTests";
 import ProgressTracking from "@/pages/ProgressTracking";
@@ -104,6 +105,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute>
               <Search />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        <Route path="/app/university-search">
+          <MainLayout>
+            <ProtectedRoute>
+              <UniversitySearchPage />
             </ProtectedRoute>
           </MainLayout>
         </Route>
@@ -184,6 +193,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute>
               <CSHub />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        <Route path="/app/exam-prep-hub">
+          <MainLayout>
+            <ProtectedRoute>
+              <ExamPrepHub />
             </ProtectedRoute>
           </MainLayout>
         </Route>
