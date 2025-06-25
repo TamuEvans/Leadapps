@@ -88,7 +88,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const isSubPage = location !== "/app";
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-background">
+    <div className="flex flex-col md:flex-row min-h-screen bg-white">
       <Sidebar />
       <main 
         className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
@@ -127,7 +127,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
           </div>
         </header>
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
           {/* Main content without sidebar layout */}
           {children}
           
