@@ -245,7 +245,7 @@ export default function Marketing() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/app">
-                    <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md">
+                    <Button className="px-6 py-3 text-sm md:text-base font-medium border border-white/20 shadow-md">
                       Get Started
                     </Button>
                   </Link>
@@ -291,7 +291,7 @@ export default function Marketing() {
                     <div className="md:col-span-1">
                       <Button 
                         type="submit"
-                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm"
+                        className="w-full font-medium h-10 text-sm"
                       >
                         <Search className="h-4 w-4 md:mr-2" /> <span className="hidden md:inline">Search</span>
                       </Button>
