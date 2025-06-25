@@ -600,7 +600,7 @@ export default function Marketing() {
       {/* Testimonials Section */}
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">What they say</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">What they say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <Card key={index}>
@@ -610,7 +610,7 @@ export default function Marketing() {
                       <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
                     </div>
                     <div>
-                      <h3 className="font-bold">{testimonial.name}</h3>
+                      <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
                       <p className="text-sm text-gray-600">{testimonial.country}</p>
                     </div>
                   </div>
@@ -625,7 +625,7 @@ export default function Marketing() {
       {/* Information Center Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Information Centre</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Information Centre</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { 
@@ -660,7 +660,7 @@ export default function Marketing() {
                     <span className="mr-4">{item.readTime}</span>
                     <span>{item.date}</span>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 line-clamp-2">{item.title}</h3>
+                  <h3 className="font-bold text-lg mb-2 line-clamp-2 text-gray-900">{item.title}</h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
                   <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800">
                     Read More <ArrowRight className="h-4 w-4 ml-1" />
@@ -680,7 +680,7 @@ export default function Marketing() {
               <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Beautiful university campus" className="rounded-lg shadow-lg w-full" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">We Solve Your Problems!</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">We Solve Your Problems!</h2>
               <div className="space-y-4">
                 {[
                   { title: "Personalized Guidance", description: "Get tailored advice from experienced counselors" },
@@ -693,7 +693,7 @@ export default function Marketing() {
                       <div className="bg-blue-600 rounded-full w-4 h-4"></div>
                     </div>
                     <div>
-                      <h3 className="font-medium">{item.title}</h3>
+                      <h3 className="font-medium text-gray-900">{item.title}</h3>
                       <p className="text-gray-600">{item.description}</p>
                     </div>
                   </div>
@@ -708,7 +708,7 @@ export default function Marketing() {
       <section className="w-full py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Complete Lead Ecosystem Integration</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Complete Lead Ecosystem Integration</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               LeadApps seamlessly connects with the entire Lead platform ecosystem to provide comprehensive student lifecycle management and optimization.
             </p>
