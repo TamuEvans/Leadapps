@@ -146,9 +146,9 @@ export default function StudentLogin() {
           <div className="flex justify-center mb-8">
             <img src={logoImage} alt="LeadApps Logo" className="h-16" />
           </div>
-          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl w-full">
-            <CardContent className="pt-8 px-12">
-              <Tabs defaultValue="login" className="w-full">
+          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl w-full bg-white">
+            <CardContent className="pt-8 px-12 bg-white">
+              <Tabs defaultValue="login" className="w-full bg-white">
                 <TabsList className="grid w-full grid-cols-2 mb-4">
                   <TabsTrigger value="login" className="py-3">Login</TabsTrigger>
                   <TabsTrigger value="register" className="py-3">Register</TabsTrigger>
