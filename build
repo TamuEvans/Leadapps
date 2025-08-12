@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+// Production build script for Replit deployment
+// This file is called directly by the deployment system
+
+import { execSync } from 'child_process';
+import { existsSync } from 'fs';
+
+console.log('🚀 Replit Deployment Build Starting...');
+
+try {
+  // Clean build - run our proven build script
+  console.log('📦 Executing optimized build process...');
+  execSync('node deploy-fix.js', { stdio: 'inherit' });
+  
+  // Validate build output
+  const requiredFiles = [
+    'dist/server/index.js',
+    'dist/package.json', 
+    'dist/public/index.html'
+  ];
+  
+  console.log('🔍 Validating build artifacts...');
+  for (const file of requiredFiles) {
+    if (!existsSync(file)) {
+      throw new Error(`Missing required file: ${file}`);
+    }
+    console.log(`✅ ${file}`);
+  }
+  
+  // Syntax check
+  execSync('node --check dist/server/index.js', { stdio: 'pipe' });
+  console.log('✅ Server syntax validated');
+  
+  console.log('🎉 Build completed successfully for deployment!');
+  
+} catch (error) {
+  console.error('❌ Build failed:', error.message);
+  process.exit(1);
+}
