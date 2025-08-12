@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -42,41 +42,24 @@ import {
   Brain,
   DollarSign,
   MessageCircle,
-  File,
+
   Clock
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
-import logoImage from '../assets/logo.png';
-import backgroundVideo from '@assets/Video_Ready_Students_Walking.mp4';
+
 
 // University logos
-import uccLogo from '../assets/logos/ucc.jpg';
-import utechLogo from '../assets/logos/utech.jpg';
-import humberLogo from '../assets/logos/humber.gif';
-import saitLogo from '../assets/logos/sait.png';
-import sguLogo from '../assets/logos/sgu.jpg';
-import usfLogo from '../assets/logos/usf.png';
-import uwiLogo from '../assets/logos/uwi.png';
 
-// Define university logo array for easier mapping
-const universityLogos = [
-  { src: uwiLogo, alt: "University of West Indies", height: "h-16" },
-  { src: uccLogo, alt: "University of the Commonwealth Caribbean", height: "h-16" },
-  { src: utechLogo, alt: "University of Technology, Jamaica", height: "h-20" },
-  { src: sguLogo, alt: "St. George's University", height: "h-6" },
-  { src: humberLogo, alt: "Humber College", height: "h-16" },
-  { src: saitLogo, alt: "SAIT", height: "h-16" },
-  { src: usfLogo, alt: "University of South Florida", height: "h-16" },
-];
+
+
 
 export default function Marketing() {
   // Auth status
   const { isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   
-  // Video reference for optimization
-  const videoRef = useRef<HTMLVideoElement>(null);
+
   
   // State for search form inputs
   const [programSearch, setProgramSearch] = useState('');
@@ -107,38 +90,7 @@ export default function Marketing() {
     }
   };
   
-  useEffect(() => {
-    // Optimize video playback
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      videoElement.muted = true;
-      videoElement.playsInline = true;
-      
-      // Stop video after 8 seconds
-      const stopAfter8Seconds = () => {
-        setTimeout(() => {
-          if (videoElement && !videoElement.paused) {
-            videoElement.pause();
-          }
-        }, 8000); // 8 seconds
-      };
-      
-      // Start the timer when video begins playing
-      videoElement.addEventListener('play', stopAfter8Seconds);
-      
-      // Also handle if video ends naturally before 8 seconds
-      const handleVideoEnd = () => {
-        videoElement.pause();
-      };
-      
-      videoElement.addEventListener('ended', handleVideoEnd);
-      
-      return () => {
-        videoElement.removeEventListener('play', stopAfter8Seconds);
-        videoElement.removeEventListener('ended', handleVideoEnd);
-      };
-    }
-  }, []);
+
 
   // Popular programs data with icons
   const popularPrograms = [
@@ -216,21 +168,15 @@ export default function Marketing() {
     <MarketingLayout>
       {/* Hero Section */}
       <section className="w-full h-screen bg-black relative overflow-hidden flex items-center">
-        {/* Video Background */}
+        {/* Background Image */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
-          <video 
-            ref={videoRef}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10 z-10"></div>
+          <img
+            src="/attached_assets/Untitled design (16)_1755012827100.png"
+            alt="Diverse students with colorful backgrounds"
             className="absolute inset-0 w-full h-full object-cover object-center"
             style={{ objectPosition: 'center center' }}
-            autoPlay 
-            muted 
-            playsInline
-            poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-          >
-            <source src={backgroundVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
@@ -314,7 +260,16 @@ export default function Marketing() {
           <div className="logo-marquee">
             <div className="logo-track">
               {/* First set of logos */}
-              {universityLogos.map((logo, index) => (
+              {/* University logos using public assets */}
+              {[
+                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
+                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
+                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
+                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
+                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
+              ].map((logo, index) => (
                 <div key={`logo-1-${index}`} className="logo-item">
                   <img 
                     src={logo.src} 
@@ -324,8 +279,16 @@ export default function Marketing() {
                 </div>
               ))}
               
-              {/* Duplicate set of logos for continuous scrolling */}
-              {universityLogos.map((logo, index) => (
+              {/* Duplicate set for continuous scrolling */}
+              {[
+                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
+                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
+                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
+                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
+                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
+              ].map((logo, index) => (
                 <div key={`logo-2-${index}`} className="logo-item">
                   <img 
                     src={logo.src} 
