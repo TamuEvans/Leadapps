@@ -47,7 +47,6 @@ import {
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
-import heroImage from '@assets/Untitled design (16)_1755012827100.png';
 
 
 // University logos
@@ -168,41 +167,95 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full h-screen bg-black relative overflow-hidden flex items-center">
-        {/* Background Image */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10 z-10"></div>
-          <img
-src={heroImage}
-            alt="Diverse students with colorful backgrounds"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ objectPosition: 'center center' }}
-          />
+      <section className="w-full min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 relative overflow-hidden flex items-center">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
-          <div className="flex flex-col justify-center h-full">
-            <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl">
-              <div className="space-y-6 mb-6">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
-                  study made simple.
-                </h1>
-                <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
-                  Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/app">
-                    <Button className="px-6 py-3 text-sm md:text-base font-medium shadow-md">
-                      Get Started
-                    </Button>
-                  </Link>
-                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 text-gray-800">Learn More</Button>
-                </div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-screen py-12">
+          {/* Left Side - Content */}
+          <div className="flex flex-col justify-center order-2 lg:order-1">
+            <div className="space-y-6">
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl text-white modern-heading drop-shadow-lg">
+                study made simple.
+              </h1>
+              <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
+                Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link to="/app">
+                  <Button className="px-8 py-4 text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 bg-white text-purple-600 hover:bg-gray-50">
+                    Get Started
+                  </Button>
+                </Link>
+                <Button variant="outline" className="px-8 py-4 text-base font-medium border-2 border-white text-white hover:bg-white hover:text-purple-600 transition-all duration-300">
+                  Learn More
+                </Button>
               </div>
             </div>
           </div>
 
-          <div className="absolute bottom-8 left-0 right-0 mx-auto">
+          {/* Right Side - Student Images */}
+          <div className="flex justify-center items-center order-1 lg:order-2">
+            <div className="relative w-full max-w-lg">
+              {/* Three students arranged in a responsive layout */}
+              <div className="grid grid-cols-2 gap-4 md:gap-6">
+                {/* Student 1 - Top Left */}
+                <div className="relative">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-500 p-1 shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
+                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face"
+                        alt="Caribbean student"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  {/* Floating elements */}
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
+                </div>
+
+                {/* Student 2 - Top Right */}
+                <div className="relative mt-8 sm:mt-12">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-transform duration-300">
+                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face"
+                        alt="Caribbean student"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-green-400 rounded-full animate-pulse"></div>
+                </div>
+
+                {/* Student 3 - Bottom Center */}
+                <div className="relative col-span-2 flex justify-center -mt-4 sm:-mt-6">
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 to-red-500 p-1 shadow-2xl transform rotate-1 hover:rotate-3 transition-transform duration-300">
+                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                        alt="Caribbean student"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="absolute -top-3 -right-3 w-10 h-10 bg-indigo-400 rounded-full animate-ping"></div>
+                  <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-yellow-300 rounded-full"></div>
+                </div>
+              </div>
+
+              {/* Background decorative elements */}
+              <div className="absolute top-0 left-0 w-20 h-20 bg-white/10 rounded-full blur-xl -z-10"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -z-10"></div>
+            </div>
+          </div>
+        
+        {/* Search Section */}
+        <div className="absolute bottom-8 left-0 right-0 mx-auto z-20">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 max-w-5xl mx-auto px-5 py-4">
               <form onSubmit={handleSearch}>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
