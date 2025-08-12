@@ -314,13 +314,13 @@ export default function Marketing() {
               {/* First set of logos */}
               {/* University logos */}
               {[
-                { src: "https://via.placeholder.com/200x80/1e3a8a/white?text=UWI", alt: "University of West Indies", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/2563eb/white?text=UCC", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/3b82f6/white?text=UTech", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "https://via.placeholder.com/200x80/60a5fa/white?text=SGU", alt: "St. George's University", height: "h-12" },
-                { src: "https://via.placeholder.com/200x80/93c5fd/black?text=Humber", alt: "Humber College", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/dbeafe/black?text=SAIT", alt: "SAIT", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/1e40af/white?text=USF", alt: "University of South Florida", height: "h-16" },
+                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
+                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
+                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
+                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
+                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
               ].map((logo, index) => (
                 <div key={`logo-1-${index}`} className="logo-item">
                   <img 
@@ -333,13 +333,13 @@ export default function Marketing() {
               
               {/* Duplicate set for continuous scrolling */}
               {[
-                { src: "https://via.placeholder.com/200x80/1e3a8a/white?text=UWI", alt: "University of West Indies", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/2563eb/white?text=UCC", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/3b82f6/white?text=UTech", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "https://via.placeholder.com/200x80/60a5fa/white?text=SGU", alt: "St. George's University", height: "h-12" },
-                { src: "https://via.placeholder.com/200x80/93c5fd/black?text=Humber", alt: "Humber College", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/dbeafe/black?text=SAIT", alt: "SAIT", height: "h-16" },
-                { src: "https://via.placeholder.com/200x80/1e40af/white?text=USF", alt: "University of South Florida", height: "h-16" },
+                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
+                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
+                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
+                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
+                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
               ].map((logo, index) => (
                 <div key={`logo-2-${index}`} className="logo-item">
                   <img 
