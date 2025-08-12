@@ -208,14 +208,14 @@ export default function Marketing() {
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-500 p-1 shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                        alt="Young black male student"
+                        src="/attached_assets/1_1755014375185.png"
+                        alt="Student with glasses and headphones"
                         className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
-                  {/* Floating elements */}
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
+
+
                 </div>
 
                 {/* Student 2 - Top Right */}
@@ -223,13 +223,13 @@ export default function Marketing() {
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1494790108755-2616c27de9ef?w=400&h=400&fit=crop&crop=face"
-                        alt="Young mixed race female student"
+                        src="/attached_assets/2_1755014375194.png"
+                        alt="Smiling female student with backpack"
                         className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
-                  <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-green-400 rounded-full animate-pulse"></div>
+
                 </div>
 
                 {/* Student 3 - Bottom Center */}
@@ -237,20 +237,18 @@ export default function Marketing() {
                   <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 to-red-500 p-1 shadow-2xl transform rotate-1 hover:rotate-3 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=400&fit=crop&crop=face"
-                        alt="Young Indian female student"
+                        src="/attached_assets/3_1755014375198.png"
+                        alt="Medical student with scrubs and books"
                         className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
-                  <div className="absolute -top-3 -right-3 w-10 h-10 bg-indigo-400 rounded-full animate-ping"></div>
-                  <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-yellow-300 rounded-full"></div>
+
                 </div>
               </div>
 
               {/* Background decorative elements */}
-              <div className="absolute top-0 left-0 w-20 h-20 bg-white/10 rounded-full blur-xl -z-10"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -z-10"></div>
+
             </div>
           </div>
         
