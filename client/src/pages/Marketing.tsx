@@ -180,7 +180,7 @@ export default function Marketing() {
           <div className="flex flex-col justify-center order-2 lg:order-1">
             <div className="space-y-6">
               <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl text-white modern-heading drop-shadow-lg">
-                study made simple.
+                study made<br className="block sm:hidden" /><span className="block sm:inline-block sm:ml-4">simple.</span>
               </h1>
               <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
                 Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
@@ -191,7 +191,7 @@ export default function Marketing() {
                     Get Started
                   </Button>
                 </Link>
-                <Button variant="outline" className="px-8 py-4 text-base font-medium border-2 border-white text-white hover:bg-white hover:text-purple-600 transition-all duration-300">
+                <Button variant="outline" className="px-8 py-4 text-base font-medium border-2 border-white text-white bg-transparent hover:bg-white hover:text-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Learn More
                 </Button>
               </div>
