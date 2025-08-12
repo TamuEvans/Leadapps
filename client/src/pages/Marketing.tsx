@@ -234,7 +234,7 @@ export default function Marketing() {
 
                 {/* Student 3 - Bottom Center */}
                 <div className="relative col-span-2 flex justify-center mt-4 sm:mt-6">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 p-3 shadow-2xl transform rotate-1 hover:rotate-3 transition-all duration-300 hover:shadow-3xl border-2 border-white/30 relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none">
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 p-2 shadow-2xl transform rotate-1 hover:rotate-3 transition-all duration-300 hover:shadow-3xl border-2 border-white/30 relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none">
                     <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
                         src="/attached_assets/3_1755014375198.png"
