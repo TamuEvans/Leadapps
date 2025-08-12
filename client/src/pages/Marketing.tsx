@@ -167,7 +167,7 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 relative overflow-hidden flex items-center">
+      <section className="w-full min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 relative overflow-hidden flex items-center">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
@@ -208,8 +208,8 @@ export default function Marketing() {
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-500 p-1 shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop&crop=face"
-                        alt="Caribbean student"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                        alt="Young black male student"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -223,8 +223,8 @@ export default function Marketing() {
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face"
-                        alt="Caribbean student"
+                        src="https://images.unsplash.com/photo-1494790108755-2616c27de9ef?w=400&h=400&fit=crop&crop=face"
+                        alt="Young mixed race female student"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -237,8 +237,8 @@ export default function Marketing() {
                   <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 to-red-500 p-1 shadow-2xl transform rotate-1 hover:rotate-3 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                        alt="Caribbean student"
+                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=400&fit=crop&crop=face"
+                        alt="Young Indian female student"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -314,15 +314,15 @@ export default function Marketing() {
           <div className="logo-marquee">
             <div className="logo-track">
               {/* First set of logos */}
-              {/* University logos using assets */}
+              {/* University logos */}
               {[
-                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
-                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
-                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
-                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
-                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/1e3a8a/white?text=UWI", alt: "University of West Indies", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/2563eb/white?text=UCC", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/3b82f6/white?text=UTech", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "https://via.placeholder.com/200x80/60a5fa/white?text=SGU", alt: "St. George's University", height: "h-12" },
+                { src: "https://via.placeholder.com/200x80/93c5fd/black?text=Humber", alt: "Humber College", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/dbeafe/black?text=SAIT", alt: "SAIT", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/1e40af/white?text=USF", alt: "University of South Florida", height: "h-16" },
               ].map((logo, index) => (
                 <div key={`logo-1-${index}`} className="logo-item">
                   <img 
@@ -335,13 +335,13 @@ export default function Marketing() {
               
               {/* Duplicate set for continuous scrolling */}
               {[
-                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
-                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
-                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
-                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
-                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/1e3a8a/white?text=UWI", alt: "University of West Indies", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/2563eb/white?text=UCC", alt: "University of the Commonwealth Caribbean", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/3b82f6/white?text=UTech", alt: "University of Technology, Jamaica", height: "h-20" },
+                { src: "https://via.placeholder.com/200x80/60a5fa/white?text=SGU", alt: "St. George's University", height: "h-12" },
+                { src: "https://via.placeholder.com/200x80/93c5fd/black?text=Humber", alt: "Humber College", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/dbeafe/black?text=SAIT", alt: "SAIT", height: "h-16" },
+                { src: "https://via.placeholder.com/200x80/1e40af/white?text=USF", alt: "University of South Florida", height: "h-16" },
               ].map((logo, index) => (
                 <div key={`logo-2-${index}`} className="logo-item">
                   <img 
