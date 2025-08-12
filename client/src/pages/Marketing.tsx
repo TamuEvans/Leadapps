@@ -47,6 +47,7 @@ import {
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
+import heroImage from '@assets/Untitled design (16)_1755012827100.png';
 
 
 // University logos
@@ -172,7 +173,7 @@ export default function Marketing() {
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10 z-10"></div>
           <img
-            src="/attached_assets/Untitled design (16)_1755012827100.png"
+src={heroImage}
             alt="Diverse students with colorful backgrounds"
             className="absolute inset-0 w-full h-full object-cover object-center"
             style={{ objectPosition: 'center center' }}
@@ -260,7 +261,7 @@ export default function Marketing() {
           <div className="logo-marquee">
             <div className="logo-track">
               {/* First set of logos */}
-              {/* University logos using public assets */}
+              {/* University logos using assets */}
               {[
                 { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
                 { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
