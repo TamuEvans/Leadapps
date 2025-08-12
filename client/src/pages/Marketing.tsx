@@ -219,7 +219,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 2 - Top Right */}
-                <div className="relative mt-8 sm:mt-12">
+<div className="relative mt-2 sm:mt-4">
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
@@ -233,7 +233,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 3 - Bottom Center */}
-                <div className="relative col-span-2 flex justify-center -mt-4 sm:-mt-6">
+                <div className="relative col-span-2 flex justify-center mt-4 sm:mt-6">
                   <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 to-red-500 p-1 shadow-2xl transform rotate-1 hover:rotate-3 transition-transform duration-300">
                     <div className="w-full h-full rounded-3xl overflow-hidden">
                       <img 
