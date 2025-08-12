@@ -1,35 +1,12 @@
 #!/bin/bash
 
-# NPM WRAPPER SCRIPT
-# This intercepts npm commands to fix deployment issues
+# NPM OVERRIDE SCRIPT
+# This replaces npm commands to use our corrected build process
 
 if [ "$1" = "run" ] && [ "$2" = "build" ]; then
-    echo "🔧 Running enhanced build process..."
-    
-    # Run original build
-    /usr/bin/npm run build
-    BUILD_EXIT_CODE=$?
-    
-    if [ $BUILD_EXIT_CODE -eq 0 ]; then
-        echo "🔧 Applying deployment fixes..."
-        node postbuild.js
-        exit $?
-    else
-        exit $BUILD_EXIT_CODE
-    fi
-elif [ "$1" = "start" ]; then
-    echo "🚀 Starting production server..."
-    
-    # Ensure we're in the correct directory structure
-    if [ -f "server/index.js" ]; then
-        /usr/bin/node server/index.js
-    else
-        echo "❌ Server file not found at server/index.js"
-        echo "Current directory contents:"
-        ls -la
-        exit 1
-    fi
+    echo "🔧 Using corrected build process instead of npm run build..."
+    exec /bin/bash ./correct-build.sh
 else
-    # Pass through all other npm commands
-    /usr/bin/npm "$@"
+    # Pass through to real npm for other commands
+    exec /usr/bin/npm "$@"
 fi
