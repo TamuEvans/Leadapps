@@ -205,8 +205,8 @@ export default function Marketing() {
               <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {/* Student 1 - Top Left */}
                 <div className="relative">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-500 p-1 shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 via-blue-400 to-indigo-600 p-2 shadow-2xl transform rotate-3 hover:rotate-6 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
+                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
                         src="/attached_assets/1_1755014375185.png"
                         alt="Student with glasses and headphones"
@@ -220,8 +220,8 @@ export default function Marketing() {
 
                 {/* Student 2 - Top Right */}
 <div className="relative mt-2 sm:mt-4">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-transform duration-300">
-                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 via-purple-400 to-violet-600 p-2 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
+                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
                         src="/attached_assets/2_1755014375194.png"
                         alt="Smiling female student with backpack"
@@ -234,8 +234,8 @@ export default function Marketing() {
 
                 {/* Student 3 - Bottom Center */}
                 <div className="relative col-span-2 flex justify-center mt-4 sm:mt-6">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 to-red-500 p-1 shadow-2xl transform rotate-1 hover:rotate-3 transition-transform duration-300">
-                    <div className="w-full h-full rounded-3xl overflow-hidden">
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-orange-400 via-amber-400 to-yellow-500 p-3 shadow-2xl transform rotate-1 hover:rotate-3 transition-all duration-300 hover:shadow-3xl border-2 border-white/30 relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none">
+                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
                         src="/attached_assets/3_1755014375198.png"
                         alt="Medical student with scrubs and books"
