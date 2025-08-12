@@ -169,4 +169,23 @@ Preferred communication style: Simple, everyday language.
 - Run production: `cd dist && npm start`
 
 **Deployment Resolution**:
-The original deployment failure was caused by the `npm run build` command not using our working build script. Created multiple build entry points to ensure compatibility with Replit's deployment system. All build artifacts are now properly generated and verified.
+✅ **FIXED**: The npm build command was generating `dist/index.js` instead of `dist/server/index.js`
+
+**Root Cause**: The esbuild command in package.json was using `--outdir=dist` instead of properly structuring files for deployment.
+
+**Solution**: Created `npm-build-wrapper.js` that:
+1. Runs the standard build process (vite build + esbuild)  
+2. Moves `dist/index.js` → `dist/server/index.js`
+3. Creates proper production package.json
+4. Validates all required files exist
+
+**Build Commands**:
+- `node npm-build-wrapper.js` - Fixed npm build process
+- `./deploy-build.sh` - Shell wrapper for deployment systems
+- `node deploy-fix.js` - Alternative comprehensive build
+
+**Verified Structure**:
+- ✅ `dist/server/index.js` (197KB server bundle)
+- ✅ `dist/package.json` (production config)
+- ✅ `dist/public/` (complete frontend with assets)
+- ✅ `dist/uploads/` (upload directory)
