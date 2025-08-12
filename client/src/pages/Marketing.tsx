@@ -220,7 +220,7 @@ export default function Marketing() {
 
                 {/* Student 2 - Top Right */}
 <div className="relative mt-2 sm:mt-4">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 via-purple-400 to-violet-600 p-2 shadow-2xl transform -rotate-2 hover:-rotate-4 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 via-purple-400 to-violet-600 p-2 shadow-2xl transform -rotate-2 hover:-rotate-6 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
                     <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
                         src="/attached_assets/2_1755014375194.png"
