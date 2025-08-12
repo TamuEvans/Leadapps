@@ -225,8 +225,7 @@ export default function Marketing() {
                       <img 
                         src="/attached_assets/2_1755014375194.png"
                         alt="Smiling female student with backpack"
-                        className="w-full h-full object-cover object-center"
-                        style={{ transform: 'scale(0.85)', transformOrigin: 'center' }}
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
