@@ -208,8 +208,8 @@ export default function Marketing() {
                   <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 via-blue-400 to-indigo-600 p-2 shadow-2xl transform rotate-3 hover:rotate-6 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
                     <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
                       <img 
-                        src="/attached_assets/Students_1755019167023.png"
-                        alt="Confident female student with curly hair"
+                        src="/attached_assets/Students (1)_1755019303676.png"
+                        alt="Happy student with yellow sweatshirt and backpack"
                         className="w-full h-full object-cover"
                       />
                     </div>
