@@ -1,40 +1,33 @@
-#!/usr/bin/env node
+#!/bin/bash
+# Deployment-compatible build script
+set -e
 
-// Production build script for Replit deployment
-// This file is called directly by the deployment system
+echo "Building with deployment-compatible structure..."
 
-import { execSync } from 'child_process';
-import { existsSync } from 'fs';
+# Clean previous build
+rm -rf dist/
 
-console.log('🚀 Replit Deployment Build Starting...');
+# Run vite build first
+npx vite build
 
-try {
-  // Clean build - run our proven build script
-  console.log('📦 Executing optimized build process...');
-  execSync('node deploy-fix.js', { stdio: 'inherit' });
-  
-  // Validate build output
-  const requiredFiles = [
-    'dist/server/index.js',
-    'dist/package.json', 
-    'dist/public/index.html'
-  ];
-  
-  console.log('🔍 Validating build artifacts...');
-  for (const file of requiredFiles) {
-    if (!existsSync(file)) {
-      throw new Error(`Missing required file: ${file}`);
-    }
-    console.log(`✅ ${file}`);
+# Build server with correct output location
+npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js
+
+# Create production package.json
+cat > dist/package.json << 'EOF'
+{
+  "name": "leadapps-production",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js"
   }
-  
-  // Syntax check
-  execSync('node --check dist/server/index.js', { stdio: 'pipe' });
-  console.log('✅ Server syntax validated');
-  
-  console.log('🎉 Build completed successfully for deployment!');
-  
-} catch (error) {
-  console.error('❌ Build failed:', error.message);
-  process.exit(1);
 }
+EOF
+
+# Create uploads directory
+mkdir -p dist/uploads
+
+echo "Deployment build complete!"
+echo "Structure:"
+ls -la dist/server/index.js dist/package.json

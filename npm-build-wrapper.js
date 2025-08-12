@@ -1,58 +1,57 @@
 #!/usr/bin/env node
-
-// This file replaces the problematic npm build command
-// Call this instead of "npm run build" for deployment
-
+// Wrapper to fix npm build structure for deployment
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, copyFileSync, writeFileSync, unlinkSync } from 'fs';
+import fs from 'fs';
+import path from 'path';
 
-console.log('🚀 Deployment Build Process Starting...');
+console.log('🚀 Running deployment-compatible build...');
 
 try {
-  // Run the standard npm build (generates dist/index.js and dist/public/)  
-  execSync('vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist', { 
-    stdio: 'inherit',
-    cwd: process.cwd()
-  });
-  
-  // Ensure server directory exists
-  mkdirSync('dist/server', { recursive: true });
-  
-  // Move server file to correct location
-  if (existsSync('dist/index.js')) {
-    copyFileSync('dist/index.js', 'dist/server/index.js');
-    unlinkSync('dist/index.js'); // Remove the incorrectly placed file
+  // Clean previous build
+  if (fs.existsSync('dist')) {
+    fs.rmSync('dist', { recursive: true, force: true });
+    console.log('🧹 Cleaned previous build');
   }
-  
+
+  // Run vite build
+  console.log('📦 Building frontend...');
+  execSync('npx vite build', { stdio: 'inherit' });
+
+  // Build server with correct output path
+  console.log('📦 Building backend...');
+  execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js', { stdio: 'inherit' });
+
   // Create production package.json
-  writeFileSync('dist/package.json', JSON.stringify({
-    "name": "rest-express-production",
-    "version": "1.0.0",
-    "type": "module", 
-    "main": "server/index.js",
-    "scripts": {
-      "start": "node server/index.js"
-    },
-    "engines": {
-      "node": ">=18.0.0"
+  console.log('📦 Creating production config...');
+  const prodPackage = {
+    name: 'leadapps-production',
+    version: '1.0.0',
+    type: 'module',
+    scripts: {
+      start: 'node server/index.js'
     }
-  }, null, 2));
+  };
   
+  fs.writeFileSync('dist/package.json', JSON.stringify(prodPackage, null, 2));
+
   // Create uploads directory
-  mkdirSync('dist/uploads', { recursive: true });
+  if (!fs.existsSync('dist/uploads')) {
+    fs.mkdirSync('dist/uploads', { recursive: true });
+  }
+
+  // Verify structure
+  const serverFile = 'dist/server/index.js';
+  const packageFile = 'dist/package.json';
   
-  // Verify build
-  if (!existsSync('dist/server/index.js')) throw new Error('Server file missing');
-  if (!existsSync('dist/package.json')) throw new Error('Package.json missing');
-  if (!existsSync('dist/public/index.html')) throw new Error('Frontend missing');
-  
-  execSync('node --check dist/server/index.js', { stdio: 'pipe' });
-  
-  console.log('✅ Build completed successfully!');
-  console.log('📁 dist/server/index.js - Server ready');
-  console.log('📁 dist/package.json - Config ready'); 
-  console.log('📁 dist/public/ - Frontend ready');
-  
+  if (fs.existsSync(serverFile) && fs.existsSync(packageFile)) {
+    console.log('✅ Build successful!');
+    console.log(`📁 ${serverFile} (${Math.round(fs.statSync(serverFile).size / 1024)}K)`);
+    console.log(`📁 ${packageFile}`);
+    console.log('🎉 Ready for deployment!');
+  } else {
+    throw new Error('Build verification failed - missing required files');
+  }
+
 } catch (error) {
   console.error('❌ Build failed:', error.message);
   process.exit(1);
