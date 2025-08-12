@@ -47,7 +47,6 @@ const limiter = rateLimit({
   message: { error: "Too many requests, please try again later." },
   standardHeaders: true,
   legacyHeaders: false,
-  trustProxy: true,
 });
 
 const authLimiter = rateLimit({
@@ -56,7 +55,6 @@ const authLimiter = rateLimit({
   message: { error: "Too many authentication attempts, please try again later." },
   standardHeaders: true,
   legacyHeaders: false,
-  trustProxy: true,
 });
 
 const speedLimiter = slowDown({
@@ -64,7 +62,6 @@ const speedLimiter = slowDown({
   delayAfter: 50, // allow 50 requests per 15 minutes, then...
   delayMs: () => 500, // begin adding 500ms of delay per request above 50
   maxDelayMs: 20000, // maximum delay of 20 seconds
-  trustProxy: true,
 });
 
 app.use('/api', limiter);
