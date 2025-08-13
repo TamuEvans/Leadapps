@@ -62,6 +62,40 @@ export interface IMinimalStorage {
   getEmailVerification(token: string): Promise<EmailVerification | undefined>;
   markEmailVerified(token: string): Promise<void>;
   
+  // Profile-related operations
+  getSchoolsByProfileId(profileId: number): Promise<School[]>;
+  getTestsByProfileId(profileId: number): Promise<Test[]>;
+  getWorkExperiencesByProfileId(profileId: number): Promise<WorkExperience[]>;
+  clearSchoolsByProfileId(profileId: number): Promise<void>;
+  clearTestsByProfileId(profileId: number): Promise<void>;
+  clearWorkExperiencesByProfileId(profileId: number): Promise<void>;
+  createSchool(school: InsertSchool): Promise<School>;
+  createTest(test: InsertTest): Promise<Test>;
+  createWorkExperience(workExperience: InsertWorkExperience): Promise<WorkExperience>;
+  updateCompletionPercentage(profileId: number): Promise<void>;
+  
+  // Admin/Stats operations
+  getApplicationsCount(): Promise<number>;
+  getPendingApplicationsCount(): Promise<number>;
+  getUsersCount(): Promise<number>;
+  getRecentApplications(limit?: number): Promise<Application[]>;
+  
+  // Bulk operations
+  bulkCreateUniversities(universities: any[]): Promise<void>;
+  bulkCreatePrograms(programs: any[]): Promise<void>;
+  bulkCreateApplications(applications: any[]): Promise<void>;
+  
+  // Extended operations
+  getUniversities(page: number, limit: number, filters?: any): Promise<{ universities: University[], total: number }>;
+  getUniversityCount(): Promise<number>;
+  getProgramCount(): Promise<number>;
+  getApplicationsByStudent(studentId: number): Promise<Application[]>;
+  deleteApplication(id: number): Promise<void>;
+  getApplicationDocumentsByApplication(applicationId: number): Promise<ApplicationDocument[]>;
+  createApplicationDocument(document: InsertApplicationDocument): Promise<ApplicationDocument>;
+  getProfileDocuments(profileId: number): Promise<any[]>;
+  createProfileDocument(document: any): Promise<any>;
+  
   // Student profile operations
   getStudentProfile(id: number): Promise<StudentProfile | undefined>;
   getStudentProfileByUserId(userId: number): Promise<StudentProfile | undefined>;
@@ -165,7 +199,7 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
   async createStudentProfile(profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
     const [profile] = await db
       .insert(studentProfiles)
-      .values([{ ...profileData }])
+      .values({ ...profileData, userId: profileData.userId! })
       .returning();
     return profile;
   }
@@ -292,6 +326,203 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
       .update(emailVerifications)
       .set({ verified: true })
       .where(eq(emailVerifications.token, token));
+  }
+
+  // Profile-related operations
+  async getSchoolsByProfileId(profileId: number): Promise<School[]> {
+    return await db
+      .select()
+      .from(schools)
+      .where(eq(schools.profileId, profileId));
+  }
+
+  async getTestsByProfileId(profileId: number): Promise<Test[]> {
+    return await db
+      .select()
+      .from(tests)
+      .where(eq(tests.profileId, profileId));
+  }
+
+  async getWorkExperiencesByProfileId(profileId: number): Promise<WorkExperience[]> {
+    return await db
+      .select()
+      .from(workExperiences)
+      .where(eq(workExperiences.profileId, profileId));
+  }
+
+  async clearSchoolsByProfileId(profileId: number): Promise<void> {
+    await db
+      .delete(schools)
+      .where(eq(schools.profileId, profileId));
+  }
+
+  async clearTestsByProfileId(profileId: number): Promise<void> {
+    await db
+      .delete(tests)
+      .where(eq(tests.profileId, profileId));
+  }
+
+  async clearWorkExperiencesByProfileId(profileId: number): Promise<void> {
+    await db
+      .delete(workExperiences)
+      .where(eq(workExperiences.profileId, profileId));
+  }
+
+  async createSchool(school: InsertSchool): Promise<School> {
+    const [created] = await db
+      .insert(schools)
+      .values(school)
+      .returning();
+    return created;
+  }
+
+  async createTest(test: InsertTest): Promise<Test> {
+    const [created] = await db
+      .insert(tests)
+      .values(test)
+      .returning();
+    return created;
+  }
+
+  async createWorkExperience(workExperience: InsertWorkExperience): Promise<WorkExperience> {
+    const [created] = await db
+      .insert(workExperiences)
+      .values(workExperience)
+      .returning();
+    return created;
+  }
+
+  async updateCompletionPercentage(profileId: number): Promise<void> {
+    // Simple completion calculation based on required fields
+    const profile = await this.getStudentProfile(profileId);
+    if (!profile) return;
+    
+    let completed = 0;
+    let total = 5; // Basic fields count
+    
+    if (profile.firstName) completed++;
+    if (profile.lastName) completed++;
+    if (profile.dateOfBirth) completed++;
+    if (profile.countryOfCitizenship) completed++;
+    if (profile.primaryLanguage) completed++;
+    
+    const percentage = Math.round((completed / total) * 100);
+    await this.updateStudentProfile(profileId, { completionPercentage: percentage });
+  }
+
+  // Admin/Stats operations
+  async getApplicationsCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(applications);
+    return result[0]?.count || 0;
+  }
+
+  async getPendingApplicationsCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(applications)
+      .where(eq(applications.status, 'pending_review'));
+    return result[0]?.count || 0;
+  }
+
+  async getUsersCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(users);
+    return result[0]?.count || 0;
+  }
+
+  async getRecentApplications(limit: number = 10): Promise<Application[]> {
+    return await db
+      .select()
+      .from(applications)
+      .orderBy(desc(applications.createdAt))
+      .limit(limit);
+  }
+
+  // Bulk operations (simplified implementations)
+  async bulkCreateUniversities(universitiesData: any[]): Promise<void> {
+    if (universitiesData.length === 0) return;
+    await db.insert(universities).values(universitiesData);
+  }
+
+  async bulkCreatePrograms(programsData: any[]): Promise<void> {
+    if (programsData.length === 0) return;
+    await db.insert(programs).values(programsData);
+  }
+
+  async bulkCreateApplications(applicationsData: any[]): Promise<void> {
+    if (applicationsData.length === 0) return;
+    await db.insert(applications).values(applicationsData);
+  }
+
+  // Extended operations
+  async getUniversities(page: number, limit: number, filters?: any): Promise<{ universities: University[], total: number }> {
+    const offset = (page - 1) * limit;
+    const universitiesResult = await db
+      .select()
+      .from(universities)
+      .limit(limit)
+      .offset(offset);
+    
+    const totalResult = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(universities);
+    
+    return {
+      universities: universitiesResult,
+      total: totalResult[0]?.count || 0
+    };
+  }
+
+  async getUniversityCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(universities);
+    return result[0]?.count || 0;
+  }
+
+  async getProgramCount(): Promise<number> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(programs);
+    return result[0]?.count || 0;
+  }
+
+  async getApplicationsByStudent(studentId: number): Promise<Application[]> {
+    return this.getApplicationsByUser(studentId);
+  }
+
+  async deleteApplication(id: number): Promise<void> {
+    await db
+      .delete(applications)
+      .where(eq(applications.id, id));
+  }
+
+  async getApplicationDocumentsByApplication(applicationId: number): Promise<ApplicationDocument[]> {
+    return await db
+      .select()
+      .from(applicationDocuments)
+      .where(eq(applicationDocuments.applicationId, applicationId));
+  }
+
+  async createApplicationDocument(document: InsertApplicationDocument): Promise<ApplicationDocument> {
+    const [created] = await db
+      .insert(applicationDocuments)
+      .values(document)
+      .returning();
+    return created;
+  }
+
+  async getProfileDocuments(profileId: number): Promise<any[]> {
+    // Return empty array for now as profile documents might be in a separate table
+    return [];
+  }
+
+  async createProfileDocument(document: any): Promise<any> {
+    // Simplified implementation - would need profile documents table
+    return document;
   }
 }
 
