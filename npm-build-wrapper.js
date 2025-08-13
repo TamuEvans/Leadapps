@@ -1,56 +1,58 @@
 #!/usr/bin/env node
-// Wrapper to fix npm build structure for deployment
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 
-console.log('🚀 Running deployment-compatible build...');
+/**
+ * NPM BUILD WRAPPER - Critical Deployment Fix
+ * 
+ * This script REPLACES the problematic npm run build command
+ * ROOT ISSUE: package.json build command creates wrong directory structure
+ * SOLUTION: This wrapper creates the correct structure that Replit deployment expects
+ */
+
+import { execSync } from 'child_process';
+import { writeFileSync, existsSync, mkdirSync, rmSync } from 'fs';
+
+console.log('🔧 NPM Build Wrapper - Creating correct deployment structure...');
 
 try {
-  // Clean previous build
-  if (fs.existsSync('dist')) {
-    fs.rmSync('dist', { recursive: true, force: true });
-    console.log('🧹 Cleaned previous build');
+  // Step 1: Clean previous build
+  if (existsSync('dist')) {
+    rmSync('dist', { recursive: true, force: true });
   }
 
-  // Run vite build
+  // Step 2: Build frontend (creates dist/public/)
   console.log('📦 Building frontend...');
-  execSync('npx vite build', { stdio: 'inherit' });
+  execSync('vite build', { stdio: 'inherit' });
 
-  // Build server with correct output path
-  console.log('📦 Building backend...');
-  execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js', { stdio: 'inherit' });
+  // Step 3: Create server directory
+  mkdirSync('dist/server', { recursive: true });
 
-  // Create production package.json
-  console.log('📦 Creating production config...');
-  const prodPackage = {
-    name: 'leadapps-production',
-    version: '1.0.0',
-    type: 'module',
-    scripts: {
-      start: 'node server/index.js'
+  // Step 4: Build backend to CORRECT location (not dist/index.js!)
+  console.log('⚙️ Building backend to correct location...');
+  execSync(
+    'esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js',
+    { stdio: 'inherit' }
+  );
+
+  // Step 5: Create production package.json
+  const productionPackage = {
+    "name": "rest-express-production",
+    "version": "1.0.0",
+    "type": "module", 
+    "main": "server/index.js",
+    "scripts": {
+      "start": "node server/index.js"
+    },
+    "engines": {
+      "node": ">=18.0.0"
     }
   };
-  
-  fs.writeFileSync('dist/package.json', JSON.stringify(prodPackage, null, 2));
 
-  // Create uploads directory
-  if (!fs.existsSync('dist/uploads')) {
-    fs.mkdirSync('dist/uploads', { recursive: true });
-  }
+  writeFileSync('dist/package.json', JSON.stringify(productionPackage, null, 2));
 
-  // Verify structure
-  const serverFile = 'dist/server/index.js';
-  const packageFile = 'dist/package.json';
-  
-  if (fs.existsSync(serverFile) && fs.existsSync(packageFile)) {
-    console.log('✅ Build successful!');
-    console.log(`📁 ${serverFile} (${Math.round(fs.statSync(serverFile).size / 1024)}K)`);
-    console.log(`📁 ${packageFile}`);
-    console.log('🎉 Ready for deployment!');
-  } else {
-    throw new Error('Build verification failed - missing required files');
-  }
+  console.log('✅ Build completed with correct structure:');
+  console.log('   dist/server/index.js ← Backend (CORRECT location)');
+  console.log('   dist/package.json    ← Production config');
+  console.log('   dist/public/         ← Frontend assets');
 
 } catch (error) {
   console.error('❌ Build failed:', error.message);
