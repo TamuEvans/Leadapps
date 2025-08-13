@@ -3,8 +3,8 @@ import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import { loginSchema, registerSchema } from '@shared/schema';
-import { storage } from '../storage';
+import { loginSchema, registerSchema } from '../../shared/schema';
+import { minimalStorage as storage } from '../storage-minimal';
 import { requireAuth } from './authMiddleware';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 // Get current user
 router.get('/me', requireAuth, async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     
     if (!userId) {
       return res.status(401).json({ message: 'Not authenticated' });
@@ -339,7 +339,7 @@ router.post('/verify-email', async (req, res) => {
 router.post('/change-password', requireAuth, async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
-    const userId = req.user?.id;
+    const userId = (req.user as any)?.id;
     
     if (!currentPassword || !newPassword) {
       return res.status(400).json({ message: 'Current password and new password are required' });

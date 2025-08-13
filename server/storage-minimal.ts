@@ -9,6 +9,8 @@ import {
   applications,
   applicationDocuments,
   sessions,
+  passwordResets,
+  emailVerifications,
   type User, 
   type StudentProfile, 
   type School, 
@@ -19,6 +21,8 @@ import {
   type Application,
   type ApplicationDocument,
   type Session,
+  type PasswordReset,
+  type EmailVerification,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
@@ -47,6 +51,16 @@ export interface IMinimalStorage {
   createSession(userId: number, token: string, expiresAt: Date): Promise<Session>;
   getSessionByToken(token: string): Promise<Session | null>;
   deleteSession(token: string): Promise<void>;
+  
+  // Password reset operations
+  createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void>;
+  getPasswordReset(token: string): Promise<PasswordReset | undefined>;
+  markPasswordResetUsed(token: string): Promise<void>;
+  
+  // Email verification operations
+  createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void>;
+  getEmailVerification(token: string): Promise<EmailVerification | undefined>;
+  markEmailVerified(token: string): Promise<void>;
   
   // Student profile operations
   getStudentProfile(id: number): Promise<StudentProfile | undefined>;
@@ -151,7 +165,7 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
   async createStudentProfile(profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
     const [profile] = await db
       .insert(studentProfiles)
-      .values({ ...profileData })
+      .values([{ ...profileData }])
       .returning();
     return profile;
   }
@@ -219,7 +233,7 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
     return await db
       .select()
       .from(applications)
-      .where(eq(applications.userId, userId))
+      .where(eq(applications.studentId, userId))
       .orderBy(desc(applications.createdAt));
   }
 
@@ -234,10 +248,50 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
   async updateApplication(id: number, applicationData: Partial<InsertApplication>): Promise<Application> {
     const [application] = await db
       .update(applications)
-      .set({ ...applicationData, updatedAt: new Date() })
+      .set({ ...applicationData, lastUpdated: new Date() })
       .where(eq(applications.id, id))
       .returning();
     return application;
+  }
+
+  // Password reset operations
+  async createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void> {
+    await db.insert(passwordResets).values({ email, token, expiresAt });
+  }
+
+  async getPasswordReset(token: string): Promise<PasswordReset | undefined> {
+    const [reset] = await db
+      .select()
+      .from(passwordResets)
+      .where(and(eq(passwordResets.token, token), eq(passwordResets.used, false)));
+    return reset;
+  }
+
+  async markPasswordResetUsed(token: string): Promise<void> {
+    await db
+      .update(passwordResets)
+      .set({ used: true })
+      .where(eq(passwordResets.token, token));
+  }
+
+  // Email verification operations
+  async createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void> {
+    await db.insert(emailVerifications).values({ userId, token, expiresAt });
+  }
+
+  async getEmailVerification(token: string): Promise<EmailVerification | undefined> {
+    const [verification] = await db
+      .select()
+      .from(emailVerifications)
+      .where(and(eq(emailVerifications.token, token), eq(emailVerifications.verified, false)));
+    return verification;
+  }
+
+  async markEmailVerified(token: string): Promise<void> {
+    await db
+      .update(emailVerifications)
+      .set({ verified: true })
+      .where(eq(emailVerifications.token, token));
   }
 }
 
