@@ -1,55 +1,51 @@
 #!/usr/bin/env node
 
 /**
- * BUILD SCRIPT FOR REPLIT DEPLOYMENT
- * This script ensures the correct file structure for deployment
+ * BUILD.JS - THE DEPLOYMENT FIX
+ * This intercepts and fixes the broken npm run build
  */
 
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, renameSync, writeFileSync, rmSync } from 'fs';
-import { dirname } from 'path';
+import { existsSync, mkdirSync, renameSync, writeFileSync, rmSync, readdirSync, statSync, copyFileSync } from 'fs';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-console.log('🔨 Building for deployment...\n');
+console.log('🚀 BUILD.JS - Fixing deployment structure...\n');
 
 try {
-  // Clean previous build
+  // Clean
   if (existsSync('dist')) {
-    console.log('Cleaning previous build...');
     rmSync('dist', { recursive: true, force: true });
   }
 
-  // Run the standard build
-  console.log('Running standard build...');
+  // Build frontend
+  console.log('Step 1: Building frontend with Vite...');
   execSync('npx vite build', { stdio: 'inherit' });
+  
+  // Build backend  
+  console.log('\nStep 2: Building backend with esbuild...');
   execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist', { stdio: 'inherit' });
 
-  // Fix the structure
-  console.log('\nFixing deployment structure...');
+  // THE FIX: Move files to correct locations
+  console.log('\nStep 3: Fixing file structure for deployment...');
   
   // Create server directory
   if (!existsSync('dist/server')) {
     mkdirSync('dist/server', { recursive: true });
   }
   
-  // Move index.js to server/index.js
+  // Move backend to correct location
   if (existsSync('dist/index.js')) {
-    if (existsSync('dist/server/index.js')) {
-      rmSync('dist/server/index.js');
-    }
     renameSync('dist/index.js', 'dist/server/index.js');
     console.log('✓ Moved dist/index.js → dist/server/index.js');
   } else {
-    throw new Error('Build did not create dist/index.js');
+    throw new Error('Backend build failed - dist/index.js not found');
   }
   
-  // Copy public directory to server/public (where the server expects it)
+  // Copy public to where server expects it
   if (existsSync('dist/public')) {
-    const { readdirSync, statSync, copyFileSync } = await import('fs');
-    const { join } = await import('path');
-    
     const copyRecursive = (src, dest) => {
       if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
       
@@ -66,13 +62,15 @@ try {
     };
     
     copyRecursive('dist/public', 'dist/server/public');
-    console.log('✓ Copied public directory to dist/server/public');
+    console.log('✓ Copied dist/public → dist/server/public');
+  } else {
+    throw new Error('Frontend build failed - dist/public not found');
   }
   
-  // Create package.json in dist
+  // Create production package.json
   const packageJson = {
     "name": "leadapps-production",
-    "version": "1.0.0",
+    "version": "1.0.0", 
     "type": "module",
     "main": "server/index.js",
     "scripts": {
@@ -83,26 +81,39 @@ try {
   writeFileSync('dist/package.json', JSON.stringify(packageJson, null, 2));
   console.log('✓ Created dist/package.json');
   
-  // Verify structure
+  // Verify everything is in place
+  console.log('\nStep 4: Verifying deployment structure...');
   const required = [
-    'dist/server/index.js',
-    'dist/package.json',
-    'dist/public/index.html'
+    { path: 'dist/server/index.js', desc: 'Backend entry point' },
+    { path: 'dist/server/public', desc: 'Frontend assets' },
+    { path: 'dist/server/public/index.html', desc: 'Frontend HTML' },
+    { path: 'dist/package.json', desc: 'Production config' }
   ];
   
-  console.log('\nVerifying structure:');
-  for (const file of required) {
-    if (existsSync(file)) {
-      console.log(`✓ ${file}`);
+  let allGood = true;
+  for (const item of required) {
+    if (existsSync(item.path)) {
+      console.log(`✓ ${item.desc}: ${item.path}`);
     } else {
-      throw new Error(`Missing required file: ${file}`);
+      console.log(`❌ MISSING: ${item.path}`);
+      allGood = false;
     }
   }
   
-  console.log('\n✅ Build completed successfully!');
-  console.log('The application is ready for deployment.');
+  if (!allGood) {
+    throw new Error('Some required files are missing');
+  }
+  
+  console.log('\n═══════════════════════════════════════════════════');
+  console.log('✅ BUILD SUCCESSFUL - DEPLOYMENT STRUCTURE FIXED!');
+  console.log('═══════════════════════════════════════════════════');
+  console.log('The app is now ready for deployment.');
+  console.log('npm start will work correctly.');
+  console.log('═══════════════════════════════════════════════════');
+  
+  process.exit(0);
   
 } catch (error) {
-  console.error('❌ Build failed:', error.message);
+  console.error('\n❌ Build failed:', error.message);
   process.exit(1);
 }
