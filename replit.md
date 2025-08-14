@@ -8,20 +8,25 @@ This is a comprehensive student application platform designed to help Caribbean 
 **Problem Resolved**: 
 - npm run build was creating dist/index.js (wrong location)
 - npm start expects dist/server/index.js (correct location)
+- Server couldn't find public directory at dist/server/public
 - Missing dist/package.json file
 
 **Solution**: Use `deployment-fix-production.js` script that:
-1. Runs npm build
+1. Runs vite build and esbuild
 2. Moves dist/index.js → dist/server/index.js  
-3. Creates dist/package.json with correct configuration
-4. Verifies structure and tests entry point
+3. Copies dist/public → dist/server/public (where server expects it)
+4. Creates dist/package.json with correct configuration
+5. Verifies all files and tests deployment
 
-**To Deploy**: Run `node deployment-fix-production.js` instead of npm run build
+**To Deploy on Replit**: 
+- Run `node deployment-fix-production.js` instead of npm run build
+- Then npm start will work correctly
 
 **Verified Structure**:
-- ✅ dist/server/index.js (206KB backend)
+- ✅ dist/server/index.js (202KB backend)
+- ✅ dist/server/public/ (frontend assets where server expects them)
 - ✅ dist/package.json (production config)
-- ✅ dist/public/ (frontend assets) The system provides a full-stack solution featuring student profiles, university/program search, application management, and an admin dashboard for customer experience teams. The project's vision is to streamline the tertiary education application process for Caribbean students, offering AI-powered recommendations and counseling services.
+- ✅ All tests passing The system provides a full-stack solution featuring student profiles, university/program search, application management, and an admin dashboard for customer experience teams. The project's vision is to streamline the tertiary education application process for Caribbean students, offering AI-powered recommendations and counseling services.
 
 # User Preferences
 
