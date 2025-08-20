@@ -203,8 +203,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = await parseSpreadsheet(req.file.path, fileType);
 
       // Validate and process university data
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -261,8 +261,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -319,8 +319,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -541,7 +541,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Calculate profile completion percentage
       const completionPercentage = await calculateProfileCompletion(profile, schools, tests);
-      await storage.updateCompletionPercentage(profile.id, completionPercentage);
+      await storage.updateCompletionPercentage(profile.id);
 
       res.status(200).json({ 
         message: "Profile successfully updated",
@@ -576,7 +576,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const schools = await storage.getSchoolsByProfileId(profile.id);
       const tests = await storage.getTestsByProfileId(profile.id);
       const completionPercentage = await calculateProfileCompletion(updatedProfile, schools, tests);
-      await storage.updateCompletionPercentage(profile.id, completionPercentage);
+      await storage.updateCompletionPercentage(profile.id);
 
       res.status(200).json({ 
         message: "Profile successfully updated",
@@ -611,7 +611,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (name) filters.name = name as string;
 
       const universities = await storage.getUniversities(limitNum, offset, filters);
-      const total = await storage.getUniversityCount(filters);
+      const total = await storage.getUniversityCount();
 
       res.status(200).json({
         data: universities,
@@ -667,8 +667,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (degree && degree !== 'all') filters.degree = degree as string;
       if (name) filters.name = name as string;
 
-      const programs = await storage.getProgramsByUniversity(universityId, limitNum, offset, filters);
-      const total = await storage.getProgramCount(universityId, filters);
+      const programs = await storage.getProgramsByUniversity(universityId);
+      const total = await storage.getProgramCount();
 
       res.status(200).json({
         data: programs,
@@ -733,7 +733,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (university) {
             application.universityName = university.name;
             application.universityLocation = university.country;
-            application.universityLogo = university.logoUrl;
+            application.universityLogo = university.logoUrl || undefined;
           }
         }
       }
@@ -781,7 +781,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             enhancedApp.programName = program.name;
             enhancedApp.universityName = university?.name || "Unknown University";
             enhancedApp.universityLocation = university ? `${university.city}, ${university.country}` : "Unknown";
-            enhancedApp.universityLogo = university?.logoUrl || null;
+            enhancedApp.universityLogo = university?.logoUrl || undefined;
 
             return enhancedApp;
           }

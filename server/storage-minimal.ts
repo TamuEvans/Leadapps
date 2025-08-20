@@ -81,9 +81,9 @@ export interface IMinimalStorage {
   getRecentApplications(limit?: number): Promise<Application[]>;
   
   // Bulk operations
-  bulkCreateUniversities(universities: any[]): Promise<void>;
-  bulkCreatePrograms(programs: any[]): Promise<void>;
-  bulkCreateApplications(applications: any[]): Promise<void>;
+  bulkCreateUniversities(universities: any[]): Promise<University[]>;
+  bulkCreatePrograms(programs: any[]): Promise<Program[]>;
+  bulkCreateApplications(applications: any[]): Promise<Application[]>;
   
   // Extended operations
   getUniversities(page: number, limit: number, filters?: any): Promise<{ universities: University[], total: number }>;
@@ -442,19 +442,22 @@ export class MinimalDatabaseStorage implements IMinimalStorage {
   }
 
   // Bulk operations (simplified implementations)
-  async bulkCreateUniversities(universitiesData: any[]): Promise<void> {
-    if (universitiesData.length === 0) return;
-    await db.insert(universities).values(universitiesData);
+  async bulkCreateUniversities(universitiesData: any[]): Promise<University[]> {
+    if (universitiesData.length === 0) return [];
+    const insertedUniversities = await db.insert(universities).values(universitiesData).returning();
+    return insertedUniversities;
   }
 
-  async bulkCreatePrograms(programsData: any[]): Promise<void> {
-    if (programsData.length === 0) return;
-    await db.insert(programs).values(programsData);
+  async bulkCreatePrograms(programsData: any[]): Promise<Program[]> {
+    if (programsData.length === 0) return [];
+    const insertedPrograms = await db.insert(programs).values(programsData).returning();
+    return insertedPrograms;
   }
 
-  async bulkCreateApplications(applicationsData: any[]): Promise<void> {
-    if (applicationsData.length === 0) return;
-    await db.insert(applications).values(applicationsData);
+  async bulkCreateApplications(applicationsData: any[]): Promise<Application[]> {
+    if (applicationsData.length === 0) return [];
+    const insertedApplications = await db.insert(applications).values(applicationsData).returning();
+    return insertedApplications;
   }
 
   // Extended operations
