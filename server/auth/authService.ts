@@ -2,9 +2,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { storage } from '../storage';
 import { LoginInput, RegisterInput } from '@shared/schema';
+import { getJWTSecret } from '../middleware/sessionSecret';
 
-// Secret for JWT token generation - in production this should be in environment variables
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+// Secret for JWT token generation - uses secure session secret generation
+const JWT_SECRET = getJWTSecret();
 const JWT_EXPIRES_IN = '7d'; // 7 days
 
 /**

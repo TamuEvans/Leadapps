@@ -13,7 +13,7 @@ import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
 import programRecommendationsRouter from './api/programRecommendations';
 import multer from "multer";
-import * as XLSX from "xlsx";
+import * as ExcelJS from "exceljs";
 import csv from "csv-parser";
 import fs from "fs";
 
@@ -183,10 +183,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } else {
       // Excel file
-      const workbook = XLSX.readFile(filePath);
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const data = XLSX.utils.sheet_to_json(worksheet);
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.readFile(filePath);
+      const worksheet = workbook.getWorksheet(1); // Get first worksheet
+      const data: any[] = [];
+      
+      if (worksheet) {
+        worksheet.eachRow((row, rowNumber) => {
+          if (rowNumber === 1) return; // Skip header row
+          const rowData: any = {};
+          row.eachCell((cell, colNumber) => {
+            const header = worksheet.getCell(1, colNumber).value;
+            rowData[header as string] = cell.value;
+          });
+          data.push(rowData);
+        });
+      }
+      
       fs.unlinkSync(filePath); // Clean up temp file
       return data;
     }
