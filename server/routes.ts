@@ -19,7 +19,6 @@ import fs from "fs";
 
 // Extended Application type with additional fields from related tables
 interface ExtendedApplication extends Application {
-  programId?: number;
   programName?: string;
   universityName?: string;
   universityLocation?: string;
@@ -205,8 +204,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = await parseSpreadsheet(req.file.path, fileType);
 
       // Validate and process university data
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -263,8 +262,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -321,8 +320,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData = [];
-      const errors = [];
+      const processedData: any[] = [];
+      const errors: string[] = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];

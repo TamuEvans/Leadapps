@@ -8,6 +8,23 @@ import {
   programs,
   applications,
   applicationDocuments,
+  passwordResets,
+  emailVerifications,
+  counselors,
+  counselingSessions,
+  notifications,
+  studyGroups,
+  studyGroupMembers,
+  examResources,
+  userProgress,
+  savedMaterials,
+  auditLogs,
+  rateLimitTracker,
+  securityIncidents,
+  enhancedApplicationDocuments,
+  adminUsers,
+  applicationStatusHistory,
+  schoolIntegrations,
   type User, 
   type StudentProfile, 
   type School, 
@@ -17,6 +34,19 @@ import {
   type Program,
   type Application,
   type ApplicationDocument,
+  type PasswordReset,
+  type EmailVerification,
+  type Counselor,
+  type CounselingSession,
+  type Notification,
+  type StudyGroup,
+  type StudyGroupMember,
+  type ExamResource,
+  type UserProgress,
+  type SavedMaterial,
+  type AuditLog,
+  type RateLimitTracker,
+  type SecurityIncident,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
@@ -26,6 +56,19 @@ import {
   type InsertProgram,
   type InsertApplication,
   type InsertApplicationDocument,
+  type InsertPasswordReset,
+  type InsertEmailVerification,
+  type InsertCounselor,
+  type InsertCounselingSession,
+  type InsertNotification,
+  type InsertStudyGroup,
+  type InsertStudyGroupMember,
+  type InsertExamResource,
+  type InsertUserProgress,
+  type InsertSavedMaterial,
+  type InsertAuditLog,
+  type InsertRateLimitTracker,
+  type InsertSecurityIncident,
   sessions as sessionsTable,
   type Session
 } from "../shared/schema";
@@ -645,7 +688,7 @@ export class DatabaseStorage implements IStorage {
   async createStudentProfile(profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
     const [profile] = await db
       .insert(studentProfiles)
-      .values({ ...profileData })
+      .values([{ ...profileData }])
       .returning();
     return profile;
   }
@@ -679,7 +722,7 @@ export class DatabaseStorage implements IStorage {
   async createSchool(schoolData: Partial<InsertSchool>): Promise<School> {
     const [school] = await db
       .insert(schools)
-      .values({ ...schoolData })
+      .values([{ ...schoolData }])
       .returning();
     return school;
   }
@@ -714,7 +757,7 @@ export class DatabaseStorage implements IStorage {
   async createTest(testData: Partial<InsertTest>): Promise<Test> {
     const [test] = await db
       .insert(tests)
-      .values({ ...testData })
+      .values([{ ...testData }])
       .returning();
     return test;
   }
@@ -749,7 +792,7 @@ export class DatabaseStorage implements IStorage {
   async createWorkExperience(workExpData: Partial<InsertWorkExperience>): Promise<WorkExperience> {
     const [workExp] = await db
       .insert(workExperiences)
-      .values({ ...workExpData })
+      .values([{ ...workExpData }])
       .returning();
     return workExp;
   }
@@ -1233,12 +1276,12 @@ export const storage = new DatabaseStorage();
 export class EnhancedDatabaseStorage extends DatabaseStorage {
   // Password reset operations
   async createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void> {
-    await db.insert(passwordResets).values({
+    await db.insert(passwordResets).values([{
       email,
       token,
       expiresAt,
       used: false
-    });
+    }]);
   }
 
   async getPasswordReset(token: string): Promise<PasswordReset | undefined> {
@@ -1254,12 +1297,12 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
 
   // Email verification operations
   async createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void> {
-    await db.insert(emailVerifications).values({
+    await db.insert(emailVerifications).values([{
       userId,
       token,
       expiresAt,
       verified: false
-    });
+    }]);
   }
 
   async getEmailVerification(token: string): Promise<EmailVerification | undefined> {
@@ -1421,15 +1464,15 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
   }
 
   async createStudyGroup(group: Partial<InsertStudyGroup>): Promise<StudyGroup> {
-    const [newGroup] = await db.insert(studyGroups).values(group).returning();
+    const [newGroup] = await db.insert(studyGroups).values([group]).returning();
     
     // Add creator as a member
     if (group.creatorId) {
-      await db.insert(studyGroupMembers).values({
+      await db.insert(studyGroupMembers).values([{
         groupId: newGroup.id,
         userId: group.creatorId,
         role: 'creator'
-      });
+      }]);
     }
     
     return newGroup;
@@ -1444,11 +1487,11 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
   }
 
   async joinStudyGroup(groupId: number, userId: number): Promise<void> {
-    await db.insert(studyGroupMembers).values({
+    await db.insert(studyGroupMembers).values([{
       groupId,
       userId,
       role: 'member'
-    });
+    }]);
   }
 
   async leaveStudyGroup(groupId: number, userId: number): Promise<void> {
