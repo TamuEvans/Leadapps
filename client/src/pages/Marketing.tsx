@@ -48,7 +48,9 @@ import {
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
-import backgroundVideo from '@assets/Video_Ready_Students_Walking.mp4';
+import student1Image from '../assets/student1.png';
+import student2Image from '../assets/student2.png';
+import student3Image from '../assets/student3.png';
 
 // University logos
 import uccLogo from '../assets/logos/ucc.jpg';
@@ -75,8 +77,6 @@ export default function Marketing() {
   const { isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   
-  // Video reference for optimization
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   // State for search form inputs
   const [programSearch, setProgramSearch] = useState('');
@@ -107,38 +107,6 @@ export default function Marketing() {
     }
   };
   
-  useEffect(() => {
-    // Optimize video playback
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      videoElement.muted = true;
-      videoElement.playsInline = true;
-      
-      // Stop video after 8 seconds
-      const stopAfter8Seconds = () => {
-        setTimeout(() => {
-          if (videoElement && !videoElement.paused) {
-            videoElement.pause();
-          }
-        }, 8000); // 8 seconds
-      };
-      
-      // Start the timer when video begins playing
-      videoElement.addEventListener('play', stopAfter8Seconds);
-      
-      // Also handle if video ends naturally before 8 seconds
-      const handleVideoEnd = () => {
-        videoElement.pause();
-      };
-      
-      videoElement.addEventListener('ended', handleVideoEnd);
-      
-      return () => {
-        videoElement.removeEventListener('play', stopAfter8Seconds);
-        videoElement.removeEventListener('ended', handleVideoEnd);
-      };
-    }
-  }, []);
 
   // Popular programs data with icons
   const popularPrograms = [
@@ -215,27 +183,19 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full h-screen bg-black relative overflow-hidden flex items-center">
-        {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
-          <video 
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ objectPosition: 'center center' }}
-            autoPlay 
-            muted 
-            playsInline
-            poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-          >
-            <source src={backgroundVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      <section className="w-full h-screen relative overflow-hidden flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
+        {/* Dynamic Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
-          <div className="flex flex-col justify-center h-full">
-            <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl">
+          <div className="flex flex-col lg:flex-row justify-center items-center h-full">
+            {/* Left Content */}
+            <div className="flex flex-col items-start text-left lg:w-1/2 max-w-xl">
               <div className="space-y-6 mb-6">
                 <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
                   study made simple.
@@ -245,11 +205,52 @@ export default function Marketing() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/app">
-                    <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md">
+                    <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all duration-300">
                       Get Started
                     </Button>
                   </Link>
-                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
+                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300">Learn More</Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Student Images */}
+            <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
+              <div className="relative flex flex-col items-center space-y-6">
+                {/* Student 1 - Orange/Yellow Gradient */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-r from-orange-400 to-yellow-500 p-1 rounded-3xl">
+                    <img 
+                      src={student1Image} 
+                      alt="Student with backpack" 
+                      className="w-48 h-48 object-cover rounded-3xl transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+
+                {/* Student 2 - Pink/Purple Gradient */}
+                <div className="relative group -ml-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
+                  <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
+                    <img 
+                      src={student2Image} 
+                      alt="Confident student" 
+                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+
+                {/* Student 3 - Cyan/Blue Gradient */}
+                <div className="relative group ml-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
+                  <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
+                    <img 
+                      src={student3Image} 
+                      alt="Medical student" 
+                      className="w-48 h-48 object-cover rounded-3xl transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
