@@ -3,7 +3,7 @@ import express from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import { storage } from "./storage";
-import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema, Application } from "@shared/schema";
+import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema, Application } from "../shared/schema";
 import { z } from "zod";
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
@@ -13,12 +13,13 @@ import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
 import programRecommendationsRouter from './api/programRecommendations';
 import multer from "multer";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx"; // Temporarily disabled due to installation issues
 import csv from "csv-parser";
 import fs from "fs";
 
 // Extended Application type with additional fields from related tables
 interface ExtendedApplication extends Application {
+  programId?: number;
   programName?: string;
   universityName?: string;
   universityLocation?: string;
@@ -182,13 +183,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .on('error', reject);
       });
     } else {
-      // Excel file
-      const workbook = XLSX.readFile(filePath);
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const data = XLSX.utils.sheet_to_json(worksheet);
-      fs.unlinkSync(filePath); // Clean up temp file
-      return data;
+      // Excel file - temporarily disabled
+      throw new Error('Excel file processing temporarily disabled');
+      // const workbook = XLSX.readFile(filePath);
+      // const sheetName = workbook.SheetNames[0];
+      // const worksheet = workbook.Sheets[sheetName];
+      // const data = XLSX.utils.sheet_to_json(worksheet);
+      // fs.unlinkSync(filePath); // Clean up temp file
+      // return data;
     }
   };
 
@@ -733,7 +735,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (university) {
             application.universityName = university.name;
             application.universityLocation = university.country;
-            application.universityLogo = university.logoUrl;
+            application.universityLogo = university.logoUrl || undefined;
           }
         }
       }

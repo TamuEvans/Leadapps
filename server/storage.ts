@@ -28,7 +28,7 @@ import {
   type InsertApplicationDocument,
   sessions as sessionsTable,
   type Session
-} from "@shared/schema";
+} from "../shared/schema";
 import { db } from './db';
 import { eq, and, desc, isNotNull, sql, like, ilike, lt } from 'drizzle-orm';
 
