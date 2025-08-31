@@ -216,7 +216,7 @@ export default function Marketing() {
 
             {/* Right Side - Student Images */}
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <div className="relative w-full max-w-md h-96">
+              <div className="relative w-full max-w-lg h-[26rem]">
                 {/* Student 1 - Orange/Yellow Gradient - Top Left */}
                 <div className="absolute top-0 left-4 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
@@ -224,7 +224,7 @@ export default function Marketing() {
                     <img 
                       src={student1Image} 
                       alt="Student with backpack" 
-                      className="w-44 h-44 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 ease-out"
+                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
@@ -236,19 +236,19 @@ export default function Marketing() {
                     <img 
                       src={student2Image} 
                       alt="Confident student" 
-                      className="w-44 h-44 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-3 group-hover:-rotate-2 transition-all duration-500 ease-out"
+                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-3 group-hover:-rotate-2 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
 
                 {/* Student 3 - Cyan/Blue Gradient - Bottom Center */}
-                <div className="absolute top-48 left-16 group cursor-pointer">
+                <div className="absolute top-64 left-16 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
                   <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
                     <img 
                       src={student3Image} 
                       alt="Medical student" 
-                      className="w-44 h-44 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-2 transition-all duration-500 ease-out"
+                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-2 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
