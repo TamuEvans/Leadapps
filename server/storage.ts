@@ -8,23 +8,6 @@ import {
   programs,
   applications,
   applicationDocuments,
-  passwordResets,
-  emailVerifications,
-  counselors,
-  counselingSessions,
-  notifications,
-  studyGroups,
-  studyGroupMembers,
-  examResources,
-  userProgress,
-  savedMaterials,
-  auditLogs,
-  rateLimitTracker,
-  securityIncidents,
-  enhancedApplicationDocuments,
-  adminUsers,
-  applicationStatusHistory,
-  schoolIntegrations,
   type User, 
   type StudentProfile, 
   type School, 
@@ -34,19 +17,6 @@ import {
   type Program,
   type Application,
   type ApplicationDocument,
-  type PasswordReset,
-  type EmailVerification,
-  type Counselor,
-  type CounselingSession,
-  type Notification,
-  type StudyGroup,
-  type StudyGroupMember,
-  type ExamResource,
-  type UserProgress,
-  type SavedMaterial,
-  type AuditLog,
-  type RateLimitTracker,
-  type SecurityIncident,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
@@ -55,25 +25,10 @@ import {
   type InsertUniversity,
   type InsertProgram,
   type InsertApplication,
-  type InsertApplicationDocument,
-  type InsertPasswordReset,
-  type InsertEmailVerification,
-  type InsertCounselor,
-  type InsertCounselingSession,
-  type InsertNotification,
-  type InsertStudyGroup,
-  type InsertStudyGroupMember,
-  type InsertExamResource,
-  type InsertUserProgress,
-  type InsertSavedMaterial,
-  type InsertAuditLog,
-  type InsertRateLimitTracker,
-  type InsertSecurityIncident,
-  sessions as sessionsTable,
-  type Session
-} from "../shared/schema";
+  type InsertApplicationDocument
+} from "@shared/schema";
 import { db } from './db';
-import { eq, and, desc, isNotNull, sql, like, ilike, lt } from 'drizzle-orm';
+import { eq, and, desc, isNotNull, sql, like, ilike } from 'drizzle-orm';
 
 // Interface for storage methods
 export interface IStorage {
@@ -688,7 +643,7 @@ export class DatabaseStorage implements IStorage {
   async createStudentProfile(profileData: Partial<InsertStudentProfile>): Promise<StudentProfile> {
     const [profile] = await db
       .insert(studentProfiles)
-      .values([{ ...profileData }])
+      .values({ ...profileData })
       .returning();
     return profile;
   }
@@ -722,7 +677,7 @@ export class DatabaseStorage implements IStorage {
   async createSchool(schoolData: Partial<InsertSchool>): Promise<School> {
     const [school] = await db
       .insert(schools)
-      .values([{ ...schoolData }])
+      .values({ ...schoolData })
       .returning();
     return school;
   }
@@ -757,7 +712,7 @@ export class DatabaseStorage implements IStorage {
   async createTest(testData: Partial<InsertTest>): Promise<Test> {
     const [test] = await db
       .insert(tests)
-      .values([{ ...testData }])
+      .values({ ...testData })
       .returning();
     return test;
   }
@@ -792,7 +747,7 @@ export class DatabaseStorage implements IStorage {
   async createWorkExperience(workExpData: Partial<InsertWorkExperience>): Promise<WorkExperience> {
     const [workExp] = await db
       .insert(workExperiences)
-      .values([{ ...workExpData }])
+      .values({ ...workExpData })
       .returning();
     return workExp;
   }
@@ -1208,65 +1163,6 @@ export class DatabaseStorage implements IStorage {
     // Return empty array for now - this would query the database in production
     return [];
   }
-
-  // Session operations
-  async createSession(userId: number, token: string, expiresAt: Date): Promise<Session> {
-    const [session] = await db
-      .insert(sessionsTable)
-      .values({ userId, token, expiresAt })
-      .returning();
-    return session;
-  }
-
-  async getSessionByToken(token: string): Promise<Session | null> {
-    const [session] = await db
-      .select()
-      .from(sessionsTable)
-      .where(eq(sessionsTable.token, token));
-    return session || null;
-  }
-
-  async deleteSession(token: string): Promise<void> {
-    await db.delete(sessionsTable).where(eq(sessionsTable.token, token));
-  }
-
-  async getExpiredSessions(now: Date): Promise<Session[]> {
-    return await db
-      .select()
-      .from(sessionsTable)
-      .where(lt(sessionsTable.expiresAt, now));
-  }
-
-  // Admin statistics
-  async getApplicationsCount(): Promise<number> {
-    const result = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(applications);
-    return result[0]?.count || 0;
-  }
-
-  async getPendingApplicationsCount(): Promise<number> {
-    const result = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(applications)
-      .where(eq(applications.status, 'submitted'));
-    return result[0]?.count || 0;
-  }
-
-  async getUsersCount(): Promise<number> {
-    const result = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(users);
-    return result[0]?.count || 0;
-  }
-
-  async getRecentApplications(limit: number): Promise<Application[]> {
-    return await db
-      .select()
-      .from(applications)
-      .orderBy(desc(applications.createdAt))
-      .limit(limit);
-  }
 }
 
 // Use DatabaseStorage instead of MemStorage
@@ -1276,12 +1172,12 @@ export const storage = new DatabaseStorage();
 export class EnhancedDatabaseStorage extends DatabaseStorage {
   // Password reset operations
   async createPasswordReset(email: string, token: string, expiresAt: Date): Promise<void> {
-    await db.insert(passwordResets).values([{
+    await db.insert(passwordResets).values({
       email,
       token,
       expiresAt,
       used: false
-    }]);
+    });
   }
 
   async getPasswordReset(token: string): Promise<PasswordReset | undefined> {
@@ -1297,12 +1193,12 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
 
   // Email verification operations
   async createEmailVerification(userId: number, token: string, expiresAt: Date): Promise<void> {
-    await db.insert(emailVerifications).values([{
+    await db.insert(emailVerifications).values({
       userId,
       token,
       expiresAt,
       verified: false
-    }]);
+    });
   }
 
   async getEmailVerification(token: string): Promise<EmailVerification | undefined> {
@@ -1464,15 +1360,15 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
   }
 
   async createStudyGroup(group: Partial<InsertStudyGroup>): Promise<StudyGroup> {
-    const [newGroup] = await db.insert(studyGroups).values([group]).returning();
+    const [newGroup] = await db.insert(studyGroups).values(group).returning();
     
     // Add creator as a member
     if (group.creatorId) {
-      await db.insert(studyGroupMembers).values([{
+      await db.insert(studyGroupMembers).values({
         groupId: newGroup.id,
         userId: group.creatorId,
         role: 'creator'
-      }]);
+      });
     }
     
     return newGroup;
@@ -1487,11 +1383,11 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
   }
 
   async joinStudyGroup(groupId: number, userId: number): Promise<void> {
-    await db.insert(studyGroupMembers).values([{
+    await db.insert(studyGroupMembers).values({
       groupId,
       userId,
       role: 'member'
-    }]);
+    });
   }
 
   async leaveStudyGroup(groupId: number, userId: number): Promise<void> {

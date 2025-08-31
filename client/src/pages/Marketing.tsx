@@ -245,11 +245,11 @@ export default function Marketing() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/app">
-                    <Button className="px-6 py-3 text-sm md:text-base font-medium shadow-md">
+                    <Button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-sm md:text-base font-medium border border-white/20 shadow-md">
                       Get Started
                     </Button>
                   </Link>
-                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 text-gray-800">Learn More</Button>
+                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 border-gray-400 text-gray-800">Learn More</Button>
                 </div>
               </div>
             </div>
@@ -291,7 +291,7 @@ export default function Marketing() {
                     <div className="md:col-span-1">
                       <Button 
                         type="submit"
-                        className="w-full font-medium h-10 text-sm"
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium h-10 text-sm"
                       >
                         <Search className="h-4 w-4 md:mr-2" /> <span className="hidden md:inline">Search</span>
                       </Button>
@@ -469,7 +469,7 @@ export default function Marketing() {
       {/* Popular Programs Section */}
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Popular Programs</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {popularPrograms.map((program, index) => {
               const Icon = program.icon;
@@ -524,7 +524,7 @@ export default function Marketing() {
       <section className="w-full py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Support Services</h2>
+            <h2 className="text-3xl font-bold mb-4">Support Services</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               Our comprehensive support services are designed to help you navigate every step of your educational journey.
             </p>
@@ -536,7 +536,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <MessageCircle className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Study Counselling</h3>
+              <h3 className="text-xl font-semibold mb-2">Study Counselling</h3>
               <p className="text-gray-600 text-sm mb-4">Connect with expert counselors who specialize in guiding students through the application process.</p>
               <Button variant="outline" className="mt-auto text-blue-600 border-blue-200 hover:bg-blue-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -548,7 +548,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
                 <Brain className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Personality Hub</h3>
+              <h3 className="text-xl font-semibold mb-2">Personality Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Discover your strengths, interests, and ideal career paths with our personality assessment tools.</p>
               <Button variant="outline" className="mt-auto text-purple-600 border-purple-200 hover:bg-purple-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -560,7 +560,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                 <BookOpen className="h-8 w-8 text-indigo-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Exam Prep Hub</h3>
+              <h3 className="text-xl font-semibold mb-2">Exam Prep Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Access resources and preparation materials for standardized tests like CSEC, CAPE, BGCSE, SAT, and more.</p>
               <Button variant="outline" className="mt-auto text-indigo-600 border-indigo-200 hover:bg-indigo-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -572,7 +572,7 @@ export default function Marketing() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <DollarSign className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Funding Hub</h3>
+              <h3 className="text-xl font-semibold mb-2">Funding Hub</h3>
               <p className="text-gray-600 text-sm mb-4">Find scholarships, financial aid opportunities, and funding resources tailored to your academic profile.</p>
               <Button variant="outline" className="mt-auto text-green-600 border-green-200 hover:bg-green-50">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
@@ -585,11 +585,11 @@ export default function Marketing() {
       {/* Search & Apply Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Search & Apply</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">Search & Apply</h2>
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-col md:flex-row gap-2">
-              <Input placeholder="Search programs, universities, or destinations" className="flex-grow bg-white border-gray-300" />
-              <Button>
+              <Input placeholder="Search programs, universities, or destinations" className="flex-grow" />
+              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600">
                 <Search className="mr-2 h-4 w-4" /> Search
               </Button>
             </div>
@@ -600,17 +600,17 @@ export default function Marketing() {
       {/* Testimonials Section */}
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">What they say</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">What they say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <Card key={index}>
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
                       <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
+                      <h3 className="font-bold">{testimonial.name}</h3>
                       <p className="text-sm text-gray-600">{testimonial.country}</p>
                     </div>
                   </div>
@@ -625,7 +625,7 @@ export default function Marketing() {
       {/* Information Center Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Information Centre</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">Information Centre</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { 
@@ -650,7 +650,7 @@ export default function Marketing() {
                 date: "April 05, 2025"
               }
             ].map((item, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow bg-white border border-gray-200">
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="h-48 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                 </div>
@@ -660,7 +660,7 @@ export default function Marketing() {
                     <span className="mr-4">{item.readTime}</span>
                     <span>{item.date}</span>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 line-clamp-2 text-gray-900">{item.title}</h3>
+                  <h3 className="font-bold text-lg mb-2 line-clamp-2">{item.title}</h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
                   <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800">
                     Read More <ArrowRight className="h-4 w-4 ml-1" />
@@ -680,7 +680,7 @@ export default function Marketing() {
               <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Beautiful university campus" className="rounded-lg shadow-lg w-full" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-900">We Solve Your Problems!</h2>
+              <h2 className="text-2xl font-bold mb-4">We Solve Your Problems!</h2>
               <div className="space-y-4">
                 {[
                   { title: "Personalized Guidance", description: "Get tailored advice from experienced counselors" },
@@ -693,7 +693,7 @@ export default function Marketing() {
                       <div className="bg-blue-600 rounded-full w-4 h-4"></div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-900">{item.title}</h3>
+                      <h3 className="font-medium">{item.title}</h3>
                       <p className="text-gray-600">{item.description}</p>
                     </div>
                   </div>
@@ -708,7 +708,7 @@ export default function Marketing() {
       <section className="w-full py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Complete Lead Ecosystem Integration</h2>
+            <h2 className="text-3xl font-bold mb-4">Complete Lead Ecosystem Integration</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               LeadApps seamlessly connects with the entire Lead platform ecosystem to provide comprehensive student lifecycle management and optimization.
             </p>
@@ -926,15 +926,15 @@ export default function Marketing() {
       {/* FAQ Section */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">Questions?</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">Questions?</h2>
           <div className="max-w-3xl mx-auto space-y-4">
             {faqItems.map((item, index) => (
-              <Card key={index} className="overflow-hidden border border-gray-200 bg-white shadow-sm">
+              <Card key={index} className="overflow-hidden border border-gray-100">
                 <div 
                   className="p-4 cursor-pointer hover:bg-gray-50 flex justify-between items-center"
                   onClick={() => toggleFaq(index)}
                 >
-                  <h3 className="font-medium flex items-center gap-2 text-gray-900">
+                  <h3 className="font-medium flex items-center gap-2">
                     <span className="text-blue-600">{index + 1}.</span> {item.question}
                   </h3>
                   <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-all duration-200">

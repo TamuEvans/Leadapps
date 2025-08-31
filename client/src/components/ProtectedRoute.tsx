@@ -11,8 +11,8 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children, testMode = false }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
   const [, setLocation] = useLocation();
-  // Enable guest access for demo purposes
-  const [bypassProtection] = useState(true);
+  // Set to true initially in development
+  const [bypassProtection] = useState(testMode || process.env.NODE_ENV === 'development');
 
   useEffect(() => {
     // Only redirect if not in bypass mode

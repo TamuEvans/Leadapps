@@ -69,8 +69,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         return "Articles";
       case "/app/study-groups":
         return "Study Groups";
-      case "/app/university-search":
-        return "University Search";
       default:
         if (location.startsWith("/app/profile")) return "Student Profile";
         if (location.startsWith("/app/search")) return "Search";
@@ -90,7 +88,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const isSubPage = location !== "/app";
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-white">
+    <div className="flex flex-col md:flex-row min-h-screen bg-background">
       <Sidebar />
       <main 
         className={`flex-1 min-h-screen transition-all duration-300 ease-in-out ${
@@ -129,7 +127,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
           </div>
         </header>
-        <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-6">
           {/* Main content without sidebar layout */}
           {children}
           

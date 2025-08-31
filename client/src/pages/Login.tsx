@@ -19,7 +19,7 @@ import {
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/hooks/useAuth';
+import { apiRequest } from '@/lib/queryClient';
 
 // Login form schema
 const loginSchema = z.object({
@@ -34,7 +34,6 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { login } = useAuth();
 
   // Define form
   const form = useForm<LoginFormValues>({
@@ -49,23 +48,27 @@ export default function Login() {
   // Handle form submission
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
-    
     try {
-      await login(data.email, data.password, data.rememberMe);
-      
-      toast({
-        title: "Login Successful",
-        description: "Welcome back!",
+      await apiRequest('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       
-      // Redirect to app
-      setLocation('/app');
+      // Redirect to home page on successful login
+      setLocation('/');
+      
     } catch (error) {
-      console.error('Login error:', error);
+      let message = 'Login failed';
+      if (error instanceof Error) {
+        message = error.message;
+      }
       toast({
-        title: "Login Failed",
-        description: error.message || "Please check your credentials and try again.",
-        variant: "destructive",
+        variant: 'destructive',
+        title: 'Error',
+        description: message,
       });
     } finally {
       setIsLoading(false);
@@ -94,10 +97,10 @@ export default function Login() {
             </Button>
             <Button 
               variant="outline" 
-              className="w-full"
+              className="w-full bg-[#1877F2] text-white hover:bg-[#166FE5]" 
               onClick={() => window.location.href = '/api/auth/facebook'}
             >
-              <SiFacebook className="mr-2 h-5 w-5 text-blue-600" />
+              <SiFacebook className="mr-2 h-5 w-5 text-white" />
               Continue with Facebook
             </Button>
           </div>
@@ -107,11 +110,11 @@ export default function Login() {
               <Separator className="w-full" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
             </div>
           </div>
 
-          {/* Login Form */}
+          {/* Email/Password Form */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
@@ -121,11 +124,7 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Enter your email"
-                        {...field}
-                      />
+                      <Input placeholder="example@email.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,59 +137,42 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Enter your password"
-                        {...field}
-                      />
+                      <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <div className="flex items-center justify-between">
-                <FormField
-                  control={form.control}
-                  name="rememberMe"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>Remember me</FormLabel>
-                      </div>
-                    </FormItem>
-                  )}
-                />
-                <Link href="/forgot-password">
-                  <Button variant="link" className="px-0 h-auto">
-                    Forgot password?
-                  </Button>
-                </Link>
-              </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? "Signing in..." : "Sign in"}
+              <FormField
+                control={form.control}
+                name="rememberMe"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-2 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>Remember me for 30 days</FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full bg-gradient-primary" disabled={isLoading}>
+                {isLoading ? 'Signing in...' : 'Sign in'}
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="text-center">
-          <p className="text-sm text-muted-foreground">
+        <CardFooter className="flex justify-center">
+          <div className="text-sm text-gray-600">
             Don't have an account?{' '}
             <Link href="/register">
-              <Button variant="link" className="px-0 h-auto">
-                Sign up
-              </Button>
+              <a className="text-gradient font-medium">Sign up</a>
             </Link>
-          </p>
+          </div>
         </CardFooter>
       </Card>
     </div>

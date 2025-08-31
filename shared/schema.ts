@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, jsonb, timestamp, date } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, jsonb, timestamp, varchar, date } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -244,9 +244,6 @@ export const applications = pgTable("applications", {
   status: text("status").default(APPLICATION_STATUSES.DRAFT).notNull(),
   submissionDate: timestamp("submission_date"),
   lastUpdated: timestamp("last_updated").defaultNow(),
-  reviewedAt: timestamp("reviewed_at"),
-  reviewedBy: integer("reviewed_by").references(() => users.id),
-  notes: text("notes"),
   externalReferenceId: text("external_reference_id"),
   additionalDocuments: jsonb("additional_documents").array(),
   applicationData: jsonb("application_data"),
@@ -295,10 +292,12 @@ export const insertApplicationDocumentSchema = createInsertSchema(applicationDoc
 export type InsertUniversity = z.infer<typeof insertUniversitySchema>;
 export type InsertProgram = z.infer<typeof insertProgramSchema>;
 export type InsertApplication = z.infer<typeof insertApplicationSchema>;
+export type InsertApplicationDocument = z.infer<typeof insertApplicationDocumentSchema>;
 
 export type University = typeof universities.$inferSelect;
 export type Program = typeof programs.$inferSelect;
 export type Application = typeof applications.$inferSelect;
+export type ApplicationDocument = typeof applicationDocuments.$inferSelect;
 
 // Password Reset table
 export const passwordResets = pgTable("password_resets", {
@@ -444,100 +443,6 @@ export const savedMaterials = pgTable("saved_materials", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Security Tables
-
-// Audit log table for security monitoring
-export const auditLogs = pgTable("audit_logs", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id),
-  action: text("action").notNull(),
-  resource: text("resource").notNull(),
-  resourceId: text("resource_id"),
-  ipAddress: text("ip_address"),
-  userAgent: text("user_agent"),
-  metadata: jsonb("metadata"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-// Rate limiting tracking
-export const rateLimitTracker = pgTable("rate_limit_tracker", {
-  id: serial("id").primaryKey(),
-  identifier: text("identifier").notNull(), // IP or user ID
-  endpoint: text("endpoint").notNull(),
-  requestCount: integer("request_count").default(1),
-  windowStart: timestamp("window_start").defaultNow().notNull(),
-  isBlocked: boolean("is_blocked").default(false),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-// Security incidents tracking
-export const securityIncidents = pgTable("security_incidents", {
-  id: serial("id").primaryKey(),
-  type: text("type").notNull(), // failed_login, suspicious_activity, etc.
-  severity: text("severity").notNull(), // low, medium, high, critical
-  userId: integer("user_id").references(() => users.id),
-  ipAddress: text("ip_address"),
-  userAgent: text("user_agent"),
-  description: text("description"),
-  metadata: jsonb("metadata"),
-  resolved: boolean("resolved").default(false),
-  resolvedAt: timestamp("resolved_at"),
-  resolvedBy: integer("resolved_by").references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-// Enhanced Application Documents table - tracks document uploads and reviews
-export const enhancedApplicationDocuments = pgTable("enhanced_application_documents", {
-  id: serial("id").primaryKey(),
-  applicationId: integer("application_id").references(() => applications.id).notNull(),
-  type: text("type").notNull(), // passport, transcript, etc.
-  fileName: text("file_name").notNull(),
-  fileUrl: text("file_url").notNull(),
-  status: text("status").default("pending").notNull(), // pending, approved, rejected
-  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
-  reviewedAt: timestamp("reviewed_at"),
-  reviewedBy: integer("reviewed_by").references(() => users.id),
-  rejectionReason: text("rejection_reason"),
-  metadata: jsonb("metadata"),
-});
-
-// Admin Users table - tracks admin/staff users with roles
-export const adminUsers = pgTable("admin_users", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id).notNull(),
-  role: text("role").notNull(), // admin, reviewer, manager
-  permissions: jsonb("permissions").array(),
-  department: text("department"),
-  isActive: boolean("is_active").default(true),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Application Status History - tracks all status changes
-export const applicationStatusHistory = pgTable("application_status_history", {
-  id: serial("id").primaryKey(),
-  applicationId: integer("application_id").references(() => applications.id).notNull(),
-  fromStatus: text("from_status"),
-  toStatus: text("to_status").notNull(),
-  changedBy: integer("changed_by").references(() => users.id).notNull(),
-  notes: text("notes"),
-  changedAt: timestamp("changed_at").defaultNow().notNull(),
-});
-
-// School Integration table - tracks integrations with universities
-export const schoolIntegrations = pgTable("school_integrations", {
-  id: serial("id").primaryKey(),
-  universityId: integer("university_id").references(() => universities.id).notNull(),
-  integrationType: text("integration_type").notNull(), // manual, leadenroll, direct_api
-  apiEndpoint: text("api_endpoint"),
-  apiKey: text("api_key"),
-  authType: text("auth_type"), // bearer, basic, oauth
-  isActive: boolean("is_active").default(true),
-  lastSyncAt: timestamp("last_sync_at"),
-  configuration: jsonb("configuration"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
 // Define insert schemas for new tables
 export const insertPasswordResetSchema = createInsertSchema(passwordResets).omit({ id: true, createdAt: true });
 export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({ id: true, createdAt: true });
@@ -549,13 +454,6 @@ export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers
 export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
 export const insertSavedMaterialSchema = createInsertSchema(savedMaterials).omit({ id: true, createdAt: true, updatedAt: true });
-export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
-export const insertRateLimitTrackerSchema = createInsertSchema(rateLimitTracker).omit({ id: true, createdAt: true });
-export const insertSecurityIncidentSchema = createInsertSchema(securityIncidents).omit({ id: true, createdAt: true });
-export const insertEnhancedApplicationDocumentSchema = createInsertSchema(enhancedApplicationDocuments).omit({ id: true, uploadedAt: true });
-export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({ id: true, createdAt: true, updatedAt: true });
-export const insertApplicationStatusHistorySchema = createInsertSchema(applicationStatusHistory).omit({ id: true, changedAt: true });
-export const insertSchoolIntegrationSchema = createInsertSchema(schoolIntegrations).omit({ id: true, createdAt: true });
 
 // Define types for new tables
 export type InsertPasswordReset = z.infer<typeof insertPasswordResetSchema>;
@@ -579,19 +477,3 @@ export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
 export type ExamResource = typeof examResources.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
 export type SavedMaterial = typeof savedMaterials.$inferSelect;
-export type AuditLog = typeof auditLogs.$inferSelect;
-export type RateLimitTracker = typeof rateLimitTracker.$inferSelect;
-export type SecurityIncident = typeof securityIncidents.$inferSelect;
-
-export type InsertAuditLog = z.infer<typeof insertAuditLogSchema>;
-export type InsertRateLimitTracker = z.infer<typeof insertRateLimitTrackerSchema>;
-export type InsertSecurityIncident = z.infer<typeof insertSecurityIncidentSchema>;
-export type InsertApplicationDocument = z.infer<typeof insertApplicationDocumentSchema>;
-export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
-export type InsertApplicationStatusHistory = z.infer<typeof insertApplicationStatusHistorySchema>;
-export type InsertSchoolIntegration = z.infer<typeof insertSchoolIntegrationSchema>;
-
-export type ApplicationDocument = typeof applicationDocuments.$inferSelect;
-export type AdminUser = typeof adminUsers.$inferSelect;
-export type ApplicationStatusHistory = typeof applicationStatusHistory.$inferSelect;
-export type SchoolIntegration = typeof schoolIntegrations.$inferSelect;

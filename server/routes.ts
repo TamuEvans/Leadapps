@@ -3,7 +3,7 @@ import express from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import { storage } from "./storage";
-import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema, Application } from "../shared/schema";
+import { insertUserSchema, insertStudentProfileSchema, insertSchoolSchema, insertTestSchema, insertWorkExperienceSchema, Application } from "@shared/schema";
 import { z } from "zod";
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
@@ -13,7 +13,7 @@ import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
 import programRecommendationsRouter from './api/programRecommendations';
 import multer from "multer";
-// import * as XLSX from "xlsx"; // Temporarily disabled due to installation issues
+import * as XLSX from "xlsx";
 import csv from "csv-parser";
 import fs from "fs";
 
@@ -26,127 +26,43 @@ interface ExtendedApplication extends Application {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Import security modules
-  const { monitoring, healthCheckHandler } = await import("./monitoring");
-  const { getClientIpAddress, getUserAgent } = await import("./security");
-  const { logAuditEvent, AuditActions } = await import("./auditLog");
-  const { authService } = await import("./auth");
-
-  // Add monitoring middleware
-  app.use(monitoring.performanceMiddleware());
-  app.use(monitoring.securityMiddleware());
-
-  // Health check endpoint
-  app.get('/api/health', healthCheckHandler);
-
   // Serve static files from the public directory
   app.use(express.static(path.join(process.cwd(), 'public')));
-
+  
   // Add middleware
   app.use(cookieParser());
-
+  
   // Configure and initialize passport
   configurePassport();
   app.use(passport.initialize());
-
+  
   // Add auth middleware to all routes
   app.use(authMiddleware);
-
-  // API routes prefix
-  const apiPrefix = "/api";
   
-  // Authentication endpoints
-  app.post('/api/logout', async (req, res) => {
-    try {
-      const token = req.cookies?.auth_token;
-      
-      if (token) {
-        await authService.logout(token);
-        res.clearCookie('auth_token');
-      }
-      
-      res.json({ message: 'Logged out successfully' });
-    } catch (error) {
-      console.error('Logout error:', error);
-      res.status(500).json({ message: 'Logout failed' });
-    }
-  });
-  
-  app.get('/api/auth/me', async (req, res) => {
-    try {
-      const token = req.cookies?.auth_token;
-      
-      if (!token) {
-        return res.status(401).json({ message: 'Not authenticated' });
-      }
-      
-      const user = await authService.verifyToken(token);
-      
-      if (!user) {
-        res.clearCookie('auth_token');
-        return res.status(401).json({ message: 'Invalid token' });
-      }
-      
-      res.json({ user });
-    } catch (error) {
-      console.error('Auth verification error:', error);
-      res.clearCookie('auth_token');
-      res.status(401).json({ message: 'Authentication failed' });
-    }
-  });
-
   // Register authentication routes
   app.use('/api/auth', authRoutes);
   
-  // Password reset routes
-  const { requestPasswordReset, resetPassword, verifyEmail } = await import('./auth/passwordReset');
-  app.post('/api/auth/forgot-password', requestPasswordReset);
-  app.post('/api/auth/reset-password', resetPassword);
-  app.post('/api/auth/verify-email', verifyEmail);
-
-  // Admin authentication routes
-  const { adminLogin, adminLogout, requireAdmin } = await import('./auth/adminAuth');
-  app.post('/api/admin/login', adminLogin);
-  app.post('/api/admin/logout', requireAdmin, adminLogout);
-  
-  // Admin dashboard API routes
-  app.get('/api/admin/stats', requireAdmin, async (req, res) => {
-    try {
-      // Get basic statistics
-      const stats = {
-        totalApplications: await storage.getApplicationsCount(),
-        pendingApplications: await storage.getPendingApplicationsCount(),
-        totalUsers: await storage.getUsersCount(),
-        recentApplications: await storage.getRecentApplications(5)
-      };
-      res.json(stats);
-    } catch (error) {
-      console.error('Error fetching admin stats:', error);
-      res.status(500).json({ message: 'Failed to fetch statistics' });
-    }
-  });
-
   // Register personality assessment routes
   app.use('/api/personality-assessment', personalityAssessmentRouter);
-
+  
   // Register program recommendations routes
   app.use('/api/program-recommendations', programRecommendationsRouter);
-
+  
   // Register counselor routes
   app.use('/api/counselors', (await import('./api/counselors')).default);
-
+  
   // Register study groups routes
   app.use('/api/study-groups', (await import('./api/studyGroups')).default);
-
+  
   // Register exam resources routes
   app.use('/api/exam-resources', (await import('./api/examResources')).default);
-
+  
   // Register notifications routes
   app.use('/api/notifications', (await import('./api/notifications')).default);
-
+  
   // Register saved materials routes
   app.use('/api/saved-materials', (await import('./api/savedMaterials')).default);
-
+  
   // Configure multer for file uploads
   const upload = multer({
     dest: 'uploads/',
@@ -182,14 +98,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .on('error', reject);
       });
     } else {
-      // Excel file - temporarily disabled
-      throw new Error('Excel file processing temporarily disabled');
-      // const workbook = XLSX.readFile(filePath);
-      // const sheetName = workbook.SheetNames[0];
-      // const worksheet = workbook.Sheets[sheetName];
-      // const data = XLSX.utils.sheet_to_json(worksheet);
-      // fs.unlinkSync(filePath); // Clean up temp file
-      // return data;
+      // Excel file
+      const workbook = XLSX.readFile(filePath);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = XLSX.utils.sheet_to_json(worksheet);
+      fs.unlinkSync(filePath); // Clean up temp file
+      return data;
     }
   };
 
@@ -204,8 +119,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = await parseSpreadsheet(req.file.path, fileType);
 
       // Validate and process university data
-      const processedData: any[] = [];
-      const errors: string[] = [];
+      const processedData = [];
+      const errors = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -240,7 +155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Insert universities into database
       const insertedUniversities = await storage.bulkCreateUniversities(processedData);
-
+      
       res.json({
         message: `Successfully imported ${insertedUniversities.length} universities`,
         imported: insertedUniversities.length,
@@ -262,8 +177,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData: any[] = [];
-      const errors: string[] = [];
+      const processedData = [];
+      const errors = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -298,7 +213,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const insertedPrograms = await storage.bulkCreatePrograms(processedData);
-
+      
       res.json({
         message: `Successfully imported ${insertedPrograms.length} programs`,
         imported: insertedPrograms.length,
@@ -320,8 +235,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const fileType = req.file.mimetype.includes('csv') ? 'csv' : 'excel';
       const data = await parseSpreadsheet(req.file.path, fileType);
 
-      const processedData: any[] = [];
-      const errors: string[] = [];
+      const processedData = [];
+      const errors = [];
 
       for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -361,7 +276,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const insertedApplications = await storage.bulkCreateApplications(processedData);
-
+      
       res.json({
         message: `Successfully imported ${insertedApplications.length} applications`,
         imported: insertedApplications.length,
@@ -372,68 +287,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: 'Failed to process application data' });
     }
   });
+  
+  // API routes prefix
+  const apiPrefix = "/api";
 
-  // Production user registration with proper validation
+  // User registration
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
-      const { email, password, firstName, lastName } = req.body;
-      
-      // Validate input
-      if (!email || !password || !firstName || !lastName) {
-        return res.status(400).json({ message: "All fields are required" });
-      }
-      
-      // Use AuthService for secure registration
-      const { user, needsVerification } = await authService.register(email, password, firstName, lastName);
-      
-      res.status(201).json({ 
-        user: {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          isVerified: user.isVerified
-        },
-        needsVerification,
-        message: needsVerification ? 'Registration successful. Please check your email to verify your account.' : 'Registration successful.'
-      });
+      const userData = insertUserSchema.parse(req.body);
+      const user = await storage.createUser(userData);
+      res.status(201).json({ id: user.id, username: user.username, email: user.email });
     } catch (error) {
-      console.error("Error creating user:", error);
-      res.status(400).json({ message: error.message || "Registration failed" });
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid user data", errors: error.errors });
+      } else {
+        console.error("Error creating user:", error);
+        res.status(500).json({ message: "Failed to create user" });
+      }
     }
   });
 
-  // Production login route with JWT authentication
+  // Login route (mock for demo purposes)
   app.post(`${apiPrefix}/login`, async (req, res) => {
     try {
-      const { email, password, rememberMe } = req.body;
+      const { username, password } = req.body;
+      const user = await storage.getUserByUsername(username);
       
-      // Use the AuthService for secure login
-      const { user, token } = await authService.login(email, password, rememberMe);
-      
-      // Set secure HTTP-only cookie
-      const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict' as const,
-        maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 // 30 days or 1 day
-      };
-      
-      res.cookie('auth_token', token, cookieOptions);
-      
-      res.json({ 
-        user: {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          isVerified: user.isVerified
-        },
-        message: 'Login successful'
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      // In a real app, you'd use a proper auth system with tokens
+      // Using a basic approach for demo
+      res.status(200).json({ 
+        id: user.id, 
+        username: user.username, 
+        email: user.email 
       });
     } catch (error) {
       console.error("Error logging in:", error);
-      res.status(401).json({ message: error.message || "Invalid credentials" });
+      res.status(500).json({ message: "Login failed" });
     }
   });
 
@@ -443,7 +336,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // In a real app, you'd get userId from session or token
       // For now, we'll always default to user 1 for demo purposes
       const userId = 1;
-
+      
       const profile = await storage.getStudentProfileByUserId(userId);
       if (!profile) {
         // If profile doesn't exist, create a default one
@@ -451,7 +344,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const schools: any[] = [];
         const tests: any[] = [];
         const workExperiences: any[] = [];
-
+        
         return res.status(200).json({
           ...newProfile,
           schools,
@@ -459,12 +352,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           workExperiences
         });
       }
-
+      
       // Get related data
       const schools = await storage.getSchoolsByProfileId(profile.id);
       const tests = await storage.getTestsByProfileId(profile.id);
       const workExperiences = await storage.getWorkExperiencesByProfileId(profile.id);
-
+      
       res.status(200).json({
         ...profile,
         schools,
@@ -482,30 +375,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // In a real app, you'd get userId from session or token
       const userId = 1; // Default to 1 for demo
-
+      
       // Process the main profile data
       const profileData = {
         userId,
         ...req.body
       };
-
+      
       // Extract arrays from the request body
       const { schools, tests, workExperiences, ...profileFields } = req.body;
-
+      
       // Create or update the profile
       let profile = await storage.getStudentProfileByUserId(userId);
-
+      
       if (profile) {
         profile = await storage.updateStudentProfile(profile.id, profileFields);
       } else {
         profile = await storage.createStudentProfile(profileFields);
       }
-
+      
       // Process schools if provided
       if (schools && Array.isArray(schools)) {
         // Clear existing schools and add new ones
         await storage.clearSchoolsByProfileId(profile.id);
-
+        
         for (const school of schools) {
           await storage.createSchool({
             profileId: profile.id,
@@ -513,12 +406,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
       }
-
+      
       // Process tests if provided
       if (tests && Array.isArray(tests)) {
         // Clear existing tests and add new ones
         await storage.clearTestsByProfileId(profile.id);
-
+        
         for (const test of tests) {
           await storage.createTest({
             profileId: profile.id,
@@ -526,12 +419,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
       }
-
+      
       // Process work experiences if provided
       if (workExperiences && Array.isArray(workExperiences)) {
         // Clear existing work experiences and add new ones
         await storage.clearWorkExperiencesByProfileId(profile.id);
-
+        
         for (const workExp of workExperiences) {
           await storage.createWorkExperience({
             profileId: profile.id,
@@ -539,11 +432,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
       }
-
+      
       // Calculate profile completion percentage
       const completionPercentage = await calculateProfileCompletion(profile, schools, tests);
       await storage.updateCompletionPercentage(profile.id, completionPercentage);
-
+      
       res.status(200).json({ 
         message: "Profile successfully updated",
         completionPercentage
@@ -563,22 +456,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // In a real app, you'd get userId from session or token
       const userId = 1; // Default to 1 for demo
-
+      
       // Get existing profile
       const profile = await storage.getStudentProfileByUserId(userId);
       if (!profile) {
         return res.status(404).json({ message: "Profile not found" });
       }
-
+      
       // Update profile with provided fields
       const updatedProfile = await storage.updateStudentProfile(profile.id, req.body);
-
+      
       // Recalculate completion percentage
       const schools = await storage.getSchoolsByProfileId(profile.id);
       const tests = await storage.getTestsByProfileId(profile.id);
       const completionPercentage = await calculateProfileCompletion(updatedProfile, schools, tests);
       await storage.updateCompletionPercentage(profile.id, completionPercentage);
-
+      
       res.status(200).json({ 
         message: "Profile successfully updated",
         completionPercentage
@@ -606,14 +499,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const pageNum = page ? parseInt(page as string) : 1;
       const limitNum = limit ? parseInt(limit as string) : 20;
       const offset = (pageNum - 1) * limitNum;
-
+      
       const filters: { country?: string; name?: string } = {};
       if (country && country !== 'all') filters.country = country as string;
       if (name) filters.name = name as string;
-
+      
       const universities = await storage.getUniversities(limitNum, offset, filters);
       const total = await storage.getUniversityCount(filters);
-
+      
       res.status(200).json({
         data: universities,
         pagination: {
@@ -628,7 +521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch universities" });
     }
   });
-
+  
   // Get single university by ID
   app.get(`${apiPrefix}/universities/:id`, async (req, res) => {
     try {
@@ -636,19 +529,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid university ID" });
       }
-
+      
       const university = await storage.getUniversity(id);
       if (!university) {
         return res.status(404).json({ message: "University not found" });
       }
-
+      
       res.status(200).json(university);
     } catch (error) {
       console.error("Error fetching university:", error);
       res.status(500).json({ message: "Failed to fetch university" });
     }
   });
-
+  
   // Get programs for a university with filtering and pagination
   app.get(`${apiPrefix}/universities/:id/programs`, async (req, res) => {
     try {
@@ -656,21 +549,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(universityId)) {
         return res.status(400).json({ message: "Invalid university ID" });
       }
-
+      
       const { level, discipline, degree, name, page, limit } = req.query;
       const pageNum = page ? parseInt(page as string) : 1;
       const limitNum = limit ? parseInt(limit as string) : 20;
       const offset = (pageNum - 1) * limitNum;
-
+      
       const filters: { level?: string; discipline?: string; degree?: string; name?: string } = {};
       if (level && level !== 'all') filters.level = level as string;
       if (discipline && discipline !== 'all') filters.discipline = discipline as string;
       if (degree && degree !== 'all') filters.degree = degree as string;
       if (name) filters.name = name as string;
-
+      
       const programs = await storage.getProgramsByUniversity(universityId, limitNum, offset, filters);
       const total = await storage.getProgramCount(universityId, filters);
-
+      
       res.status(200).json({
         data: programs,
         pagination: {
@@ -685,7 +578,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch programs" });
     }
   });
-
+  
   // Get single program by ID
   app.get(`${apiPrefix}/programs/:id`, async (req, res) => {
     try {
@@ -693,12 +586,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid program ID" });
       }
-
+      
       const program = await storage.getProgram(id);
       if (!program) {
         return res.status(404).json({ message: "Program not found" });
       }
-
+      
       res.status(200).json(program);
     } catch (error) {
       console.error("Error fetching program:", error);
@@ -713,32 +606,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       const applicationData = await storage.getApplication(id);
-
+      
       if (!applicationData) {
         return res.status(404).json({ message: "Application not found" });
       }
-
+      
       // Cast to extended application type
       const application = applicationData as unknown as ExtendedApplication;
-
+      
       // If the application has a programId, get the program details
       if (application.programId) {
         const program = await storage.getProgram(application.programId);
         if (program) {
           application.programName = program.name;
-
+          
           // Get university details for the program
           const university = await storage.getUniversity(program.universityId);
           if (university) {
             application.universityName = university.name;
             application.universityLocation = university.country;
-            application.universityLogo = university.logoUrl || undefined;
+            application.universityLogo = university.logoUrl;
           }
         }
       }
-
+      
       res.json(application);
     } catch (error) {
       console.error("Error fetching application:", error);
@@ -751,68 +644,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // First, check if our demo user exists - we'll reuse the same demo user
       let user = await storage.getUserByEmail("demo@example.com");
-
+      
       // If no demo user, return empty applications
       if (!user) {
         return res.status(200).json([]);
       }
-
+      
       // Check for a student profile for this user
       let profile = await storage.getStudentProfileByUserId(user.id);
       if (!profile) {
         return res.status(200).json([]);
       }
-
+      
       // Get applications for this user's profile
       const applications = await storage.getApplicationsByStudent(profile.id);
-
+      
       // Enhance applications with program and university data
       const enhancedApplications = await Promise.all(applications.map(async (app) => {
         try {
           // Cast to extended application type
           const enhancedApp = app as unknown as ExtendedApplication;
-
+          
           // Get program details
           const program = await storage.getProgram(app.programId);
-
+          
           if (program) {
             // Get university details
             const university = await storage.getUniversity(program.universityId);
-
+            
             enhancedApp.programName = program.name;
             enhancedApp.universityName = university?.name || "Unknown University";
             enhancedApp.universityLocation = university ? `${university.city}, ${university.country}` : "Unknown";
             enhancedApp.universityLogo = university?.logoUrl || null;
-
+            
             return enhancedApp;
           }
-
+          
           enhancedApp.programName = "Unknown Program";
           enhancedApp.universityName = "Unknown University";
           enhancedApp.universityLocation = "Unknown";
-
+          
           return enhancedApp;
         } catch (err) {
           console.error("Error enhancing application:", err);
           return app;
         }
       }));
-
+      
       res.status(200).json(enhancedApplications);
     } catch (error) {
       console.error("Error fetching applications:", error);
       res.status(500).json({ message: "Failed to fetch applications" });
     }
   });
-
+  
   // Create application
   app.post(`${apiPrefix}/applications`, async (req, res) => {
     try {
       // In a demo without auth, we'll create a demo user if needed
-
+      
       // First, check if our demo user exists
       let user = await storage.getUserByEmail("demo@example.com");
-
+      
       // If not, create the demo user
       if (!user) {
         user = await storage.createUser({
@@ -828,19 +721,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
           updatedAt: null
         });
       }
-
+      
       // Now check for a student profile for this user
       let profile = await storage.getStudentProfileByUserId(user.id);
       if (!profile) {
         profile = await storage.createStudentProfile({ userId: user.id });
       }
-
+      
       const applicationData = {
         studentId: profile.id, // Use the student profile ID
         ...req.body,
         status: "draft" // Default status for new applications with lowercase status
       };
-
+      
       const application = await storage.createApplication(applicationData);
       res.status(201).json(application);
     } catch (error) {
@@ -848,7 +741,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create application" });
     }
   });
-
+  
   // Update application
   app.patch(`${apiPrefix}/applications/:id`, async (req, res) => {
     try {
@@ -856,37 +749,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       // In a real app, you'd check if the application belongs to the authenticated user
-
+      
       const application = await storage.getApplication(id);
       if (!application) {
         return res.status(404).json({ message: "Application not found" });
       }
-
+      
       const applicationData = { ...req.body };
-
+      
       // Ensure dates are properly formatted
       if (applicationData.submissionDate && typeof applicationData.submissionDate === 'string') {
         applicationData.submissionDate = new Date(applicationData.submissionDate);
       }
-
+      
       if (applicationData.lastUpdated && typeof applicationData.lastUpdated === 'string') {
         applicationData.lastUpdated = new Date(applicationData.lastUpdated);
       } else {
         // Always update the lastUpdated field
         applicationData.lastUpdated = new Date();
       }
-
+      
       const updatedApplication = await storage.updateApplication(id, applicationData);
-
+      
       res.status(200).json(updatedApplication);
     } catch (error) {
       console.error("Error updating application:", error);
       res.status(500).json({ message: "Failed to update application" });
     }
   });
-
+  
   // Delete application
   app.delete(`${apiPrefix}/applications/:id`, async (req, res) => {
     try {
@@ -894,14 +787,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       // In a real app, you'd check if the application belongs to the authenticated user
-
+      
       const application = await storage.getApplication(id);
       if (!application) {
         return res.status(404).json({ message: "Application not found" });
       }
-
+      
       await storage.deleteApplication(id);
       res.status(204).send();
     } catch (error) {
@@ -909,7 +802,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to delete application" });
     }
   });
-
+  
   // Application document routes
   // Get documents for an application
   app.get(`${apiPrefix}/applications/:id/documents`, async (req, res) => {
@@ -918,9 +811,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(applicationId)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       // In a real app, you'd check if the application belongs to the authenticated user
-
+      
       const documents = await storage.getApplicationDocumentsByApplication(applicationId);
       res.status(200).json(documents);
     } catch (error) {
@@ -928,7 +821,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch application documents" });
     }
   });
-
+  
   // Upload document for an application
   app.post(`${apiPrefix}/applications/:id/documents`, async (req, res) => {
     try {
@@ -936,18 +829,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(applicationId)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       // In a real app, you'd check if the application belongs to the authenticated user
-
+      
       // In a real app, you'd handle file uploads here
       // For now, we'll just create a document record with the provided data
-
+      
       const documentData = {
         applicationId,
         ...req.body,
         uploadedAt: new Date()
       };
-
+      
       const document = await storage.createApplicationDocument(documentData);
       res.status(201).json(document);
     } catch (error) {
@@ -955,18 +848,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create application document" });
     }
   });
-
+  
   // Get profile documents
   app.get(`${apiPrefix}/profile/documents`, async (req, res) => {
     try {
       // In a real app, you'd get the profile ID from authenticated user
       // For demo, we'll use the demo profile
       const profile = await storage.getStudentProfileByUserId(1);
-
+      
       if (!profile) {
         return res.status(404).json({ message: "Profile not found" });
       }
-
+      
       const documents = await storage.getProfileDocuments(profile.id);
       res.json(documents);
     } catch (error) {
@@ -974,18 +867,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch profile documents" });
     }
   });
-
+  
   // Upload document for a profile
   app.post(`${apiPrefix}/profile/documents`, async (req, res) => {
     try {
       // In a real app, you'd get the profile ID from authenticated user
       // For demo, we'll use the demo profile
       const profile = await storage.getStudentProfileByUserId(1);
-
+      
       if (!profile) {
         return res.status(404).json({ message: "Profile not found" });
       }
-
+      
       // Handle file upload here
       // For now, we'll create a document record with mock data
       const documentData = {
@@ -995,7 +888,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         fileUrl: `/documents/${req.body.documentType.toLowerCase().replace(/\s+/g, '-')}.pdf`,
         uploadDate: new Date().toISOString()
       };
-
+      
       const document = await storage.createProfileDocument(documentData);
       res.status(201).json(document);
     } catch (error) {
@@ -1011,23 +904,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(applicationId)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       const application = await storage.getApplication(applicationId);
-
+      
       if (!application) {
         return res.status(404).json({ message: "Application not found" });
       }
-
+      
       // Get student profile to access their documents
       const studentProfile = await storage.getStudentProfile(application.studentId);
-
+      
       if (!studentProfile) {
         return res.json([]);
       }
-
+      
       // Get actual profile documents
       const profileDocuments = await storage.getProfileDocuments(studentProfile.id);
-
+      
       // If no documents exist yet, return some sample data for demo purposes
       if (profileDocuments.length === 0) {
         return res.json([
@@ -1049,14 +942,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         ]);
       }
-
+      
       res.json(profileDocuments);
     } catch (error) {
       console.error("Error fetching profile documents:", error);
       res.status(500).json({ message: "Failed to fetch profile documents" });
     }
   });
-
+  
   // Get application notes
   app.get(`${apiPrefix}/applications/:id/notes`, async (req, res) => {
     try {
@@ -1064,7 +957,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(applicationId)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       // For now, returning sample data since we haven't implemented notes yet
       const notes = [
         {
@@ -1082,14 +975,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           isStaff: false
         }
       ];
-
+      
       res.json(notes);
     } catch (error) {
       console.error("Error fetching application notes:", error);
       res.status(500).json({ message: "Failed to fetch application notes" });
     }
   });
-
+  
   // Add application note
   app.post(`${apiPrefix}/applications/:id/notes`, async (req, res) => {
     try {
@@ -1097,9 +990,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(applicationId)) {
         return res.status(400).json({ message: "Invalid application ID" });
       }
-
+      
       const { text, createdAt } = req.body;
-
+      
       // For now, just return success response since we haven't implemented notes storage
       res.status(201).json({
         id: Date.now(),
@@ -1125,7 +1018,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       "educationCountry", "highestEducationLevel", "gradingScheme", "overallGrade",
       "isEnglishFirstLanguage"
     ];
-
+    
     // Count filled required fields
     const filledFields = requiredFields.filter(field => {
       const value = profile[field];
@@ -1134,27 +1027,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       return value !== undefined && value !== null && value !== "";
     });
-
+    
     // Add bonus for schools and tests
     let bonus = 0;
     if (schools.length > 0) bonus += 10;
     if (tests.length > 0) bonus += 5;
-
+    
     // Calculate percentage (base on required fields + bonus)
     let percentage = Math.round((filledFields.length / requiredFields.length) * 100);
-
+    
     // Cap at 100%
     percentage = Math.min(percentage + bonus, 100);
-
+    
     return percentage;
-  }
-
-  // Import and register admin routes
-  try {
-    const { registerAdminRoutes } = await import("./adminRoutes");
-    registerAdminRoutes(app);
-  } catch (error) {
-    console.log("Admin routes not available - continuing without admin functionality");
   }
 
   const httpServer = createServer(app);

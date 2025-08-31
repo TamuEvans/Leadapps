@@ -141,14 +141,14 @@ export default function StudentLogin() {
 
   return (
     <LoginLayout>
-      <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-white">
+      <div className="flex flex-col items-center justify-center min-h-screen py-8">
         <div style={{ width: "500px" }} className="px-4">
           <div className="flex justify-center mb-8">
             <img src={logoImage} alt="LeadApps Logo" className="h-16" />
           </div>
-          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl w-full bg-white">
-            <CardContent className="pt-8 px-12 bg-white">
-              <Tabs defaultValue="login" className="w-full bg-white">
+          <Card className="shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 rounded-xl w-full">
+            <CardContent className="pt-8 px-12">
+              <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-4">
                   <TabsTrigger value="login" className="py-3">Login</TabsTrigger>
                   <TabsTrigger value="register" className="py-3">Register</TabsTrigger>
@@ -162,7 +162,7 @@ export default function StudentLogin() {
                         render={({ field }) => (
                           <FormItem className="w-full">
                             <FormControl>
-                              <Input placeholder="Email" className="h-12 bg-white border-gray-300 text-gray-900" {...field} />
+                              <Input placeholder="Email" className="h-12" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -174,7 +174,7 @@ export default function StudentLogin() {
                         render={({ field }) => (
                           <FormItem className="w-full">
                             <FormControl>
-                              <Input type="password" placeholder="Password" className="h-12 bg-white border-gray-300 text-gray-900" {...field} />
+                              <Input type="password" placeholder="Password" className="h-12" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -212,7 +212,7 @@ export default function StudentLogin() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="First Name" className="bg-white border-gray-300 text-gray-900" {...field} />
+                                <Input placeholder="First Name" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -224,7 +224,7 @@ export default function StudentLogin() {
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
-                                <Input placeholder="Last Name" className="bg-white border-gray-300 text-gray-900" {...field} />
+                                <Input placeholder="Last Name" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -237,7 +237,7 @@ export default function StudentLogin() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Email" className="bg-white border-gray-300 text-gray-900" {...field} />
+                              <Input placeholder="Email" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -249,7 +249,7 @@ export default function StudentLogin() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="password" placeholder="Password" className="bg-white border-gray-300 text-gray-900" {...field} />
+                              <Input type="password" placeholder="Password" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -261,7 +261,7 @@ export default function StudentLogin() {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input type="password" placeholder="Confirm Password" className="bg-white border-gray-300 text-gray-900" {...field} />
+                              <Input type="password" placeholder="Confirm Password" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

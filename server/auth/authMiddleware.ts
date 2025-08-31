@@ -25,20 +25,34 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   }
   
   try {
-    // Import authService dynamically to avoid circular imports
-    const { authService } = await import('../auth');
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as { id: number };
     
-    // Use authService to verify token
-    const user = await authService.verifyToken(token);
+    // Find user in database
+    const user = await storage.getUser(decoded.id);
     
     if (user) {
+      // Check if token is in sessions
+      const session = await storage.getSessionByToken(token);
+      
+      if (!session) {
+        return next();
+      }
+      
+      // Check if session is expired
+      const expiresAt = new Date(session.expiresAt);
+      
+      if (expiresAt < new Date()) {
+        await storage.deleteSession(token);
+        return next();
+      }
+      
       // Attach user and token to request
       req.user = user;
       req.token = token;
     }
   } catch (error) {
-    // Invalid token, clear cookie and continue
-    res.clearCookie('auth_token');
+    // Invalid token, just continue
   }
   
   next();
