@@ -244,7 +244,7 @@ export default function Marketing() {
 
             {/* Right Side - Student Images */}
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <div className="relative w-full max-w-lg h-[26rem]">
+              <div className="relative w-full max-w-2xl h-[26rem]">
                 {/* Student 1 - Orange/Yellow Gradient - Top Left */}
                 <div className="absolute top-0 left-24 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
@@ -258,7 +258,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 2 - Pink/Purple Gradient - Center Right */}
-                <div className="absolute top-12 left-88 group cursor-pointer">
+                <div className="absolute top-12 right-8 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
                   <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
                     <img 
