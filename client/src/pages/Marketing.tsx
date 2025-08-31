@@ -186,12 +186,12 @@ export default function Marketing() {
       <section className="w-full h-screen relative overflow-hidden flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
         {/* Subtle Pattern Background */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-8"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 2px, transparent 2px),
-              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 1px, transparent 1px),
-              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.35) 1.5px, transparent 1.5px)
+              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 2px, transparent 2px),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 1px, transparent 1px),
+              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.25) 1.5px, transparent 1.5px)
             `,
             backgroundSize: '80px 80px, 120px 120px, 60px 60px',
             backgroundPosition: '0 0, 40px 40px, 20px 20px'
@@ -200,12 +200,12 @@ export default function Marketing() {
         
         {/* Circle Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-12"
+          className="absolute inset-0 opacity-6"
           style={{
             backgroundImage: `
-              radial-gradient(circle at center, rgba(255,255,255,0.1) 20px, transparent 21px),
-              radial-gradient(circle at center, rgba(255,255,255,0.08) 15px, transparent 16px),
-              radial-gradient(circle at center, rgba(255,255,255,0.06) 25px, transparent 26px)
+              radial-gradient(circle at center, rgba(255,255,255,0.08) 20px, transparent 21px),
+              radial-gradient(circle at center, rgba(255,255,255,0.06) 15px, transparent 16px),
+              radial-gradient(circle at center, rgba(255,255,255,0.04) 25px, transparent 26px)
             `,
             backgroundSize: '100px 100px, 150px 150px, 200px 200px',
             backgroundPosition: '0 0, 50px 50px, 100px 100px'
@@ -246,7 +246,7 @@ export default function Marketing() {
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
               <div className="relative w-full max-w-lg h-[26rem]">
                 {/* Student 1 - Orange/Yellow Gradient - Top Left */}
-                <div className="absolute top-0 left-8 group cursor-pointer">
+                <div className="absolute top-0 left-16 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                   <div className="relative bg-gradient-to-r from-orange-400 to-yellow-500 p-1 rounded-3xl">
                     <img 
@@ -258,7 +258,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 2 - Pink/Purple Gradient - Center Right */}
-                <div className="absolute top-12 left-72 group cursor-pointer">
+                <div className="absolute top-12 left-80 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
                   <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
                     <img 
@@ -270,7 +270,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 3 - Cyan/Blue Gradient - Bottom Center */}
-                <div className="absolute top-64 left-20 group cursor-pointer">
+                <div className="absolute top-64 left-28 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
                   <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
                     <img 
