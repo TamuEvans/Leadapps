@@ -218,7 +218,7 @@ export default function Marketing() {
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
               <div className="relative w-full max-w-lg h-[26rem]">
                 {/* Student 1 - Orange/Yellow Gradient - Top Left */}
-                <div className="absolute top-0 left-4 group cursor-pointer">
+                <div className="absolute top-0 left-8 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                   <div className="relative bg-gradient-to-r from-orange-400 to-yellow-500 p-1 rounded-3xl">
                     <img 
@@ -230,7 +230,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 2 - Pink/Purple Gradient - Center Right */}
-                <div className="absolute top-12 right-0 group cursor-pointer">
+                <div className="absolute top-12 left-72 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
                   <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
                     <img 
@@ -242,7 +242,7 @@ export default function Marketing() {
                 </div>
 
                 {/* Student 3 - Cyan/Blue Gradient - Bottom Center */}
-                <div className="absolute top-64 left-16 group cursor-pointer">
+                <div className="absolute top-64 left-20 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
                   <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
                     <img 
