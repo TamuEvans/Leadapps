@@ -100,7 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } else {
       // Excel file
       try {
-        const XLSX = await import("xlsx");
+        const XLSX = await import("xlsx") as any;
         const workbook = XLSX.readFile(filePath);
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
@@ -210,7 +210,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           processedData.push(program);
         } catch (error) {
-          errors.push(`Row ${i + 1}: ${error.message}`);
+          errors.push(`Row ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
       }
 
@@ -273,7 +273,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           processedData.push(application);
         } catch (error) {
-          errors.push(`Row ${i + 1}: ${error.message}`);
+          errors.push(`Row ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
       }
 
@@ -633,7 +633,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (university) {
             application.universityName = university.name;
             application.universityLocation = university.country;
-            application.universityLogo = university.logoUrl;
+            application.universityLogo = university.logoUrl || undefined;
           }
         }
       }
@@ -681,7 +681,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             enhancedApp.programName = program.name;
             enhancedApp.universityName = university?.name || "Unknown University";
             enhancedApp.universityLocation = university ? `${university.city}, ${university.country}` : "Unknown";
-            enhancedApp.universityLogo = university?.logoUrl || null;
+            enhancedApp.universityLogo = university?.logoUrl || undefined;
             
             return enhancedApp;
           }
