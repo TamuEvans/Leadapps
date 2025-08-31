@@ -47,6 +47,7 @@ const limiter = rateLimit({
   message: { error: "Too many requests, please try again later." },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: true,
 });
 
 const authLimiter = rateLimit({
@@ -55,6 +56,7 @@ const authLimiter = rateLimit({
   message: { error: "Too many authentication attempts, please try again later." },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: true,
 });
 
 const speedLimiter = slowDown({
@@ -62,6 +64,7 @@ const speedLimiter = slowDown({
   delayAfter: 50, // allow 50 requests per 15 minutes, then...
   delayMs: () => 500, // begin adding 500ms of delay per request above 50
   maxDelayMs: 20000, // maximum delay of 20 seconds
+  trustProxy: true,
 });
 
 app.use('/api', limiter);
@@ -70,9 +73,6 @@ app.use('/api/auth', authLimiter);
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
-
-// Serve attached assets statically
-app.use('/attached_assets', express.static('attached_assets'));
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -114,40 +114,10 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development" && !process.env.REPLIT_DEPLOYMENT) {
+  if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    // Custom static serving for production deployment
-    const path = await import("path");
-    const fs = await import("fs");
-    
-    // Use deployment-specific path resolution
-    // If already in dist directory, use relative path; otherwise absolute
-    const distPath = process.cwd().endsWith('dist') 
-      ? path.resolve(process.cwd(), "server", "public")
-      : path.resolve(process.cwd(), "dist", "server", "public");
-    
-    console.log(`[production] Looking for static files at: ${distPath}`);
-    console.log(`[production] Files exist: ${fs.existsSync(distPath)}`);
-    
-    if (fs.existsSync(distPath)) {
-      app.use(express.static(distPath));
-      app.use("*", (_req, res) => {
-        res.sendFile(path.resolve(distPath, "index.html"));
-      });
-      console.log(`[production] Static files served from: ${distPath}`);
-    } else {
-      console.error(`[production] Static directory not found at: ${distPath}`);
-      try {
-        console.error(`[production] Available files in dist/:`, fs.readdirSync("dist"));
-        console.error(`[production] Available files in dist/server/:`, fs.readdirSync("dist/server"));
-      } catch (e) {
-        console.error(`[production] Error reading directories:`, e);
-      }
-      
-      // Fallback to original serveStatic
-      serveStatic(app);
-    }
+    serveStatic(app);
   }
 
   // Import and setup error handling
@@ -163,7 +133,7 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = process.env.PORT ? parseInt(process.env.PORT) : 5000;
+  const port = 5000;
   server.listen({
     port,
     host: "0.0.0.0",

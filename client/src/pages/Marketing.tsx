@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -42,24 +42,41 @@ import {
   Brain,
   DollarSign,
   MessageCircle,
-
+  File,
   Clock
 } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
-
+import logoImage from '../assets/logo.png';
+import backgroundVideo from '@assets/Video_Ready_Students_Walking.mp4';
 
 // University logos
+import uccLogo from '../assets/logos/ucc.jpg';
+import utechLogo from '../assets/logos/utech.jpg';
+import humberLogo from '../assets/logos/humber.gif';
+import saitLogo from '../assets/logos/sait.png';
+import sguLogo from '../assets/logos/sgu.jpg';
+import usfLogo from '../assets/logos/usf.png';
+import uwiLogo from '../assets/logos/uwi.png';
 
-
-
+// Define university logo array for easier mapping
+const universityLogos = [
+  { src: uwiLogo, alt: "University of West Indies", height: "h-16" },
+  { src: uccLogo, alt: "University of the Commonwealth Caribbean", height: "h-16" },
+  { src: utechLogo, alt: "University of Technology, Jamaica", height: "h-20" },
+  { src: sguLogo, alt: "St. George's University", height: "h-6" },
+  { src: humberLogo, alt: "Humber College", height: "h-16" },
+  { src: saitLogo, alt: "SAIT", height: "h-16" },
+  { src: usfLogo, alt: "University of South Florida", height: "h-16" },
+];
 
 export default function Marketing() {
   // Auth status
   const { isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   
-
+  // Video reference for optimization
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   // State for search form inputs
   const [programSearch, setProgramSearch] = useState('');
@@ -90,7 +107,38 @@ export default function Marketing() {
     }
   };
   
-
+  useEffect(() => {
+    // Optimize video playback
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      
+      // Stop video after 8 seconds
+      const stopAfter8Seconds = () => {
+        setTimeout(() => {
+          if (videoElement && !videoElement.paused) {
+            videoElement.pause();
+          }
+        }, 8000); // 8 seconds
+      };
+      
+      // Start the timer when video begins playing
+      videoElement.addEventListener('play', stopAfter8Seconds);
+      
+      // Also handle if video ends naturally before 8 seconds
+      const handleVideoEnd = () => {
+        videoElement.pause();
+      };
+      
+      videoElement.addEventListener('ended', handleVideoEnd);
+      
+      return () => {
+        videoElement.removeEventListener('play', stopAfter8Seconds);
+        videoElement.removeEventListener('ended', handleVideoEnd);
+      };
+    }
+  }, []);
 
   // Popular programs data with icons
   const popularPrograms = [
@@ -167,93 +215,47 @@ export default function Marketing() {
   return (
     <MarketingLayout>
       {/* Hero Section */}
-      <section className="w-full min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 relative overflow-hidden flex items-center">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}></div>
+      <section className="w-full h-screen bg-black relative overflow-hidden flex items-center">
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-purple-100/20 z-10"></div>
+          <video 
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ objectPosition: 'center center' }}
+            autoPlay 
+            muted 
+            playsInline
+            poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-screen py-12">
-          {/* Left Side - Content */}
-          <div className="flex flex-col justify-center order-2 lg:order-1">
-            <div className="space-y-6">
-              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl text-white modern-heading drop-shadow-lg">
-                study made<br className="block sm:hidden" /><span className="block sm:inline-block sm:ml-4">simple.</span>
-              </h1>
-              <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
-                Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/app">
-                  <Button className="px-8 py-4 text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300 bg-white text-purple-600 hover:bg-gray-50">
-                    Get Started
-                  </Button>
-                </Link>
-                <Button variant="outline" className="px-8 py-4 text-base font-medium border-2 border-white text-white bg-transparent hover:bg-white hover:text-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Learn More
-                </Button>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col h-full">
+          <div className="flex flex-col justify-center h-full">
+            <div className="flex flex-col items-start text-left ml-0 md:ml-4 lg:ml-8 max-w-xl">
+              <div className="space-y-6 mb-6">
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
+                  study made simple.
+                </h1>
+                <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
+                  Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to="/app">
+                    <Button className="px-6 py-3 text-sm md:text-base font-medium shadow-md">
+                      Get Started
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="px-6 py-3 text-sm md:text-base font-medium bg-white/50 text-gray-800">Learn More</Button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Student Images */}
-          <div className="flex justify-center items-center order-1 lg:order-2">
-            <div className="relative w-full max-w-lg">
-              {/* Three students arranged in a responsive layout */}
-              <div className="grid grid-cols-2 gap-4 md:gap-6">
-                {/* Student 1 - Top Left */}
-                <div className="relative">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-cyan-400 via-blue-400 to-indigo-600 p-2 shadow-2xl transform rotate-3 hover:rotate-6 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
-                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
-                      <img 
-                        src="/assets/students/student1.png"
-                        alt="Happy student with yellow sweatshirt and backpack"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-
-                </div>
-
-                {/* Student 2 - Top Right */}
-<div className="relative mt-2 sm:mt-4">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 rounded-3xl bg-gradient-to-br from-pink-400 via-purple-400 to-violet-600 p-2 shadow-2xl transform -rotate-2 hover:-rotate-6 transition-all duration-300 hover:shadow-3xl border-2 border-white/30">
-                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
-                      <img 
-                        src="/assets/students/student2.png"
-                        alt="Smiling female student with backpack"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Student 3 - Bottom Center */}
-                <div className="relative col-span-2 flex justify-center mt-4 sm:mt-6">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-3xl bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 p-2 shadow-2xl transform rotate-1 hover:rotate-3 transition-all duration-300 hover:shadow-3xl border-2 border-white/30 relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none">
-                    <div className="w-full h-full rounded-2xl overflow-hidden relative z-10">
-                      <img 
-                        src="/assets/students/student3.png"
-                        alt="Medical student with scrubs and books"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Background decorative elements */}
-
-            </div>
-          </div>
-        
-        {/* Search Section */}
-        <div className="absolute bottom-8 left-0 right-0 mx-auto z-20">
+          <div className="absolute bottom-8 left-0 right-0 mx-auto">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 max-w-5xl mx-auto px-5 py-4">
               <form onSubmit={handleSearch}>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
@@ -312,16 +314,7 @@ export default function Marketing() {
           <div className="logo-marquee">
             <div className="logo-track">
               {/* First set of logos */}
-              {/* University logos */}
-              {[
-                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
-                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
-                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
-                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
-                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
-              ].map((logo, index) => (
+              {universityLogos.map((logo, index) => (
                 <div key={`logo-1-${index}`} className="logo-item">
                   <img 
                     src={logo.src} 
@@ -331,16 +324,8 @@ export default function Marketing() {
                 </div>
               ))}
               
-              {/* Duplicate set for continuous scrolling */}
-              {[
-                { src: "/attached_assets/UWI_crest_and_word_300px_185577544cf12bf3bfc1910be478ef69.png", alt: "University of West Indies", height: "h-16" },
-                { src: "/attached_assets/NEW_UCC_logo.jpg", alt: "University of the Commonwealth Caribbean", height: "h-16" },
-                { src: "/attached_assets/utech_web.jpg", alt: "University of Technology, Jamaica", height: "h-20" },
-                { src: "/attached_assets/sgu-logo-grenada-horizontal-color_orig.jpg", alt: "St. George's University", height: "h-12" },
-                { src: "/attached_assets/humber-2col-cen_orig.gif", alt: "Humber College", height: "h-16" },
-                { src: "/attached_assets/sait.png", alt: "SAIT", height: "h-16" },
-                { src: "/attached_assets/usf-logo_orig.png", alt: "University of South Florida", height: "h-16" },
-              ].map((logo, index) => (
+              {/* Duplicate set of logos for continuous scrolling */}
+              {universityLogos.map((logo, index) => (
                 <div key={`logo-2-${index}`} className="logo-item">
                   <img 
                     src={logo.src} 

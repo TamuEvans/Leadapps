@@ -1,6 +1,9 @@
 import { Route, Switch } from "wouter";
+import { useEffect } from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
+import usePathname from "@/hooks/use-pathname";
 import MainLayout from "./layouts/MainLayout";
 import NotFound from "@/pages/not-found";
 import Marketing from "@/pages/Marketing";
@@ -14,11 +17,16 @@ import PersonalityAssessment from "@/pages/PersonalityAssessment";
 import PersonalityResults from "@/pages/PersonalityResults";
 import Counselling from "@/pages/Counselling";
 import Articles from "@/pages/Articles";
+import AboutUs from "@/pages/AboutUs";
+import InfoCentre from "@/pages/InfoCentre";
 import FairsEvents from "@/pages/FairsEvents";
+import StudyLocation from "@/pages/StudyLocation";
 import ServicePage from "@/pages/ServicePage";
 import AppHome from "@/pages/AppHome";
 import FundingHub from "@/pages/FundingHub";
 import ExamPrepHub from "@/pages/ExamPrepHub";
+import CSECEnglish from "@/pages/CSECEnglish";
+import CSECSubjects from "@/pages/CSECSubjects";
 import StudyGroups from "@/pages/StudyGroups";
 import CSHub from "@/pages/CSHub";
 import UniversitySearchPage from "@/pages/UniversitySearchPage";
@@ -32,6 +40,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { useLocation } from "wouter";
 
 // Direct imports for Home and other pages
+import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
@@ -43,6 +52,7 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
+import Login from "@/pages/Login";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -59,7 +69,7 @@ function AppContent() {
     <>
       <Switch>
         {/* Static marketing pages */}
-        <Route path="/" component={Marketing} />
+        <Route path="/" exact component={Marketing} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />

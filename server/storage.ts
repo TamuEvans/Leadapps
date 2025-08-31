@@ -44,8 +44,8 @@ export interface IStorage {
   updateUser(id: number, user: Partial<InsertUser>): Promise<User>;
   
   // Session operations
-  createSession(userId: number, token: string, expiresAt: Date): Promise<Session>;
-  getSessionByToken(token: string): Promise<Session | null>;
+  createSession(userId: number, token: string, expiresAt: Date): Promise<void>;
+  getSessionByToken(token: string): Promise<any | undefined>;
   deleteSession(token: string): Promise<void>;
   
   // Password reset operations
@@ -612,7 +612,24 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  // Session operations are implemented below with the actual database methods
+  // Session operations
+  async createSession(userId: number, token: string, expiresAt: Date): Promise<void> {
+    // This would typically be implemented with a separate sessions table
+    // For now, just log the action
+    console.log(`Creating session for user ${userId} with token ${token} expiring at ${expiresAt}`);
+  }
+
+  async getSessionByToken(token: string): Promise<any | undefined> {
+    // This would typically be implemented with a separate sessions table
+    // For now, return undefined
+    return undefined;
+  }
+
+  async deleteSession(token: string): Promise<void> {
+    // This would typically be implemented with a separate sessions table
+    // For now, just log the action
+    console.log(`Deleting session with token ${token}`);
+  }
 
   // Student profile operations
   async getStudentProfile(id: number): Promise<StudentProfile | undefined> {
