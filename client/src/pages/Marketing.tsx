@@ -186,30 +186,30 @@ export default function Marketing() {
       <section className="w-full h-screen relative overflow-hidden flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
         {/* Subtle Pattern Background */}
         <div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 1px, transparent 1px),
-              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 1px, transparent 1px),
-              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.15) 1px, transparent 1px)
+              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 2px, transparent 2px),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 1px, transparent 1px),
+              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.35) 1.5px, transparent 1.5px)
             `,
-            backgroundSize: '60px 60px, 80px 80px, 40px 40px',
-            backgroundPosition: '0 0, 30px 30px, 10px 10px'
+            backgroundSize: '80px 80px, 120px 120px, 60px 60px',
+            backgroundPosition: '0 0, 40px 40px, 20px 20px'
           }}
         ></div>
         
         {/* Geometric Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-15"
           style={{
             backgroundImage: `
-              linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
-              linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
-              linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
-              linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%)
+              linear-gradient(30deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
+              linear-gradient(150deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
+              linear-gradient(30deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
+              linear-gradient(150deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15))
             `,
-            backgroundSize: '120px 120px',
-            backgroundPosition: '0 0, 0 60px, 60px -60px, -60px 0px'
+            backgroundSize: '80px 140px',
+            backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px'
           }}
         ></div>
 
