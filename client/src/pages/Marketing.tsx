@@ -186,29 +186,29 @@ export default function Marketing() {
       <section className="w-full h-screen relative overflow-hidden flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
         {/* Subtle Pattern Background */}
         <div 
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6) 1px, transparent 1px),
-              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.4) 1px, transparent 1px),
-              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.5) 1px, transparent 1px)
+              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.5) 1px, transparent 1px),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 1px, transparent 1px),
+              radial-gradient(circle at 40% 40%, rgba(255,255,255,0.4) 1px, transparent 1px)
             `,
-            backgroundSize: '120px 120px, 160px 160px, 90px 90px',
-            backgroundPosition: '0 0, 60px 60px, 30px 30px'
+            backgroundSize: '100px 100px, 140px 140px, 80px 80px',
+            backgroundPosition: '0 0, 50px 50px, 25px 25px'
           }}
         ></div>
         
         {/* Circle Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage: `
-              radial-gradient(circle at center, rgba(255,255,255,0.8) 15px, transparent 16px),
-              radial-gradient(circle at center, rgba(255,255,255,0.6) 10px, transparent 11px),
-              radial-gradient(circle at center, rgba(255,255,255,0.4) 20px, transparent 21px)
+              radial-gradient(circle at center, rgba(255,255,255,0.4) 18px, transparent 19px),
+              radial-gradient(circle at center, rgba(255,255,255,0.3) 12px, transparent 13px),
+              radial-gradient(circle at center, rgba(255,255,255,0.2) 24px, transparent 25px)
             `,
-            backgroundSize: '140px 140px, 200px 200px, 280px 280px',
-            backgroundPosition: '0 0, 70px 70px, 140px 140px'
+            backgroundSize: '120px 120px, 180px 180px, 240px 240px',
+            backgroundPosition: '0 0, 60px 60px, 120px 120px'
           }}
         ></div>
 
