@@ -52,7 +52,7 @@ const MarketingHeader = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="flex items-center flex-shrink-0 mr-4">
-            <img src={logoImage} alt="Leadapps Logo" className="h-10 w-auto" />
+            <img src={logoImage} alt="Leadapps Logo" className="h-12 w-auto" />
           </Link>
           
           {/* Mobile menu button */}
@@ -141,7 +141,7 @@ const MarketingHeader = () => {
           <div className="flex flex-col h-full">
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-blue-600 text-white">
-              <img src={logoImage} alt="Leadapps Logo" className="h-8 w-auto" />
+              <img src={logoImage} alt="Leadapps Logo" className="h-10 w-auto" />
               <button 
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 hover:bg-blue-700 rounded-md"
