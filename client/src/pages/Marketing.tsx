@@ -225,10 +225,10 @@ export default function Marketing() {
             {/* Left Content */}
             <div className="flex flex-col items-start text-left lg:w-1/2 max-w-xl">
               <div className="space-y-6 mb-6">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white modern-heading drop-shadow-lg">
+                <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white modern-heading drop-shadow-lg">
                   study made simple.
                 </h1>
-                <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
+                <p className="text-white text-base sm:text-lg md:text-xl font-medium drop-shadow-md max-w-2xl">
                   Discover, apply and enroll in universities locally and internationally. Get personalized guidance from our expert counselors.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -244,39 +244,39 @@ export default function Marketing() {
 
             {/* Right Side - Student Images */}
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <div className="relative w-full max-w-2xl h-[26rem]">
+              <div className="relative w-full max-w-2xl h-[20rem] sm:h-[24rem] lg:h-[26rem]">
                 {/* Student 1 - Orange/Yellow Gradient - Top Left */}
-                <div className="absolute top-0 left-36 group cursor-pointer">
+                <div className="absolute top-0 left-4 sm:left-12 lg:left-36 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                   <div className="relative bg-gradient-to-r from-orange-400 to-yellow-500 p-1 rounded-3xl">
                     <img 
                       src={student1Image} 
                       alt="Student with backpack" 
-                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 ease-out"
+                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
 
                 {/* Student 2 - Pink/Purple Gradient - Center Right */}
-                <div className="absolute top-12 right-4 group cursor-pointer">
+                <div className="absolute top-8 sm:top-12 right-0 sm:right-2 lg:right-4 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
                   <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
                     <img 
                       src={student2Image} 
                       alt="Confident student" 
-                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-3 group-hover:-rotate-2 transition-all duration-500 ease-out"
+                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-3 group-hover:-rotate-2 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
 
                 {/* Student 3 - Cyan/Blue Gradient - Bottom Center */}
-                <div className="absolute top-64 left-48 group cursor-pointer">
+                <div className="absolute top-48 sm:top-56 lg:top-64 left-16 sm:left-28 lg:left-48 group cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
                   <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
                     <img 
                       src={student3Image} 
                       alt="Medical student" 
-                      className="w-52 h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-2 transition-all duration-500 ease-out"
+                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-2 transition-all duration-500 ease-out"
                     />
                   </div>
                 </div>
@@ -372,7 +372,7 @@ export default function Marketing() {
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-center mb-8">Simply one platform</h2>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-5 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto">
             {[
               { image: "/images/students/student1.png", title: "Career Guidance" },
               { image: "/images/students/student2.png", title: "Programme Search" },
@@ -389,7 +389,7 @@ export default function Marketing() {
                     className={`absolute inset-0 w-full h-full object-cover transform ${service.extraScale ? 'scale-125 group-hover:scale-[1.3]' : 'scale-110 group-hover:scale-[1.15]'} transition-transform duration-300`} 
                   />
                 </div>
-                <p className="text-center font-medium text-gray-800 text-sm mt-3">{service.title}</p>
+                <p className="text-center font-medium text-gray-800 text-xs sm:text-sm mt-2 sm:mt-3">{service.title}</p>
               </div>
             ))}
           </div>
@@ -402,53 +402,53 @@ export default function Marketing() {
               <div className="absolute left-1/2 top-12 bottom-12 w-1 -ml-0.5 bg-gradient-to-b from-purple-400 via-blue-500 to-green-400"></div>
               
               {/* Process Steps */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative">
                 {/* Step 1: Personality Hub */}
-                <div className="md:col-start-1 flex items-center justify-end">
-                  <div className="bg-purple-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-purple-200 transition-all duration-300 cursor-pointer group">
+                <div className="md:col-start-1 flex items-center justify-center md:justify-end">
+                  <div className="bg-purple-100 rounded-xl p-4 md:p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-purple-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
                       <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-pulse group-hover:bg-purple-600 transition-colors">
                         <Brain className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
                       <h4 className="font-bold text-purple-700 group-hover:text-purple-800">Personality Hub</h4>
                     </div>
-                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Discover your strengths and ideal career path through our personality assessment tools.</p>
+                    <p className="text-xs md:text-sm text-gray-700 group-hover:text-gray-800">Discover your strengths and ideal career path through our personality assessment tools.</p>
                   </div>
                 </div>
                 <div className="hidden md:block"></div>
                 
                 {/* Step 2: Exam Prep Hub */}
                 <div className="hidden md:block"></div>
-                <div className="md:col-start-2 flex items-center justify-start">
-                  <div className="bg-blue-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-blue-200 transition-all duration-300 cursor-pointer group">
+                <div className="md:col-start-2 flex items-center justify-center md:justify-start">
+                  <div className="bg-blue-100 rounded-xl p-4 md:p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-blue-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-bounce group-hover:bg-blue-600 transition-colors">
                         <BookOpen className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
                       <h4 className="font-bold text-blue-700 group-hover:text-blue-800">Exam Prep Hub</h4>
                     </div>
-                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Prepare for your exams with our resources and join study groups with like-minded students.</p>
+                    <p className="text-xs md:text-sm text-gray-700 group-hover:text-gray-800">Prepare for your exams with our resources and join study groups with like-minded students.</p>
                   </div>
                 </div>
                 
                 {/* Step 3: University Search */}
-                <div className="md:col-start-1 flex items-center justify-end">
-                  <div className="bg-indigo-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-indigo-200 transition-all duration-300 cursor-pointer group">
+                <div className="md:col-start-1 flex items-center justify-center md:justify-end">
+                  <div className="bg-indigo-100 rounded-xl p-4 md:p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-indigo-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
                       <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-spin group-hover:bg-indigo-600 transition-colors">
                         <Globe className="h-5 w-5 group-hover:scale-110 transition-transform" />
                       </div>
                       <h4 className="font-bold text-indigo-700 group-hover:text-indigo-800">University Search</h4>
                     </div>
-                    <p className="text-sm text-gray-700 group-hover:text-gray-800">Find your perfect university match based on your personality and academic strengths.</p>
+                    <p className="text-xs md:text-sm text-gray-700 group-hover:text-gray-800">Find your perfect university match based on your personality and academic strengths.</p>
                   </div>
                 </div>
                 <div className="hidden md:block"></div>
                 
                 {/* Step 4: Funding Hub */}
                 <div className="hidden md:block"></div>
-                <div className="md:col-start-2 flex items-center justify-start">
-                  <div className="bg-green-100 rounded-xl p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-green-200 transition-all duration-300 cursor-pointer group">
+                <div className="md:col-start-2 flex items-center justify-center md:justify-start">
+                  <div className="bg-green-100 rounded-xl p-4 md:p-5 shadow-md w-full md:w-4/5 hover:shadow-2xl hover:scale-105 hover:bg-green-200 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center mb-2">
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:animate-pulse group-hover:bg-green-600 transition-colors">
                         <DollarSign className="h-5 w-5 group-hover:scale-110 transition-transform" />
@@ -496,17 +496,17 @@ export default function Marketing() {
       <PopularDestinations />
 
       {/* Popular Programs Section */}
-      <section className="w-full py-12 bg-white">
+      <section className="w-full py-8 sm:py-10 lg:py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Popular Programs</h2>
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 lg:mb-8">Popular Programs</h2>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
             {popularPrograms.map((program, index) => {
               const Icon = program.icon;
               return (
                 <Button
                   key={index}
                   variant="outline"
-                  className={`${program.color} h-auto py-3 px-4 border-2 border-opacity-50 hover:opacity-90 transition-all group`}
+                  className={`${program.color} h-auto py-2 sm:py-3 px-3 sm:px-4 border-2 border-opacity-50 hover:opacity-90 transition-all group text-xs sm:text-sm`}
                   onClick={() => {
                     // Build query string
                     const queryParams = new URLSearchParams();
@@ -523,8 +523,8 @@ export default function Marketing() {
                     }
                   }}
                 >
-                  <Icon className="h-5 w-5 mr-2" />
-                  <span className="text-sm font-medium">{program.name}</span>
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                  <span className="font-medium">{program.name}</span>
                 </Button>
               );
             })}
@@ -550,24 +550,24 @@ export default function Marketing() {
       </section>
 
       {/* Support Services Section */}
-      <section className="w-full py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
+      <section className="w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Support Services</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Support Services</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base">
               Our comprehensive support services are designed to help you navigate every step of your educational journey.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
             {/* Study Counselling */}
-            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <MessageCircle className="h-8 w-8 text-blue-600" />
+            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col items-center text-center">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                <MessageCircle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Study Counselling</h3>
-              <p className="text-gray-600 text-sm mb-4">Connect with expert counselors who specialize in guiding students through the application process.</p>
-              <Button variant="outline" className="mt-auto text-blue-600 border-blue-200 hover:bg-blue-50">
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Study Counselling</h3>
+              <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Connect with expert counselors who specialize in guiding students through the application process.</p>
+              <Button variant="outline" className="mt-auto text-blue-600 border-blue-200 hover:bg-blue-50 text-sm">
                 Learn More <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -627,23 +627,23 @@ export default function Marketing() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="w-full py-12 bg-white">
+      <section className="w-full py-8 sm:py-10 lg:py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">What they say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 lg:mb-8">What they say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((testimonial, index) => (
               <Card key={index}>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-gray-200">
                       <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
                     </div>
                     <div>
-                      <h3 className="font-bold">{testimonial.name}</h3>
-                      <p className="text-sm text-gray-600">{testimonial.country}</p>
+                      <h3 className="font-bold text-sm sm:text-base">{testimonial.name}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600">{testimonial.country}</p>
                     </div>
                   </div>
-                  <p className="italic text-gray-700">"{testimonial.text}"</p>
+                  <p className="italic text-gray-700 text-sm sm:text-base">"{testimonial.text}"</p>
                 </CardContent>
               </Card>
             ))}
@@ -652,10 +652,10 @@ export default function Marketing() {
       </section>
 
       {/* Information Center Section */}
-      <section className="w-full py-12 bg-gray-50">
+      <section className="w-full py-8 sm:py-10 lg:py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Information Centre</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 lg:mb-8">Information Centre</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               { 
                 title: "UK University Application Guide 2025", 
@@ -680,18 +680,18 @@ export default function Marketing() {
               }
             ].map((item, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 overflow-hidden">
+                <div className="h-40 sm:h-48 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                 </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-                    <Clock className="h-4 w-4 mr-1" />
-                    <span className="mr-4">{item.readTime}</span>
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-2">
+                    <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                    <span className="mr-3 sm:mr-4">{item.readTime}</span>
                     <span>{item.date}</span>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 line-clamp-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
-                  <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800">
+                  <h3 className="font-bold text-base sm:text-lg mb-2 line-clamp-2">{item.title}</h3>
+                  <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-3">{item.description}</p>
+                  <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800 text-sm">
                     Read More <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
                 </CardContent>
@@ -702,28 +702,28 @@ export default function Marketing() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full py-12 bg-white">
+      <section className="w-full py-8 sm:py-10 lg:py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 items-center">
             <div>
               <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Beautiful university campus" className="rounded-lg shadow-lg w-full" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">We Solve Your Problems!</h2>
-              <div className="space-y-4">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">We Solve Your Problems!</h2>
+              <div className="space-y-3 sm:space-y-4">
                 {[
                   { title: "Personalized Guidance", description: "Get tailored advice from experienced counselors" },
                   { title: "Simplified Process", description: "Navigate admissions with our easy-to-use platform" },
                   { title: "Timely Updates", description: "Stay informed about application status and deadlines" },
                   { title: "Ongoing Support", description: "From application to arrival, we're with you every step" }
                 ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-2">
-                    <div className="bg-blue-100 rounded-full p-1 flex items-center justify-center">
-                      <div className="bg-blue-600 rounded-full w-4 h-4"></div>
+                  <div key={index} className="flex items-start gap-2 sm:gap-3">
+                    <div className="bg-blue-100 rounded-full p-1 flex items-center justify-center mt-0.5">
+                      <div className="bg-blue-600 rounded-full w-3 h-3 sm:w-4 sm:h-4"></div>
                     </div>
                     <div>
-                      <h3 className="font-medium">{item.title}</h3>
-                      <p className="text-gray-600">{item.description}</p>
+                      <h3 className="font-medium text-sm sm:text-base">{item.title}</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -734,16 +734,16 @@ export default function Marketing() {
       </section>
 
       {/* Complete Lead Ecosystem Section */}
-      <section className="w-full py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <section className="w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Complete Lead Ecosystem Integration</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Complete Lead Ecosystem Integration</h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
               LeadApps seamlessly connects with the entire Lead platform ecosystem to provide comprehensive student lifecycle management and optimization.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {/* LeadGen Card */}
             <Card className="relative overflow-hidden border-4 border-purple-500 shadow-lg bg-white flex flex-col">
               <CardContent className="p-8 flex-1 flex flex-col">
@@ -901,16 +901,16 @@ export default function Marketing() {
           </div>
 
           {/* Integration Flow */}
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold mb-8">Seamless Integration Flow</h3>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-4xl mx-auto">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center">
-                  <Target className="h-8 w-8 text-white" />
+          <div className="mt-8 sm:mt-12 lg:mt-16 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold mb-6 lg:mb-8">Seamless Integration Flow</h3>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 lg:gap-8 max-w-4xl mx-auto">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-xl flex items-center justify-center">
+                  <Target className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-bold">Lead Generation</h4>
-                  <p className="text-gray-600 text-sm">Attract prospects</p>
+                  <h4 className="font-bold text-sm sm:text-base">Lead Generation</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">Attract prospects</p>
                 </div>
               </div>
               
@@ -953,20 +953,20 @@ export default function Marketing() {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full py-12 bg-gray-50">
+      <section className="w-full py-8 sm:py-10 lg:py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-bold text-center mb-8">Questions?</h2>
-          <div className="max-w-3xl mx-auto space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 lg:mb-8">Questions?</h2>
+          <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
             {faqItems.map((item, index) => (
               <Card key={index} className="overflow-hidden border border-gray-100">
                 <div 
-                  className="p-4 cursor-pointer hover:bg-gray-50 flex justify-between items-center"
+                  className="p-3 sm:p-4 cursor-pointer hover:bg-gray-50 flex justify-between items-center"
                   onClick={() => toggleFaq(index)}
                 >
-                  <h3 className="font-medium flex items-center gap-2">
+                  <h3 className="font-medium flex items-center gap-2 text-sm sm:text-base pr-2">
                     <span className="text-blue-600">{index + 1}.</span> {item.question}
                   </h3>
-                  <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-all duration-200">
+                  <button className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-all duration-200 flex-shrink-0">
                     {expandedFaqs.includes(index) ? <Minus size={15} /> : <Plus size={15} />}
                   </button>
                 </div>
@@ -975,10 +975,10 @@ export default function Marketing() {
                   style={{ 
                     maxHeight: expandedFaqs.includes(index) ? '200px' : '0',
                     opacity: expandedFaqs.includes(index) ? 1 : 0,
-                    padding: expandedFaqs.includes(index) ? '0 16px 16px 16px' : '0 16px'
+                    padding: expandedFaqs.includes(index) ? '0 12px 12px 12px' : '0 12px'
                   }}
                 >
-                  <p className="text-gray-600">{item.answer}</p>
+                  <p className="text-gray-600 text-sm sm:text-base">{item.answer}</p>
                 </div>
               </Card>
             ))}
