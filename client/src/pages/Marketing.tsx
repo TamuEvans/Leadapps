@@ -198,18 +198,17 @@ export default function Marketing() {
           }}
         ></div>
         
-        {/* Geometric Pattern Overlay */}
+        {/* Circle Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-15"
+          className="absolute inset-0 opacity-12"
           style={{
             backgroundImage: `
-              linear-gradient(30deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
-              linear-gradient(150deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
-              linear-gradient(30deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15)),
-              linear-gradient(150deg, rgba(255,255,255,0.15) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.15) 87.5%, rgba(255,255,255,0.15))
+              radial-gradient(circle at center, rgba(255,255,255,0.1) 20px, transparent 21px),
+              radial-gradient(circle at center, rgba(255,255,255,0.08) 15px, transparent 16px),
+              radial-gradient(circle at center, rgba(255,255,255,0.06) 25px, transparent 26px)
             `,
-            backgroundSize: '80px 140px',
-            backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px'
+            backgroundSize: '100px 100px, 150px 150px, 200px 200px',
+            backgroundPosition: '0 0, 50px 50px, 100px 100px'
           }}
         ></div>
 
