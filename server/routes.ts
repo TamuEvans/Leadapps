@@ -13,7 +13,7 @@ import authRoutes from './auth/authRoutes';
 import personalityAssessmentRouter from './api/personalityAssessment';
 import programRecommendationsRouter from './api/programRecommendations';
 import multer from "multer";
-import * as XLSX from "xlsx";
+// Optional import for xlsx package - will be loaded dynamically when needed
 import csv from "csv-parser";
 import fs from "fs";
 
@@ -99,12 +99,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } else {
       // Excel file
-      const workbook = XLSX.readFile(filePath);
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const data = XLSX.utils.sheet_to_json(worksheet);
-      fs.unlinkSync(filePath); // Clean up temp file
-      return data;
+      try {
+        const XLSX = await import("xlsx");
+        const workbook = XLSX.readFile(filePath);
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet);
+        fs.unlinkSync(filePath); // Clean up temp file
+        return data;
+      } catch (error) {
+        fs.unlinkSync(filePath); // Clean up temp file
+        throw new Error('Excel file support is not available. Please use CSV files instead.');
+      }
     }
   };
 
