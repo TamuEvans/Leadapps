@@ -4,7 +4,7 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["python3", "gcc", "gnumake", "pkg-config"]
+packages = ["python3", "gcc", "gnumake", "pkg-config", "libtool", "automake", "autoconf"]
 
 [deployment]
 deploymentTarget = "autoscale"
