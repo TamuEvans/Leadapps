@@ -26,6 +26,9 @@ cat > dist/package.json << 'EOF'
   "version": "1.0.0",
   "type": "module",
   "main": "server/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server/index.js"
   }
