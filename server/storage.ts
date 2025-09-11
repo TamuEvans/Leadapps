@@ -794,21 +794,22 @@ export class DatabaseStorage implements IStorage {
     }
     
     // Execute query with conditions if any exist
+    // Priority ordering: UTech (ID 4), UWI (ID 5), Valencia College (ID 6) first
     if (conditions.length > 0) {
       return db
         .select()
         .from(universities)
         .where(and(...conditions))
+        .orderBy(sql`CASE WHEN ${universities.id} IN (4,5,6) THEN 0 ELSE 1 END`, universities.name, universities.id)
         .limit(limit)
-        .offset(offset)
-        .orderBy(universities.name);
+        .offset(offset);
     } else {
       return db
         .select()
         .from(universities)
+        .orderBy(sql`CASE WHEN ${universities.id} IN (4,5,6) THEN 0 ELSE 1 END`, universities.name, universities.id)
         .limit(limit)
-        .offset(offset)
-        .orderBy(universities.name);
+        .offset(offset);
     }
   }
 
