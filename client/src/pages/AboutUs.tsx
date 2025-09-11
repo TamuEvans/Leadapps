@@ -52,13 +52,16 @@ export default function AboutUs() {
             <div>
               <h2 className="text-2xl font-bold mb-4">Our Story</h2>
               <p className="text-gray-700 mb-4">
-                Founded in 2018, Leadapps began with a simple idea: to democratize access to international education for students from emerging markets. Our founder, Dr. Sarah Johnson, observed the challenges facing talented students who lacked the resources and guidance to navigate complex application processes.
+                The journey to higher education is one of life's most critical decisions, yet the path is often fragmented, complex, and filled with administrative hurdles.
               </p>
               <p className="text-gray-700 mb-4">
-                What started as a small consultancy has grown into a comprehensive platform that has helped over 15,000 students from 45 countries achieve their educational dreams. We combine cutting-edge technology with personalized counseling to create a seamless experience.
+                Leadapps was founded on a simple premise: a student's future shouldn't be limited by a complicated application process.
+              </p>
+              <p className="text-gray-700 mb-4">
+                We provide a smart, centralized platform that streamlines the entire journey, from initial discovery to final submission. By bringing students, their families, and educational institutions together in one seamless ecosystem, we replace confusion with clarity and anxiety with confidence.
               </p>
               <p className="text-gray-700">
-                Today, we're proud partners with over 600 institutions worldwide, continuing to expand our reach and impact in making quality education accessible to all, regardless of geographic or economic background.
+                Our mission is to ensure that talent and ambition are what define a student's success, not their ability to navigate a complex system. We are here to clear the path.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">
