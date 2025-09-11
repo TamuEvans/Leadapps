@@ -324,40 +324,6 @@ export default function ServicePage() {
         </div>
       </section>
 
-      {/* Packages Section */}
-      <section className="w-full py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8">Our Packages</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {getServicePackages().map((pkg, index) => (
-              <Card key={index} className={`hover:shadow-lg transition-shadow ${index === 1 ? 'border-blue-400 border-2' : ''}`}>
-                <CardContent className="p-6">
-                  <div className={`${index === 1 ? 'bg-blue-600 text-white' : 'bg-gray-100'} px-4 py-2 rounded-full text-center text-sm font-medium mb-4 mx-auto max-w-[120px]`}>
-                    {pkg.name}
-                  </div>
-                  <div className="text-center mb-6">
-                    <span className="text-3xl font-bold">{pkg.price}</span>
-                  </div>
-                  <ul className="space-y-3 mb-6">
-                    {pkg.features.map((feature, fidx) => (
-                      <li key={fidx} className="flex items-start gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className={`w-full ${index === 1 ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'}`}>
-                    {index === 1 ? 'Recommended' : 'Select Package'}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <p className="text-center text-sm text-gray-500 mt-6">
-            All packages include a free initial consultation. Contact us for custom solutions tailored to your specific needs.
-          </p>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section className="w-full py-12 bg-white">
@@ -367,20 +333,20 @@ export default function ServicePage() {
             {[
               {
                 quote: "The application assistance service saved me so much time and stress. My counselor helped me highlight my strengths and apply to universities I hadn't even considered.",
-                name: "Priya S.",
-                location: "India",
+                name: "Keisha M.",
+                location: "Jamaica",
                 university: "University of Toronto"
               },
               {
                 quote: "I was overwhelmed by the visa process until I used Leadapps' visa guidance service. Everything was explained clearly, and I got my visa approved on the first try!",
-                name: "Emmanuel O.",
-                location: "Nigeria",
+                name: "Marcus T.",
+                location: "Barbados",
                 university: "University of Manchester"
               },
               {
                 quote: "The test preparation service was comprehensive and the strategies they taught me were invaluable. I improved my IELTS score by 1.5 points!",
-                name: "Maria L.",
-                location: "Brazil",
+                name: "Aaliyah R.",
+                location: "Trinidad & Tobago",
                 university: "University of Melbourne"
               }
             ].map((testimonial, index) => (
