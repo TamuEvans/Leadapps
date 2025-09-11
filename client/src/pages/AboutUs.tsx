@@ -5,33 +5,6 @@ import { UserRound, GraduationCap, Users, Globe } from 'lucide-react';
 import MarketingLayout from '@/layouts/MarketingLayout';
 
 export default function AboutUs() {
-  // Team members data
-  const teamMembers = [
-    { 
-      name: "Dr. Sarah Johnson", 
-      role: "Founder & CEO",
-      bio: "With over 15 years of experience in international education, Dr. Johnson founded Leadapps to help students navigate the complex world of global higher education.",
-      image: "https://randomuser.me/api/portraits/women/21.jpg"
-    },
-    { 
-      name: "Michael Wong", 
-      role: "Head of Student Services",
-      bio: "Michael brings 10 years of university admissions experience to help students find the perfect academic fit for their career goals.",
-      image: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    { 
-      name: "Aisha Rahman", 
-      role: "Director of Global Partnerships",
-      bio: "Aisha has built relationships with over 500 institutions worldwide to create opportunities for students from diverse backgrounds.",
-      image: "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    { 
-      name: "Carlos Mendez", 
-      role: "Chief Technology Officer",
-      bio: "Carlos leads our technology initiatives, creating innovative solutions that make the application process seamless for students worldwide.",
-      image: "https://randomuser.me/api/portraits/men/67.jpg"
-    },
-  ];
 
   return (
     <MarketingLayout>
@@ -48,40 +21,20 @@ export default function AboutUs() {
       {/* Our Story Section */}
       <section className="w-full py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Our Story</h2>
-              <p className="text-gray-700 mb-4">
-                The journey to higher education is one of life's most critical decisions, yet the path is often fragmented, complex, and filled with administrative hurdles.
-              </p>
-              <p className="text-gray-700 mb-4">
-                Leadapps was founded on a simple premise: a student's future shouldn't be limited by a complicated application process.
-              </p>
-              <p className="text-gray-700 mb-4">
-                We provide a smart, centralized platform that streamlines the entire journey, from initial discovery to final submission. By bringing students, their families, and educational institutions together in one seamless ecosystem, we replace confusion with clarity and anxiety with confidence.
-              </p>
-              <p className="text-gray-700">
-                Our mission is to ensure that talent and ambition are what define a student's success, not their ability to navigate a complex system. We are here to clear the path.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-100 p-8 rounded-lg text-center">
-                <div className="text-blue-600 text-4xl font-bold mb-2">15K+</div>
-                <p className="text-gray-700">Students Served</p>
-              </div>
-              <div className="bg-gray-100 p-8 rounded-lg text-center">
-                <div className="text-blue-600 text-4xl font-bold mb-2">600+</div>
-                <p className="text-gray-700">Partner Institutions</p>
-              </div>
-              <div className="bg-gray-100 p-8 rounded-lg text-center">
-                <div className="text-blue-600 text-4xl font-bold mb-2">45+</div>
-                <p className="text-gray-700">Countries</p>
-              </div>
-              <div className="bg-gray-100 p-8 rounded-lg text-center">
-                <div className="text-blue-600 text-4xl font-bold mb-2">92%</div>
-                <p className="text-gray-700">Success Rate</p>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl font-bold mb-6">Our Story</h2>
+            <p className="text-gray-700 mb-4 text-lg">
+              The journey to higher education is one of life's most critical decisions, yet the path is often fragmented, complex, and filled with administrative hurdles.
+            </p>
+            <p className="text-gray-700 mb-4 text-lg">
+              Leadapps was founded on a simple premise: a student's future shouldn't be limited by a complicated application process.
+            </p>
+            <p className="text-gray-700 mb-4 text-lg">
+              We provide a smart, centralized platform that streamlines the entire journey, from initial discovery to final submission. By bringing students, their families, and educational institutions together in one seamless ecosystem, we replace confusion with clarity and anxiety with confidence.
+            </p>
+            <p className="text-gray-700 text-lg">
+              Our mission is to ensure that talent and ambition are what define a student's success, not their ability to navigate a complex system. We are here to clear the path.
+            </p>
           </div>
         </div>
       </section>
@@ -127,26 +80,6 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="w-full py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8 text-center">Our Leadership Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
-              <Card key={index}>
-                <CardContent className="p-6">
-                  <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                  </div>
-                  <h3 className="font-bold text-lg text-center mb-1">{member.name}</h3>
-                  <p className="text-blue-600 text-sm text-center mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm text-center">{member.bio}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Partners Section */}
       <section className="w-full py-12 bg-gray-50">
