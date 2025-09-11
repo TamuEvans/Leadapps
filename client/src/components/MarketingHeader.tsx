@@ -21,13 +21,21 @@ const MarketingHeader = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubMenu, setMobileSubMenu] = useState<string | null>(null);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
   
   const handleMouseEnter = (dropdown: string) => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
     setActiveDropdown(dropdown);
   };
   
   const handleMouseLeave = () => {
-    setActiveDropdown(null);
+    const timeout = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150); // 150ms delay
+    setHoverTimeout(timeout);
   };
   
   const toggleMobileMenu = () => {
@@ -77,7 +85,7 @@ const MarketingHeader = () => {
                   Study <ChevronDown className="ml-1 h-3 w-3" />
                 </Link>
                 <div 
-                  className={`absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'study' ? 'block' : 'hidden'}`}
+                  className={`absolute left-0 top-full w-44 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'study' ? 'block' : 'hidden'}`}
                   onMouseEnter={() => handleMouseEnter('study')}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -98,7 +106,7 @@ const MarketingHeader = () => {
                   Support Services <ChevronDown className="ml-1 h-3 w-3" />
                 </Link>
                 <div 
-                  className={`absolute left-0 top-full mt-1 w-52 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'services' ? 'block' : 'hidden'}`}
+                  className={`absolute left-0 top-full w-52 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'services' ? 'block' : 'hidden'}`}
                   onMouseEnter={() => handleMouseEnter('services')}
                   onMouseLeave={handleMouseLeave}
                 >
