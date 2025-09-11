@@ -78,6 +78,8 @@ const MarketingHeader = () => {
                 </Link>
                 <div 
                   className={`absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'study' ? 'block' : 'hidden'}`}
+                  onMouseEnter={() => handleMouseEnter('study')}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <div className="py-3 px-1">
                     <div className="mb-2"><Link to="/study/caribbean" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Caribbean</Link></div>
@@ -97,6 +99,8 @@ const MarketingHeader = () => {
                 </Link>
                 <div 
                   className={`absolute left-0 top-full mt-1 w-52 bg-white border border-gray-200 rounded-md shadow-lg z-50 ${activeDropdown === 'services' ? 'block' : 'hidden'}`}
+                  onMouseEnter={() => handleMouseEnter('services')}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <div className="py-3 px-1">
                     <div className="mb-2"><Link to="/services/counselling" className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded">Study Counselling</Link></div>
