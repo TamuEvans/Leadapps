@@ -49,7 +49,7 @@ import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
 import studentImage1 from '@assets/2_1759452471484.png';
-import studentImage2 from '@assets/3_1759452471486.png';
+import studentImage2 from '@assets/Students Leadapps website (1)_1759454056313.png';
 import studentImage3 from '@assets/4_1759452471486.png';
 
 // University logos
