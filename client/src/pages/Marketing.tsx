@@ -48,9 +48,9 @@ import {
 import MarketingLayout from '@/layouts/MarketingLayout';
 import { PopularDestinations } from '@/components/PopularDestinations';
 import logoImage from '../assets/logo.png';
-import student1Image from '../assets/student1.png';
-import student2Image from '../assets/student2.png';
-import student3Image from '../assets/student3.png';
+import studentImage1 from '@assets/2_1759451458291.png';
+import studentImage2 from '@assets/3_1759451458296.png';
+import studentImage3 from '@assets/4_1759451458296.png';
 
 // University logos
 import uccLogo from '../assets/logos/ucc.jpg';
