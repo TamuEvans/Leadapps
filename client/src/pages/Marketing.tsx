@@ -77,6 +77,18 @@ export default function Marketing() {
   const { isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   
+  // State for cycling student images
+  const studentImages = [studentImage1, studentImage2, studentImage3];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Cycle through images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % studentImages.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [studentImages.length]);
   
   // State for search form inputs
   const [programSearch, setProgramSearch] = useState('');
