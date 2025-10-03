@@ -254,44 +254,23 @@ export default function Marketing() {
               </div>
             </div>
 
-            {/* Right Side - Student Images */}
+            {/* Right Side - Cycling Student Image */}
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <div className="relative w-full max-w-2xl h-[20rem] sm:h-[24rem] lg:h-[26rem]">
-                {/* Student 1 - Orange/Yellow Gradient - Top Left */}
-                <div className="absolute top-0 left-4 sm:left-12 lg:left-36 group cursor-pointer">
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-orange-400 to-yellow-500 p-1 rounded-3xl">
+              <div className="relative w-full max-w-lg h-[24rem] sm:h-[28rem] lg:h-[32rem] flex items-center justify-center">
+                {studentImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
+                      currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
                     <img 
-                      src={student1Image} 
-                      alt="Student with backpack" 
-                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 ease-out"
+                      src={image} 
+                      alt={`Student ${index + 1}`}
+                      className="w-full h-auto max-w-md object-contain"
                     />
                   </div>
-                </div>
-
-                {/* Student 2 - Pink/Purple Gradient - Center Right */}
-                <div className="absolute top-8 sm:top-12 right-0 sm:right-2 lg:right-4 group cursor-pointer">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-300"></div>
-                  <div className="relative bg-gradient-to-r from-pink-400 to-purple-500 p-1 rounded-3xl">
-                    <img 
-                      src={student2Image} 
-                      alt="Confident student" 
-                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-3 group-hover:-rotate-2 transition-all duration-500 ease-out"
-                    />
-                  </div>
-                </div>
-
-                {/* Student 3 - Cyan/Blue Gradient - Bottom Center */}
-                <div className="absolute top-48 sm:top-56 lg:top-64 left-16 sm:left-28 lg:left-48 group cursor-pointer">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-700"></div>
-                  <div className="relative bg-gradient-to-r from-cyan-400 to-blue-500 p-1 rounded-3xl">
-                    <img 
-                      src={student3Image} 
-                      alt="Medical student" 
-                      className="w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 object-cover rounded-3xl transform group-hover:scale-110 group-hover:-translate-y-2 group-hover:rotate-2 transition-all duration-500 ease-out"
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
