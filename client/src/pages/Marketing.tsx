@@ -370,7 +370,7 @@ export default function Marketing() {
               { image: "/images/students/student3.png", title: "Streamlined Application System" },
               { image: "/images/students/student4.png", title: "Personalized Guidance" },
               { image: "/images/students/student5.png", title: "Loan/Scholarship Support" },
-              { image: "/images/students/student6.png", title: "Student success", extraScale: true }
+              { image: "/images/students/student6.png", title: "Student Success", extraScale: true }
             ].map((service, index) => (
               <div key={index} className="flex flex-col items-center group cursor-pointer">
                 <div className="w-full relative overflow-hidden rounded-xl" style={{ paddingTop: '110%' }}>
