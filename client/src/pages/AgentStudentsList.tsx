@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import MainLayout from "@/layouts/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,7 +51,6 @@ export default function AgentStudentsList() {
   };
 
   return (
-    <MainLayout>
       <div className="container mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -183,6 +181,5 @@ export default function AgentStudentsList() {
           </div>
         )}
       </div>
-    </MainLayout>
   );
 }

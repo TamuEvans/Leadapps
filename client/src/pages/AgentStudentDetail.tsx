@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, useLocation, Link } from "wouter";
-import MainLayout from "@/layouts/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -148,30 +147,25 @@ export default function AgentStudentDetail() {
 
   if (studentLoading) {
     return (
-      <MainLayout>
         <div className="container mx-auto py-8 px-4">
           <Skeleton className="h-8 w-48 mb-6" />
           <Skeleton className="h-64 w-full" />
         </div>
-      </MainLayout>
     );
   }
 
   if (!student) {
     return (
-      <MainLayout>
         <div className="container mx-auto py-8 px-4 text-center">
           <p className="text-gray-500 dark:text-gray-400">Student not found</p>
           <Link href="/app/agent/students">
             <Button className="mt-4">Back to Students</Button>
           </Link>
         </div>
-      </MainLayout>
     );
   }
 
   return (
-    <MainLayout>
       <div className="container mx-auto py-8 px-4 max-w-6xl">
         <div className="mb-6">
           <Link href="/app/agent/students">
@@ -405,6 +399,5 @@ export default function AgentStudentDetail() {
           </TabsContent>
         </Tabs>
       </div>
-    </MainLayout>
   );
 }

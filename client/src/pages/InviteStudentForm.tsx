@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { z } from "zod";
-import MainLayout from "@/layouts/MainLayout";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -85,7 +84,6 @@ export default function InviteStudentForm() {
   const pendingInvitations = (invitations as any[] | undefined)?.filter((inv: any) => inv.status === "pending") || [];
 
   return (
-    <MainLayout>
       <div className="container mx-auto py-8 px-4 max-w-4xl">
         <div className="mb-6">
           <Link href="/app/agent/students">
@@ -259,6 +257,5 @@ export default function InviteStudentForm() {
           </Card>
         </div>
       </div>
-    </MainLayout>
   );
 }
