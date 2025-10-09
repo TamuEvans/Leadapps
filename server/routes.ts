@@ -1051,6 +1051,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return percentage;
   }
 
+  // Object Storage routes for document uploads
+  const { ObjectStorageService, ObjectNotFoundError } = await import('./objectStorage');
+  const { ObjectPermission, ObjectAccessGroupType } = await import('./objectAcl');
+
+  // Serve protected document objects
+  app.get("/objects/:objectPath(*)", requireAuth, async (req, res) => {
+    const userId = req.user?.id?.toString();
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+      const canAccess = await objectStorageService.canAccessObjectEntity({
+        objectFile,
+        userId: userId,
+        requestedPermission: ObjectPermission.READ,
+      });
+      if (!canAccess) {
+        return res.sendStatus(401);
+      }
+      objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error("Error checking object access:", error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
+
+  // Get upload URL for document
+  app.post("/api/documents/upload", requireAuth, async (req, res) => {
+    const objectStorageService = new ObjectStorageService();
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    res.json({ uploadURL });
+  });
+
+  // Update document metadata after upload (for transcripts, test scores, etc.)
+  app.put("/api/documents", requireAuth, async (req, res) => {
+    if (!req.body.documentURL) {
+      return res.status(400).json({ error: "documentURL is required" });
+    }
+
+    const userId = req.user?.id?.toString();
+    if (!userId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+
+    try {
+      const objectStorageService = new ObjectStorageService();
+      
+      // Set ACL policy - document is private, owned by student, accessible by their agent
+      const objectPath = await objectStorageService.trySetObjectEntityAclPolicy(
+        req.body.documentURL,
+        {
+          owner: userId,
+          visibility: "private",
+          aclRules: req.body.agentId ? [{
+            group: {
+              type: ObjectAccessGroupType.AGENT_ACCESS,
+              id: req.body.agentId
+            },
+            permission: ObjectPermission.READ
+          }] : []
+        },
+      );
+
+      res.status(200).json({
+        objectPath: objectPath,
+      });
+    } catch (error) {
+      console.error("Error setting document ACL:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
