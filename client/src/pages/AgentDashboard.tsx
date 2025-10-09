@@ -88,7 +88,7 @@ export default function AgentDashboard() {
             <CardDescription>Send an invitation to a new student</CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="/agent/invite">
+            <Link href="/app/agent/invite">
               <Button className="w-full" data-testid="button-invite-student">
                 Send Invitation
               </Button>
@@ -103,7 +103,7 @@ export default function AgentDashboard() {
             <CardDescription>View and manage all your students</CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="/agent/students">
+            <Link href="/app/agent/students">
               <Button className="w-full" variant="outline" data-testid="button-manage-students">
                 View All Students
               </Button>
@@ -114,13 +114,13 @@ export default function AgentDashboard() {
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader>
             <FileText className="h-8 w-8 mb-2 text-purple-600" />
-            <CardTitle>Bulk Import</CardTitle>
-            <CardDescription>Import multiple students at once</CardDescription>
+            <CardTitle>Reports</CardTitle>
+            <CardDescription>View student progress reports</CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="/agent/import">
-              <Button className="w-full" variant="outline" data-testid="button-bulk-import">
-                Import Students
+            <Link href="/app/agent/students">
+              <Button className="w-full" variant="outline" data-testid="button-view-reports">
+                View Reports
               </Button>
             </Link>
           </CardContent>
