@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
       });
     }
     
-    const { email, password, firstName, lastName } = validationResult.data;
+    const { email, password, firstName, lastName, role } = validationResult.data;
     
     // Check if user already exists
     const existingUser = await storage.getUserByEmail(email);
@@ -66,6 +66,7 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
       firstName,
       lastName,
+      role: role || 'student',
       username: null,
       profileImageUrl: null,
       googleId: null,

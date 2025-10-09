@@ -63,6 +63,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register saved materials routes
   app.use('/api/saved-materials', (await import('./api/savedMaterials')).default);
   
+  // Register agent routes
+  app.use('/api/agent', (await import('./api/agent')).default);
+  
   // Configure multer for file uploads
   const upload = multer({
     dest: 'uploads/',

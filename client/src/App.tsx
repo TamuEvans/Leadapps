@@ -36,6 +36,7 @@ import DataUpload from "@/pages/DataUpload";
 import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
+import AgentDashboard from "@/pages/AgentDashboard";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -221,6 +222,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute testMode={true}>
               <ProgramProfilePage />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        <Route path="/app/agent">
+          <MainLayout>
+            <ProtectedRoute testMode={true}>
+              <AgentDashboard />
             </ProtectedRoute>
           </MainLayout>
         </Route>

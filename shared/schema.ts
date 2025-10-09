@@ -173,8 +173,9 @@ export const registerSchema = z.object({
   confirmPassword: z.string(),
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  acceptTerms: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the terms" }),
+  role: z.enum(["student", "agent"]).default("student"),
+  acceptTerms: z.boolean().refine(val => val === true, {
+    message: "You must accept the terms",
   }),
 }).refine(data => data.password === data.confirmPassword, {
   message: "Passwords do not match",

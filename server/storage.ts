@@ -8,6 +8,8 @@ import {
   programs,
   applications,
   applicationDocuments,
+  agentStudents,
+  agentInvitations,
   type User, 
   type StudentProfile, 
   type School, 
@@ -17,6 +19,8 @@ import {
   type Program,
   type Application,
   type ApplicationDocument,
+  type AgentStudent,
+  type AgentInvitation,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
@@ -25,7 +29,9 @@ import {
   type InsertUniversity,
   type InsertProgram,
   type InsertApplication,
-  type InsertApplicationDocument
+  type InsertApplicationDocument,
+  type InsertAgentStudent,
+  type InsertAgentInvitation
 } from "@shared/schema";
 import { db } from './db';
 import { eq, and, desc, isNotNull, sql, like, ilike } from 'drizzle-orm';
@@ -178,6 +184,15 @@ export interface IStorage {
   getUserProgressByUser(userId: number): Promise<UserProgress[]>;
   createUserProgress(progress: Partial<InsertUserProgress>): Promise<UserProgress>;
   updateUserProgress(id: number, progress: Partial<InsertUserProgress>): Promise<UserProgress>;
+  
+  // Agent operations
+  getAgentStudents(agentId: number): Promise<any[]>;
+  getAgentStudent(agentId: number, studentId: number): Promise<any | undefined>;
+  assignStudentToAgent(agentId: number, studentId: number, notes?: string): Promise<AgentStudent>;
+  updateAgentStudent(agentId: number, studentId: number, data: { notes?: string; status?: string; }): Promise<AgentStudent | undefined>;
+  removeStudentFromAgent(agentId: number, studentId: number): Promise<void>;
+  getAgentInvitations(agentId: number): Promise<AgentInvitation[]>;
+  createAgentInvitation(invitation: Omit<InsertAgentInvitation, 'status'>): Promise<AgentInvitation>;
 }
 
 export class MemStorage implements IStorage {
@@ -1470,5 +1485,88 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
       .where(eq(userProgress.id, id))
       .returning();
     return updatedProgress;
+  }
+
+  // Agent operations
+  async getAgentStudents(agentId: number): Promise<any[]> {
+    const assignments = await db.select()
+      .from(agentStudents)
+      .leftJoin(users, eq(agentStudents.studentId, users.id))
+      .where(eq(agentStudents.agentId, agentId))
+      .orderBy(desc(agentStudents.assignedAt));
+    
+    return assignments.map(a => ({
+      ...a.agent_students,
+      firstName: a.users?.firstName,
+      lastName: a.users?.lastName,
+      email: a.users?.email,
+    }));
+  }
+
+  async getAgentStudent(agentId: number, studentId: number): Promise<any | undefined> {
+    const [assignment] = await db.select()
+      .from(agentStudents)
+      .leftJoin(users, eq(agentStudents.studentId, users.id))
+      .where(and(
+        eq(agentStudents.agentId, agentId),
+        eq(agentStudents.studentId, studentId)
+      ));
+    
+    if (!assignment) return undefined;
+    
+    return {
+      ...assignment.agent_students,
+      firstName: assignment.users?.firstName,
+      lastName: assignment.users?.lastName,
+      email: assignment.users?.email,
+    };
+  }
+
+  async assignStudentToAgent(agentId: number, studentId: number, notes?: string): Promise<AgentStudent> {
+    const [assignment] = await db.insert(agentStudents)
+      .values({
+        agentId,
+        studentId,
+        notes,
+        status: 'active',
+      })
+      .returning();
+    return assignment;
+  }
+
+  async updateAgentStudent(agentId: number, studentId: number, data: { notes?: string; status?: string; }): Promise<AgentStudent | undefined> {
+    const [updated] = await db.update(agentStudents)
+      .set(data)
+      .where(and(
+        eq(agentStudents.agentId, agentId),
+        eq(agentStudents.studentId, studentId)
+      ))
+      .returning();
+    return updated;
+  }
+
+  async removeStudentFromAgent(agentId: number, studentId: number): Promise<void> {
+    await db.delete(agentStudents)
+      .where(and(
+        eq(agentStudents.agentId, agentId),
+        eq(agentStudents.studentId, studentId)
+      ));
+  }
+
+  async getAgentInvitations(agentId: number): Promise<AgentInvitation[]> {
+    return await db.select()
+      .from(agentInvitations)
+      .where(eq(agentInvitations.agentId, agentId))
+      .orderBy(desc(agentInvitations.createdAt));
+  }
+
+  async createAgentInvitation(invitation: Omit<InsertAgentInvitation, 'status'>): Promise<AgentInvitation> {
+    const [newInvitation] = await db.insert(agentInvitations)
+      .values({
+        ...invitation,
+        status: 'pending',
+      })
+      .returning();
+    return newInvitation;
   }
 }

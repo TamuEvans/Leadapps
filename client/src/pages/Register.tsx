@@ -6,8 +6,9 @@ import { registerSchema, type RegisterInput } from '@shared/schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import LoginLayout from '@/layouts/LoginLayout';
@@ -25,6 +26,7 @@ export default function Register() {
       confirmPassword: '',
       firstName: '',
       lastName: '',
+      role: 'student' as 'student' | 'agent',
       acceptTerms: false,
     },
   });
@@ -100,6 +102,31 @@ export default function Register() {
                     )}
                   />
                 </div>
+                
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>I am registering as</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger data-testid="select-role">
+                            <SelectValue placeholder="Select your role" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="student" data-testid="option-student">Student</SelectItem>
+                          <SelectItem value="agent" data-testid="option-agent">Education Agent</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        Students apply directly. Agents manage multiple student applications.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
                 <FormField
                   control={form.control}
