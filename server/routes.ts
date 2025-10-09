@@ -66,6 +66,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register agent routes
   app.use('/api/agent', (await import('./api/agent')).default);
   
+  // Register admin routes
+  app.use('/api/admin', (await import('./api/admin')).default);
+  
   // Configure multer for file uploads
   const upload = multer({
     dest: 'uploads/',

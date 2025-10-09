@@ -194,6 +194,22 @@ export interface IStorage {
   getAgentInvitations(agentId: number): Promise<AgentInvitation[]>;
   createAgentInvitation(invitation: Omit<InsertAgentInvitation, 'status'>): Promise<AgentInvitation>;
   getAgentStudentApplications(agentId: number): Promise<any[]>;
+  
+  // Admin operations
+  getUserCount(): Promise<number>;
+  getUsersByRole(role: string): Promise<User[]>;
+  getUsers(limit?: number, offset?: number): Promise<User[]>;
+  searchUsers(query: string): Promise<User[]>;
+  getRecentUsers(since: Date): Promise<User[]>;
+  deleteUser(id: number): Promise<void>;
+  getApplicationCount(): Promise<number>;
+  getApplicationStats(): Promise<Array<{ status: string; count: number }>>;
+  getAllPrograms(limit?: number, offset?: number): Promise<Program[]>;
+  getArticles(): Promise<any[]>;
+  createArticle(article: any): Promise<any>;
+  updateArticle(id: number, article: any): Promise<any>;
+  deleteArticle(id: number): Promise<void>;
+  getProfileByUserId(userId: number): Promise<StudentProfile | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -1598,5 +1614,80 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
     .orderBy(desc(applications.lastUpdated));
     
     return agentApplications;
+  }
+
+  // Admin operation implementations
+  async getUserCount(): Promise<number> {
+    const [result] = await db.select({ count: sql<number>`count(*)` }).from(users);
+    return result?.count || 0;
+  }
+
+  async getUsersByRole(role: string): Promise<User[]> {
+    return await db.select().from(users).where(eq(users.role, role));
+  }
+
+  async getUsers(limit: number = 20, offset: number = 0): Promise<User[]> {
+    return await db.select().from(users).limit(limit).offset(offset).orderBy(desc(users.createdAt));
+  }
+
+  async searchUsers(query: string): Promise<User[]> {
+    return await db.select().from(users)
+      .where(
+        sql`${users.firstName} ILIKE ${`%${query}%`} OR ${users.lastName} ILIKE ${`%${query}%`} OR ${users.email} ILIKE ${`%${query}%`}`
+      )
+      .limit(50);
+  }
+
+  async getRecentUsers(since: Date): Promise<User[]> {
+    return await db.select().from(users)
+      .where(sql`${users.createdAt} >= ${since}`)
+      .orderBy(desc(users.createdAt));
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    await db.delete(users).where(eq(users.id, id));
+  }
+
+  async getApplicationCount(): Promise<number> {
+    const [result] = await db.select({ count: sql<number>`count(*)` }).from(applications);
+    return result?.count || 0;
+  }
+
+  async getApplicationStats(): Promise<Array<{ status: string; count: number }>> {
+    const results = await db.select({
+      status: applications.status,
+      count: sql<number>`count(*)`,
+    })
+    .from(applications)
+    .groupBy(applications.status);
+    
+    return results;
+  }
+
+  async getAllPrograms(limit: number = 20, offset: number = 0): Promise<Program[]> {
+    return await db.select().from(programs).limit(limit).offset(offset).orderBy(programs.name);
+  }
+
+  async getArticles(): Promise<any[]> {
+    // Placeholder - articles table not yet defined
+    return [];
+  }
+
+  async createArticle(article: any): Promise<any> {
+    // Placeholder - articles table not yet defined
+    return article;
+  }
+
+  async updateArticle(id: number, article: any): Promise<any> {
+    // Placeholder - articles table not yet defined
+    return article;
+  }
+
+  async deleteArticle(id: number): Promise<void> {
+    // Placeholder - articles table not yet defined
+  }
+
+  async getProfileByUserId(userId: number): Promise<StudentProfile | undefined> {
+    return await this.getStudentProfileByUserId(userId);
   }
 }
