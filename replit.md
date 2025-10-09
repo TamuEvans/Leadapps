@@ -43,6 +43,13 @@ Preferred communication style: Simple, everyday language.
 - **Exam Preparation**: Resource management system for CSEC, CAPE, and SAT preparation
 - **Counseling System**: Appointment booking with session management
 - **Messaging System**: Real-time communication between students and counselors
+- **Agent Management System**: Complete agent portal for managing student portfolios (Phase 2 & 3)
+  - Role-based authentication and authorization
+  - Student list with search and filtering capabilities
+  - Invitation system for onboarding students
+  - Individual student detail views with profile and application tracking
+  - Agent notes and status management
+  - Secure API endpoints with input validation
 
 # External Dependencies
 
