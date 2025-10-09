@@ -1,6 +1,8 @@
 import express from 'express';
+import { z } from 'zod';
 import { storage } from '../storage';
 import { requireAdmin } from '../auth/adminMiddleware';
+import { insertUniversitySchema, insertProgramSchema } from '@shared/schema';
 
 const router = express.Router();
 
@@ -194,6 +196,67 @@ router.get('/universities', async (req, res) => {
   }
 });
 
+router.get('/universities/:id', async (req, res) => {
+  try {
+    const universityId = parseInt(req.params.id);
+    const university = await storage.getUniversityById(universityId);
+    
+    if (!university) {
+      return res.status(404).json({ message: 'University not found' });
+    }
+    
+    res.json(university);
+  } catch (error) {
+    console.error('Error fetching university:', error);
+    res.status(500).json({ message: 'Failed to fetch university' });
+  }
+});
+
+router.post('/universities', async (req, res) => {
+  try {
+    const validatedData = insertUniversitySchema.parse(req.body);
+    const newUniversity = await storage.createUniversity(validatedData);
+    res.status(201).json(newUniversity);
+  } catch (error) {
+    console.error('Error creating university:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid university data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to create university' });
+  }
+});
+
+router.put('/universities/:id', async (req, res) => {
+  try {
+    const universityId = parseInt(req.params.id);
+    const validatedData = insertUniversitySchema.partial().parse(req.body);
+    const updatedUniversity = await storage.updateUniversity(universityId, validatedData);
+    
+    if (!updatedUniversity) {
+      return res.status(404).json({ message: 'University not found' });
+    }
+    
+    res.json(updatedUniversity);
+  } catch (error) {
+    console.error('Error updating university:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid university data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to update university' });
+  }
+});
+
+router.delete('/universities/:id', async (req, res) => {
+  try {
+    const universityId = parseInt(req.params.id);
+    await storage.deleteUniversity(universityId);
+    res.json({ message: 'University deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting university:', error);
+    res.status(500).json({ message: 'Failed to delete university' });
+  }
+});
+
 // Program management
 router.get('/programs', async (req, res) => {
   try {
@@ -221,6 +284,67 @@ router.get('/programs', async (req, res) => {
   } catch (error) {
     console.error('Error fetching programs:', error);
     res.status(500).json({ message: 'Failed to fetch programs' });
+  }
+});
+
+router.get('/programs/:id', async (req, res) => {
+  try {
+    const programId = parseInt(req.params.id);
+    const program = await storage.getProgramById(programId);
+    
+    if (!program) {
+      return res.status(404).json({ message: 'Program not found' });
+    }
+    
+    res.json(program);
+  } catch (error) {
+    console.error('Error fetching program:', error);
+    res.status(500).json({ message: 'Failed to fetch program' });
+  }
+});
+
+router.post('/programs', async (req, res) => {
+  try {
+    const validatedData = insertProgramSchema.parse(req.body);
+    const newProgram = await storage.createProgram(validatedData);
+    res.status(201).json(newProgram);
+  } catch (error) {
+    console.error('Error creating program:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid program data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to create program' });
+  }
+});
+
+router.put('/programs/:id', async (req, res) => {
+  try {
+    const programId = parseInt(req.params.id);
+    const validatedData = insertProgramSchema.partial().parse(req.body);
+    const updatedProgram = await storage.updateProgram(programId, validatedData);
+    
+    if (!updatedProgram) {
+      return res.status(404).json({ message: 'Program not found' });
+    }
+    
+    res.json(updatedProgram);
+  } catch (error) {
+    console.error('Error updating program:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid program data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to update program' });
+  }
+});
+
+router.delete('/programs/:id', async (req, res) => {
+  try {
+    const programId = parseInt(req.params.id);
+    await storage.deleteProgram(programId);
+    res.json({ message: 'Program deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting program:', error);
+    res.status(500).json({ message: 'Failed to delete program' });
   }
 });
 
