@@ -51,6 +51,18 @@ const Sidebar = () => {
     { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
   ];
 
+  // Agent-specific main navigation (replaces student Applications with agent Applications)
+  const agentMainNavigationItems = [
+    { path: "/app", label: "Home", icon: <Home className="w-5 h-5" size={20} /> },
+    { path: "/app/profile", label: "Profile", icon: <User className="w-5 h-5" size={20} /> },
+    { path: "/app/search", label: "Search", icon: <Search className="w-5 h-5" size={20} /> },
+    { path: "/app/university-search", label: "Universities", icon: <GraduationCap className="w-5 h-5" size={20} /> },
+    { path: "/app/wishlist", label: "Wishlist", icon: <Heart className="w-5 h-5" size={20} /> },
+    { path: "/app/agent/applications", label: "All Applications", icon: <FileText className="w-5 h-5" size={20} /> },
+    { path: "/app/counselling", label: "Counselling", icon: <MessageCircle className="w-5 h-5" size={20} /> },
+    { path: "/app/articles", label: "Articles", icon: <Newspaper className="w-5 h-5" size={20} /> },
+  ];
+
   // Support hub navigation items
   const hubNavigationItems = [
     { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
@@ -186,7 +198,7 @@ const Sidebar = () => {
 
             {/* Student tools for agents to manage students */}
             <ul className="space-y-1">
-              {mainNavigationItems.map(renderNavItem)}
+              {agentMainNavigationItems.map(renderNavItem)}
             </ul>
             
             <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>

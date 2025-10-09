@@ -237,4 +237,21 @@ router.delete('/students/:studentId', requireAuth, requireAgent, async (req, res
   }
 });
 
+// Get all applications for agent's students
+router.get('/applications', requireAuth, requireAgent, async (req, res) => {
+  try {
+    const agentId = req.user?.id;
+    
+    if (!agentId) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+    
+    const applications = await storage.getAgentStudentApplications(agentId);
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching agent applications:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export default router;

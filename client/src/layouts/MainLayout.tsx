@@ -75,6 +75,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         return "My Students";
       case "/app/agent/invite":
         return "Invite Student";
+      case "/app/agent/applications":
+        return "All Applications";
       default:
         if (location.startsWith("/app/profile")) return "Student Profile";
         if (location.startsWith("/app/search")) return "Search";

@@ -193,6 +193,7 @@ export interface IStorage {
   removeStudentFromAgent(agentId: number, studentId: number): Promise<void>;
   getAgentInvitations(agentId: number): Promise<AgentInvitation[]>;
   createAgentInvitation(invitation: Omit<InsertAgentInvitation, 'status'>): Promise<AgentInvitation>;
+  getAgentStudentApplications(agentId: number): Promise<any[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -1568,5 +1569,34 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
       })
       .returning();
     return newInvitation;
+  }
+
+  async getAgentStudentApplications(agentId: number): Promise<any[]> {
+    const agentApplications = await db.select({
+      id: applications.id,
+      status: applications.status,
+      submissionDate: applications.submissionDate,
+      lastUpdated: applications.lastUpdated,
+      intakePeriod: applications.intakePeriod,
+      intakeYear: applications.intakeYear,
+      studentId: applications.studentId,
+      programId: applications.programId,
+      studentFirstName: users.firstName,
+      studentLastName: users.lastName,
+      studentEmail: users.email,
+      programName: programs.name,
+      universityName: universities.name,
+      programLevel: programs.level,
+      programDegree: programs.degree,
+    })
+    .from(applications)
+    .innerJoin(agentStudents, eq(applications.studentId, agentStudents.studentId))
+    .innerJoin(users, eq(agentStudents.studentId, users.id))
+    .innerJoin(programs, eq(applications.programId, programs.id))
+    .innerJoin(universities, eq(programs.universityId, universities.id))
+    .where(eq(agentStudents.agentId, agentId))
+    .orderBy(desc(applications.lastUpdated));
+    
+    return agentApplications;
   }
 }

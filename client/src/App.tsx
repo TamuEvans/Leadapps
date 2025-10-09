@@ -40,6 +40,7 @@ import AgentDashboard from "@/pages/AgentDashboard";
 import AgentStudentsList from "@/pages/AgentStudentsList";
 import InviteStudentForm from "@/pages/InviteStudentForm";
 import AgentStudentDetail from "@/pages/AgentStudentDetail";
+import AgentApplicationsPage from "@/pages/AgentApplicationsPage";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -257,6 +258,14 @@ function AppContent() {
           <MainLayout>
             <ProtectedRoute testMode={true}>
               <InviteStudentForm />
+            </ProtectedRoute>
+          </MainLayout>
+        </Route>
+        
+        <Route path="/app/agent/applications">
+          <MainLayout>
+            <ProtectedRoute testMode={true}>
+              <AgentApplicationsPage />
             </ProtectedRoute>
           </MainLayout>
         </Route>
