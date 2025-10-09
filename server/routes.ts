@@ -1055,7 +1055,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { ObjectStorageService, ObjectNotFoundError } = await import('./objectStorage');
   const { ObjectPermission, ObjectAccessGroupType } = await import('./objectAcl');
 
-  // Serve protected document objects
+  // Serve protected document objects (requires authentication)
   app.get("/objects/:objectPath(*)", requireAuth, async (req, res) => {
     const userId = req.user?.id?.toString();
     const objectStorageService = new ObjectStorageService();
