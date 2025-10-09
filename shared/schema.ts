@@ -13,6 +13,7 @@ export const users = pgTable("users", {
   profileImageUrl: text("profile_image_url"),
   googleId: text("google_id").unique(),
   facebookId: text("facebook_id").unique(),
+  role: text("role").notNull().default("student"), // student, agent, admin
   isVerified: boolean("is_verified").default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -443,6 +444,30 @@ export const savedMaterials = pgTable("saved_materials", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Agent-Student relationship table
+export const agentStudents = pgTable("agent_students", {
+  id: serial("id").primaryKey(),
+  agentId: integer("agent_id").references(() => users.id).notNull(), // User with role 'agent'
+  studentId: integer("student_id").references(() => users.id).notNull(), // User with role 'student'
+  status: text("status").notNull().default("active"), // active, inactive, pending
+  assignedAt: timestamp("assigned_at").defaultNow().notNull(),
+  notes: text("notes"), // Agent's notes about this student
+});
+
+// Agent invitation table
+export const agentInvitations = pgTable("agent_invitations", {
+  id: serial("id").primaryKey(),
+  agentId: integer("agent_id").references(() => users.id).notNull(),
+  email: text("email").notNull(),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  invitationToken: text("invitation_token").notNull().unique(),
+  status: text("status").notNull().default("pending"), // pending, accepted, expired
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  acceptedAt: timestamp("accepted_at"),
+});
+
 // Define insert schemas for new tables
 export const insertPasswordResetSchema = createInsertSchema(passwordResets).omit({ id: true, createdAt: true });
 export const insertEmailVerificationSchema = createInsertSchema(emailVerifications).omit({ id: true, createdAt: true });
@@ -454,6 +479,8 @@ export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers
 export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
 export const insertSavedMaterialSchema = createInsertSchema(savedMaterials).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertAgentStudentSchema = createInsertSchema(agentStudents).omit({ id: true, assignedAt: true });
+export const insertAgentInvitationSchema = createInsertSchema(agentInvitations).omit({ id: true, createdAt: true });
 
 // Define types for new tables
 export type InsertPasswordReset = z.infer<typeof insertPasswordResetSchema>;
@@ -466,6 +493,8 @@ export type InsertStudyGroupMember = z.infer<typeof insertStudyGroupMemberSchema
 export type InsertExamResource = z.infer<typeof insertExamResourceSchema>;
 export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
 export type InsertSavedMaterial = z.infer<typeof insertSavedMaterialSchema>;
+export type InsertAgentStudent = z.infer<typeof insertAgentStudentSchema>;
+export type InsertAgentInvitation = z.infer<typeof insertAgentInvitationSchema>;
 
 export type PasswordReset = typeof passwordResets.$inferSelect;
 export type EmailVerification = typeof emailVerifications.$inferSelect;
@@ -477,3 +506,5 @@ export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
 export type ExamResource = typeof examResources.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
 export type SavedMaterial = typeof savedMaterials.$inferSelect;
+export type AgentStudent = typeof agentStudents.$inferSelect;
+export type AgentInvitation = typeof agentInvitations.$inferSelect;
