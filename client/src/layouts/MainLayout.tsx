@@ -69,6 +69,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         return "Articles";
       case "/app/study-groups":
         return "Study Groups";
+      case "/app/agent":
+        return "Agent Dashboard";
+      case "/app/agent/students":
+        return "My Students";
+      case "/app/agent/invite":
+        return "Invite Student";
       default:
         if (location.startsWith("/app/profile")) return "Student Profile";
         if (location.startsWith("/app/search")) return "Search";
@@ -80,6 +86,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         if (location.startsWith("/app/counselling")) return "Counselling";
         if (location.startsWith("/app/articles")) return "Articles";
         if (location.startsWith("/app/study-groups")) return "Study Groups";
+        if (location.startsWith("/app/agent/students/")) return "Student Details";
+        if (location.startsWith("/app/agent")) return "Agent Dashboard";
         return "Not Found";
     }
   };

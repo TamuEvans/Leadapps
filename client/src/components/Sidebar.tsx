@@ -4,7 +4,7 @@ import { useMobile } from "@/hooks/use-mobile";
 import { 
   Home, User, Search, Heart, FileText, 
   Brain, MessageCircle, Newspaper, ChevronRight, Menu,
-  DollarSign, GraduationCap, Sparkles, BookOpen, Users
+  DollarSign, GraduationCap, Sparkles, BookOpen, Users, UserPlus
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,12 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import leadappsLogo from "../assets/leadapps-logo.png";
 import leadappsIcon from "../assets/leadapps-icon.png";
+import { useAuth } from "@/hooks/useAuth";
 
 const Sidebar = () => {
   const [location] = useLocation();
   const isMobile = useMobile();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(true);
+  const { user } = useAuth();
   
   // Set expanded to false initially on desktop after a short delay
   useEffect(() => {
@@ -54,6 +56,13 @@ const Sidebar = () => {
     { path: "/app/personality-hub", label: "Personality Hub", icon: <Brain className="w-5 h-5" size={20} /> },
     { path: "/app/exam-prep-hub", label: "Exam Prep Hub", icon: <BookOpen className="w-5 h-5" size={20} /> },
     { path: "/app/funding-hub", label: "Funding Hub", icon: <DollarSign className="w-5 h-5" size={20} /> },
+  ];
+
+  // Agent navigation items (only for agents)
+  const agentNavigationItems = [
+    { path: "/app/agent", label: "Agent Dashboard", icon: <Home className="w-5 h-5" size={20} /> },
+    { path: "/app/agent/students", label: "Students", icon: <Users className="w-5 h-5" size={20} /> },
+    { path: "/app/agent/invite", label: "Invite Student", icon: <UserPlus className="w-5 h-5" size={20} /> },
   ];
 
   // Keep track of whether the sidebar was manually toggled
@@ -164,20 +173,37 @@ const Sidebar = () => {
         "transition-all duration-200 ease-in-out",
         "p-2"
       )}>
-        {/* Main navigation group */}
-        <ul className="space-y-1">
-          {mainNavigationItems.map(renderNavItem)}
-        </ul>
-        
-        {/* Separator between main nav and hubs */}
-        <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
-          <Separator className="bg-white/30" />
-        </div>
-        
-        {/* Hub navigation group */}
-        <ul className="space-y-1">
-          {hubNavigationItems.map(renderNavItem)}
-        </ul>
+        {/* Agent navigation (only for agents) */}
+        {user?.role === "agent" && (
+          <>
+            <ul className="space-y-1">
+              {agentNavigationItems.map(renderNavItem)}
+            </ul>
+            
+            <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
+              <Separator className="bg-white/30" />
+            </div>
+          </>
+        )}
+
+        {/* Main navigation group (only for students) */}
+        {user?.role !== "agent" && (
+          <>
+            <ul className="space-y-1">
+              {mainNavigationItems.map(renderNavItem)}
+            </ul>
+            
+            {/* Separator between main nav and hubs */}
+            <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
+              <Separator className="bg-white/30" />
+            </div>
+            
+            {/* Hub navigation group */}
+            <ul className="space-y-1">
+              {hubNavigationItems.map(renderNavItem)}
+            </ul>
+          </>
+        )}
       </nav>
     </>
   );
