@@ -10,6 +10,16 @@ import {
   applicationDocuments,
   agentStudents,
   agentInvitations,
+  passwordResets,
+  emailVerifications,
+  counselors,
+  counselingSessions,
+  notifications,
+  studyGroups,
+  studyGroupMembers,
+  articles,
+  examResources,
+  userProgress,
   type User, 
   type StudentProfile, 
   type School, 
@@ -21,6 +31,16 @@ import {
   type ApplicationDocument,
   type AgentStudent,
   type AgentInvitation,
+  type PasswordReset,
+  type EmailVerification,
+  type Counselor,
+  type CounselingSession,
+  type Notification,
+  type StudyGroup,
+  type StudyGroupMember,
+  type Article,
+  type ExamResource,
+  type UserProgress,
   type InsertUser, 
   type InsertStudentProfile, 
   type InsertSchool, 
@@ -31,7 +51,17 @@ import {
   type InsertApplication,
   type InsertApplicationDocument,
   type InsertAgentStudent,
-  type InsertAgentInvitation
+  type InsertAgentInvitation,
+  type InsertPasswordReset,
+  type InsertEmailVerification,
+  type InsertCounselor,
+  type InsertCounselingSession,
+  type InsertNotification,
+  type InsertStudyGroup,
+  type InsertStudyGroupMember,
+  type InsertArticle,
+  type InsertExamResource,
+  type InsertUserProgress
 } from "@shared/schema";
 import { db } from './db';
 import { eq, and, desc, isNotNull, sql, like, ilike } from 'drizzle-orm';
@@ -205,10 +235,11 @@ export interface IStorage {
   getApplicationCount(): Promise<number>;
   getApplicationStats(): Promise<Array<{ status: string; count: number }>>;
   getAllPrograms(limit?: number, offset?: number): Promise<Program[]>;
-  getArticles(): Promise<any[]>;
-  createArticle(article: any): Promise<any>;
-  updateArticle(id: number, article: any): Promise<any>;
+  getArticles(): Promise<Article[]>;
+  createArticle(article: Partial<InsertArticle>): Promise<Article>;
+  updateArticle(id: number, article: Partial<InsertArticle>): Promise<Article>;
   deleteArticle(id: number): Promise<void>;
+  deleteExamResource(id: number): Promise<void>;
   getProfileByUserId(userId: number): Promise<StudentProfile | undefined>;
 }
 
@@ -1668,23 +1699,26 @@ export class EnhancedDatabaseStorage extends DatabaseStorage {
     return await db.select().from(programs).limit(limit).offset(offset).orderBy(programs.name);
   }
 
-  async getArticles(): Promise<any[]> {
-    // Placeholder - articles table not yet defined
-    return [];
+  async getArticles(): Promise<Article[]> {
+    return await db.select().from(articles).orderBy(desc(articles.createdAt));
   }
 
-  async createArticle(article: any): Promise<any> {
-    // Placeholder - articles table not yet defined
-    return article;
+  async createArticle(article: Partial<InsertArticle>): Promise<Article> {
+    const [newArticle] = await db.insert(articles).values(article).returning();
+    return newArticle;
   }
 
-  async updateArticle(id: number, article: any): Promise<any> {
-    // Placeholder - articles table not yet defined
-    return article;
+  async updateArticle(id: number, article: Partial<InsertArticle>): Promise<Article> {
+    const [updated] = await db.update(articles).set(article).where(eq(articles.id, id)).returning();
+    return updated;
   }
 
   async deleteArticle(id: number): Promise<void> {
-    // Placeholder - articles table not yet defined
+    await db.delete(articles).where(eq(articles.id, id));
+  }
+
+  async deleteExamResource(id: number): Promise<void> {
+    await db.delete(examResources).where(eq(examResources.id, id));
   }
 
   async getProfileByUserId(userId: number): Promise<StudentProfile | undefined> {
