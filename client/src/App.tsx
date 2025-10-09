@@ -42,6 +42,11 @@ import InviteStudentForm from "@/pages/InviteStudentForm";
 import AgentStudentDetail from "@/pages/AgentStudentDetail";
 import AgentApplicationsPage from "@/pages/AgentApplicationsPage";
 import AdminDashboard from "@/pages/AdminDashboard";
+import AdminUsers from "@/pages/AdminUsers";
+import AdminUniversities from "@/pages/AdminUniversities";
+import AdminPrograms from "@/pages/AdminPrograms";
+import AdminContent from "@/pages/AdminContent";
+import AdminSettings from "@/pages/AdminSettings";
 import AdminLayout from "@/components/AdminLayout";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -277,6 +282,46 @@ function AppContent() {
           <AdminLayout>
             <ProtectedRoute testMode={true}>
               <AdminDashboard />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/users">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminUsers />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/universities">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminUniversities />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/programs">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminPrograms />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/content">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminContent />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/settings">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminSettings />
             </ProtectedRoute>
           </AdminLayout>
         </Route>
