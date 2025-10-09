@@ -183,6 +183,19 @@ const Sidebar = () => {
             <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
               <Separator className="bg-white/30" />
             </div>
+
+            {/* Student tools for agents to manage students */}
+            <ul className="space-y-1">
+              {mainNavigationItems.map(renderNavItem)}
+            </ul>
+            
+            <div className={expanded ? "px-3 my-3" : "px-2 my-3"}>
+              <Separator className="bg-white/30" />
+            </div>
+            
+            <ul className="space-y-1">
+              {hubNavigationItems.map(renderNavItem)}
+            </ul>
           </>
         )}
 
