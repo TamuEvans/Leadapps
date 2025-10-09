@@ -399,6 +399,23 @@ export const studyGroupMembers = pgTable("study_group_members", {
   joinedAt: timestamp("joined_at").defaultNow().notNull(),
 });
 
+// Articles table for blog content and guides
+export const articles = pgTable("articles", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  content: text("content").notNull(),
+  excerpt: text("excerpt"),
+  category: text("category").notNull(), // guides, tips, news, etc.
+  tags: text("tags").array(),
+  authorId: integer("author_id").references(() => users.id),
+  isPublished: boolean("is_published").default(false),
+  publishedAt: timestamp("published_at"),
+  featuredImageUrl: text("featured_image_url"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Exam Prep Resources table
 export const examResources = pgTable("exam_resources", {
   id: serial("id").primaryKey(),
@@ -477,6 +494,7 @@ export const insertCounselingSessionSchema = createInsertSchema(counselingSessio
 export const insertNotificationSchema = createInsertSchema(notifications).omit({ id: true, createdAt: true });
 export const insertStudyGroupSchema = createInsertSchema(studyGroups).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertStudyGroupMemberSchema = createInsertSchema(studyGroupMembers).omit({ id: true, joinedAt: true });
+export const insertArticleSchema = createInsertSchema(articles).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertExamResourceSchema = createInsertSchema(examResources).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertUserProgressSchema = createInsertSchema(userProgress).omit({ id: true, createdAt: true });
 export const insertSavedMaterialSchema = createInsertSchema(savedMaterials).omit({ id: true, createdAt: true, updatedAt: true });
@@ -491,6 +509,7 @@ export type InsertCounselingSession = z.infer<typeof insertCounselingSessionSche
 export type InsertNotification = z.infer<typeof insertNotificationSchema>;
 export type InsertStudyGroup = z.infer<typeof insertStudyGroupSchema>;
 export type InsertStudyGroupMember = z.infer<typeof insertStudyGroupMemberSchema>;
+export type InsertArticle = z.infer<typeof insertArticleSchema>;
 export type InsertExamResource = z.infer<typeof insertExamResourceSchema>;
 export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
 export type InsertSavedMaterial = z.infer<typeof insertSavedMaterialSchema>;
@@ -504,6 +523,7 @@ export type CounselingSession = typeof counselingSessions.$inferSelect;
 export type Notification = typeof notifications.$inferSelect;
 export type StudyGroup = typeof studyGroups.$inferSelect;
 export type StudyGroupMember = typeof studyGroupMembers.$inferSelect;
+export type Article = typeof articles.$inferSelect;
 export type ExamResource = typeof examResources.$inferSelect;
 export type UserProgress = typeof userProgress.$inferSelect;
 export type SavedMaterial = typeof savedMaterials.$inferSelect;
