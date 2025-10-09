@@ -8,6 +8,7 @@ export type User = {
   lastName: string | null;
   profileImageUrl: string | null;
   username: string | null;
+  role: string;
   isVerified: boolean;
 };
 
