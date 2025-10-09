@@ -2,7 +2,7 @@ import express from 'express';
 import { z } from 'zod';
 import { storage } from '../storage';
 import { requireAdmin } from '../auth/adminMiddleware';
-import { insertUniversitySchema, insertProgramSchema } from '@shared/schema';
+import { insertUniversitySchema, insertProgramSchema, insertArticleSchema, insertExamResourceSchema } from '@shared/schema';
 
 const router = express.Router();
 
@@ -359,22 +359,46 @@ router.get('/articles', async (req, res) => {
   }
 });
 
+router.get('/articles/:id', async (req, res) => {
+  try {
+    const articles = await storage.getArticles();
+    const article = articles.find(a => a.id === parseInt(req.params.id));
+    
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+    
+    res.json(article);
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    res.status(500).json({ message: 'Failed to fetch article' });
+  }
+});
+
 router.post('/articles', async (req, res) => {
   try {
-    const article = await storage.createArticle(req.body);
+    const validatedData = insertArticleSchema.parse(req.body);
+    const article = await storage.createArticle(validatedData);
     res.status(201).json(article);
   } catch (error) {
     console.error('Error creating article:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid article data', errors: error.errors });
+    }
     res.status(500).json({ message: 'Failed to create article' });
   }
 });
 
 router.put('/articles/:id', async (req, res) => {
   try {
-    const article = await storage.updateArticle(parseInt(req.params.id), req.body);
+    const validatedData = insertArticleSchema.partial().parse(req.body);
+    const article = await storage.updateArticle(parseInt(req.params.id), validatedData);
     res.json(article);
   } catch (error) {
     console.error('Error updating article:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid article data', errors: error.errors });
+    }
     res.status(500).json({ message: 'Failed to update article' });
   }
 });
@@ -386,6 +410,61 @@ router.delete('/articles/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting article:', error);
     res.status(500).json({ message: 'Failed to delete article' });
+  }
+});
+
+// Exam Resources management
+router.get('/exam-resources', async (req, res) => {
+  try {
+    const { examType, subject, resourceType, difficulty } = req.query;
+    const resources = await storage.getExamResources({
+      examType: examType as string,
+      subject: subject as string,
+      resourceType: resourceType as string,
+      difficulty: difficulty as string,
+    });
+    res.json(resources);
+  } catch (error) {
+    console.error('Error fetching exam resources:', error);
+    res.status(500).json({ message: 'Failed to fetch exam resources' });
+  }
+});
+
+router.post('/exam-resources', async (req, res) => {
+  try {
+    const validatedData = insertExamResourceSchema.parse(req.body);
+    const resource = await storage.createExamResource(validatedData);
+    res.status(201).json(resource);
+  } catch (error) {
+    console.error('Error creating exam resource:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid exam resource data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to create exam resource' });
+  }
+});
+
+router.put('/exam-resources/:id', async (req, res) => {
+  try {
+    const validatedData = insertExamResourceSchema.partial().parse(req.body);
+    const resource = await storage.updateExamResource(parseInt(req.params.id), validatedData);
+    res.json(resource);
+  } catch (error) {
+    console.error('Error updating exam resource:', error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: 'Invalid exam resource data', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Failed to update exam resource' });
+  }
+});
+
+router.delete('/exam-resources/:id', async (req, res) => {
+  try {
+    await storage.deleteExamResource(parseInt(req.params.id));
+    res.json({ message: 'Exam resource deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting exam resource:', error);
+    res.status(500).json({ message: 'Failed to delete exam resource' });
   }
 });
 
