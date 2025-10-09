@@ -41,6 +41,8 @@ import AgentStudentsList from "@/pages/AgentStudentsList";
 import InviteStudentForm from "@/pages/InviteStudentForm";
 import AgentStudentDetail from "@/pages/AgentStudentDetail";
 import AgentApplicationsPage from "@/pages/AgentApplicationsPage";
+import AdminDashboard from "@/pages/AdminDashboard";
+import AdminLayout from "@/components/AdminLayout";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toaster } from "@/components/ui/toaster";
@@ -268,6 +270,15 @@ function AppContent() {
               <AgentApplicationsPage />
             </ProtectedRoute>
           </MainLayout>
+        </Route>
+        
+        {/* Admin routes */}
+        <Route path="/admin">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          </AdminLayout>
         </Route>
         
         <Route path="/app/data-upload">

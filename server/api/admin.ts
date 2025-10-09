@@ -7,6 +7,41 @@ const router = express.Router();
 // All admin routes require admin role
 router.use(requireAdmin);
 
+// Dashboard data
+router.get('/dashboard', async (req, res) => {
+  try {
+    const userCount = await storage.getUserCount();
+    const universityCount = await storage.getUniversityCount();
+    const programCount = await storage.getProgramCount();
+    const applicationCount = await storage.getApplicationCount();
+
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const recentUsersData = await storage.getRecentUsers(thirtyDaysAgo);
+
+    const applicationStats = await storage.getApplicationStats();
+
+    res.json({
+      userCount,
+      universityCount,
+      programCount,
+      applicationCount,
+      recentUsers: recentUsersData.slice(0, 5).map(user => ({
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+      })),
+      applicationStats,
+    });
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    res.status(500).json({ message: 'Failed to fetch dashboard data' });
+  }
+});
+
 // Dashboard analytics
 router.get('/analytics', async (req, res) => {
   try {
