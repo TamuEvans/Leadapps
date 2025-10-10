@@ -57,8 +57,17 @@ Preferred communication style: Simple, everyday language.
   - **Program Management** (✅ Complete): Full CRUD - list, search, add (name, university, level, degree, discipline, duration, description), edit, and delete with /api/admin/programs endpoints
   - **Authentication & Authorization** (✅ Complete): Role-based access control via requireAdmin middleware protecting all admin routes
   - **Admin Layout** (✅ Complete): Dedicated admin layout with sidebar navigation for dashboard, users, universities, programs, content, and settings pages
-  - **Content Management** (⏸️ Pending): Article and exam resource management (backend routes exist, database schema needs implementation)
-  - **Settings Management** (⏸️ Pending): Platform configuration and feature toggles (requires backend implementation)
+  - **Content Management** (✅ Complete): Full CRUD for articles and exam resources
+    - Articles: List, search, add (title, slug, content, excerpt, category, published status), edit, and delete
+    - Exam Resources: List, search, add (title, description, examType, subject, resourceType, resourceUrl, difficulty, premium), edit, and delete
+    - Database schema with articles table (title, slug, content, excerpt, category, tags, author, published status)
+    - Zod-validated API endpoints (/api/admin/articles, /api/admin/exam-resources) with proper error handling
+    - Dual-tab UI with search, form validation, loading states, and cache invalidation
+  - **Settings Management** (✅ Complete): Platform configuration UI with feature toggles
+    - Platform settings (student registration, agent access, maintenance mode)
+    - Email notification settings (from address, status updates, message alerts)
+    - Payment configuration (application fee, payment processing toggle)
+    - Note: UI-only placeholder - no backend persistence yet (per requirements)
 
 # External Dependencies
 
