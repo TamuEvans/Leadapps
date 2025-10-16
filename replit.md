@@ -24,10 +24,11 @@ Preferred communication style: Simple, everyday language.
 - **File Structure**: Monorepo structure with shared schema between client and server
 
 ## Data Storage Solutions
-- **Primary Database**: PostgreSQL (configured for Neon serverless)
+- **Primary Database**: Supabase (PostgreSQL) - Fully integrated and operational
 - **Schema Management**: Drizzle migrations with centralized schema definitions
 - **File Storage**: Configured for document uploads with multiple format support
 - **Session Storage**: Database-backed session management for authentication
+- **Bulk Import System**: CSV/Excel file parsing for universities and programs data
 
 ## Authentication and Authorization
 - **Multi-provider Authentication**: Local email/password, Google OAuth, Facebook OAuth
