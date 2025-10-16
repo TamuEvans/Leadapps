@@ -47,6 +47,7 @@ import AdminUniversities from "@/pages/AdminUniversities";
 import AdminPrograms from "@/pages/AdminPrograms";
 import AdminContent from "@/pages/AdminContent";
 import AdminSettings from "@/pages/AdminSettings";
+import AdminBulkImport from "@/pages/AdminBulkImport";
 import AdminLayout from "@/components/AdminLayout";
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -322,6 +323,14 @@ function AppContent() {
           <AdminLayout>
             <ProtectedRoute testMode={true}>
               <AdminSettings />
+            </ProtectedRoute>
+          </AdminLayout>
+        </Route>
+        
+        <Route path="/admin/bulk-import">
+          <AdminLayout>
+            <ProtectedRoute testMode={true}>
+              <AdminBulkImport />
             </ProtectedRoute>
           </AdminLayout>
         </Route>

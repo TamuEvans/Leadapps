@@ -9,6 +9,7 @@ import {
   Building2, 
   FileText, 
   Settings,
+  Upload,
   LogOut,
   Menu,
   X
@@ -23,6 +24,7 @@ const navigation = [
   { name: "Users", href: "/admin/users", icon: Users },
   { name: "Universities", href: "/admin/universities", icon: Building2 },
   { name: "Programs", href: "/admin/programs", icon: GraduationCap },
+  { name: "Bulk Import", href: "/admin/bulk-import", icon: Upload },
   { name: "Content", href: "/admin/content", icon: FileText },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
