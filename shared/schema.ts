@@ -207,8 +207,20 @@ export const universities = pgTable("universities", {
   name: text("name").notNull(),
   country: text("country").notNull(),
   city: text("city").notNull(),
+  locations: text("locations").array(), // Multiple campus locations
   logoUrl: text("logo_url"),
+  images: text("images").array(), // University pictures
   websiteUrl: text("website_url"),
+  overview: text("overview"), // About/overview section
+  founded: integer("founded"), // Year founded
+  schoolId: text("school_id"), // Institution ID
+  institutionType: text("institution_type"), // Public, Private, etc.
+  features: jsonb("features").array(), // Unique features that set it apart
+  avgCostOfLiving: integer("avg_cost_of_living"), // Average cost of living in city
+  tuitionMin: integer("tuition_min"), // Minimum tuition range
+  tuitionMax: integer("tuition_max"), // Maximum tuition range
+  topDisciplines: text("top_disciplines").array(), // Top disciplines offered
+  programLevels: text("program_levels").array(), // Certificate, Degree, Masters, etc.
   apiEndpoint: text("api_endpoint"),
   apiKey: text("api_key"),
   description: text("description"),
@@ -224,14 +236,21 @@ export const programs = pgTable("programs", {
   id: serial("id").primaryKey(),
   universityId: integer("university_id").references(() => universities.id).notNull(),
   name: text("name").notNull(),
+  images: text("images").array(), // Program pictures
+  summary: text("summary"), // Program summary
   degree: text("degree").notNull(),
-  level: text("level").notNull(),
+  level: text("level").notNull(), // Program level (Certificate, Bachelor's, Master's, etc.)
   discipline: text("discipline").notNull(),
   duration: text("duration"),
-  tuitionFee: integer("tuition_fee"),
+  tuitionFee: integer("tuition_fee"), // Tuition cost
   currency: text("currency").default("USD"),
+  avgLivingExpenses: integer("avg_living_expenses"), // Average living expenses
+  applicationFee: integer("application_fee"), // Application fee for this program
   applicationDeadline: date("application_deadline"),
+  admissionRequirements: jsonb("admission_requirements"), // Admission requirements
+  intakes: text("intakes").array(), // Program intakes (Fall, Spring, etc.)
   startDates: jsonb("start_dates").array(),
+  similarPrograms: jsonb("similar_programs").array(), // Similar programs
   description: text("description"),
   requirements: jsonb("requirements"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
