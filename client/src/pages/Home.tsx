@@ -26,9 +26,9 @@ import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
-import heroImage1 from '@assets/2_1760900651382.png';
-import heroImage2 from '@assets/3_1760900651382.png';
-import heroImage3 from '@assets/4_1760900651383.png';
+import heroImage1 from '@assets/2_1760900974471.png';
+import heroImage2 from '@assets/3_1760900974472.png';
+import heroImage3 from '@assets/4_1760900974472.png';
 
 // Login schema
 const loginSchema = z.object({
