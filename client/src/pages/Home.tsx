@@ -26,6 +26,9 @@ import { Search, Briefcase, Globe, School, Award, BookOpen } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAuth } from '@/hooks/useAuth';
+import heroImage1 from '@assets/2_1760900651382.png';
+import heroImage2 from '@assets/3_1760900651382.png';
+import heroImage3 from '@assets/4_1760900651383.png';
 
 // Login schema
 const loginSchema = z.object({
@@ -365,12 +368,18 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-8">Why Study Through Leapapps?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Find Your Dream Program", description: "Browse thousands of programs across top universities worldwide", image: "https://source.unsplash.com/random/300x200/?university" },
-              { title: "Get Expert Guidance", description: "Connect with experienced counselors who specialize in international education", image: "https://source.unsplash.com/random/300x200/?counselor" },
-              { title: "Seamless Applications", description: "Apply to multiple universities with a single application form", image: "https://source.unsplash.com/random/300x200/?application" }
+              { title: "Find Your Dream Program", description: "Browse thousands of programs across top universities worldwide", image: heroImage1 },
+              { title: "Get Expert Guidance", description: "Connect with experienced counselors who specialize in international education", image: heroImage2 },
+              { title: "Seamless Applications", description: "Apply to multiple universities with a single application form", image: heroImage3 }
             ].map((item, index) => (
-              <Card key={index}>
-                <img src={item.image} alt={item.title} className="w-full h-40 object-cover rounded-t-lg" />
+              <Card key={index} className="overflow-hidden">
+                <div className="w-full aspect-square relative bg-gray-100">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-contain absolute inset-0"
+                  />
+                </div>
                 <CardContent className="pt-4">
                   <h3 className="font-bold text-lg">{item.title}</h3>
                   <p className="text-gray-600">{item.description}</p>
