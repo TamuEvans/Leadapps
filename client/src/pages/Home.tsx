@@ -55,9 +55,21 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function Home() {
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
+
+  const heroImages = [heroImage1, heroImage2, heroImage3];
+
+  // Auto-rotate hero images
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   // If already authenticated, redirect to app profile
   React.useEffect(() => {
@@ -188,11 +200,21 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-16 md:py-32 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full">
-          <div className="absolute right-[-10%] top-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-yellow-300 to-orange-500 opacity-20 blur-3xl"></div>
-          <div className="absolute right-[20%] top-[20%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-pink-400 to-red-600 opacity-20 blur-3xl"></div>
-          <div className="absolute right-[10%] top-[40%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-blue-400 to-purple-600 opacity-20 blur-3xl"></div>
-          <div className="absolute right-[30%] top-[30%] w-[30%] h-[30%] rounded-full bg-gradient-to-br from-green-400 to-cyan-600 opacity-20 blur-3xl"></div>
+        {/* Rotating Student Images Background */}
+        <div className="absolute top-0 right-0 w-1/2 h-full flex items-center justify-center">
+          <div className="relative w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]">
+            {heroImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Student success story ${index + 1}`}
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-1000"
+                style={{
+                  opacity: currentImageIndex === index ? 1 : 0,
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="container px-4 md:px-6 relative z-10">
@@ -368,18 +390,12 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-center mb-8">Why Study Through Leapapps?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Find Your Dream Program", description: "Browse thousands of programs across top universities worldwide", image: heroImage1 },
-              { title: "Get Expert Guidance", description: "Connect with experienced counselors who specialize in international education", image: heroImage2 },
-              { title: "Seamless Applications", description: "Apply to multiple universities with a single application form", image: heroImage3 }
+              { title: "Find Your Dream Program", description: "Browse thousands of programs across top universities worldwide", image: "https://source.unsplash.com/random/300x200/?university" },
+              { title: "Get Expert Guidance", description: "Connect with experienced counselors who specialize in international education", image: "https://source.unsplash.com/random/300x200/?counselor" },
+              { title: "Seamless Applications", description: "Apply to multiple universities with a single application form", image: "https://source.unsplash.com/random/300x200/?application" }
             ].map((item, index) => (
-              <Card key={index} className="overflow-hidden">
-                <div className="w-full aspect-square relative bg-gray-100">
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="w-full h-full object-contain absolute inset-0"
-                  />
-                </div>
+              <Card key={index}>
+                <img src={item.image} alt={item.title} className="w-full h-40 object-cover rounded-t-lg" />
                 <CardContent className="pt-4">
                   <h3 className="font-bold text-lg">{item.title}</h3>
                   <p className="text-gray-600">{item.description}</p>
