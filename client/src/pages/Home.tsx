@@ -199,10 +199,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="w-full py-16 md:py-32 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
-        {/* Rotating Student Images Background */}
-        <div className="absolute top-0 right-0 w-1/2 h-full flex items-center justify-center">
-          <div className="relative w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]">
+      <section className="w-full py-12 md:py-20 lg:py-32 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
+        {/* Rotating Student Images Background - Only visible on large screens */}
+        <div className="hidden lg:flex absolute top-0 right-0 w-1/2 h-full items-center justify-center">
+          <div className="relative w-[400px] h-[400px] xl:w-[500px] xl:h-[500px]">
             {heroImages.map((image, index) => (
               <img
                 key={index}
@@ -218,27 +218,27 @@ export default function Home() {
         </div>
 
         <div className="container px-4 md:px-6 relative z-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:gap-16 items-center">
-            <div className="flex flex-col justify-center space-y-8">
-              <div className="space-y-6">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl xl:text-7xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+          <div className="grid gap-6 md:gap-8 lg:grid-cols-[1fr_420px] lg:gap-16 items-center">
+            <div className="flex flex-col justify-center space-y-6 md:space-y-8">
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   🎓 study made simple.
                 </h1>
-                <p className="max-w-[600px] text-gray-700 md:text-xl leading-relaxed">
+                <p className="max-w-[600px] text-gray-700 text-base md:text-xl leading-relaxed">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="px-10 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl text-lg font-medium shadow-xl transform hover:scale-105 transition-all duration-300">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <Button className="px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-2xl text-base md:text-lg font-medium shadow-xl transform hover:scale-105 transition-all duration-300">
                   Get Started ✨
                 </Button>
-                <Button className="px-10 py-4 bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl text-lg font-medium backdrop-blur-sm">
+                <Button className="px-6 md:px-10 py-3 md:py-4 bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-2xl text-base md:text-lg font-medium backdrop-blur-sm">
                   Learn More
                 </Button>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-6 bg-white/80 p-8 rounded-3xl shadow-2xl backdrop-blur-sm border border-white/50">
+            <div className="flex flex-col space-y-4 md:space-y-6 bg-white/80 p-5 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl backdrop-blur-sm border border-white/50">
               <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 bg-gray-100 rounded-2xl p-1">
                   <TabsTrigger value="login" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">Login</TabsTrigger>
