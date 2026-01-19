@@ -199,10 +199,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="w-full py-8 md:py-12 lg:py-20 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
-        {/* Rotating Student Images Background - Only visible on xl screens */}
-        <div className="hidden xl:flex absolute top-0 right-0 w-2/5 h-full items-center justify-center pointer-events-none">
-          <div className="relative w-[400px] h-[400px] 2xl:w-[450px] 2xl:h-[450px]">
+      <section className="w-full py-8 md:py-12 lg:py-16 bg-gradient-to-br from-purple-100 via-blue-50 via-cyan-50 to-green-50 relative overflow-hidden">
+        {/* Rotating Student Images Background - Only visible on lg+ screens */}
+        <div className="hidden lg:flex absolute top-0 right-0 w-1/3 h-full items-center justify-center pointer-events-none">
+          <div className="relative w-[280px] h-[280px] xl:w-[380px] xl:h-[380px]">
             {heroImages.map((image, index) => (
               <img
                 key={index}
@@ -218,21 +218,21 @@ export default function Home() {
         </div>
 
         <div className="container px-4 md:px-6 relative z-10">
-          <div className="flex flex-col xl:flex-row xl:items-center gap-6 md:gap-8 xl:gap-12">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
             {/* Left side - Text content */}
-            <div className="flex-1 flex flex-col justify-center space-y-4 md:space-y-5 text-center xl:text-left">
+            <div className="flex-1 flex flex-col justify-center space-y-4 text-center lg:text-left">
               <div className="space-y-3">
-                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
+                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
                   🎓 study made simple.
                 </h1>
-                <p className="max-w-[500px] mx-auto xl:mx-0 text-gray-700 text-sm md:text-base lg:text-lg leading-relaxed">
+                <p className="max-w-[450px] mx-auto lg:mx-0 text-gray-700 text-sm md:text-base leading-relaxed">
                   Discover, apply, and enroll in universities worldwide. Get personalized guidance from our expert counselors.
                 </p>
               </div>
               
-              {/* Rotating image - visible on all screens except xl+ */}
-              <div className="xl:hidden flex justify-center py-2 md:py-4">
-                <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px]">
+              {/* Rotating image - visible only on mobile/tablet (below lg) */}
+              <div className="lg:hidden flex justify-center py-2">
+                <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px]">
                   {heroImages.map((image, index) => (
                     <img
                       key={index}
@@ -247,18 +247,18 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-3 justify-center xl:justify-start">
-                <Button className="px-5 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-xl text-sm md:text-base font-medium shadow-lg">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                <Button className="px-5 py-2.5 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-xl text-sm font-medium shadow-lg">
                   Get Started ✨
                 </Button>
-                <Button className="px-5 py-2.5 md:px-6 md:py-3 bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-xl text-sm md:text-base font-medium">
+                <Button className="px-5 py-2.5 bg-white/80 hover:bg-white text-gray-700 border-2 border-gray-200 rounded-xl text-sm font-medium">
                   Learn More
                 </Button>
               </div>
             </div>
 
             {/* Right side - Login/Register form */}
-            <div className="w-full md:max-w-[450px] md:mx-auto xl:mx-0 xl:w-[380px] flex flex-col space-y-4 bg-white/90 p-4 md:p-5 rounded-2xl shadow-xl backdrop-blur-sm border border-white/50">
+            <div className="w-full md:max-w-[400px] md:mx-auto lg:mx-0 lg:w-[340px] xl:w-[380px] flex flex-col space-y-3 bg-white/90 p-4 rounded-2xl shadow-xl backdrop-blur-sm border border-white/50">
               <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 bg-gray-100 rounded-2xl p-1">
                   <TabsTrigger value="login" className="rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300">Login</TabsTrigger>
